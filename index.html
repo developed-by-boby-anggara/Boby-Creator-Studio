@@ -1515,7 +1515,7 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
     import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-    // Konfigurasi Firebase milik Boby Anggara
+    // Ganti konfigurasi di bawah ini dengan milikmu jika ingin mengubahnya
     const firebaseConfig = {
       apiKey: "AIzaSyBts_aqGp_1EosViZfHink-eJDpV9QAijw",
       authDomain: "boby-creator-studio.firebaseapp.com",
@@ -1537,6 +1537,7 @@
     let currentCalendarDate = new Date();
     let dashboardChartInstance = null;
     let analyticsChartInstance = null;
+    let firestoreDbInstance = firestoreDb;
 
     async function loadDatabase() {
       try {
@@ -1558,10 +1559,12 @@
     async function saveDatabase() {
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(db));
-        await setDoc(doc(firestoreDb, 'bobyStudioWorkspace', 'mainData'), {
-          payload: JSON.stringify(db),
-          updatedAt: new Date().toISOString()
-        });
+        if (firestoreDbInstance) {
+          await setDoc(doc(firestoreDbInstance, 'bobyStudioWorkspace', 'mainData'), {
+            payload: JSON.stringify(db),
+            updatedAt: new Date().toISOString()
+          });
+        }
       } catch (err) {
         console.error('Gagal menyimpan ke Firebase:', err);
       }
