@@ -1,14 +1,431 @@
-<!-- ==================== APPLICATION JAVASCRIPT ==================== -->
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>BOBY CREATOR STUDIO — Personal Social Media Command Center</title>
+  <meta name="theme-color" content="#0f172a" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    html, body { overflow-x: hidden; background-color: #f8fafc; color: #0f172a; }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #f1f5f9; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+    .pb-safe { padding-bottom: calc(5rem + env(safe-area-inset-bottom, 0px)); }
+    @media print { .no-print { display: none !important; } body { background: #fff !important; } }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col lg:flex-row antialiased selection:bg-indigo-600 selection:text-white">
+
+  <!-- SIDEBAR DESKTOP -->
+  <aside class="no-print hidden lg:flex lg:flex-col lg:w-72 lg:fixed lg:inset-y-0 bg-slate-900 text-white border-r border-slate-800 z-30 select-none">
+    <div class="p-6 border-b border-slate-800 flex items-center gap-3.5">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center shadow-lg shadow-indigo-500/30 shrink-0">
+        <i data-lucide="sparkles" class="w-5 h-5 text-white"></i>
+      </div>
+      <div class="overflow-hidden">
+        <h1 class="font-extrabold text-sm tracking-tight text-white truncate">BOBY CREATOR STUDIO</h1>
+        <p class="text-[11px] text-slate-400 truncate">Command Center</p>
+      </div>
+    </div>
+
+    <nav class="flex-1 px-3 py-5 space-y-1 overflow-y-auto">
+      <button onclick="switchTab('dashboard')" data-tab="dashboard" class="nav-btn w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm font-semibold transition-all">
+        <i data-lucide="layout-dashboard" class="w-5 h-5 shrink-0"></i><span>Dashboard</span>
+      </button>
+      <button onclick="switchTab('clients')" data-tab="clients" class="nav-btn w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm font-semibold transition-all">
+        <i data-lucide="briefcase" class="w-5 h-5 shrink-0"></i><span>Manajemen Klien</span>
+      </button>
+      <button onclick="switchTab('accounts')" data-tab="accounts" class="nav-btn w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm font-semibold transition-all">
+        <i data-lucide="share-2" class="w-5 h-5 shrink-0"></i><span>Akun Media Sosial</span>
+      </button>
+      <button onclick="switchTab('planner')" data-tab="planner" class="nav-btn w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm font-semibold transition-all">
+        <i data-lucide="calendar-days" class="w-5 h-5 shrink-0"></i><span>Content Planner</span>
+      </button>
+      <button onclick="switchTab('analytics')" data-tab="analytics" class="nav-btn w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm font-semibold transition-all">
+        <i data-lucide="bar-chart-3" class="w-5 h-5 shrink-0"></i><span>Analytics</span>
+      </button>
+      <button onclick="switchTab('affiliate')" data-tab="affiliate" class="nav-btn w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm font-semibold transition-all">
+        <i data-lucide="shopping-bag" class="w-5 h-5 shrink-0"></i><span>Affiliate Tracker</span>
+      </button>
+      <button onclick="switchTab('tasks')" data-tab="tasks" class="nav-btn w-full flex items-center justify-between px-3.5 py-3 rounded-xl text-sm font-semibold transition-all">
+        <div class="flex items-center gap-3"><i data-lucide="check-square" class="w-5 h-5 shrink-0"></i><span>Tugas & Deadline</span></div>
+        <span id="sidebar-task-badge" class="hidden px-2 py-0.5 text-[10px] font-bold rounded-full bg-rose-500 text-white">0</span>
+      </button>
+      <button onclick="switchTab('reports')" data-tab="reports" class="nav-btn w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm font-semibold transition-all">
+        <i data-lucide="file-spreadsheet" class="w-5 h-5 shrink-0"></i><span>Report Center</span>
+      </button>
+      <div class="pt-4 mt-4 border-t border-slate-800">
+        <button onclick="switchTab('settings')" data-tab="settings" class="nav-btn w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm font-semibold transition-all">
+          <i data-lucide="database" class="w-5 h-5 shrink-0"></i><span>Database & Cloud</span>
+        </button>
+      </div>
+    </nav>
+
+    <div class="p-4 m-3 rounded-xl bg-slate-800/70 border border-slate-700/60">
+      <div class="flex items-center justify-between mb-1">
+        <span class="text-xs font-semibold text-slate-300">Penyimpanan</span>
+        <span id="storage-badge-desktop" class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-bold bg-emerald-500/20 text-emerald-300">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Firebase Aktif
+        </span>
+      </div>
+      <p class="text-[11px] text-slate-400">Sinkronisasi Cloud Firestore aktif otomatis.</p>
+    </div>
+  </aside>
+
+  <!-- CONTENT AREA -->
+  <div class="flex-1 lg:pl-72 flex flex-col min-h-screen w-full">
+    <header class="no-print sticky top-0 z-20 bg-white/90 backdrop-blur-md border-b border-slate-200 px-4 sm:px-6 py-3.5 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-3 min-w-0">
+        <div class="lg:hidden w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white shrink-0">
+          <i data-lucide="sparkles" class="w-4 h-4"></i>
+        </div>
+        <div>
+          <h2 id="page-title" class="text-base sm:text-lg font-extrabold text-slate-900 truncate">Dashboard Utama</h2>
+          <p id="page-subtitle" class="text-xs text-slate-500 truncate">Ringkasan seluruh pekerjaan & performa</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <span id="cloud-pill" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+          <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Cloud Firestore Aktif
+        </span>
+      </div>
+    </header>
+
+    <main class="flex-1 p-4 sm:p-6 pb-safe max-w-7xl w-full mx-auto space-y-6">
+
+      <!-- 1. DASHBOARD -->
+      <section id="sec-dashboard" class="tab-section space-y-6">
+        <div class="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 rounded-2xl p-5 sm:p-6 text-white shadow-lg flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div class="space-y-1">
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-400/20">
+              <i data-lucide="zap" class="w-3.5 h-3.5"></i> Cloud Connected
+            </span>
+            <h3 class="text-lg sm:text-2xl font-extrabold">Halo, Boby Anggara!</h3>
+            <p class="text-xs sm:text-sm text-slate-300">Pusat kendali klien, rencana konten, analitik, dan komisi affiliate.</p>
+          </div>
+          <div class="flex gap-2">
+            <button onclick="switchTab('planner'); openContentModal();" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-xs font-bold text-white shadow-sm flex items-center gap-1.5">
+              <i data-lucide="plus-circle" class="w-4 h-4"></i> Buat Konten
+            </button>
+            <button onclick="switchTab('analytics'); openAnalyticsModal();" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-xs font-semibold text-white flex items-center gap-1.5">
+              <i data-lucide="trending-up" class="w-4 h-4"></i> Input Performa
+            </button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-3 sm:gap-4">
+          <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-sm">
+            <p class="text-xs font-semibold text-slate-500">Total Klien</p>
+            <h4 id="dash-total-clients" class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">0</h4>
+            <p id="dash-active-clients" class="text-[11px] text-emerald-600 font-semibold mt-1">0 Aktif</p>
+          </div>
+          <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-sm">
+            <p class="text-xs font-semibold text-slate-500">Akun Medsos</p>
+            <h4 id="dash-total-accounts" class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">0</h4>
+            <p class="text-[11px] text-slate-400 mt-1">TikTok, IG, Shopee</p>
+          </div>
+          <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-sm">
+            <p class="text-xs font-semibold text-slate-500">Total Konten</p>
+            <h4 id="dash-total-content" class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">0</h4>
+            <p id="dash-uploaded-content" class="text-[11px] text-indigo-600 font-semibold mt-1">0 Sudah Upload</p>
+          </div>
+          <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-sm">
+            <p class="text-xs font-semibold text-slate-500">Total Views</p>
+            <h4 id="dash-total-views" class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">0</h4>
+            <p class="text-[11px] text-slate-400 mt-1">Akumulasi</p>
+          </div>
+          <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-sm">
+            <p class="text-xs font-semibold text-slate-500">Total Followers</p>
+            <h4 id="dash-total-followers" class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">0</h4>
+            <p class="text-[11px] text-emerald-600 font-semibold mt-1">Seluruh Akun</p>
+          </div>
+          <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-sm">
+            <p class="text-xs font-semibold text-slate-500">Rata-rata ER</p>
+            <h4 id="dash-avg-er" class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">0%</h4>
+            <p class="text-[11px] text-slate-400 mt-1">Engagement Rate</p>
+          </div>
+          <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-sm">
+            <p class="text-xs font-semibold text-slate-500">Klik Affiliate</p>
+            <h4 id="dash-aff-clicks" class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">0</h4>
+            <p id="dash-aff-cr" class="text-[11px] text-amber-600 font-semibold mt-1">CR: 0%</p>
+          </div>
+          <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-sm">
+            <p class="text-xs font-semibold text-slate-500">Pesanan Affiliate</p>
+            <h4 id="dash-aff-orders" class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">0</h4>
+            <p id="dash-aff-gmv" class="text-[11px] text-slate-500 mt-1">GMV: Rp 0</p>
+          </div>
+          <div class="col-span-2 sm:col-span-1 bg-white rounded-2xl p-4 border border-emerald-200 shadow-sm">
+            <p class="text-xs font-semibold text-emerald-700">Estimasi Komisi</p>
+            <h4 id="dash-aff-commission" class="text-xl sm:text-2xl font-extrabold text-emerald-600 mt-1">Rp 0</h4>
+            <p class="text-[11px] text-slate-400 mt-1">Total Cair & Estimasi</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="lg:col-span-2 bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm">
+            <h4 class="font-bold text-slate-900 text-sm mb-3">Grafik Performa Views Konten</h4>
+            <div class="relative w-full h-64"><canvas id="dashboardChart"></canvas></div>
+          </div>
+          <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm space-y-3">
+            <h4 class="font-bold text-slate-900 text-sm">Deadline Terdekat</h4>
+            <div id="dash-upcoming-list" class="space-y-2 max-h-60 overflow-y-auto"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. KLIEN -->
+      <section id="sec-clients" class="tab-section hidden space-y-4">
+        <div class="flex justify-between items-center gap-2">
+          <input type="text" id="search-clients" oninput="renderClients()" placeholder="Cari klien..." class="px-3.5 py-2 rounded-xl border border-slate-200 text-sm flex-1 max-w-sm" />
+          <button onclick="openClientModal()" class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-bold text-xs flex items-center gap-1.5"><i data-lucide="plus" class="w-4 h-4"></i> Tambah Klien</button>
+        </div>
+        <div class="bg-white rounded-2xl border border-slate-200 overflow-x-auto">
+          <table class="w-full text-left text-sm">
+            <thead class="bg-slate-50 text-slate-500 uppercase text-[11px] font-bold border-b">
+              <tr><th class="p-4">Klien & Brand</th><th class="p-4">Mulai</th><th class="p-4">Status</th><th class="p-4">Catatan</th><th class="p-4 text-right">Aksi</th></tr>
+            </thead>
+            <tbody id="clients-table-body" class="divide-y divide-slate-100"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 3. AKUN MEDSOS -->
+      <section id="sec-accounts" class="tab-section hidden space-y-4">
+        <div class="flex justify-between items-center gap-2">
+          <input type="text" id="search-accounts" oninput="renderAccounts()" placeholder="Cari username..." class="px-3.5 py-2 rounded-xl border border-slate-200 text-sm flex-1 max-w-sm" />
+          <button onclick="openAccountModal()" class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-bold text-xs flex items-center gap-1.5"><i data-lucide="plus" class="w-4 h-4"></i> Tambah Akun</button>
+        </div>
+        <div class="bg-white rounded-2xl border border-slate-200 overflow-x-auto">
+          <table class="w-full text-left text-sm">
+            <thead class="bg-slate-50 text-slate-500 uppercase text-[11px] font-bold border-b">
+              <tr><th class="p-4">Akun</th><th class="p-4">Platform</th><th class="p-4">Klien</th><th class="p-4">Followers</th><th class="p-4 text-right">Aksi</th></tr>
+            </thead>
+            <tbody id="accounts-table-body" class="divide-y divide-slate-100"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 4. CONTENT PLANNER -->
+      <section id="sec-planner" class="tab-section hidden space-y-4">
+        <div class="flex justify-between items-center gap-2">
+          <input type="text" id="search-planner" oninput="renderPlanner()" placeholder="Cari konten..." class="px-3.5 py-2 rounded-xl border border-slate-200 text-sm flex-1 max-w-sm" />
+          <button onclick="openContentModal()" class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-bold text-xs flex items-center gap-1.5"><i data-lucide="plus" class="w-4 h-4"></i> Buat Konten</button>
+        </div>
+        <div class="bg-white rounded-2xl border border-slate-200 overflow-x-auto">
+          <table class="w-full text-left text-sm">
+            <thead class="bg-slate-50 text-slate-500 uppercase text-[11px] font-bold border-b">
+              <tr><th class="p-4">Tanggal & Judul</th><th class="p-4">Platform</th><th class="p-4">Pillar</th><th class="p-4">Status</th><th class="p-4 text-right">Aksi</th></tr>
+            </thead>
+            <tbody id="planner-table-body" class="divide-y divide-slate-100"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 5. ANALYTICS -->
+      <section id="sec-analytics" class="tab-section hidden space-y-4">
+        <div class="flex justify-between items-center gap-2">
+          <input type="text" id="search-analytics" oninput="renderAnalytics()" placeholder="Cari analitik..." class="px-3.5 py-2 rounded-xl border border-slate-200 text-sm flex-1 max-w-sm" />
+          <button onclick="openAnalyticsModal()" class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-bold text-xs flex items-center gap-1.5"><i data-lucide="plus" class="w-4 h-4"></i> Input Performa</button>
+        </div>
+        <div class="bg-white rounded-2xl border border-slate-200 overflow-x-auto">
+          <table class="w-full text-left text-sm">
+            <thead class="bg-slate-50 text-slate-500 uppercase text-[11px] font-bold border-b">
+              <tr><th class="p-4">Tanggal & Nama Konten</th><th class="p-4">Platform</th><th class="p-4">Views</th><th class="p-4">Interaksi</th><th class="p-4">ER (%)</th><th class="p-4 text-right">Aksi</th></tr>
+            </thead>
+            <tbody id="analytics-table-body" class="divide-y divide-slate-100"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 6. AFFILIATE -->
+      <section id="sec-affiliate" class="tab-section hidden space-y-4">
+        <div class="flex justify-between items-center gap-2">
+          <input type="text" id="search-affiliate" oninput="renderAffiliate()" placeholder="Cari produk..." class="px-3.5 py-2 rounded-xl border border-slate-200 text-sm flex-1 max-w-sm" />
+          <button onclick="openAffiliateModal()" class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-bold text-xs flex items-center gap-1.5"><i data-lucide="plus" class="w-4 h-4"></i> Catat Produk</button>
+        </div>
+        <div class="bg-white rounded-2xl border border-slate-200 overflow-x-auto">
+          <table class="w-full text-left text-sm">
+            <thead class="bg-slate-50 text-slate-500 uppercase text-[11px] font-bold border-b">
+              <tr><th class="p-4">Produk</th><th class="p-4">Klik</th><th class="p-4">Pesanan</th><th class="p-4">CR (%)</th><th class="p-4">GMV</th><th class="p-4">Komisi</th><th class="p-4 text-right">Aksi</th></tr>
+            </thead>
+            <tbody id="affiliate-table-body" class="divide-y divide-slate-100"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 7. TASKS -->
+      <section id="sec-tasks" class="tab-section hidden space-y-4">
+        <div class="flex justify-between items-center gap-2">
+          <input type="text" id="search-tasks" oninput="renderTasks()" placeholder="Cari tugas..." class="px-3.5 py-2 rounded-xl border border-slate-200 text-sm flex-1 max-w-sm" />
+          <button onclick="openTaskModal()" class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-bold text-xs flex items-center gap-1.5"><i data-lucide="plus" class="w-4 h-4"></i> Tambah Tugas</button>
+        </div>
+        <div class="bg-white rounded-2xl border border-slate-200 overflow-x-auto">
+          <table class="w-full text-left text-sm">
+            <thead class="bg-slate-50 text-slate-500 uppercase text-[11px] font-bold border-b">
+              <tr><th class="p-4">Pekerjaan</th><th class="p-4">Deadline</th><th class="p-4">Prioritas</th><th class="p-4">Status</th><th class="p-4 text-right">Aksi</th></tr>
+            </thead>
+            <tbody id="tasks-table-body" class="divide-y divide-slate-100"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 8. REPORTS -->
+      <section id="sec-reports" class="tab-section hidden space-y-4">
+        <div class="bg-white rounded-2xl p-5 border border-slate-200 flex justify-between items-center">
+          <div><h3 class="font-bold text-base text-slate-900">Laporan Resmi</h3><p class="text-xs text-slate-500">Cetak laporan langsung atau unduh CSV</p></div>
+          <div class="flex gap-2">
+            <button onclick="window.print()" class="px-4 py-2 rounded-xl bg-rose-600 text-white font-bold text-xs">Export PDF / Cetak</button>
+            <button onclick="exportReportCSV()" class="px-4 py-2 rounded-xl bg-slate-800 text-white font-bold text-xs">Export CSV</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 9. SETTINGS -->
+      <section id="sec-settings" class="tab-section hidden space-y-4">
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 space-y-3">
+          <h3 class="font-bold text-base text-slate-900">Penyimpanan Cloud Firestore Terhubung</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Website ini sudah otomatis tersinkronisasi secara realtime ke database Cloud Firestore proyek <strong>boby-creator-studio</strong>. Setiap perubahan data yang kamu simpan akan otomatis tersinkronisasi antar perangkat.</p>
+          <div class="pt-2">
+            <button onclick="downloadBackupJSON()" class="px-4 py-2 rounded-xl bg-slate-900 text-white font-bold text-xs">Download Backup Cadangan (.json)</button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- MOBILE BOTTOM NAV -->
+  <nav class="no-print lg:hidden fixed bottom-0 inset-x-0 bg-white border-t border-slate-200 z-30 flex items-center justify-around py-2 px-1 shadow-lg">
+    <button onclick="switchTab('dashboard')" data-tab="dashboard" class="mob-nav-btn flex flex-col items-center text-[10px] font-bold"><i data-lucide="layout-dashboard" class="w-5 h-5 mb-0.5"></i>Dashboard</button>
+    <button onclick="switchTab('clients')" data-tab="clients" class="mob-nav-btn flex flex-col items-center text-[10px] font-bold text-slate-500"><i data-lucide="briefcase" class="w-5 h-5 mb-0.5"></i>Klien</button>
+    <button onclick="switchTab('planner')" data-tab="planner" class="mob-nav-btn flex flex-col items-center text-[10px] font-bold text-slate-500"><i data-lucide="calendar-days" class="w-5 h-5 mb-0.5"></i>Planner</button>
+    <button onclick="switchTab('analytics')" data-tab="analytics" class="mob-nav-btn flex flex-col items-center text-[10px] font-bold text-slate-500"><i data-lucide="bar-chart-3" class="w-5 h-5 mb-0.5"></i>Analytics</button>
+    <button onclick="switchTab('tasks')" data-tab="tasks" class="mob-nav-btn flex flex-col items-center text-[10px] font-bold text-slate-500"><i data-lucide="check-square" class="w-5 h-5 mb-0.5"></i>Tugas</button>
+  </nav>
+
+  <!-- MODALS -->
+  <div id="modal-client" class="no-print hidden fixed inset-0 z-50 bg-slate-900/60 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-5 space-y-3">
+      <h3 class="font-bold text-base text-slate-900">Tambah Data Klien</h3>
+      <form onsubmit="saveClient(event)" class="space-y-3">
+        <div><label class="block text-xs font-bold mb-1">Nama Klien</label><input type="text" id="client-name" required class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
+        <div><label class="block text-xs font-bold mb-1">Nama Brand</label><input type="text" id="client-brand" required class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
+        <div class="grid grid-cols-2 gap-2">
+          <div><label class="block text-xs font-bold mb-1">Mulai</label><input type="date" id="client-date" required class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
+          <div><label class="block text-xs font-bold mb-1">Status</label><select id="client-status" class="w-full px-3 py-2 border rounded-xl text-sm bg-white"><option value="Aktif">Aktif</option><option value="Prospek">Prospek</option><option value="Selesai">Selesai</option></select></div>
+        </div>
+        <div class="flex justify-end gap-2 pt-2"><button type="button" onclick="closeModal('modal-client')" class="px-4 py-2 border rounded-xl text-xs font-bold">Batal</button><button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-xs font-bold">Simpan</button></div>
+      </form>
+    </div>
+  </div>
+
+  <div id="modal-account" class="no-print hidden fixed inset-0 z-50 bg-slate-900/60 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-5 space-y-3">
+      <h3 class="font-bold text-base text-slate-900">Tambah Akun Media Sosial</h3>
+      <form onsubmit="saveAccount(event)" class="space-y-3">
+        <div class="grid grid-cols-2 gap-2">
+          <div><label class="block text-xs font-bold mb-1">Nama Akun</label><input type="text" id="account-name" required class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
+          <div><label class="block text-xs font-bold mb-1">Username (@)</label><input type="text" id="account-username" required class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
+        </div>
+        <div class="grid grid-cols-3 gap-2">
+          <div><label class="block text-xs font-bold mb-1">Platform</label><select id="account-platform" class="w-full px-3 py-2 border rounded-xl text-sm bg-white"><option value="TikTok">TikTok</option><option value="Instagram">Instagram</option><option value="Shopee">Shopee</option></select></div>
+          <div><label class="block text-xs font-bold mb-1">Klien</label><input type="text" id="account-client" value="Pribadi" class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
+          <div><label class="block text-xs font-bold mb-1">Followers</label><input type="number" id="account-followers" value="0" required class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
+        </div>
+        <div class="flex justify-end gap-2 pt-2"><button type="button" onclick="closeModal('modal-account')" class="px-4 py-2 border rounded-xl text-xs font-bold">Batal</button><button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-xs font-bold">Simpan</button></div>
+      </form>
+    </div>
+  </div>
+
+  <div id="modal-content" class="no-print hidden fixed inset-0 z-50 bg-slate-900/60 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-5 space-y-3">
+      <h3 class="font-bold text-base text-slate-900">Rencana Konten</h3>
+      <form onsubmit="saveContent(event)" class="space-y-3">
+        <div class="grid grid-cols-3 gap-2">
+          <div><label class="block text-xs font-bold mb-1">Tanggal</label><input type="date" id="content-date" required class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
+          <div><label class="block text-xs font-bold mb-1">Platform</label><select id="content-platform" class="w-full px-3 py-2 border rounded-xl text-sm bg-white"><option value="TikTok">TikTok</option><option value="Instagram">Instagram</option></select></div>
+          <div><label class="block text-xs font-bold mb-1">Status</label><select id="content-status" class="w-full px-3 py-2 border rounded-xl text-sm bg-white"><option value="Ide">Ide</option><option value="Script">Script</option><option value="Produksi">Produksi</option><option value="Editing">Editing</option><option value="Siap upload">Siap upload</option><option value="Sudah upload">Sudah upload</option></select></div>
+        </div>
+        <div><label class="block text-xs font-bold mb-1">Judul Konten</label><input type="text" id="content-title" required class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
+        <div><label class="block text-xs font-bold mb-1">Pillar</label><input type="text" id="content-pillar" required placeholder="Edukasi / OOTD / Review" class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
+        <div class="flex justify-end gap-2 pt-2"><button type="button" onclick="closeModal('modal-content')" class="px-4 py-2 border rounded-xl text-xs font-bold">Batal</button><button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-xs font-bold">Simpan</button></div>
+      </form>
+    </div>
+  </div>
+
+  <div id="modal-analytics" class="no-print hidden fixed inset-0 z-50 bg-slate-900/60 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-5 space-y-3">
+      <h3 class="font-bold text-base text-slate-900">Input Performa Konten</h3>
+      <form onsubmit="saveAnalytics(event)" class="space-y-3">
+        <div class="grid grid-cols-2 gap-2">
+          <div><label class="block text-xs font-bold mb-1">Tanggal</label><input type="date" id="analytics-date" required class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
+          <div><label class="block text-xs font-bold mb-1">Platform</label><select id="analytics-platform" class="w-full px-3 py-2 border rounded-xl text-sm bg-white"><option value="TikTok">TikTok</option><option value="Instagram">Instagram</option></select></div>
+        </div>
+        <div><label class="block text-xs font-bold mb-1">Nama Konten</label><input type="text" id="analytics-title" required class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
+        <div class="grid grid-cols-3 gap-2">
+          <div><label class="block text-xs font-bold mb-1">Views</label><input type="number" id="analytics-views" value="0" required class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
+          <div><label class="block text-xs font-bold mb-1">Likes</label><input type="number" id="analytics-likes" value="0" required class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
+          <div><label class="block text-xs font-bold mb-1">Comments</label><input type="number" id="analytics-comments" value="0" required class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
+        </div>
+        <div class="flex justify-end gap-2 pt-2"><button type="button" onclick="closeModal('modal-analytics')" class="px-4 py-2 border rounded-xl text-xs font-bold">Batal</button><button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-xs font-bold">Simpan</button></div>
+      </form>
+    </div>
+  </div>
+
+  <div id="modal-affiliate" class="no-print hidden fixed inset-0 z-50 bg-slate-900/60 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-5 space-y-3">
+      <h3 class="font-bold text-base text-slate-900">Catat Produk Affiliate</h3>
+      <form onsubmit="saveAffiliate(event)" class="space-y-3">
+        <div><label class="block text-xs font-bold mb-1">Nama Produk</label><input type="text" id="aff-product" required class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
+        <div class="grid grid-cols-2 gap-2">
+          <div><label class="block text-xs font-bold mb-1">Klik</label><input type="number" id="aff-clicks" value="0" required class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
+          <div><label class="block text-xs font-bold mb-1">Pesanan</label><input type="number" id="aff-orders" value="0" required class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
+          <div><label class="block text-xs font-bold mb-1">GMV (Rp)</label><input type="number" id="aff-gmv" value="0" required class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
+          <div><label class="block text-xs font-bold mb-1">Komisi (Rp)</label><input type="number" id="aff-commission" value="0" required class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
+        </div>
+        <div class="flex justify-end gap-2 pt-2"><button type="button" onclick="closeModal('modal-affiliate')" class="px-4 py-2 border rounded-xl text-xs font-bold">Batal</button><button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-xs font-bold">Simpan</button></div>
+      </form>
+    </div>
+  </div>
+
+  <div id="modal-task" class="no-print hidden fixed inset-0 z-50 bg-slate-900/60 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-5 space-y-3">
+      <h3 class="font-bold text-base text-slate-900">Tambah Tugas</h3>
+      <form onsubmit="saveTask(event)" class="space-y-3">
+        <div><label class="block text-xs font-bold mb-1">Pekerjaan</label><input type="text" id="task-title" required class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
+        <div class="grid grid-cols-2 gap-2">
+          <div><label class="block text-xs font-bold mb-1">Deadline</label><input type="date" id="task-deadline" required class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
+          <div><label class="block text-xs font-bold mb-1">Prioritas</label><select id="task-priority" class="w-full px-3 py-2 border rounded-xl text-sm bg-white"><option value="Tinggi">Tinggi</option><option value="Sedang" selected>Sedang</option><option value="Rendah">Rendah</option></select></div>
+        </div>
+        <div class="flex justify-end gap-2 pt-2"><button type="button" onclick="closeModal('modal-task')" class="px-4 py-2 border rounded-xl text-xs font-bold">Batal</button><button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-xs font-bold">Simpan</button></div>
+      </form>
+    </div>
+  </div>
+
+  <div id="toast-container" class="no-print fixed top-4 right-4 z-50 space-y-2 pointer-events-none"></div>
+
+  <!-- SCRIPT UTAMA: TERHUBUNG KE CLOUD FIRESTORE -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getFirestore, doc, setDoc, getDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-    // --- STATE & STORAGE KEYS ---
-    const STORAGE_KEY = 'BOBY_CREATOR_STUDIO_DB_V1';
-    const FIREBASE_CFG_KEY = 'BOBY_CREATOR_STUDIO_FB_CFG';
-
-    // Konfigurasi Default Firebase milik Boby Anggara (Otomatis Aktif)
-    const DEFAULT_FIREBASE_CONFIG = {
+    const firebaseConfig = {
       apiKey: "AIzaSyBts_aqGp_1EosViZfHink-eJDpV9QAijw",
       authDomain: "boby-creator-studio.firebaseapp.com",
       projectId: "boby-creator-studio",
@@ -18,1808 +435,247 @@
       measurementId: "G-YDEGTXNBT"
     };
 
-    let db = {
-      clients: [],
-      accounts: [],
-      contents: [],
-      analytics: [],
-      affiliates: [],
-      tasks: []
-    };
+    const app = initializeApp(firebaseConfig);
+    const firestoreDb = getFirestore(app);
+    const docRef = doc(firestoreDb, 'bobyStudioWorkspace', 'mainData');
 
+    const STORAGE_KEY = 'BOBY_CREATOR_STUDIO_DB_V2';
+    let db = { clients: [], accounts: [], contents: [], analytics: [], affiliates: [], tasks: [] };
     let activeTab = 'dashboard';
-    let dashChartMode = 'weekly';
-    let plannerViewMode = 'list';
-    let currentCalendarDate = new Date();
-    let dashboardChartInstance = null;
-    let analyticsChartInstance = null;
-    let firestoreDb = null;
-    let unsubscribeRealtime = null;
-    let isApplyingCloudUpdate = false;
+    let chartInstance = null;
 
-    // --- LOAD INITIAL DATA (LOCAL CACHE FIRST) ---
-    function loadDatabase() {
-      try {
-        const raw = localStorage.getItem(STORAGE_KEY) || localStorage.getItem('BOBY_CREATOR_STUDIO_DB_V2');
-        if (raw) {
-          const parsed = JSON.parse(raw);
-          db = {
-            clients: Array.isArray(parsed.clients) ? parsed.clients : [],
-            accounts: Array.isArray(parsed.accounts) ? parsed.accounts : [],
-            contents: Array.isArray(parsed.contents) ? parsed.contents : [],
-            analytics: Array.isArray(parsed.analytics) ? parsed.analytics : [],
-            affiliates: Array.isArray(parsed.affiliates) ? parsed.affiliates : [],
-            tasks: Array.isArray(parsed.tasks) ? parsed.tasks : []
-          };
-        }
-      } catch (err) {
-        console.error('Gagal memuat LocalStorage:', err);
-      }
+    function uid() { return 'id_' + Date.now().toString(36) + '_' + Math.random().toString(36).substring(2, 6); }
+    function todayISO() { return new Date().toISOString().split('T')[0]; }
+    function formatNumber(n) { return Number(n || 0).toLocaleString('id-ID'); }
+    function formatRupiah(n) { return 'Rp ' + Number(n || 0).toLocaleString('id-ID'); }
+    function escapeHtml(str) { return String(str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+
+    function showToast(msg, isErr = false) {
+      const c = document.getElementById('toast-container');
+      const el = document.createElement('div');
+      el.className = `px-4 py-2.5 rounded-xl shadow-lg text-xs font-bold text-white pointer-events-auto ${isErr ? 'bg-rose-600' : 'bg-slate-900 border-l-4 border-emerald-500'}`;
+      el.textContent = msg;
+      c.appendChild(el);
+      setTimeout(() => el.remove(), 3000);
     }
 
-    function saveDatabase() {
+    async function saveToCloud() {
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(db));
-        refreshAllViews();
-        if (firestoreDb && !isApplyingCloudUpdate) {
-          pushToFirestoreSilent();
-        }
+        await setDoc(docRef, { payload: JSON.stringify(db), updatedAt: new Date().toISOString() });
       } catch (err) {
-        console.error('Gagal menyimpan data:', err);
-        showToast('Penyimpanan penuh atau gagal menyimpan!', 'error');
+        console.warn('Gagal simpan cloud, tersimpan di lokal:', err);
       }
+      refreshAll();
     }
 
-    // --- UTILITIES ---
-    function uid() {
-      return 'id_' + Date.now().toString(36) + '_' + Math.random().toString(36).substring(2, 7);
+    function initRealtime() {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) { try { db = JSON.parse(raw); refreshAll(); } catch(e){} }
+      onSnapshot(docRef, (snap) => {
+        if (snap.exists() && snap.data().payload) {
+          try {
+            db = JSON.parse(snap.data().payload);
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(db));
+            refreshAll();
+          } catch(e){}
+        } else {
+          saveToCloud();
+        }
+      }, (err) => {
+        console.warn('Realtime listener error:', err);
+      });
     }
 
-    function todayISO() {
-      const d = new Date();
-      return d.toISOString().split('T')[0];
-    }
-
-    function formatNumber(num) {
-      return Number(num || 0).toLocaleString('id-ID');
-    }
-
-    function formatRupiah(num) {
-      return 'Rp ' + Number(num || 0).toLocaleString('id-ID');
-    }
-
-    function formatDateID(dateStr) {
-      if (!dateStr) return '-';
-      const parts = dateStr.split('-');
-      if (parts.length !== 3) return dateStr;
-      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
-      return `${parts[2]} ${months[parseInt(parts[1], 10) - 1]} ${parts[0]}`;
-    }
-
-    function escapeHtml(str) {
-      if (!str) return '';
-      return String(str)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;');
-    }
-
-    function showToast(message, type = 'success') {
-      const container = document.getElementById('toast-container');
-      if (!container) return;
-      const el = document.createElement('div');
-      const bg = type === 'success' ? 'bg-slate-900 text-white border-emerald-500' : 'bg-rose-600 text-white border-rose-300';
-      el.className = `pointer-events-auto flex items-center gap-2.5 px-4 py-3 rounded-xl shadow-lg border-l-4 ${bg} text-xs font-bold transition-all`;
-      el.innerHTML = `<span>${escapeHtml(message)}</span>`;
-      container.appendChild(el);
-      setTimeout(() => {
-        el.style.opacity = '0';
-        setTimeout(() => el.remove(), 300);
-      }, 3000);
-    }
-
-    // --- NAVIGATION & TAB SWITCHING ---
-    const tabMeta = {
-      dashboard: { title: 'Dashboard Utama', subtitle: 'Ringkasan seluruh pekerjaan & metrik performa real-time' },
-      clients: { title: 'Manajemen Klien', subtitle: 'Kelola daftar klien, brand, status kerja sama, dan ruang lingkup pekerjaan' },
-      accounts: { title: 'Manajemen Akun Media Sosial', subtitle: 'Kelola akun TikTok, Instagram, dan Shopee milik klien maupun pribadi' },
-      planner: { title: 'Content Planner & Kalender', subtitle: 'Susun jadwal publikasi, ide, pillar, hook, script, caption, dan status produksi' },
-      analytics: { title: 'Social Media Analytics', subtitle: 'Hitung Engagement Rate otomatis, grafik performa, dan perbandingan periode' },
-      affiliate: { title: 'Affiliate Tracker', subtitle: 'Pantau performa produk affiliate, klik, pesanan, Conversion Rate, GMV, dan komisi' },
-      tasks: { title: 'Task Management', subtitle: 'Daftar pekerjaan harian, prioritas, dan pengingat deadline otomatis' },
-      reports: { title: 'Report Center', subtitle: 'Laporan mingguan, bulanan, per klien, serta Export PDF, Excel, dan CSV' },
-      settings: { title: 'Database, Backup & Firebase', subtitle: 'Pengaturan penyimpanan lokal browser dan koneksi Cloud Firestore' }
-    };
-
-    window.switchTab = function(tabName) {
-      activeTab = tabName;
-      document.querySelectorAll('.tab-section').forEach(sec => sec.classList.add('hidden'));
-      const target = document.getElementById(`sec-${tabName}`);
+    window.switchTab = function(t) {
+      activeTab = t;
+      document.querySelectorAll('.tab-section').forEach(s => s.classList.add('hidden'));
+      const target = document.getElementById(`sec-${t}`);
       if (target) target.classList.remove('hidden');
 
-      const meta = tabMeta[tabName] || tabMeta.dashboard;
-      document.getElementById('page-title').textContent = meta.title;
-      document.getElementById('page-subtitle').textContent = meta.subtitle;
-
-      document.querySelectorAll('.nav-btn').forEach(btn => {
-        if (btn.dataset.tab === tabName) {
-          btn.className = 'nav-btn w-full flex items-center justify-between gap-3 px-3.5 py-3 rounded-xl text-sm font-bold bg-indigo-600 text-white shadow-sm transition-all';
-        } else {
-          btn.className = 'nav-btn w-full flex items-center justify-between gap-3 px-3.5 py-3 rounded-xl text-sm font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition-all';
-        }
+      document.querySelectorAll('.nav-btn').forEach(b => {
+        b.className = b.dataset.tab === t 
+          ? 'nav-btn w-full flex items-center justify-between gap-3 px-3.5 py-3 rounded-xl text-sm font-bold bg-indigo-600 text-white shadow-sm'
+          : 'nav-btn w-full flex items-center justify-between gap-3 px-3.5 py-3 rounded-xl text-sm font-semibold text-slate-300 hover:bg-slate-800 hover:text-white';
       });
-
-      document.querySelectorAll('.mob-nav-btn').forEach(btn => {
-        if (btn.dataset.tab === tabName) {
-          btn.className = 'mob-nav-btn flex flex-col items-center justify-center py-1 px-2 rounded-xl text-[11px] font-extrabold text-indigo-600 transition';
-        } else {
-          btn.className = 'mob-nav-btn flex flex-col items-center justify-center py-1 px-2 rounded-xl text-[11px] font-semibold text-slate-500 transition';
-        }
-      });
-
-      refreshAllViews();
+      refreshAll();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
-    window.toggleMobileMoreSheet = function(show) {
-      const sheet = document.getElementById('mobile-more-sheet');
-      if (show) sheet.classList.remove('hidden');
-      else sheet.classList.add('hidden');
-    };
-
-    // --- MODALS & CONFIRMATION ---
-    window.closeModal = function(id) {
-      document.getElementById(id).classList.add('hidden');
-    };
-
-    function askDeleteConfirmation(message, onConfirm) {
-      document.getElementById('confirm-message').textContent = message;
-      const modal = document.getElementById('modal-confirm');
-      modal.classList.remove('hidden');
-      const yesBtn = document.getElementById('btn-confirm-yes');
-      yesBtn.onclick = () => {
-        modal.classList.add('hidden');
-        onConfirm();
-      };
-    }
-
-    function populateClientSelects() {
-      const selects = ['account-client', 'content-client', 'analytics-client', 'report-client'];
-      selects.forEach(selectId => {
-        const el = document.getElementById(selectId);
-        if (!el) return;
-        const currentVal = el.value;
-        if (selectId === 'report-client') {
-          el.innerHTML = `<option value="ALL">Semua Klien & Proyek Pribadi</option><option value="Pribadi / Internal">Pribadi / Internal</option>`;
-        } else {
-          el.innerHTML = `<option value="Pribadi / Internal">Pribadi / Internal</option>`;
-        }
-        db.clients.forEach(c => {
-          const label = `${escapeHtml(c.name)} (${escapeHtml(c.brand)})`;
-          el.innerHTML += `<option value="${escapeHtml(c.name)}">${label}</option>`;
-        });
-        if (currentVal) el.value = currentVal;
-      });
-    }
-
-    // ==================== 1. DASHBOARD RENDERING ====================
-    window.setDashboardChartMode = function(mode) {
-      dashChartMode = mode;
-      const btnW = document.getElementById('btn-chart-weekly');
-      const btnM = document.getElementById('btn-chart-monthly');
-      if (mode === 'weekly') {
-        btnW.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-white text-slate-900 shadow-sm transition';
-        btnM.className = 'px-3 py-1.5 rounded-lg text-xs font-bold text-slate-600 hover:text-slate-900 transition';
-      } else {
-        btnM.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-white text-slate-900 shadow-sm transition';
-        btnW.className = 'px-3 py-1.5 rounded-lg text-xs font-bold text-slate-600 hover:text-slate-900 transition';
-      }
-      renderDashboardChart();
-    };
-
-    function renderDashboard() {
-      const totalClients = db.clients.length;
-      const activeClients = db.clients.filter(c => c.status === 'Aktif').length;
-      const totalAccounts = db.accounts.length;
-      const totalContents = db.contents.length;
-      const uploadedContents = db.contents.filter(c => c.status === 'Sudah upload').length;
-      const readyUploadContents = db.contents.filter(c => c.status === 'Siap upload').length;
-
-      const totalViews = db.analytics.reduce((acc, a) => acc + Number(a.views || 0), 0);
-      const baseFollowers = db.accounts.reduce((acc, a) => acc + Number(a.followers || 0), 0);
-      const gainedFollowers = db.analytics.reduce((acc, a) => acc + Number(a.followersGained || 0), 0);
-
-      let avgER = 0;
-      if (db.analytics.length > 0) {
-        const sumER = db.analytics.reduce((acc, a) => acc + Number(a.er || 0), 0);
-        avgER = sumER / db.analytics.length;
-      }
-
-      const affClicks = db.affiliates.reduce((acc, f) => acc + Number(f.clicks || 0), 0);
-      const affOrders = db.affiliates.reduce((acc, f) => acc + Number(f.orders || 0), 0);
-      const affGMV = db.affiliates.reduce((acc, f) => acc + Number(f.gmv || 0), 0);
-      const affComm = db.affiliates.reduce((acc, f) => acc + Number(f.commission || 0), 0);
-      const affCR = affClicks > 0 ? ((affOrders / affClicks) * 100) : 0;
-
-      document.getElementById('dash-total-clients').textContent = formatNumber(totalClients);
-      document.getElementById('dash-active-clients').textContent = `${formatNumber(activeClients)} Klien Aktif`;
-      document.getElementById('dash-total-accounts').textContent = formatNumber(totalAccounts);
-      document.getElementById('dash-total-content').textContent = formatNumber(totalContents);
-      document.getElementById('dash-uploaded-content').textContent = `${formatNumber(uploadedContents)} Sudah Upload`;
-      document.getElementById('dash-total-views').textContent = formatNumber(totalViews);
-      document.getElementById('dash-total-followers').textContent = formatNumber(baseFollowers + gainedFollowers);
-      document.getElementById('dash-followers-growth').textContent = `+${formatNumber(gainedFollowers)} dari Konten`;
-      document.getElementById('dash-avg-er').textContent = `${avgER.toFixed(2)}%`;
-      document.getElementById('dash-aff-clicks').textContent = formatNumber(affClicks);
-      document.getElementById('dash-aff-cr').textContent = `CR: ${affCR.toFixed(2)}%`;
-      document.getElementById('dash-aff-orders').textContent = formatNumber(affOrders);
-      document.getElementById('dash-aff-gmv').textContent = `GMV: ${formatRupiah(affGMV)}`;
-      document.getElementById('dash-aff-commission').textContent = formatRupiah(affComm);
-      document.getElementById('dash-ready-upload-count').textContent = `${readyUploadContents} Konten`;
-
-      const upcomingContainer = document.getElementById('dash-upcoming-list');
-      const pendingTasks = db.tasks
-        .filter(t => t.status !== 'Selesai')
-        .sort((a, b) => (a.deadline || '').localeCompare(b.deadline || ''));
-
-      if (pendingTasks.length === 0) {
-        upcomingContainer.innerHTML = `
-          <div class="p-4 rounded-xl bg-slate-50 border border-dashed border-slate-200 text-center">
-            <p class="text-xs font-semibold text-slate-600">Tidak Ada Tugas Tertunda</p>
-            <p class="text-[11px] text-slate-400 mt-0.5">Tambahkan pekerjaan di menu Task Management untuk memantau deadline.</p>
-          </div>`;
-      } else {
-        upcomingContainer.innerHTML = pendingTasks.slice(0, 5).map(t => {
-          const badge = getDeadlineStatusBadge(t.deadline, t.status);
-          return `
-            <div class="p-3 rounded-xl border border-slate-200/80 hover:bg-slate-50 flex items-start justify-between gap-2">
-              <div class="min-w-0">
-                <p class="text-xs font-bold text-slate-900 truncate">${escapeHtml(t.title)}</p>
-                <p class="text-[11px] text-slate-500 mt-0.5">Deadline: ${formatDateID(t.deadline)} • Prioritas ${escapeHtml(t.priority)}</p>
-              </div>
-              ${badge}
-            </div>`;
-        }).join('');
-      }
-
-      renderDashboardChart();
-    }
-
-    function renderDashboardChart() {
-      const emptyOverlay = document.getElementById('dashboard-chart-empty');
-      const ctx = document.getElementById('dashboardChart');
-      if (!ctx) return;
-
-      if (db.analytics.length === 0) {
-        emptyOverlay.classList.remove('hidden');
-        if (dashboardChartInstance) {
-          dashboardChartInstance.destroy();
-          dashboardChartInstance = null;
-        }
-        return;
-      }
-      emptyOverlay.classList.add('hidden');
-
-      const sorted = [...db.analytics].sort((a, b) => (a.date || '').localeCompare(b.date || ''));
-      let labels = [];
-      let viewsData = [];
-      let erData = [];
-
-      if (dashChartMode === 'weekly') {
-        const recent = sorted.slice(-7);
-        labels = recent.map(item => `${formatDateID(item.date).slice(0, 6)} (${item.title.slice(0, 10)}...)`);
-        viewsData = recent.map(item => Number(item.views || 0));
-        erData = recent.map(item => Number(item.er || 0));
-      } else {
-        const monthMap = {};
-        sorted.forEach(item => {
-          const ym = (item.date || '').slice(0, 7) || 'Lainnya';
-          if (!monthMap[ym]) monthMap[ym] = { views: 0, erSum: 0, count: 0 };
-          monthMap[ym].views += Number(item.views || 0);
-          monthMap[ym].erSum += Number(item.er || 0);
-          monthMap[ym].count += 1;
-        });
-        labels = Object.keys(monthMap);
-        viewsData = labels.map(k => monthMap[k].views);
-        erData = labels.map(k => Number((monthMap[k].erSum / monthMap[k].count).toFixed(2)));
-      }
-
-      if (dashboardChartInstance) dashboardChartInstance.destroy();
-      dashboardChartInstance = new Chart(ctx, {
-        type: 'bar',
-        data: {
-          labels,
-          datasets: [
-            {
-              label: 'Total Views',
-              data: viewsData,
-              backgroundColor: 'rgba(79, 70, 229, 0.85)',
-              borderRadius: 8,
-              yAxisID: 'y'
-            },
-            {
-              label: 'Engagement Rate (%)',
-              data: erData,
-              type: 'line',
-              borderColor: '#f43f5e',
-              backgroundColor: '#f43f5e',
-              borderWidth: 2.5,
-              tension: 0.35,
-              yAxisID: 'y1'
-            }
-          ]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          interaction: { mode: 'index', intersect: false },
-          plugins: {
-            legend: { position: 'top', labels: { boxWidth: 12, font: { size: 11 } } }
-          },
-          scales: {
-            y: { type: 'linear', position: 'left', beginAtZero: true, grid: { color: '#f1f5f9' } },
-            y1: { type: 'linear', position: 'right', beginAtZero: true, grid: { drawOnChartArea: false } }
-          }
-        }
-      });
-    }
-
-    // ==================== 2. CLIENTS CRUD ====================
-    window.openClientModal = function(id = null) {
-      document.getElementById('client-id').value = '';
-      document.getElementById('client-name').value = '';
-      document.getElementById('client-brand').value = '';
-      document.getElementById('client-date').value = todayISO();
-      document.getElementById('client-status').value = 'Aktif';
-      document.getElementById('client-notes').value = '';
-      document.getElementById('modal-client-title').textContent = 'Tambah Klien Baru';
-
-      if (id) {
-        const c = db.clients.find(x => x.id === id);
-        if (c) {
-          document.getElementById('client-id').value = c.id;
-          document.getElementById('client-name').value = c.name;
-          document.getElementById('client-brand').value = c.brand;
-          document.getElementById('client-date').value = c.startDate;
-          document.getElementById('client-status').value = c.status;
-          document.getElementById('client-notes').value = c.notes || '';
-          document.getElementById('modal-client-title').textContent = 'Edit Data Klien';
-        }
-      }
-      document.getElementById('modal-client').classList.remove('hidden');
-    };
+    window.closeModal = function(id) { document.getElementById(id).classList.add('hidden'); };
+    window.openClientModal = function() { document.getElementById('modal-client').classList.remove('hidden'); };
+    window.openAccountModal = function() { document.getElementById('modal-account').classList.remove('hidden'); };
+    window.openContentModal = function() { document.getElementById('modal-content').classList.remove('hidden'); };
+    window.openAnalyticsModal = function() { document.getElementById('modal-analytics').classList.remove('hidden'); };
+    window.openAffiliateModal = function() { document.getElementById('modal-affiliate').classList.remove('hidden'); };
+    window.openTaskModal = function() { document.getElementById('modal-task').classList.remove('hidden'); };
 
     window.saveClient = function(e) {
       e.preventDefault();
-      const id = document.getElementById('client-id').value;
-      const payload = {
-        id: id || uid(),
+      db.clients.unshift({
+        id: uid(),
         name: document.getElementById('client-name').value.trim(),
         brand: document.getElementById('client-brand').value.trim(),
         startDate: document.getElementById('client-date').value,
-        status: document.getElementById('client-status').value,
-        notes: document.getElementById('client-notes').value.trim()
-      };
-
-      if (id) {
-        const idx = db.clients.findIndex(x => x.id === id);
-        if (idx > -1) db.clients[idx] = payload;
-        showToast('Data klien berhasil diperbarui!');
-      } else {
-        db.clients.unshift(payload);
-        showToast('Klien baru berhasil ditambahkan!');
-      }
+        status: document.getElementById('client-status').value
+      });
       closeModal('modal-client');
-      saveDatabase();
-    };
-
-    window.deleteClient = function(id) {
-      const c = db.clients.find(x => x.id === id);
-      askDeleteConfirmation(`Hapus klien "${c ? c.name : ''}" beserta catatannya?`, () => {
-        db.clients = db.clients.filter(x => x.id !== id);
-        saveDatabase();
-        showToast('Klien berhasil dihapus');
-      });
-    };
-
-    window.renderClients = function() {
-      const q = (document.getElementById('search-clients')?.value || '').toLowerCase();
-      const statusFilter = document.getElementById('filter-clients-status')?.value || 'ALL';
-
-      const filtered = db.clients.filter(c => {
-        const matchQ = c.name.toLowerCase().includes(q) || c.brand.toLowerCase().includes(q) || (c.notes || '').toLowerCase().includes(q);
-        const matchS = statusFilter === 'ALL' || c.status === statusFilter;
-        return matchQ && matchS;
-      });
-
-      const tbody = document.getElementById('clients-table-body');
-      const mobileCards = document.getElementById('clients-mobile-cards');
-      const empty = document.getElementById('clients-empty');
-
-      if (filtered.length === 0) {
-        tbody.innerHTML = '';
-        mobileCards.innerHTML = '';
-        empty.classList.remove('hidden');
-        return;
-      }
-      empty.classList.add('hidden');
-
-      const statusBadge = (st) => {
-        const map = {
-          'Aktif': 'bg-emerald-50 text-emerald-700 border-emerald-200',
-          'Prospek / Negosiasi': 'bg-amber-50 text-amber-700 border-amber-200',
-          'Jeda': 'bg-slate-100 text-slate-700 border-slate-300',
-          'Selesai': 'bg-rose-50 text-rose-700 border-rose-200'
-        };
-        return `<span class="px-2.5 py-1 rounded-full text-xs font-bold border ${map[st] || map['Aktif']}">${escapeHtml(st)}</span>`;
-      };
-
-      tbody.innerHTML = filtered.map(c => `
-        <tr class="hover:bg-slate-50/80">
-          <td class="py-3.5 px-5">
-            <p class="font-bold text-slate-900">${escapeHtml(c.name)}</p>
-            <p class="text-xs text-indigo-600 font-semibold">${escapeHtml(c.brand)}</p>
-          </td>
-          <td class="py-3.5 px-4 text-slate-600 text-xs font-medium">${formatDateID(c.startDate)}</td>
-          <td class="py-3.5 px-4">${statusBadge(c.status)}</td>
-          <td class="py-3.5 px-4 text-xs text-slate-600 max-w-xs truncate">${escapeHtml(c.notes || '-')}</td>
-          <td class="py-3.5 px-5 text-right space-x-1">
-            <button onclick="openClientModal('${c.id}')" class="px-2.5 py-1.5 rounded-lg border border-slate-200 text-xs font-bold text-slate-700 hover:bg-slate-100">Edit</button>
-            <button onclick="deleteClient('${c.id}')" class="px-2.5 py-1.5 rounded-lg border border-rose-200 text-xs font-bold text-rose-600 hover:bg-rose-50">Hapus</button>
-          </td>
-        </tr>
-      `).join('');
-
-      mobileCards.innerHTML = filtered.map(c => `
-        <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-sm space-y-2.5">
-          <div class="flex items-start justify-between gap-2">
-            <div>
-              <h4 class="font-bold text-slate-900 text-sm">${escapeHtml(c.name)}</h4>
-              <p class="text-xs font-semibold text-indigo-600">${escapeHtml(c.brand)}</p>
-            </div>
-            ${statusBadge(c.status)}
-          </div>
-          <p class="text-xs text-slate-600">${escapeHtml(c.notes || 'Tidak ada catatan khusus.')}</p>
-          <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
-            <span>Mulai: ${formatDateID(c.startDate)}</span>
-            <div class="space-x-1.5">
-              <button onclick="openClientModal('${c.id}')" class="px-3 py-1 rounded-lg bg-slate-100 text-slate-700 font-bold">Edit</button>
-              <button onclick="deleteClient('${c.id}')" class="px-3 py-1 rounded-lg bg-rose-50 text-rose-600 font-bold">Hapus</button>
-            </div>
-          </div>
-        </div>
-      `).join('');
-    };
-
-    // ==================== 3. SOCIAL ACCOUNTS CRUD ====================
-    window.openAccountModal = function(id = null) {
-      populateClientSelects();
-      document.getElementById('account-id').value = '';
-      document.getElementById('account-name').value = '';
-      document.getElementById('account-username').value = '';
-      document.getElementById('account-platform').value = 'TikTok';
-      document.getElementById('account-client').value = 'Pribadi / Internal';
-      document.getElementById('account-followers').value = '';
-      document.getElementById('account-notes').value = '';
-      document.getElementById('modal-account-title').textContent = 'Tambah Akun Media Sosial';
-
-      if (id) {
-        const a = db.accounts.find(x => x.id === id);
-        if (a) {
-          document.getElementById('account-id').value = a.id;
-          document.getElementById('account-name').value = a.name;
-          document.getElementById('account-username').value = a.username;
-          document.getElementById('account-platform').value = a.platform;
-          document.getElementById('account-client').value = a.client || 'Pribadi / Internal';
-          document.getElementById('account-followers').value = a.followers;
-          document.getElementById('account-notes').value = a.notes || '';
-          document.getElementById('modal-account-title').textContent = 'Edit Akun Media Sosial';
-        }
-      }
-      document.getElementById('modal-account').classList.remove('hidden');
+      saveToCloud();
+      showToast('Klien tersimpan!');
     };
 
     window.saveAccount = function(e) {
       e.preventDefault();
-      const id = document.getElementById('account-id').value;
-      const payload = {
-        id: id || uid(),
+      db.accounts.unshift({
+        id: uid(),
         name: document.getElementById('account-name').value.trim(),
         username: document.getElementById('account-username').value.trim(),
         platform: document.getElementById('account-platform').value,
         client: document.getElementById('account-client').value,
-        followers: Number(document.getElementById('account-followers').value || 0),
-        notes: document.getElementById('account-notes').value.trim()
-      };
-
-      if (id) {
-        const idx = db.accounts.findIndex(x => x.id === id);
-        if (idx > -1) db.accounts[idx] = payload;
-        showToast('Akun media sosial diperbarui!');
-      } else {
-        db.accounts.unshift(payload);
-        showToast('Akun media sosial ditambahkan!');
-      }
+        followers: Number(document.getElementById('account-followers').value || 0)
+      });
       closeModal('modal-account');
-      saveDatabase();
-    };
-
-    window.deleteAccount = function(id) {
-      const a = db.accounts.find(x => x.id === id);
-      askDeleteConfirmation(`Hapus akun "${a ? a.username : ''}"?`, () => {
-        db.accounts = db.accounts.filter(x => x.id !== id);
-        saveDatabase();
-        showToast('Akun media sosial dihapus');
-      });
-    };
-
-    function getPlatformBadge(platform) {
-      const styles = {
-        'TikTok': 'bg-slate-900 text-white',
-        'Instagram': 'bg-pink-50 text-pink-700 border border-pink-200',
-        'Shopee': 'bg-orange-50 text-orange-700 border border-orange-200',
-        'TikTok Shop': 'bg-slate-900 text-white'
-      };
-      return `<span class="px-2.5 py-1 rounded-full text-xs font-bold ${styles[platform] || 'bg-indigo-50 text-indigo-700'}">${escapeHtml(platform)}</span>`;
-    }
-
-    window.renderAccounts = function() {
-      const q = (document.getElementById('search-accounts')?.value || '').toLowerCase();
-      const pf = document.getElementById('filter-accounts-platform')?.value || 'ALL';
-
-      const filtered = db.accounts.filter(a => {
-        const matchQ = a.name.toLowerCase().includes(q) || a.username.toLowerCase().includes(q) || (a.client || '').toLowerCase().includes(q);
-        const matchP = pf === 'ALL' || a.platform === pf;
-        return matchQ && matchP;
-      });
-
-      const tbody = document.getElementById('accounts-table-body');
-      const mobileCards = document.getElementById('accounts-mobile-cards');
-      const empty = document.getElementById('accounts-empty');
-
-      if (filtered.length === 0) {
-        tbody.innerHTML = '';
-        mobileCards.innerHTML = '';
-        empty.classList.remove('hidden');
-        return;
-      }
-      empty.classList.add('hidden');
-
-      tbody.innerHTML = filtered.map(a => `
-        <tr class="hover:bg-slate-50/80">
-          <td class="py-3.5 px-5">
-            <p class="font-bold text-slate-900">${escapeHtml(a.name)}</p>
-            <p class="text-xs text-slate-500 font-medium">${escapeHtml(a.username)}</p>
-          </td>
-          <td class="py-3.5 px-4">${getPlatformBadge(a.platform)}</td>
-          <td class="py-3.5 px-4 text-xs font-semibold text-slate-700">${escapeHtml(a.client)}</td>
-          <td class="py-3.5 px-4 font-bold text-slate-900">${formatNumber(a.followers)}</td>
-          <td class="py-3.5 px-4 text-xs text-slate-500 max-w-xs truncate">${escapeHtml(a.notes || '-')}</td>
-          <td class="py-3.5 px-5 text-right space-x-1">
-            <button onclick="openAccountModal('${a.id}')" class="px-2.5 py-1.5 rounded-lg border border-slate-200 text-xs font-bold text-slate-700 hover:bg-slate-100">Edit</button>
-            <button onclick="deleteAccount('${a.id}')" class="px-2.5 py-1.5 rounded-lg border border-rose-200 text-xs font-bold text-rose-600 hover:bg-rose-50">Hapus</button>
-          </td>
-        </tr>
-      `).join('');
-
-      mobileCards.innerHTML = filtered.map(a => `
-        <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-sm space-y-2.5">
-          <div class="flex items-start justify-between gap-2">
-            <div>
-              <h4 class="font-bold text-slate-900 text-sm">${escapeHtml(a.name)}</h4>
-              <p class="text-xs text-indigo-600 font-semibold">${escapeHtml(a.username)} • ${escapeHtml(a.client)}</p>
-            </div>
-            ${getPlatformBadge(a.platform)}
-          </div>
-          <div class="flex items-center justify-between text-xs bg-slate-50 px-3 py-2 rounded-xl">
-            <span class="text-slate-500">Jumlah Followers:</span>
-            <span class="font-extrabold text-slate-900">${formatNumber(a.followers)}</span>
-          </div>
-          <p class="text-xs text-slate-500">${escapeHtml(a.notes || '')}</p>
-          <div class="pt-2 border-t border-slate-100 flex justify-end gap-1.5 text-xs">
-            <button onclick="openAccountModal('${a.id}')" class="px-3 py-1 rounded-lg bg-slate-100 text-slate-700 font-bold">Edit</button>
-            <button onclick="deleteAccount('${a.id}')" class="px-3 py-1 rounded-lg bg-rose-50 text-rose-600 font-bold">Hapus</button>
-          </div>
-        </div>
-      `).join('');
-    };
-
-    // ==================== 4. CONTENT PLANNER & CALENDAR ====================
-    const CONTENT_STATUSES = ['Ide', 'Script', 'Produksi', 'Editing', 'Review', 'Siap upload', 'Sudah upload'];
-
-    window.setPlannerView = function(mode) {
-      plannerViewMode = mode;
-      const listEl = document.getElementById('planner-list-view');
-      const calEl = document.getElementById('planner-calendar-view');
-      const btnL = document.getElementById('btn-planner-list');
-      const btnC = document.getElementById('btn-planner-calendar');
-
-      if (mode === 'calendar') {
-        listEl.classList.add('hidden');
-        calEl.classList.remove('hidden');
-        btnC.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-white text-slate-900 shadow-sm flex items-center gap-1.5';
-        btnL.className = 'px-3 py-1.5 rounded-lg text-xs font-bold text-slate-600 hover:text-slate-900 flex items-center gap-1.5';
-      } else {
-        calEl.classList.add('hidden');
-        listEl.classList.remove('hidden');
-        btnL.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-white text-slate-900 shadow-sm flex items-center gap-1.5';
-        btnC.className = 'px-3 py-1.5 rounded-lg text-xs font-bold text-slate-600 hover:text-slate-900 flex items-center gap-1.5';
-      }
-      renderPlanner();
-    };
-
-    window.changeCalendarMonth = function(offset) {
-      if (offset === 0) {
-        currentCalendarDate = new Date();
-      } else {
-        currentCalendarDate = new Date(currentCalendarDate.getFullYear(), currentCalendarDate.getMonth() + offset, 1);
-      }
-      renderPlannerCalendar();
-    };
-
-    window.openContentModal = function(id = null, presetDate = null) {
-      populateClientSelects();
-      document.getElementById('content-id').value = '';
-      document.getElementById('content-date').value = presetDate || todayISO();
-      document.getElementById('content-client').value = 'Pribadi / Internal';
-      document.getElementById('content-platform').value = 'TikTok';
-      document.getElementById('content-title').value = '';
-      document.getElementById('content-status').value = 'Ide';
-      document.getElementById('content-pillar').value = '';
-      document.getElementById('content-idea').value = '';
-      document.getElementById('content-hook').value = '';
-      document.getElementById('content-script').value = '';
-      document.getElementById('content-caption').value = '';
-      document.getElementById('content-cta').value = '';
-      document.getElementById('content-hashtag').value = '';
-      document.getElementById('modal-content-title').textContent = 'Buat Rencana Konten Baru';
-
-      if (id) {
-        const item = db.contents.find(x => x.id === id);
-        if (item) {
-          document.getElementById('content-id').value = item.id;
-          document.getElementById('content-date').value = item.date;
-          document.getElementById('content-client').value = item.client || 'Pribadi / Internal';
-          document.getElementById('content-platform').value = item.platform;
-          document.getElementById('content-title').value = item.title;
-          document.getElementById('content-status').value = item.status;
-          document.getElementById('content-pillar').value = item.pillar || '';
-          document.getElementById('content-idea').value = item.idea || '';
-          document.getElementById('content-hook').value = item.hook || '';
-          document.getElementById('content-script').value = item.script || '';
-          document.getElementById('content-caption').value = item.caption || '';
-          document.getElementById('content-cta').value = item.cta || '';
-          document.getElementById('content-hashtag').value = item.hashtag || '';
-          document.getElementById('modal-content-title').textContent = 'Edit Rencana Konten';
-        }
-      }
-      document.getElementById('modal-content').classList.remove('hidden');
+      saveToCloud();
+      showToast('Akun tersimpan!');
     };
 
     window.saveContent = function(e) {
       e.preventDefault();
-      const id = document.getElementById('content-id').value;
-      const payload = {
-        id: id || uid(),
+      db.contents.unshift({
+        id: uid(),
         date: document.getElementById('content-date').value,
-        client: document.getElementById('content-client').value,
         platform: document.getElementById('content-platform').value,
-        title: document.getElementById('content-title').value.trim(),
         status: document.getElementById('content-status').value,
-        pillar: document.getElementById('content-pillar').value.trim(),
-        idea: document.getElementById('content-idea').value.trim(),
-        hook: document.getElementById('content-hook').value.trim(),
-        script: document.getElementById('content-script').value.trim(),
-        caption: document.getElementById('content-caption').value.trim(),
-        cta: document.getElementById('content-cta').value.trim(),
-        hashtag: document.getElementById('content-hashtag').value.trim()
-      };
-
-      if (id) {
-        const idx = db.contents.findIndex(x => x.id === id);
-        if (idx > -1) db.contents[idx] = payload;
-        showToast('Rencana konten diperbarui!');
-      } else {
-        db.contents.unshift(payload);
-        showToast('Rencana konten berhasil disimpan!');
-      }
+        title: document.getElementById('content-title').value.trim(),
+        pillar: document.getElementById('content-pillar').value.trim()
+      });
       closeModal('modal-content');
-      saveDatabase();
-    };
-
-    window.quickChangeContentStatus = function(id, newStatus) {
-      const item = db.contents.find(x => x.id === id);
-      if (item) {
-        item.status = newStatus;
-        saveDatabase();
-        showToast(`Status diubah ke "${newStatus}"`);
-      }
-    };
-
-    window.deleteContent = function(id) {
-      const item = db.contents.find(x => x.id === id);
-      askDeleteConfirmation(`Hapus rencana konten "${item ? item.title : ''}"?`, () => {
-        db.contents = db.contents.filter(x => x.id !== id);
-        saveDatabase();
-        showToast('Konten berhasil dihapus');
-      });
-    };
-
-    function getStatusColorClass(st) {
-      const map = {
-        'Ide': 'bg-slate-100 text-slate-700',
-        'Script': 'bg-sky-50 text-sky-700',
-        'Produksi': 'bg-amber-50 text-amber-700',
-        'Editing': 'bg-violet-50 text-violet-700',
-        'Review': 'bg-orange-50 text-orange-700',
-        'Siap upload': 'bg-indigo-50 text-indigo-700',
-        'Sudah upload': 'bg-emerald-50 text-emerald-700'
-      };
-      return map[st] || 'bg-slate-100 text-slate-700';
-    }
-
-    window.renderPlanner = function() {
-      const summaryEl = document.getElementById('planner-status-summary');
-      summaryEl.innerHTML = CONTENT_STATUSES.map(st => {
-        const count = db.contents.filter(c => c.status === st).length;
-        return `
-          <div class="bg-white rounded-xl p-2.5 border border-slate-200/80 flex items-center justify-between">
-            <span class="text-[11px] font-bold text-slate-600 truncate">${escapeHtml(st)}</span>
-            <span class="px-2 py-0.5 rounded-lg text-xs font-extrabold ${getStatusColorClass(st)}">${count}</span>
-          </div>`;
-      }).join('');
-
-      if (plannerViewMode === 'calendar') {
-        renderPlannerCalendar();
-        document.getElementById('planner-empty').classList.add('hidden');
-        return;
-      }
-
-      const q = (document.getElementById('search-planner')?.value || '').toLowerCase();
-      const sf = document.getElementById('filter-planner-status')?.value || 'ALL';
-      const pf = document.getElementById('filter-planner-platform')?.value || 'ALL';
-
-      const filtered = db.contents.filter(c => {
-        const text = `${c.title} ${c.pillar} ${c.hook} ${c.script} ${c.client}`.toLowerCase();
-        const matchQ = text.includes(q);
-        const matchS = sf === 'ALL' || c.status === sf;
-        const matchP = pf === 'ALL' || c.platform === pf;
-        return matchQ && matchS && matchP;
-      });
-
-      const tbody = document.getElementById('planner-table-body');
-      const mobileCards = document.getElementById('planner-mobile-cards');
-      const empty = document.getElementById('planner-empty');
-
-      if (filtered.length === 0) {
-        tbody.innerHTML = '';
-        mobileCards.innerHTML = '';
-        empty.classList.remove('hidden');
-        return;
-      }
-      empty.classList.add('hidden');
-
-      tbody.innerHTML = filtered.map(c => `
-        <tr class="hover:bg-slate-50/80">
-          <td class="py-3.5 px-5">
-            <p class="text-[11px] font-bold text-indigo-600">${formatDateID(c.date)}</p>
-            <p class="font-bold text-slate-900 mt-0.5">${escapeHtml(c.title)}</p>
-            <p class="text-xs text-slate-400 truncate max-w-xs">${escapeHtml(c.idea || '')}</p>
-          </td>
-          <td class="py-3.5 px-4">
-            <p class="text-xs font-bold text-slate-800 mb-1">${escapeHtml(c.client)}</p>
-            ${getPlatformBadge(c.platform)}
-          </td>
-          <td class="py-3.5 px-4 max-w-xs">
-            <span class="inline-block px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-[11px] font-bold mb-1">${escapeHtml(c.pillar)}</span>
-            <p class="text-xs text-slate-600 line-clamp-2"><strong>Hook:</strong> ${escapeHtml(c.hook || '-')}</p>
-          </td>
-          <td class="py-3.5 px-4">
-            <select onchange="quickChangeContentStatus('${c.id}', this.value)" class="px-2.5 py-1.5 rounded-xl text-xs font-bold border border-slate-200 ${getStatusColorClass(c.status)}">
-              ${CONTENT_STATUSES.map(st => `<option value="${st}" ${c.status === st ? 'selected' : ''}>${st}</option>`).join('')}
-            </select>
-          </td>
-          <td class="py-3.5 px-5 text-right space-x-1">
-            <button onclick="openContentModal('${c.id}')" class="px-2.5 py-1.5 rounded-lg border border-slate-200 text-xs font-bold text-slate-700 hover:bg-slate-100">Detail / Edit</button>
-            <button onclick="deleteContent('${c.id}')" class="px-2.5 py-1.5 rounded-lg border border-rose-200 text-xs font-bold text-rose-600 hover:bg-rose-50">Hapus</button>
-          </td>
-        </tr>
-      `).join('');
-
-      mobileCards.innerHTML = filtered.map(c => `
-        <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-sm space-y-2.5">
-          <div class="flex items-start justify-between gap-2">
-            <div>
-              <span class="text-[11px] font-bold text-indigo-600">${formatDateID(c.date)} • ${escapeHtml(c.client)}</span>
-              <h4 class="font-bold text-slate-900 text-sm mt-0.5">${escapeHtml(c.title)}</h4>
-            </div>
-            ${getPlatformBadge(c.platform)}
-          </div>
-          <div class="text-xs text-slate-600 space-y-1 bg-slate-50 p-3 rounded-xl">
-            <p><strong>Pillar:</strong> ${escapeHtml(c.pillar)}</p>
-            <p><strong>Hook:</strong> ${escapeHtml(c.hook || '-')}</p>
-            <p><strong>CTA:</strong> ${escapeHtml(c.cta || '-')}</p>
-          </div>
-          <div class="pt-2 flex items-center justify-between gap-2">
-            <select onchange="quickChangeContentStatus('${c.id}', this.value)" class="px-2.5 py-1.5 rounded-xl text-xs font-bold border border-slate-200 ${getStatusColorClass(c.status)}">
-              ${CONTENT_STATUSES.map(st => `<option value="${st}" ${c.status === st ? 'selected' : ''}>${st}</option>`).join('')}
-            </select>
-            <div class="space-x-1 text-xs">
-              <button onclick="openContentModal('${c.id}')" class="px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 font-bold">Edit</button>
-              <button onclick="deleteContent('${c.id}')" class="px-3 py-1.5 rounded-lg bg-rose-50 text-rose-600 font-bold">Hapus</button>
-            </div>
-          </div>
-        </div>
-      `).join('');
-    };
-
-    function renderPlannerCalendar() {
-      const year = currentCalendarDate.getFullYear();
-      const month = currentCalendarDate.getMonth();
-      const monthNames = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-      document.getElementById('calendar-month-label').textContent = `${monthNames[month]} ${year}`;
-
-      const firstDay = new Date(year, month, 1).getDay();
-      const daysInMonth = new Date(year, month + 1, 0).getDate();
-      const grid = document.getElementById('calendar-grid');
-      let html = '';
-
-      for (let i = 0; i < firstDay; i++) {
-        html += `<div class="min-h-[80px] sm:min-h-[105px] rounded-xl bg-slate-50/60 border border-slate-100"></div>`;
-      }
-
-      for (let d = 1; d <= daysInMonth; d++) {
-        const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
-        const items = db.contents.filter(c => c.date === dateStr);
-        const isToday = dateStr === todayISO();
-
-        html += `
-          <div onclick="openContentModal(null, '${dateStr}')" class="min-h-[80px] sm:min-h-[105px] p-1.5 sm:p-2 rounded-xl border ${isToday ? 'border-indigo-500 bg-indigo-50/20' : 'border-slate-200 bg-white'} hover:border-indigo-400 transition cursor-pointer flex flex-col justify-between">
-            <div class="flex items-center justify-between">
-              <span class="text-xs font-extrabold ${isToday ? 'bg-indigo-600 text-white w-6 h-6 rounded-full flex items-center justify-center' : 'text-slate-700'}">${d}</span>
-              ${items.length > 0 ? `<span class="text-[10px] font-bold text-indigo-600">${items.length}</span>` : ''}
-            </div>
-            <div class="space-y-1 mt-1 overflow-hidden">
-              ${items.slice(0, 2).map(it => `
-                <div onclick="event.stopPropagation(); openContentModal('${it.id}')" class="px-1.5 py-0.5 rounded text-[10px] font-semibold truncate ${getStatusColorClass(it.status)}">
-                  ${escapeHtml(it.title)}
-                </div>
-              `).join('')}
-              ${items.length > 2 ? `<p class="text-[9px] text-slate-400 font-bold">+${items.length - 2} lagi</p>` : ''}
-            </div>
-          </div>`;
-      }
-      grid.innerHTML = html;
-    }
-
-    // ==================== 5. SOCIAL MEDIA ANALYTICS ====================
-    window.previewAnalyticsER = function() {
-      const views = Number(document.getElementById('analytics-views').value || 0);
-      const likes = Number(document.getElementById('analytics-likes').value || 0);
-      const comments = Number(document.getElementById('analytics-comments').value || 0);
-      const shares = Number(document.getElementById('analytics-shares').value || 0);
-      const saves = Number(document.getElementById('analytics-saves').value || 0);
-      const eng = likes + comments + shares + saves;
-      const er = views > 0 ? (eng / views) * 100 : 0;
-      document.getElementById('analytics-er-preview').textContent = `${er.toFixed(2)}%`;
-    };
-
-    window.openAnalyticsModal = function(id = null) {
-      populateClientSelects();
-      document.getElementById('analytics-id').value = '';
-      document.getElementById('analytics-date').value = todayISO();
-      document.getElementById('analytics-platform').value = 'TikTok';
-      document.getElementById('analytics-client').value = 'Pribadi / Internal';
-      document.getElementById('analytics-title').value = '';
-      document.getElementById('analytics-views').value = 0;
-      document.getElementById('analytics-reach').value = 0;
-      document.getElementById('analytics-followers').value = 0;
-      document.getElementById('analytics-likes').value = 0;
-      document.getElementById('analytics-comments').value = 0;
-      document.getElementById('analytics-shares').value = 0;
-      document.getElementById('analytics-saves').value = 0;
-      document.getElementById('analytics-er-preview').textContent = '0.00%';
-      document.getElementById('modal-analytics-title').textContent = 'Input Data Performa Konten';
-
-      if (id) {
-        const a = db.analytics.find(x => x.id === id);
-        if (a) {
-          document.getElementById('analytics-id').value = a.id;
-          document.getElementById('analytics-date').value = a.date;
-          document.getElementById('analytics-platform').value = a.platform;
-          document.getElementById('analytics-client').value = a.client || 'Pribadi / Internal';
-          document.getElementById('analytics-title').value = a.title;
-          document.getElementById('analytics-views').value = a.views;
-          document.getElementById('analytics-reach').value = a.reach;
-          document.getElementById('analytics-followers').value = a.followersGained;
-          document.getElementById('analytics-likes').value = a.likes;
-          document.getElementById('analytics-comments').value = a.comments;
-          document.getElementById('analytics-shares').value = a.shares;
-          document.getElementById('analytics-saves').value = a.saves;
-          previewAnalyticsER();
-          document.getElementById('modal-analytics-title').textContent = 'Edit Data Performa Konten';
-        }
-      }
-      document.getElementById('modal-analytics').classList.remove('hidden');
+      saveToCloud();
+      showToast('Konten tersimpan!');
     };
 
     window.saveAnalytics = function(e) {
       e.preventDefault();
-      const id = document.getElementById('analytics-id').value;
       const views = Number(document.getElementById('analytics-views').value || 0);
-      const reach = Number(document.getElementById('analytics-reach').value || 0);
       const likes = Number(document.getElementById('analytics-likes').value || 0);
       const comments = Number(document.getElementById('analytics-comments').value || 0);
-      const shares = Number(document.getElementById('analytics-shares').value || 0);
-      const saves = Number(document.getElementById('analytics-saves').value || 0);
-      const followersGained = Number(document.getElementById('analytics-followers').value || 0);
-      const engagement = likes + comments + shares + saves;
-      const er = views > 0 ? Number(((engagement / views) * 100).toFixed(2)) : 0;
-
-      const payload = {
-        id: id || uid(),
+      const er = views > 0 ? Number((((likes + comments) / views) * 100).toFixed(2)) : 0;
+      db.analytics.unshift({
+        id: uid(),
         date: document.getElementById('analytics-date').value,
         platform: document.getElementById('analytics-platform').value,
-        client: document.getElementById('analytics-client').value,
         title: document.getElementById('analytics-title').value.trim(),
-        views,
-        reach,
-        likes,
-        comments,
-        shares,
-        saves,
-        followersGained,
-        engagement,
-        er
-      };
-
-      if (id) {
-        const idx = db.analytics.findIndex(x => x.id === id);
-        if (idx > -1) db.analytics[idx] = payload;
-        showToast('Data analitik berhasil diperbarui!');
-      } else {
-        db.analytics.unshift(payload);
-        showToast('Data performa konten berhasil disimpan!');
-      }
+        views, likes, comments, er
+      });
       closeModal('modal-analytics');
-      saveDatabase();
-    };
-
-    window.deleteAnalytics = function(id) {
-      const a = db.analytics.find(x => x.id === id);
-      askDeleteConfirmation(`Hapus data analitik konten "${a ? a.title : ''}"?`, () => {
-        db.analytics = db.analytics.filter(x => x.id !== id);
-        saveDatabase();
-        showToast('Data analitik dihapus');
-      });
-    };
-
-    window.renderAnalytics = function() {
-      const q = (document.getElementById('search-analytics')?.value || '').toLowerCase();
-      const pf = document.getElementById('filter-analytics-platform')?.value || 'ALL';
-
-      const filtered = db.analytics.filter(a => {
-        const matchQ = a.title.toLowerCase().includes(q) || (a.client || '').toLowerCase().includes(q);
-        const matchP = pf === 'ALL' || a.platform === pf;
-        return matchQ && matchP;
-      });
-
-      const bestBox = document.getElementById('analytics-best-box');
-      const lowBox = document.getElementById('analytics-lowest-box');
-      const compBox = document.getElementById('analytics-comparison-box');
-
-      if (db.analytics.length > 0) {
-        const sortedByViews = [...db.analytics].sort((a, b) => b.views - a.views);
-        const best = sortedByViews[0];
-        const low = sortedByViews[sortedByViews.length - 1];
-
-        bestBox.innerHTML = `
-          <p class="font-bold text-slate-900 text-sm truncate">${escapeHtml(best.title)}</p>
-          <p class="text-xs text-slate-500 mt-0.5">${escapeHtml(best.platform)} • ${formatDateID(best.date)}</p>
-          <div class="flex items-center gap-3 mt-2 text-xs font-extrabold text-emerald-700">
-            <span>${formatNumber(best.views)} Views</span>
-            <span>ER: ${best.er}%</span>
-          </div>`;
-
-        lowBox.innerHTML = `
-          <p class="font-bold text-slate-900 text-sm truncate">${escapeHtml(low.title)}</p>
-          <p class="text-xs text-slate-500 mt-0.5">${escapeHtml(low.platform)} • ${formatDateID(low.date)}</p>
-          <div class="flex items-center gap-3 mt-2 text-xs font-extrabold text-rose-600">
-            <span>${formatNumber(low.views)} Views</span>
-            <span>ER: ${low.er}%</span>
-          </div>`;
-
-        const now = new Date();
-        const curYM = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
-        const prevDate = new Date(now.getFullYear(), now.getMonth() - 1, 1);
-        const prevYM = `${prevDate.getFullYear()}-${String(prevDate.getMonth() + 1).padStart(2, '0')}`;
-
-        const curViews = db.analytics.filter(a => (a.date || '').startsWith(curYM)).reduce((s, x) => s + x.views, 0);
-        const prevViews = db.analytics.filter(a => (a.date || '').startsWith(prevYM)).reduce((s, x) => s + x.views, 0);
-        const diffPct = prevViews > 0 ? (((curViews - prevViews) / prevViews) * 100).toFixed(1) : (curViews > 0 ? '100' : '0');
-
-        compBox.innerHTML = `
-          <div class="flex items-center justify-between text-xs">
-            <span class="text-slate-500">Bulan Ini (${curYM}):</span>
-            <span class="font-bold text-slate-900">${formatNumber(curViews)} Views</span>
-          </div>
-          <div class="flex items-center justify-between text-xs mt-1">
-            <span class="text-slate-500">Bulan Lalu (${prevYM}):</span>
-            <span class="font-bold text-slate-700">${formatNumber(prevViews)} Views</span>
-          </div>
-          <p class="text-xs font-extrabold mt-2 ${Number(diffPct) >= 0 ? 'text-emerald-600' : 'text-rose-600'}">
-            Pertumbuhan: ${Number(diffPct) >= 0 ? '+' : ''}${diffPct}%
-          </p>`;
-      } else {
-        bestBox.innerHTML = `<p class="text-xs text-slate-400">Belum ada data analitik.</p>`;
-        lowBox.innerHTML = `<p class="text-xs text-slate-400">Belum ada data analitik.</p>`;
-        compBox.innerHTML = `<p class="text-xs text-slate-400">Belum ada data periode.</p>`;
-      }
-
-      const chartEmpty = document.getElementById('analytics-chart-empty');
-      const ctx = document.getElementById('analyticsChart');
-      if (filtered.length === 0) {
-        chartEmpty.classList.remove('hidden');
-        if (analyticsChartInstance) {
-          analyticsChartInstance.destroy();
-          analyticsChartInstance = null;
-        }
-      } else {
-        chartEmpty.classList.add('hidden');
-        const cData = [...filtered].reverse().slice(-10);
-        if (analyticsChartInstance) analyticsChartInstance.destroy();
-        analyticsChartInstance = new Chart(ctx, {
-          type: 'bar',
-          data: {
-            labels: cData.map(x => x.title.slice(0, 14)),
-            datasets: [
-              { label: 'Views', data: cData.map(x => x.views), backgroundColor: '#4f46e5', borderRadius: 6 },
-              { label: 'Reach', data: cData.map(x => x.reach), backgroundColor: '#0ea5e9', borderRadius: 6 }
-            ]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: { legend: { position: 'top' } }
-          }
-        });
-      }
-
-      const tbody = document.getElementById('analytics-table-body');
-      const mobileCards = document.getElementById('analytics-mobile-cards');
-      const empty = document.getElementById('analytics-empty');
-
-      if (filtered.length === 0) {
-        tbody.innerHTML = '';
-        mobileCards.innerHTML = '';
-        empty.classList.remove('hidden');
-        return;
-      }
-      empty.classList.add('hidden');
-
-      tbody.innerHTML = filtered.map(a => `
-        <tr class="hover:bg-slate-50/80">
-          <td class="py-3.5 px-5">
-            <p class="text-[11px] font-bold text-indigo-600">${formatDateID(a.date)} • ${escapeHtml(a.client)}</p>
-            <p class="font-bold text-slate-900">${escapeHtml(a.title)}</p>
-          </td>
-          <td class="py-3.5 px-3">${getPlatformBadge(a.platform)}</td>
-          <td class="py-3.5 px-3 text-xs">
-            <p class="font-bold text-slate-900">${formatNumber(a.views)} Views</p>
-            <p class="text-slate-500">Reach: ${formatNumber(a.reach)}</p>
-          </td>
-          <td class="py-3.5 px-3 text-xs text-slate-600">
-            L: ${formatNumber(a.likes)} • C: ${formatNumber(a.comments)}<br/>
-            S: ${formatNumber(a.shares)} • Sv: ${formatNumber(a.saves)}
-          </td>
-          <td class="py-3.5 px-3">
-            <span class="px-2.5 py-1 rounded-full text-xs font-extrabold bg-rose-50 text-rose-700">${a.er}%</span>
-          </td>
-          <td class="py-3.5 px-3 font-bold text-emerald-600 text-xs">+${formatNumber(a.followersGained)}</td>
-          <td class="py-3.5 px-5 text-right space-x-1">
-            <button onclick="openAnalyticsModal('${a.id}')" class="px-2.5 py-1.5 rounded-lg border border-slate-200 text-xs font-bold text-slate-700 hover:bg-slate-100">Edit</button>
-            <button onclick="deleteAnalytics('${a.id}')" class="px-2.5 py-1.5 rounded-lg border border-rose-200 text-xs font-bold text-rose-600 hover:bg-rose-50">Hapus</button>
-          </td>
-        </tr>
-      `).join('');
-
-      mobileCards.innerHTML = filtered.map(a => `
-        <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-sm space-y-2.5">
-          <div class="flex items-start justify-between gap-2">
-            <div>
-              <span class="text-[11px] font-bold text-indigo-600">${formatDateID(a.date)}</span>
-              <h4 class="font-bold text-slate-900 text-sm">${escapeHtml(a.title)}</h4>
-            </div>
-            ${getPlatformBadge(a.platform)}
-          </div>
-          <div class="grid grid-cols-3 gap-2 bg-slate-50 p-2.5 rounded-xl text-center text-xs">
-            <div><p class="text-slate-400 text-[10px]">Views</p><p class="font-extrabold text-slate-900">${formatNumber(a.views)}</p></div>
-            <div><p class="text-slate-400 text-[10px]">ER (%)</p><p class="font-extrabold text-rose-600">${a.er}%</p></div>
-            <div><p class="text-slate-400 text-[10px]">+Followers</p><p class="font-extrabold text-emerald-600">+${formatNumber(a.followersGained)}</p></div>
-          </div>
-          <div class="pt-1 flex justify-end gap-1.5 text-xs">
-            <button onclick="openAnalyticsModal('${a.id}')" class="px-3 py-1 rounded-lg bg-slate-100 text-slate-700 font-bold">Edit</button>
-            <button onclick="deleteAnalytics('${a.id}')" class="px-3 py-1 rounded-lg bg-rose-50 text-rose-600 font-bold">Hapus</button>
-          </div>
-        </div>
-      `).join('');
-    };
-
-    // ==================== 6. AFFILIATE TRACKER ====================
-    window.previewAffiliateCR = function() {
-      const clicks = Number(document.getElementById('aff-clicks').value || 0);
-      const orders = Number(document.getElementById('aff-orders').value || 0);
-      const cr = clicks > 0 ? (orders / clicks) * 100 : 0;
-      document.getElementById('aff-cr-preview').textContent = `${cr.toFixed(2)}%`;
-    };
-
-    window.openAffiliateModal = function(id = null) {
-      document.getElementById('aff-id').value = '';
-      document.getElementById('aff-date').value = todayISO();
-      document.getElementById('aff-platform').value = 'Shopee';
-      document.getElementById('aff-product').value = '';
-      document.getElementById('aff-link').value = '';
-      document.getElementById('aff-clicks').value = 0;
-      document.getElementById('aff-orders').value = 0;
-      document.getElementById('aff-gmv').value = 0;
-      document.getElementById('aff-commission').value = 0;
-      document.getElementById('aff-cr-preview').textContent = '0.00%';
-      document.getElementById('modal-affiliate-title').textContent = 'Catat Produk & Performa Affiliate';
-
-      if (id) {
-        const f = db.affiliates.find(x => x.id === id);
-        if (f) {
-          document.getElementById('aff-id').value = f.id;
-          document.getElementById('aff-date').value = f.date;
-          document.getElementById('aff-platform').value = f.platform;
-          document.getElementById('aff-product').value = f.product;
-          document.getElementById('aff-link').value = f.link || '';
-          document.getElementById('aff-clicks').value = f.clicks;
-          document.getElementById('aff-orders').value = f.orders;
-          document.getElementById('aff-gmv').value = f.gmv;
-          document.getElementById('aff-commission').value = f.commission;
-          previewAffiliateCR();
-          document.getElementById('modal-affiliate-title').textContent = 'Edit Data Produk Affiliate';
-        }
-      }
-      document.getElementById('modal-affiliate').classList.remove('hidden');
+      saveToCloud();
+      showToast('Analitik tersimpan!');
     };
 
     window.saveAffiliate = function(e) {
       e.preventDefault();
-      const id = document.getElementById('aff-id').value;
       const clicks = Number(document.getElementById('aff-clicks').value || 0);
       const orders = Number(document.getElementById('aff-orders').value || 0);
-      const gmv = Number(document.getElementById('aff-gmv').value || 0);
-      const commission = Number(document.getElementById('aff-commission').value || 0);
-      const cr = clicks > 0 ? Number(((orders / clicks) * 100).toFixed(2)) : 0;
-
-      const payload = {
-        id: id || uid(),
-        date: document.getElementById('aff-date').value,
-        platform: document.getElementById('aff-platform').value,
+      db.affiliates.unshift({
+        id: uid(),
         product: document.getElementById('aff-product').value.trim(),
-        link: document.getElementById('aff-link').value.trim(),
-        clicks,
-        orders,
-        gmv,
-        commission,
-        cr
-      };
-
-      if (id) {
-        const idx = db.affiliates.findIndex(x => x.id === id);
-        if (idx > -1) db.affiliates[idx] = payload;
-        showToast('Data affiliate diperbarui!');
-      } else {
-        db.affiliates.unshift(payload);
-        showToast('Data produk affiliate disimpan!');
-      }
+        clicks, orders,
+        cr: clicks > 0 ? Number(((orders / clicks) * 100).toFixed(2)) : 0,
+        gmv: Number(document.getElementById('aff-gmv').value || 0),
+        commission: Number(document.getElementById('aff-commission').value || 0)
+      });
       closeModal('modal-affiliate');
-      saveDatabase();
-    };
-
-    window.deleteAffiliate = function(id) {
-      const f = db.affiliates.find(x => x.id === id);
-      askDeleteConfirmation(`Hapus riwayat produk "${f ? f.product : ''}"?`, () => {
-        db.affiliates = db.affiliates.filter(x => x.id !== id);
-        saveDatabase();
-        showToast('Data affiliate dihapus');
-      });
-    };
-
-    window.renderAffiliate = function() {
-      const q = (document.getElementById('search-affiliate')?.value || '').toLowerCase();
-      const pf = document.getElementById('filter-affiliate-platform')?.value || 'ALL';
-
-      const filtered = db.affiliates.filter(f => {
-        const matchQ = f.product.toLowerCase().includes(q);
-        const matchP = pf === 'ALL' || f.platform === pf;
-        return matchQ && matchP;
-      });
-
-      const sumClicks = filtered.reduce((s, x) => s + Number(x.clicks || 0), 0);
-      const sumOrders = filtered.reduce((s, x) => s + Number(x.orders || 0), 0);
-      const sumGMV = filtered.reduce((s, x) => s + Number(x.gmv || 0), 0);
-      const sumComm = filtered.reduce((s, x) => s + Number(x.commission || 0), 0);
-      const avgCR = sumClicks > 0 ? ((sumOrders / sumClicks) * 100).toFixed(2) : '0.00';
-
-      document.getElementById('aff-sum-clicks').textContent = formatNumber(sumClicks);
-      document.getElementById('aff-sum-orders').innerHTML = `${formatNumber(sumOrders)} <span class="text-xs font-bold text-amber-600">(${avgCR}%)</span>`;
-      document.getElementById('aff-sum-gmv').textContent = formatRupiah(sumGMV);
-      document.getElementById('aff-sum-commission').textContent = formatRupiah(sumComm);
-
-      const tbody = document.getElementById('affiliate-table-body');
-      const mobileCards = document.getElementById('affiliate-mobile-cards');
-      const empty = document.getElementById('affiliate-empty');
-
-      if (filtered.length === 0) {
-        tbody.innerHTML = '';
-        mobileCards.innerHTML = '';
-        empty.classList.remove('hidden');
-        return;
-      }
-      empty.classList.add('hidden');
-
-      tbody.innerHTML = filtered.map(f => `
-        <tr class="hover:bg-slate-50/80">
-          <td class="py-3.5 px-5">
-            <p class="text-[11px] font-bold text-slate-400">${formatDateID(f.date)}</p>
-            <p class="font-bold text-slate-900">${escapeHtml(f.product)}</p>
-            ${f.link ? `<a href="${escapeHtml(f.link)}" target="_blank" rel="noopener" class="text-xs text-indigo-600 hover:underline">Buka Link Produk ↗</a>` : ''}
-          </td>
-          <td class="py-3.5 px-3">${getPlatformBadge(f.platform)}</td>
-          <td class="py-3.5 px-3 text-xs">
-            <p class="font-bold text-slate-900">${formatNumber(f.clicks)} Klik</p>
-            <p class="text-slate-500">${formatNumber(f.orders)} Pesanan</p>
-          </td>
-          <td class="py-3.5 px-3">
-            <span class="px-2.5 py-1 rounded-full text-xs font-extrabold bg-amber-50 text-amber-700">${f.cr}%</span>
-          </td>
-          <td class="py-3.5 px-3 text-xs font-semibold text-slate-700">${formatRupiah(f.gmv)}</td>
-          <td class="py-3.5 px-3 text-sm font-extrabold text-emerald-600">${formatRupiah(f.commission)}</td>
-          <td class="py-3.5 px-5 text-right space-x-1">
-            <button onclick="openAffiliateModal('${f.id}')" class="px-2.5 py-1.5 rounded-lg border border-slate-200 text-xs font-bold text-slate-700 hover:bg-slate-100">Edit</button>
-            <button onclick="deleteAffiliate('${f.id}')" class="px-2.5 py-1.5 rounded-lg border border-rose-200 text-xs font-bold text-rose-600 hover:bg-rose-50">Hapus</button>
-          </td>
-        </tr>
-      `).join('');
-
-      mobileCards.innerHTML = filtered.map(f => `
-        <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-sm space-y-2.5">
-          <div class="flex items-start justify-between gap-2">
-            <div>
-              <span class="text-[11px] font-bold text-slate-400">${formatDateID(f.date)}</span>
-              <h4 class="font-bold text-slate-900 text-sm">${escapeHtml(f.product)}</h4>
-            </div>
-            ${getPlatformBadge(f.platform)}
-          </div>
-          <div class="grid grid-cols-3 gap-2 bg-slate-50 p-2.5 rounded-xl text-center text-xs">
-            <div><p class="text-slate-400 text-[10px]">Klik / Order</p><p class="font-bold text-slate-900">${formatNumber(f.clicks)} / ${formatNumber(f.orders)}</p></div>
-            <div><p class="text-slate-400 text-[10px]">CR (%)</p><p class="font-extrabold text-amber-600">${f.cr}%</p></div>
-            <div><p class="text-slate-400 text-[10px]">Komisi</p><p class="font-extrabold text-emerald-600">${formatRupiah(f.commission)}</p></div>
-          </div>
-          <div class="pt-1 flex items-center justify-between text-xs">
-            <span class="text-slate-500">GMV: ${formatRupiah(f.gmv)}</span>
-            <div class="space-x-1.5">
-              <button onclick="openAffiliateModal('${f.id}')" class="px-3 py-1 rounded-lg bg-slate-100 text-slate-700 font-bold">Edit</button>
-              <button onclick="deleteAffiliate('${f.id}')" class="px-3 py-1 rounded-lg bg-rose-50 text-rose-600 font-bold">Hapus</button>
-            </div>
-          </div>
-        </div>
-      `).join('');
-    };
-
-    // ==================== 7. TASK MANAGEMENT & DEADLINE REMINDER ====================
-    function getDeadlineDiffDays(deadlineStr) {
-      if (!deadlineStr) return 999;
-      const today = new Date(todayISO());
-      const target = new Date(deadlineStr);
-      return Math.round((target - today) / (1000 * 60 * 60 * 24));
-    }
-
-    function getDeadlineStatusBadge(deadlineStr, status) {
-      if (status === 'Selesai') {
-        return `<span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700">Selesai</span>`;
-      }
-      const diff = getDeadlineDiffDays(deadlineStr);
-      if (diff < 0) {
-        return `<span class="px-2.5 py-1 rounded-full text-[11px] font-extrabold bg-rose-100 text-rose-700">Terlambat (${Math.abs(diff)} hr)</span>`;
-      }
-      if (diff === 0) {
-        return `<span class="px-2.5 py-1 rounded-full text-[11px] font-extrabold bg-amber-100 text-amber-800">Hari Ini!</span>`;
-      }
-      if (diff <= 3) {
-        return `<span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-amber-50 text-amber-700">${diff} Hari Lagi</span>`;
-      }
-      return `<span class="px-2.5 py-1 rounded-full text-[11px] font-semibold bg-slate-100 text-slate-600">${diff} Hari Lagi</span>`;
-    }
-
-    function updateDeadlineReminders() {
-      const urgentTasks = db.tasks.filter(t => t.status !== 'Selesai' && getDeadlineDiffDays(t.deadline) <= 2);
-      const count = urgentTasks.length;
-
-      const sideBadge = document.getElementById('sidebar-task-badge');
-      const headerAlert = document.getElementById('header-deadline-alert');
-      const headerText = document.getElementById('header-deadline-text');
-      const banner = document.getElementById('urgent-reminder-banner');
-      const bannerMsg = document.getElementById('urgent-reminder-message');
-      const mobDot = document.getElementById('mob-more-badge');
-
-      if (count > 0) {
-        sideBadge.textContent = count;
-        sideBadge.classList.remove('hidden');
-        headerAlert.classList.remove('hidden');
-        headerAlert.classList.add('inline-flex');
-        headerText.textContent = `${count} Deadline Dekat`;
-        banner.classList.remove('hidden');
-        bannerMsg.textContent = `Pengingat Deadline: Kamu memiliki ${count} pekerjaan penting yang jatuh tempo dalam ≤ 2 hari atau sudah lewat waktu!`;
-        mobDot.classList.remove('hidden');
-      } else {
-        sideBadge.classList.add('hidden');
-        headerAlert.classList.add('hidden');
-        headerAlert.classList.remove('inline-flex');
-        banner.classList.add('hidden');
-        mobDot.classList.add('hidden');
-      }
-    }
-
-    window.openTaskModal = function(id = null) {
-      document.getElementById('task-id').value = '';
-      document.getElementById('task-title').value = '';
-      document.getElementById('task-deadline').value = todayISO();
-      document.getElementById('task-priority').value = 'Sedang';
-      document.getElementById('task-status').value = 'Belum Dikerjakan';
-      document.getElementById('task-notes').value = '';
-      document.getElementById('modal-task-title').textContent = 'Tambah Pekerjaan Baru';
-
-      if (id) {
-        const t = db.tasks.find(x => x.id === id);
-        if (t) {
-          document.getElementById('task-id').value = t.id;
-          document.getElementById('task-title').value = t.title;
-          document.getElementById('task-deadline').value = t.deadline;
-          document.getElementById('task-priority').value = t.priority;
-          document.getElementById('task-status').value = t.status;
-          document.getElementById('task-notes').value = t.notes || '';
-          document.getElementById('modal-task-title').textContent = 'Edit Pekerjaan';
-        }
-      }
-      document.getElementById('modal-task').classList.remove('hidden');
+      saveToCloud();
+      showToast('Affiliate tersimpan!');
     };
 
     window.saveTask = function(e) {
       e.preventDefault();
-      const id = document.getElementById('task-id').value;
-      const payload = {
-        id: id || uid(),
+      db.tasks.unshift({
+        id: uid(),
         title: document.getElementById('task-title').value.trim(),
         deadline: document.getElementById('task-deadline').value,
         priority: document.getElementById('task-priority').value,
-        status: document.getElementById('task-status').value,
-        notes: document.getElementById('task-notes').value.trim()
-      };
-
-      if (id) {
-        const idx = db.tasks.findIndex(x => x.id === id);
-        if (idx > -1) db.tasks[idx] = payload;
-        showToast('Pekerjaan diperbarui!');
-      } else {
-        db.tasks.unshift(payload);
-        showToast('Pekerjaan baru ditambahkan!');
-      }
+        status: 'Belum Dikerjakan'
+      });
       closeModal('modal-task');
-      saveDatabase();
-    };
-
-    window.toggleTaskDone = function(id) {
-      const t = db.tasks.find(x => x.id === id);
-      if (t) {
-        t.status = t.status === 'Selesai' ? 'Belum Dikerjakan' : 'Selesai';
-        saveDatabase();
-        showToast(`Status pekerjaan: ${t.status}`);
-      }
-    };
-
-    window.deleteTask = function(id) {
-      const t = db.tasks.find(x => x.id === id);
-      askDeleteConfirmation(`Hapus pekerjaan "${t ? t.title : ''}"?`, () => {
-        db.tasks = db.tasks.filter(x => x.id !== id);
-        saveDatabase();
-        showToast('Pekerjaan dihapus');
-      });
-    };
-
-    window.renderTasks = function() {
-      const q = (document.getElementById('search-tasks')?.value || '').toLowerCase();
-      const sf = document.getElementById('filter-tasks-status')?.value || 'ALL';
-
-      const filtered = db.tasks.filter(t => {
-        const matchQ = t.title.toLowerCase().includes(q) || (t.notes || '').toLowerCase().includes(q);
-        const matchS = sf === 'ALL' || t.status === sf;
-        return matchQ && matchS;
-      });
-
-      const tbody = document.getElementById('tasks-table-body');
-      const mobileCards = document.getElementById('tasks-mobile-cards');
-      const empty = document.getElementById('tasks-empty');
-
-      if (filtered.length === 0) {
-        tbody.innerHTML = '';
-        mobileCards.innerHTML = '';
-        empty.classList.remove('hidden');
-        return;
-      }
-      empty.classList.add('hidden');
-
-      const prioBadge = (p) => {
-        const m = {
-          'Tinggi': 'bg-rose-50 text-rose-700 border-rose-200',
-          'Sedang': 'bg-amber-50 text-amber-700 border-amber-200',
-          'Rendah': 'bg-slate-100 text-slate-600 border-slate-200'
-        };
-        return `<span class="px-2.5 py-1 rounded-full text-xs font-bold border ${m[p] || m['Sedang']}">${escapeHtml(p)}</span>`;
-      };
-
-      tbody.innerHTML = filtered.map(t => `
-        <tr class="hover:bg-slate-50/80">
-          <td class="py-3.5 px-5">
-            <p class="font-bold ${t.status === 'Selesai' ? 'line-through text-slate-400' : 'text-slate-900'}">${escapeHtml(t.title)}</p>
-            <p class="text-xs text-slate-500">${escapeHtml(t.notes || '-')}</p>
-          </td>
-          <td class="py-3.5 px-4">
-            <p class="text-xs font-bold text-slate-700 mb-1">${formatDateID(t.deadline)}</p>
-            ${getDeadlineStatusBadge(t.deadline, t.status)}
-          </td>
-          <td class="py-3.5 px-4">${prioBadge(t.priority)}</td>
-          <td class="py-3.5 px-4">
-            <button onclick="toggleTaskDone('${t.id}')" class="px-3 py-1.5 rounded-xl text-xs font-bold border ${t.status === 'Selesai' ? 'bg-emerald-50 text-emerald-700 border-emerald-200' : 'bg-slate-100 text-slate-700 border-slate-200'}">
-              ${escapeHtml(t.status)}
-            </button>
-          </td>
-          <td class="py-3.5 px-5 text-right space-x-1">
-            <button onclick="openTaskModal('${t.id}')" class="px-2.5 py-1.5 rounded-lg border border-slate-200 text-xs font-bold text-slate-700 hover:bg-slate-100">Edit</button>
-            <button onclick="deleteTask('${t.id}')" class="px-2.5 py-1.5 rounded-lg border border-rose-200 text-xs font-bold text-rose-600 hover:bg-rose-50">Hapus</button>
-          </td>
-        </tr>
-      `).join('');
-
-      mobileCards.innerHTML = filtered.map(t => `
-        <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-sm space-y-2.5">
-          <div class="flex items-start justify-between gap-2">
-            <div>
-              <h4 class="font-bold text-sm ${t.status === 'Selesai' ? 'line-through text-slate-400' : 'text-slate-900'}">${escapeHtml(t.title)}</h4>
-              <p class="text-xs text-slate-500 mt-0.5">Deadline: ${formatDateID(t.deadline)}</p>
-            </div>
-            ${getDeadlineStatusBadge(t.deadline, t.status)}
-          </div>
-          <p class="text-xs text-slate-600">${escapeHtml(t.notes || '')}</p>
-          <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
-            <button onclick="toggleTaskDone('${t.id}')" class="px-3 py-1 rounded-lg bg-emerald-50 text-emerald-700 font-bold">
-              ${t.status === 'Selesai' ? 'Buka Kembali' : 'Tandai Selesai'}
-            </button>
-            <div class="space-x-1">
-              <button onclick="openTaskModal('${t.id}')" class="px-3 py-1 rounded-lg bg-slate-100 text-slate-700 font-bold">Edit</button>
-              <button onclick="deleteTask('${t.id}')" class="px-3 py-1 rounded-lg bg-rose-50 text-rose-600 font-bold">Hapus</button>
-            </div>
-          </div>
-        </div>
-      `).join('');
-    };
-
-    // ==================== 8. REPORT CENTER & EXPORT ====================
-    function getFilteredReportData() {
-      const period = document.getElementById('report-period')?.value || 'monthly';
-      const client = document.getElementById('report-client')?.value || 'ALL';
-      const now = new Date(todayISO());
-      const daysLimit = period === 'weekly' ? 7 : (period === 'monthly' ? 30 : 99999);
-
-      const withinDays = (dateStr) => {
-        if (!dateStr || daysLimit === 99999) return true;
-        const diff = Math.round((now - new Date(dateStr)) / (1000 * 60 * 60 * 24));
-        return diff >= 0 && diff <= daysLimit;
-      };
-
-      const perf = db.analytics.filter(a => withinDays(a.date) && (client === 'ALL' || a.client === client));
-      const aff = db.affiliates.filter(f => withinDays(f.date));
-      const contents = db.contents.filter(c => withinDays(c.date) && (client === 'ALL' || c.client === client));
-
-      return { perf, aff, contents, period, client };
-    }
-
-    window.renderReportCenter = function() {
-      const { perf, aff, contents, period, client } = getFilteredReportData();
-      const reportType = document.getElementById('report-type')?.value || 'all';
-
-      const periodName = period === 'weekly' ? 'Mingguan (7 Hari Terakhir)' : (period === 'monthly' ? 'Bulanan (30 Hari Terakhir)' : 'Seluruh Periode');
-      document.getElementById('report-header-title').textContent = `Laporan Performa ${periodName}`;
-      document.getElementById('report-header-meta').textContent = `Filter Klien: ${client === 'ALL' ? 'Semua Klien & Proyek' : client} • Disusun oleh Boby Anggara`;
-      document.getElementById('report-date-badge').textContent = `Tanggal Cetak: ${formatDateID(todayISO())}`;
-
-      const totalViews = perf.reduce((s, x) => s + Number(x.views || 0), 0);
-      const avgER = perf.length > 0 ? (perf.reduce((s, x) => s + Number(x.er || 0), 0) / perf.length).toFixed(2) : '0.00';
-      const totalFollowers = perf.reduce((s, x) => s + Number(x.followersGained || 0), 0);
-      const totalComm = aff.reduce((s, x) => s + Number(x.commission || 0), 0);
-
-      document.getElementById('rep-kpi-content').textContent = `${contents.length} Konten`;
-      document.getElementById('rep-kpi-views').textContent = `${formatNumber(totalViews)} (${avgER}%)`;
-      document.getElementById('rep-kpi-followers').textContent = `+${formatNumber(totalFollowers)}`;
-      document.getElementById('rep-kpi-commission').textContent = formatRupiah(totalComm);
-
-      const secPerf = document.getElementById('rep-sec-performance');
-      const secAff = document.getElementById('rep-sec-affiliate');
-      secPerf.classList.toggle('hidden', reportType === 'affiliate');
-      secAff.classList.toggle('hidden', reportType === 'performance');
-
-      const perfBody = document.getElementById('rep-table-performance');
-      perfBody.innerHTML = perf.length === 0
-        ? `<tr><td colspan="7" class="py-4 text-center text-slate-400">Belum ada data performa pada periode ini.</td></tr>`
-        : perf.map(p => `
-            <tr>
-              <td class="py-2 px-3">${formatDateID(p.date)}</td>
-              <td class="py-2 px-3 font-bold text-slate-900">${escapeHtml(p.title)}</td>
-              <td class="py-2 px-3">${escapeHtml(p.platform)}</td>
-              <td class="py-2 px-3">${formatNumber(p.views)}</td>
-              <td class="py-2 px-3">${formatNumber(p.reach)}</td>
-              <td class="py-2 px-3">${formatNumber(p.engagement)}</td>
-              <td class="py-2 px-3 font-bold text-indigo-600">${p.er}%</td>
-            </tr>`).join('');
-
-      const affBody = document.getElementById('rep-table-affiliate');
-      affBody.innerHTML = aff.length === 0
-        ? `<tr><td colspan="8" class="py-4 text-center text-slate-400">Belum ada data affiliate pada periode ini.</td></tr>`
-        : aff.map(f => `
-            <tr>
-              <td class="py-2 px-3">${formatDateID(f.date)}</td>
-              <td class="py-2 px-3 font-bold text-slate-900">${escapeHtml(f.product)}</td>
-              <td class="py-2 px-3">${escapeHtml(f.platform)}</td>
-              <td class="py-2 px-3">${formatNumber(f.clicks)}</td>
-              <td class="py-2 px-3">${formatNumber(f.orders)}</td>
-              <td class="py-2 px-3 font-bold text-amber-600">${f.cr}%</td>
-              <td class="py-2 px-3">${formatRupiah(f.gmv)}</td>
-              <td class="py-2 px-3 font-bold text-emerald-600">${formatRupiah(f.commission)}</td>
-            </tr>`).join('');
-    };
-
-    window.exportReportPDF = function() {
-      window.print();
+      saveToCloud();
+      showToast('Tugas tersimpan!');
     };
 
     window.exportReportCSV = function() {
-      const { perf, aff } = getFilteredReportData();
-      let csv = 'KATEGORI,TANGGAL,NAMA KONTEN / PRODUK,PLATFORM,VIEWS / KLIK,REACH / PESANAN,ER (%) / CR (%),FOLLOWERS / KOMISI (RP)\n';
-      perf.forEach(p => {
-        csv += `"Analitik Konten","${p.date}","${p.title.replace(/"/g, '""')}","${p.platform}",${p.views},${p.reach},${p.er},${p.followersGained}\n`;
-      });
-      aff.forEach(f => {
-        csv += `"Affiliate","${f.date}","${f.product.replace(/"/g, '""')}","${f.platform}",${f.clicks},${f.orders},${f.cr},${f.commission}\n`;
-      });
-
-      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-      const url = URL.createObjectURL(blob);
+      let csv = 'Kategori,Nama,Detail,Tanggal\n';
+      db.contents.forEach(c => csv += `"Konten","${c.title}","${c.platform}","${c.date}"\n`);
+      db.affiliates.forEach(f => csv += `"Affiliate","${f.product}","Komisi: ${f.commission}","-"\n`);
       const a = document.createElement('a');
-      a.href = url;
-      a.download = `Laporan_Boby_Creator_Studio_${todayISO()}.csv`;
+      a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv' }));
+      a.download = `laporan_boby_studio_${todayISO()}.csv`;
       a.click();
-      URL.revokeObjectURL(url);
-      showToast('Laporan CSV berhasil diunduh!');
     };
 
-    window.exportReportExcel = function() {
-      const content = document.getElementById('printable-report-area').innerHTML;
-      const html = `
-        <html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel">
-        <head><meta charset="UTF-8"></head>
-        <body>${content}</body></html>`;
-      const blob = new Blob([html], { type: 'application/vnd.ms-excel' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `Laporan_Boby_Creator_Studio_${todayISO()}.xls`;
-      a.click();
-      URL.revokeObjectURL(url);
-      showToast('Laporan Excel (.xls) berhasil diunduh!');
-    };
-
-    // ==================== 9. BACKUP & REALTIME FIREBASE CONNECTOR ====================
     window.downloadBackupJSON = function() {
-      const blob = new Blob([JSON.stringify(db, null, 2)], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
-      a.href = url;
-      a.download = `Backup_BobyCreatorStudio_${todayISO()}.json`;
+      a.href = URL.createObjectURL(new Blob([JSON.stringify(db, null, 2)], { type: 'application/json' }));
+      a.download = `backup_boby_studio_${todayISO()}.json`;
       a.click();
-      URL.revokeObjectURL(url);
-      showToast('File Backup (.json) berhasil diunduh!');
     };
 
-    window.restoreBackupJSON = function(e) {
-      const file = e.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = (ev) => {
-        try {
-          const parsed = JSON.parse(ev.target.result);
-          if (parsed && typeof parsed === 'object') {
-            db = {
-              clients: Array.isArray(parsed.clients) ? parsed.clients : [],
-              accounts: Array.isArray(parsed.accounts) ? parsed.accounts : [],
-              contents: Array.isArray(parsed.contents) ? parsed.contents : [],
-              analytics: Array.isArray(parsed.analytics) ? parsed.analytics : [],
-              affiliates: Array.isArray(parsed.affiliates) ? parsed.affiliates : [],
-              tasks: Array.isArray(parsed.tasks) ? parsed.tasks : []
-            };
-            saveDatabase();
-            showToast('Data backup berhasil dipulihkan!');
-          }
-        } catch (err) {
-          showToast('File backup tidak valid!', 'error');
-        }
-      };
-      reader.readAsText(file);
-    };
+    function refreshAll() {
+      document.getElementById('dash-total-clients').textContent = formatNumber(db.clients.length);
+      document.getElementById('dash-active-clients').textContent = `${db.clients.filter(c => c.status === 'Aktif').length} Aktif`;
+      document.getElementById('dash-total-accounts').textContent = formatNumber(db.accounts.length);
+      document.getElementById('dash-total-content').textContent = formatNumber(db.contents.length);
+      document.getElementById('dash-uploaded-content').textContent = `${db.contents.filter(c => c.status === 'Sudah upload').length} Sudah Upload`;
+      document.getElementById('dash-total-views').textContent = formatNumber(db.analytics.reduce((a, b) => a + Number(b.views || 0), 0));
+      document.getElementById('dash-total-followers').textContent = formatNumber(db.accounts.reduce((a, b) => a + Number(b.followers || 0), 0));
 
-    window.confirmResetAllData = function() {
-      askDeleteConfirmation('Apakah kamu yakin ingin menghapus seluruh data di browser ini hingga bersih?', () => {
-        db = { clients: [], accounts: [], contents: [], analytics: [], affiliates: [], tasks: [] };
-        saveDatabase();
-        showToast('Seluruh data berhasil dibersihkan');
-      });
-    };
+      const avgER = db.analytics.length > 0 ? (db.analytics.reduce((a, b) => a + Number(b.er || 0), 0) / db.analytics.length).toFixed(2) : 0;
+      document.getElementById('dash-avg-er').textContent = `${avgER}%`;
 
-    async function initFirebaseIfConfigured() {
-      let cfg = DEFAULT_FIREBASE_CONFIG;
-      const rawCfg = localStorage.getItem(FIREBASE_CFG_KEY);
-      if (rawCfg) {
-        try {
-          const parsed = JSON.parse(rawCfg);
-          if (parsed && parsed.apiKey && parsed.projectId) {
-            cfg = parsed;
-          }
-        } catch (e) {}
-      }
+      const affClicks = db.affiliates.reduce((a, b) => a + Number(b.clicks || 0), 0);
+      const affOrders = db.affiliates.reduce((a, b) => a + Number(b.orders || 0), 0);
+      document.getElementById('dash-aff-clicks').textContent = formatNumber(affClicks);
+      document.getElementById('dash-aff-cr').textContent = `CR: ${affClicks > 0 ? ((affOrders / affClicks) * 100).toFixed(2) : 0}%`;
+      document.getElementById('dash-aff-orders').textContent = formatNumber(affOrders);
+      document.getElementById('dash-aff-gmv').textContent = `GMV: ${formatRupiah(db.affiliates.reduce((a, b) => a + Number(b.gmv || 0), 0))}`;
+      document.getElementById('dash-aff-commission').textContent = formatRupiah(db.affiliates.reduce((a, b) => a + Number(b.commission || 0), 0));
 
-      if (document.getElementById('fb-apiKey')) document.getElementById('fb-apiKey').value = cfg.apiKey || '';
-      if (document.getElementById('fb-projectId')) document.getElementById('fb-projectId').value = cfg.projectId || '';
-      if (document.getElementById('fb-authDomain')) document.getElementById('fb-authDomain').value = cfg.authDomain || '';
-      if (document.getElementById('fb-appId')) document.getElementById('fb-appId').value = cfg.appId || '';
+      // Tables
+      document.getElementById('clients-table-body').innerHTML = db.clients.map(c => `<tr><td class="p-4 font-bold">${escapeHtml(c.name)} (${escapeHtml(c.brand)})</td><td class="p-4">${c.startDate}</td><td class="p-4">${escapeHtml(c.status)}</td><td class="p-4">-</td><td class="p-4 text-right"><button onclick="db.clients=db.clients.filter(x=>x.id!='${c.id}');saveToCloud();" class="text-rose-600 font-bold text-xs">Hapus</button></td></tr>`).join('');
+      document.getElementById('accounts-table-body').innerHTML = db.accounts.map(a => `<tr><td class="p-4 font-bold">${escapeHtml(a.name)} (${escapeHtml(a.username)})</td><td class="p-4">${escapeHtml(a.platform)}</td><td class="p-4">${escapeHtml(a.client)}</td><td class="p-4">${formatNumber(a.followers)}</td><td class="p-4 text-right"><button onclick="db.accounts=db.accounts.filter(x=>x.id!='${a.id}');saveToCloud();" class="text-rose-600 font-bold text-xs">Hapus</button></td></tr>`).join('');
+      document.getElementById('planner-table-body').innerHTML = db.contents.map(c => `<tr><td class="p-4"><span class="text-xs text-indigo-600 font-bold">${c.date}</span><p class="font-bold">${escapeHtml(c.title)}</p></td><td class="p-4">${escapeHtml(c.platform)}</td><td class="p-4">${escapeHtml(c.pillar)}</td><td class="p-4 font-bold">${escapeHtml(c.status)}</td><td class="p-4 text-right"><button onclick="db.contents=db.contents.filter(x=>x.id!='${c.id}');saveToCloud();" class="text-rose-600 font-bold text-xs">Hapus</button></td></tr>`).join('');
+      document.getElementById('analytics-table-body').innerHTML = db.analytics.map(a => `<tr><td class="p-4"><span class="text-xs text-indigo-600 font-bold">${a.date}</span><p class="font-bold">${escapeHtml(a.title)}</p></td><td class="p-4">${escapeHtml(a.platform)}</td><td class="p-4 font-bold">${formatNumber(a.views)}</td><td class="p-4">${formatNumber(a.likes + a.comments)}</td><td class="p-4 font-bold text-rose-600">${a.er}%</td><td class="p-4 text-right"><button onclick="db.analytics=db.analytics.filter(x=>x.id!='${a.id}');saveToCloud();" class="text-rose-600 font-bold text-xs">Hapus</button></td></tr>`).join('');
+      document.getElementById('affiliate-table-body').innerHTML = db.affiliates.map(f => `<tr><td class="p-4 font-bold">${escapeHtml(f.product)}</td><td class="p-4">${formatNumber(f.clicks)}</td><td class="p-4">${formatNumber(f.orders)}</td><td class="p-4 font-bold text-amber-600">${f.cr}%</td><td class="p-4">${formatRupiah(f.gmv)}</td><td class="p-4 font-bold text-emerald-600">${formatRupiah(f.commission)}</td><td class="p-4 text-right"><button onclick="db.affiliates=db.affiliates.filter(x=>x.id!='${f.id}');saveToCloud();" class="text-rose-600 font-bold text-xs">Hapus</button></td></tr>`).join('');
+      document.getElementById('tasks-table-body').innerHTML = db.tasks.map(t => `<tr><td class="p-4 font-bold">${escapeHtml(t.title)}</td><td class="p-4">${t.deadline}</td><td class="p-4">${escapeHtml(t.priority)}</td><td class="p-4">${escapeHtml(t.status)}</td><td class="p-4 text-right"><button onclick="db.tasks=db.tasks.filter(x=>x.id!='${t.id}');saveToCloud();" class="text-rose-600 font-bold text-xs">Hapus</button></td></tr>`).join('');
 
-      try {
-        const app = initializeApp(cfg);
-        firestoreDb = getFirestore(app);
-        const docRef = doc(firestoreDb, 'bobyStudioWorkspace', 'mainData');
+      // Tasks Badge & Upcoming
+      const pending = db.tasks.filter(t => t.status !== 'Selesai');
+      const badge = document.getElementById('sidebar-task-badge');
+      if (pending.length > 0) { badge.textContent = pending.length; badge.classList.remove('hidden'); } else { badge.classList.add('hidden'); }
+      document.getElementById('dash-upcoming-list').innerHTML = pending.length === 0 ? '<p class="text-xs text-slate-400">Tidak ada tugas tertunda.</p>' :
+        pending.slice(0, 4).map(t => `<div class="p-2.5 rounded-xl border border-slate-100 text-xs"><p class="font-bold text-slate-900">${escapeHtml(t.title)}</p><p class="text-slate-500">Deadline: ${t.deadline}</p></div>`).join('');
 
-        // Pasang Realtime Listener (onSnapshot) agar perubahan di HP/Laptop langsung sinkron otomatis
-        if (unsubscribeRealtime) unsubscribeRealtime();
-        unsubscribeRealtime = onSnapshot(docRef, (snap) => {
-          if (snap.exists()) {
-            const cloudData = snap.data();
-            if (cloudData && cloudData.payload) {
-              isApplyingCloudUpdate = true;
-              const parsed = JSON.parse(cloudData.payload);
-              db = {
-                clients: Array.isArray(parsed.clients) ? parsed.clients : [],
-                accounts: Array.isArray(parsed.accounts) ? parsed.accounts : [],
-                contents: Array.isArray(parsed.contents) ? parsed.contents : [],
-                analytics: Array.isArray(parsed.analytics) ? parsed.analytics : [],
-                affiliates: Array.isArray(parsed.affiliates) ? parsed.affiliates : [],
-                tasks: Array.isArray(parsed.tasks) ? parsed.tasks : []
-              };
-              localStorage.setItem(STORAGE_KEY, JSON.stringify(db));
-              refreshAllViews();
-              isApplyingCloudUpdate = false;
-            }
-          } else {
-            pushToFirestoreSilent();
-          }
-          setStorageStatusUI(true);
-        }, (err) => {
-          console.error('Error Realtime Firestore:', err);
-          setStorageStatusUI(false);
-          showToast('Koneksi Cloud tertolak: Cek tab Rules di Firebase Console', 'error');
+      // Chart
+      const ctx = document.getElementById('dashboardChart');
+      if (ctx) {
+        if (chartInstance) chartInstance.destroy();
+        const sorted = [...db.analytics].slice(-7);
+        chartInstance = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: sorted.map(x => x.title.slice(0, 10)),
+            datasets: [{ label: 'Views', data: sorted.map(x => x.views), backgroundColor: '#4f46e5', borderRadius: 6 }]
+          },
+          options: { responsive: true, maintainAspectRatio: false }
         });
-      } catch (err) {
-        console.warn('Koneksi Firebase belum aktif:', err);
-        setStorageStatusUI(false);
       }
-    }
 
-    async function pushToFirestoreSilent() {
-      if (!firestoreDb) return;
-      try {
-        await setDoc(doc(firestoreDb, 'bobyStudioWorkspace', 'mainData'), {
-          payload: JSON.stringify(db),
-          updatedAt: new Date().toISOString()
-        });
-        setStorageStatusUI(true);
-      } catch (err) {
-        console.warn('Gagal sinkronisasi ke Firestore:', err);
-      }
-    }
-
-    window.saveFirebaseConfig = async function(e) {
-      e.preventDefault();
-      const cfg = {
-        apiKey: document.getElementById('fb-apiKey').value.trim(),
-        projectId: document.getElementById('fb-projectId').value.trim(),
-        authDomain: document.getElementById('fb-authDomain').value.trim(),
-        appId: document.getElementById('fb-appId').value.trim()
-      };
-      if (!cfg.apiKey || !cfg.projectId) {
-        showToast('API Key dan Project ID wajib diisi!', 'error');
-        return;
-      }
-      localStorage.setItem(FIREBASE_CFG_KEY, JSON.stringify(cfg));
-      showToast('Menghubungkan ke Firebase Firestore...');
-      await initFirebaseIfConfigured();
-    };
-
-    window.syncWithFirebaseNow = async function() {
-      await pushToFirestoreSilent();
-      showToast('Data berhasil disinkronkan ke Cloud Firestore!');
-    };
-
-    window.disconnectFirebase = function() {
-      if (unsubscribeRealtime) unsubscribeRealtime();
-      localStorage.removeItem(FIREBASE_CFG_KEY);
-      firestoreDb = null;
-      setStorageStatusUI(false);
-      showToast('Koneksi Firebase diputuskan. Kembali ke mode Lokal.');
-    };
-
-    function setStorageStatusUI(isCloud) {
-      const fbBadge = document.getElementById('firebase-status-badge');
-      const syncBtn = document.getElementById('btn-firebase-sync');
-      const headerLabel = document.getElementById('header-storage-label');
-      const headerDot = document.getElementById('header-storage-dot');
-      const deskBadge = document.getElementById('storage-badge-desktop');
-      const deskDesc = document.getElementById('storage-desc-desktop');
-
-      if (isCloud) {
-        if (fbBadge) {
-          fbBadge.textContent = 'Terhubung ke Cloud Firestore';
-          fbBadge.className = 'px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700';
-        }
-        if (syncBtn) syncBtn.classList.remove('hidden');
-        if (headerLabel) headerLabel.textContent = 'Cloud + Lokal Aktif';
-        if (headerDot) headerDot.className = 'w-2 h-2 rounded-full bg-sky-500';
-        if (deskBadge) deskBadge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span> Cloud + Lokal`;
-        if (deskDesc) deskDesc.textContent = 'Data tersimpan di browser dan tersinkronisasi realtime ke Firebase Firestore.';
-      } else {
-        if (fbBadge) {
-          fbBadge.textContent = 'Belum Terhubung (Mode Lokal)';
-          fbBadge.className = 'px-2.5 py-1 rounded-full text-[11px] font-bold bg-slate-100 text-slate-600';
-        }
-        if (syncBtn) syncBtn.classList.add('hidden');
-        if (headerLabel) headerLabel.textContent = 'Penyimpanan Lokal';
-        if (headerDot) headerDot.className = 'w-2 h-2 rounded-full bg-emerald-500';
-        if (deskBadge) deskBadge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Lokal Aktif`;
-        if (deskDesc) deskDesc.textContent = 'Tersimpan otomatis di perangkat ini. Aman saat di-refresh.';
-      }
-    }
-
-    // --- REFRESH ALL VIEWS ---
-    function refreshAllViews() {
-      populateClientSelects();
-      updateDeadlineReminders();
-      renderDashboard();
-      renderClients();
-      renderAccounts();
-      renderPlanner();
-      renderAnalytics();
-      renderAffiliate();
-      renderTasks();
-      renderReportCenter();
       if (window.lucide) window.lucide.createIcons();
     }
 
-    // --- INITIALIZE APP ---
     window.addEventListener('DOMContentLoaded', () => {
-      loadDatabase();
+      initRealtime();
       switchTab('dashboard');
-      initFirebaseIfConfigured();
     });
   </script>
 </body>
