@@ -1510,18 +1510,101 @@
 
   <!-- ==================== APPLICATION JAVASCRIPT ==================== -->
   <script type="module">
-    // --- STATE & STORAGE KEYS ---
-    const STORAGE_KEY = 'BOBY_CREATOR_STUDIO_DB_V1';
-    const FIREBASE_CFG_KEY = 'BOBY_CREATOR_STUDIO_FB_CFG';
+<!-- SCRIPT UTAMA & FIREBASE CLOUD FIRESTORE -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-    let db = {
-      clients: [],
-      accounts: [],
-      contents: [],
-      analytics: [],
-      affiliates: [],
-      tasks: []
+    // Konfigurasi Firebase milik Boby Anggara
+    const firebaseConfig = {
+      apiKey: "AIzaSyBts_aqGp_1EosViZfHink-eJDpV9QAijw",
+      authDomain: "boby-creator-studio.firebaseapp.com",
+      projectId: "boby-creator-studio",
+      storageBucket: "boby-creator-studio.appspot.com",
+      messagingSenderId: "133686903556",
+      appId: "1:133686903556:web:ff7cf35c3b02fb95860651",
+      measurementId: "G-YDEGTXNBT"
     };
+
+    const app = initializeApp(firebaseConfig);
+    const firestoreDb = getFirestore(app);
+
+    const STORAGE_KEY = 'BOBY_CREATOR_STUDIO_DB_V2';
+    let db = { clients: [], accounts: [], contents: [], analytics: [], affiliates: [], tasks: [] };
+    let activeTab = 'dashboard';
+    let dashChartMode = 'weekly';
+    let plannerViewMode = 'list';
+    let currentCalendarDate = new Date();
+    let dashboardChartInstance = null;
+    let analyticsChartInstance = null;
+
+    async function loadDatabase() {
+      try {
+        const snap = await getDoc(doc(firestoreDb, 'bobyStudioWorkspace', 'mainData'));
+        if (snap.exists() && snap.data().payload) {
+          db = JSON.parse(snap.data().payload);
+        } else {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (raw) db = JSON.parse(raw);
+        }
+      } catch (err) {
+        console.warn('Gagal memuat dari Cloud, menggunakan LocalStorage:', err);
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) db = JSON.parse(raw);
+      }
+      refreshAllViews();
+    }
+
+    async function saveDatabase() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(db));
+        await setDoc(doc(firestoreDb, 'bobyStudioWorkspace', 'mainData'), {
+          payload: JSON.stringify(db),
+          updatedAt: new Date().toISOString()
+        });
+      } catch (err) {
+        console.error('Gagal menyimpan ke Firebase:', err);
+      }
+      refreshAllViews();
+    }
+
+    function uid() { return 'id_' + Date.now().toString(36) + '_' + Math.random().toString(36).substring(2, 7); }
+    function todayISO() { return new Date().toISOString().split('T')[0]; }
+    function formatNumber(num) { return Number(num || 0).toLocaleString('id-ID'); }
+    function formatRupiah(num) { return 'Rp ' + Number(num || 0).toLocaleString('id-ID'); }
+    function formatDateID(dateStr) {
+      if (!dateStr) return '-';
+      const parts = dateStr.split('-');
+      if (parts.length !== 3) return dateStr;
+      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+      return `${parts[2]} ${months[parseInt(parts[1], 10) - 1]} ${parts[0]}`;
+    }
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+    function showToast(message, type = 'success') {
+      const container = document.getElementById('toast-container');
+      const el = document.createElement('div');
+      el.className = `pointer-events-auto flex items-center gap-2.5 px-4 py-3 rounded-xl shadow-lg border-l-4 ${type === 'success' ? 'bg-slate-900 text-white border-emerald-500' : 'bg-rose-600 text-white border-rose-300'} text-xs font-bold transition-all`;
+      el.innerHTML = `<span>${escapeHtml(message)}</span>`;
+      container.appendChild(el);
+      setTimeout(() => el.remove(), 3000);
+    }
+
+    window.switchTab = function(tabName) {
+      activeTab = tabName;
+      document.querySelectorAll('.tab-section').forEach(sec => sec.classList.add('hidden'));
+      document.getElementById(`sec-${tabName}`).classList.remove('hidden');
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.className = btn.dataset.tab === tabName 
+          ? 'nav-btn w-full flex items-center justify-between gap-3 px-3.5 py-3 rounded-xl text-sm font-bold bg-indigo-600 text-white shadow-sm transition-all'
+          : 'nav-btn w-full flex items-center justify-between gap-3 px-3.5 py-3 rounded-xl text-sm font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition-all';
+      });
+      refreshAllViews();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
 
     let activeTab = 'dashboard';
     let dashChartMode = 'weekly';
