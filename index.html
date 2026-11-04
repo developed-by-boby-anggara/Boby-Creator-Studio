@@ -1,132 +1,1826 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#111827">
-<meta name="description" content="BOBY CREATOR STUDIO — Social Media Management Command Center">
-<title>BOBY CREATOR STUDIO 3.0</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://unpkg.com/lucide@latest"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
-<style>
-*{box-sizing:border-box}body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;background:#f5f7fb;color:#172033}
-.dark body{background:#0b1220;color:#e5e7eb}.dark .surface{background:#111c2e!important;border-color:#263449!important;color:#e5e7eb}
-.dark .muted{color:#a7b3c5!important}.dark input,.dark select,.dark textarea{background:#0f1a2b!important;color:#f8fafc!important;border-color:#334155!important}
-.dark table thead{background:#172438!important}.dark table td{border-color:#263449!important}
-.nav-active{background:#3730a3;color:#fff}.nav-item{color:#cbd5e1}.nav-item:hover{background:#263449;color:#fff}
-.surface{background:#fff;border:1px solid #e5eaf2;border-radius:18px;box-shadow:0 5px 20px rgba(15,23,42,.035)}
-.field{width:100%;border:1px solid #dbe2ec;border-radius:11px;padding:10px 12px;background:#fff;color:#172033;font-size:13px;outline:none}
-.field:focus{border-color:#6366f1;box-shadow:0 0 0 3px rgba(99,102,241,.12)}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 14px;border-radius:11px;font-size:12px;font-weight:750;transition:.18s}
-.btn-primary{background:#4f46e5;color:#fff}.btn-primary:hover{background:#4338ca}
-.btn-soft{background:#eef2ff;color:#4338ca}.btn-danger{background:#fff1f2;color:#be123c}
-.btn-dark{background:#172033;color:white}.pill{display:inline-flex;padding:4px 9px;border-radius:999px;font-size:10px;font-weight:800}
-th{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#64748b;background:#f8fafc;padding:13px;text-align:left;white-space:nowrap}
-td{font-size:12px;padding:13px;border-top:1px solid #edf0f5;vertical-align:middle}
-.modal-backdrop{background:rgba(2,6,23,.62);backdrop-filter:blur(5px)}
-@media print{aside,header,.no-print,.toolbar{display:none!important}main{padding:0!important;margin:0!important}.surface{box-shadow:none;border:0}}
-</style>
-</head>
-<body>
-<div class="min-h-screen">
-<aside class="hidden lg:flex fixed inset-y-0 left-0 w-64 bg-slate-950 text-white flex-col z-30">
- <div class="p-5 border-b border-slate-800">
-  <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 grid place-items-center"><i data-lucide="sparkles"></i></div><div><div class="font-black text-sm tracking-tight">BOBY CREATOR</div><div class="text-[10px] text-slate-400">STUDIO 3.0 · COMMAND CENTER</div></div></div>
- </div>
- <nav id="sidebarNav" class="p-3 space-y-1 flex-1 overflow-y-auto"></nav>
- <div class="p-4 border-t border-slate-800"><div class="text-[10px] text-slate-400">PENYIMPANAN</div><div id="storageStatus" class="text-xs font-bold text-emerald-300 mt-1">● Tersimpan di perangkat</div><p class="text-[10px] text-slate-500 mt-1">Backup rutin dianjurkan.</p></div>
-</aside>
-<div class="lg:ml-64 min-h-screen">
-<header class="sticky top-0 z-20 bg-white/90 dark:bg-slate-950/90 backdrop-blur border-b border-slate-200 dark:border-slate-800 px-4 md:px-7 py-3 flex items-center justify-between">
- <div class="flex items-center gap-3"><button class="lg:hidden p-2 rounded-lg bg-slate-100 text-slate-700" onclick="toggleMobileNav()"><i data-lucide="menu"></i></button><div><h1 id="pageTitle" class="font-black text-base md:text-lg">Dashboard</h1><p id="pageSub" class="text-[11px] text-slate-500">Ringkasan aktivitas creator dan bisnis</p></div></div>
- <div class="flex items-center gap-2"><span id="todayLabel" class="hidden sm:block text-[11px] text-slate-500"></span><button class="btn btn-soft" onclick="toggleTheme()" title="Mode gelap/terang"><i data-lucide="moon" class="w-4 h-4"></i></button><button class="btn btn-dark" onclick="openQuickAdd()"><i data-lucide="plus" class="w-4 h-4"></i><span class="hidden sm:inline">Tambah Data</span></button></div>
-</header>
-<div id="mobileNav" class="hidden lg:hidden bg-slate-950 p-3 grid grid-cols-2 gap-1"></div>
-<main class="p-4 md:p-7 max-w-[1500px] mx-auto">
- <section id="view"></section>
-</main>
-</div>
-</div>
-<div id="modalRoot"></div>
-<div id="toast" class="fixed bottom-5 right-5 z-[100] hidden bg-slate-950 text-white px-4 py-3 rounded-xl shadow-xl text-xs"></div>
-<script>
-const DBKEY='boby_creator_studio_v3';
-const modules={
- dashboard:{label:'Dashboard',icon:'layout-dashboard',sub:'Ringkasan aktivitas creator dan bisnis'},
- clients:{label:'Manajemen Klien',icon:'briefcase-business',sub:'Kelola brand, klien, dan kerja sama'},
- accounts:{label:'Akun Media Sosial',icon:'share-2',sub:'Daftar akun dan perkembangan followers'},
- planner:{label:'Content Planner',icon:'calendar-days',sub:'Rencana, produksi, dan publikasi konten'},
- analytics:{label:'Social Media Analytics',icon:'chart-no-axes-combined',sub:'Pantau performa konten dan engagement'},
- affiliate:{label:'Affiliate Tracker',icon:'shopping-bag',sub:'Klik, pesanan, GMV, dan komisi'},
- finance:{label:'Finance & Profit',icon:'wallet',sub:'Pendapatan, piutang, dan pengeluaran'},
- tasks:{label:'Task Management',icon:'list-checks',sub:'Daftar pekerjaan dan deadline'},
- assets:{label:'Asset & Approval',icon:'folder-kanban',sub:'Link aset, materi, dan persetujuan'},
- reports:{label:'Report Center',icon:'file-spreadsheet',sub:'Rekap dan ekspor laporan'},
- settings:{label:'Backup & Pengaturan',icon:'settings',sub:'Cadangkan, pulihkan, dan kelola preferensi'}
-};
-const schemas={
- clients:{title:'Klien / Brand',fields:[['name','Nama klien','text',true],['contact','Kontak / PIC','text'],['email','Email','email'],['service','Layanan','text'],['fee','Nilai kerja sama (Rp)','number'],['status','Status','select',['Aktif','Prospek','Selesai']],['notes','Catatan','textarea']]},
- accounts:{title:'Akun Media Sosial',fields:[['name','Nama akun / username','text',true],['platform','Platform','select',['TikTok','Instagram','YouTube','Facebook','Shopee','Lainnya']],['client','Klien terkait','text'],['url','Link akun','url'],['followers','Followers','number'],['status','Status','select',['Aktif','Nonaktif']],['notes','Catatan','textarea']]},
- planner:{title:'Rencana Konten',fields:[['date','Tanggal publikasi','date',true],['title','Judul konten','text',true],['platform','Platform','select',['TikTok','Instagram','YouTube','Facebook','Shopee']],['client','Klien / proyek','text'],['format','Format konten','select',['Video pendek','Carousel / Foto','Story','Live Streaming','Video panjang']],['status','Status produksi','select',['Ide','Brief','Produksi','Editing','Review','Terjadwal','Terbit']],['hook','Hook','text'],['caption','Caption','textarea'],['link','Link konten','url']]},
- analytics:{title:'Data Performa Konten',fields:[['date','Tanggal upload','date',true],['title','Nama konten','text',true],['platform','Platform','select',['TikTok','Instagram','YouTube','Facebook','Shopee']],['client','Klien','text'],['views','Views','number'],['reach','Reach','number'],['likes','Likes','number'],['comments','Comments','number'],['shares','Shares','number'],['saves','Saves','number'],['followers','Followers bertambah','number']]},
- affiliate:{title:'Produk Affiliate',fields:[['date','Tanggal','date',true],['product','Nama produk','text',true],['platform','Platform','select',['Shopee','TikTok Shop','Instagram / Lainnya']],['link','Link affiliate','url'],['clicks','Klik','number'],['orders','Pesanan','number'],['gmv','GMV (Rp)','number'],['commission','Komisi estimasi (Rp)','number'],['actual','Komisi cair (Rp)','number']]},
- finance:{title:'Transaksi Keuangan',fields:[['date','Tanggal','date',true],['title','Deskripsi transaksi','text',true],['type','Jenis transaksi','select',['Pendapatan Klien','Komisi Affiliate','Pengeluaran']],['client','Klien / kategori','text'],['amount','Nominal (Rp)','number',true],['status','Status pembayaran','select',['Lunas','Belum Dibayar']]]},
- tasks:{title:'Pekerjaan / Tugas',fields:[['title','Nama pekerjaan','text',true],['deadline','Deadline','date',true],['priority','Prioritas','select',['Tinggi','Sedang','Rendah']],['status','Status','select',['Belum Dikerjakan','Sedang Dikerjakan','Selesai']],['notes','Catatan','textarea']]},
- assets:{title:'Asset & Approval',fields:[['title','Nama aset / materi','text',true],['client','Klien','text'],['type','Jenis','select',['Video','Foto','Brief','Dokumen','Link lainnya']],['url','Link Google Drive / aset','url'],['approval','Status approval','select',['Menunggu','Disetujui','Revisi']],['notes','Catatan','textarea']]}
-};
-let state=loadDB(),active='dashboard',chart=null;
-function loadDB(){try{return Object.assign({clients:[],accounts:[],planner:[],analytics:[],affiliate:[],finance:[],tasks:[],assets:[]},JSON.parse(localStorage.getItem(DBKEY)||'{}'))}catch(e){return {clients:[],accounts:[],planner:[],analytics:[],affiliate:[],finance:[],tasks:[],assets:[]}}}
-function persist(){localStorage.setItem(DBKEY,JSON.stringify(state));$('storageStatus').textContent='● Tersimpan di perangkat';}
-function $(id){return document.getElementById(id)}
-function esc(v=''){return String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function money(n){return 'Rp '+Number(n||0).toLocaleString('id-ID')}
-function num(n){return Number(n||0).toLocaleString('id-ID')}
-function today(){return new Date().toISOString().slice(0,10)}
-function toast(msg){const t=$('toast');t.textContent=msg;t.classList.remove('hidden');clearTimeout(window._toast);window._toast=setTimeout(()=>t.classList.add('hidden'),2600)}
-function navHTML(){return Object.entries(modules).map(([k,m])=>`<button onclick="go('${k}')" class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left text-xs font-bold ${active===k?'nav-active':''}"><i data-lucide="${m.icon}" class="w-4 h-4"></i>${m.label}</button>`).join('')}
-function refreshNav(){$('sidebarNav').innerHTML=navHTML();$('mobileNav').innerHTML=navHTML();if(window.lucide)lucide.createIcons()}
-function go(k){active=k;$('pageTitle').textContent=modules[k].label;$('pageSub').textContent=modules[k].sub;$('mobileNav').classList.add('hidden');render();refreshNav();window.scrollTo({top:0,behavior:'smooth'})}
-function toggleMobileNav(){$('mobileNav').classList.toggle('hidden')}
-function toggleTheme(){document.documentElement.classList.toggle('dark');localStorage.setItem('boby_theme',document.documentElement.classList.contains('dark')?'dark':'light')}
-function render(){if(active==='dashboard')renderDashboard();else if(active==='settings')renderSettings();else if(active==='reports')renderReports();else renderModule(active);if(window.lucide)lucide.createIcons()}
-function card(label,value,icon,color='indigo',sub=''){return `<div class="surface p-4"><div class="flex items-start justify-between"><div><p class="text-xs text-slate-500 muted font-semibold">${label}</p><div class="text-2xl font-black mt-2">${value}</div><p class="text-[10px] text-slate-400 mt-1">${sub}</p></div><div class="w-10 h-10 rounded-xl bg-${color}-50 text-${color}-600 grid place-items-center"><i data-lucide="${icon}"></i></div></div></div>`}
-function renderDashboard(){
- const views=state.analytics.reduce((a,x)=>a+ +x.views,0), reach=state.analytics.reduce((a,x)=>a+ +x.reach,0),eng=state.analytics.reduce((a,x)=>a+ +x.likes + +x.comments + +x.shares + +x.saves,0);
- const paid=state.finance.filter(x=>x.status==='Lunas'&&x.type!=='Pengeluaran').reduce((a,x)=>a+ +x.amount,0),expense=state.finance.filter(x=>x.type==='Pengeluaran').reduce((a,x)=>a+ +x.amount,0);
- const overdue=state.tasks.filter(x=>x.status!=='Selesai'&&x.deadline&&x.deadline<today()).length;
- $('view').innerHTML=`<div class="rounded-2xl p-6 md:p-8 text-white bg-gradient-to-br from-slate-950 via-indigo-950 to-violet-950 mb-5"><div class="flex flex-col md:flex-row md:items-center justify-between gap-5"><div><span class="pill bg-indigo-500/20 text-indigo-200">CREATOR COMMAND CENTER · 3.0</span><h2 class="text-2xl md:text-3xl font-black mt-3">Halo, Creator! 👋</h2><p class="text-sm text-slate-300 mt-2">Kelola konten, klien, performa, affiliate, dan keuangan dalam satu tempat.</p></div><div class="flex gap-2 flex-wrap"><button class="btn bg-white text-indigo-900" onclick="go('planner');openForm('planner')">＋ Buat Konten</button><button class="btn bg-white/10 border border-white/20 text-white" onclick="go('analytics');openForm('analytics')">Input Analitik</button></div></div></div>
- <div class="grid grid-cols-2 xl:grid-cols-4 gap-3 mb-5">${card('Total Klien',state.clients.length,'briefcase-business')}${card('Akun Dikelola',state.accounts.length,'share-2','violet')}${card('Konten Direncanakan',state.planner.length,'calendar-days','sky')}${card('Total Views',num(views),'eye','cyan')}${card('Engagement',num(eng),'heart','rose')}${card('Produk Affiliate',state.affiliate.length,'shopping-bag','amber')}${card('Pendapatan Lunas',money(paid),'wallet','emerald')}${card('Deadline Terlambat',overdue,'alarm-clock','rose')}</div>
- <div class="grid xl:grid-cols-3 gap-4"><div class="surface p-5 xl:col-span-2"><div class="flex justify-between items-center mb-4"><div><h3 class="font-black">Performa Konten</h3><p class="text-xs text-slate-500 muted">Total views berdasarkan data analitik</p></div><button class="btn btn-soft" onclick="go('analytics')">Lihat detail</button></div><div class="h-64"><canvas id="dashChart"></canvas></div></div><div class="surface p-5"><h3 class="font-black mb-3">Aktivitas Berikutnya</h3>${state.tasks.filter(x=>x.status!=='Selesai').sort((a,b)=>(a.deadline||'').localeCompare(b.deadline||'')).slice(0,6).map(t=>`<div class="py-3 border-b border-slate-100 dark:border-slate-700"><div class="font-bold text-xs">${esc(t.title)}</div><div class="text-[10px] text-slate-500 mt-1">${esc(t.deadline||'-')} · ${esc(t.status)}</div></div>`).join('')||'<p class="text-xs text-slate-400 py-5">Belum ada tugas aktif.</p>'}<button class="btn btn-soft w-full mt-4" onclick="go('tasks')">Buka Task Management</button></div></div>`;
- if(window.lucide)lucide.createIcons();const ctx=$('dashChart');if(chart)chart.destroy();chart=new Chart(ctx,{type:'bar',data:{labels:state.analytics.slice(-8).map(x=>x.title.slice(0,16)),datasets:[{label:'Views',data:state.analytics.slice(-8).map(x=>+x.views||0),backgroundColor:'#6366f1',borderRadius:7}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}}}});
-}
-function renderModule(k){
- const s=schemas[k],items=state[k]||[];
- const rows=items.map(x=>`<tr>${s.fields.slice(0,Math.min(s.fields.length,6)).map(f=>`<td>${formatCell(f[0],x[f[0]])}</td>`).join('')}<td class="text-right whitespace-nowrap"><button class="btn btn-soft !p-2" onclick="openForm('${k}','${x.id}')"><i data-lucide="pencil" class="w-3.5 h-3.5"></i></button> <button class="btn btn-danger !p-2" onclick="removeItem('${k}','${x.id}')"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button></td></tr>`).join('');
- $('view').innerHTML=`<div class="surface p-4 md:p-5 mb-4"><div class="flex flex-col md:flex-row md:items-center justify-between gap-3"><div><h2 class="font-black text-lg">${s.title}</h2><p class="text-xs text-slate-500 muted mt-1">${items.length} data tersimpan · gunakan pencarian untuk menemukan data</p></div><button class="btn btn-primary" onclick="openForm('${k}')"><i data-lucide="plus" class="w-4 h-4"></i> Tambah ${s.title}</button></div><div class="mt-4"><input id="tableSearch" class="field max-w-md" placeholder="Cari data..." oninput="filterRows()"></div></div>
- <div class="surface overflow-hidden"><div class="overflow-x-auto"><table class="w-full"><thead><tr>${s.fields.slice(0,Math.min(s.fields.length,6)).map(f=>`<th>${f[1]}</th>`).join('')}<th class="text-right">Aksi</th></tr></thead><tbody id="dataRows">${rows||`<tr><td colspan="10" class="text-center py-12"><div class="font-bold text-slate-500">Belum ada data</div><p class="text-xs text-slate-400 mt-1">Klik tombol Tambah untuk mulai mencatat.</p></td></tr>`}</tbody></table></div></div>`;
- if(window.lucide)lucide.createIcons();
-}
-function formatCell(key,v){if(v===undefined||v===null||v==='')return '<span class="text-slate-300">—</span>';if(['fee','amount','gmv','commission','actual'].includes(key))return `<span class="font-bold">${money(v)}</span>`;if(['views','reach','likes','comments','shares','saves','followers','clicks','orders'].includes(key))return num(v);if(key==='status'||key==='approval')return `<span class="pill bg-indigo-50 text-indigo-700">${esc(v)}</span>`;if(key==='url'||key==='link')return `<a class="text-indigo-600 underline" href="${esc(v)}" target="_blank" rel="noopener">Buka link</a>`;return esc(v)}
-function filterRows(){const q=$('tableSearch').value.toLowerCase();document.querySelectorAll('#dataRows tr').forEach(tr=>tr.style.display=tr.innerText.toLowerCase().includes(q)?'':'none')}
-function openForm(k,id=''){const s=schemas[k],old=(state[k]||[]).find(x=>x.id===id)||{};const fields=s.fields.map(f=>{const [key,label,type,required,opts]=f;let val=old[key]??(type==='date'?today():'');let input=type==='textarea'?`<textarea class="field" name="${key}" rows="3">${esc(val)}</textarea>`:type==='select'?`<select class="field" name="${key}">${opts.map(o=>`<option ${val===o?'selected':''}>${esc(o)}</option>`).join('')}</select>`:`<input class="field" name="${key}" type="${type}" ${type==='number'?'min="0"':''} value="${esc(val)}" ${required===true?'required':''}>`;return `<label class="block"><span class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1.5">${label}${required===true?' *':''}</span>${input}</label>`}).join('');
- $('modalRoot').innerHTML=`<div class="modal-backdrop fixed inset-0 z-50 flex items-center justify-center p-3" onclick="if(event.target===this)closeModal()"><div class="surface w-full max-w-2xl max-h-[92vh] overflow-y-auto p-5 md:p-6"><div class="flex justify-between items-center mb-5"><div><h3 class="font-black text-lg">${id?'Edit':'Tambah'} ${s.title}</h3><p class="text-xs text-slate-500 mt-1">Isi informasi di bawah, lalu simpan.</p></div><button class="btn btn-soft" onclick="closeModal()">✕</button></div><form id="recordForm" class="grid sm:grid-cols-2 gap-4">${fields}<div class="sm:col-span-2 flex justify-end gap-2 pt-3 border-t border-slate-100"><button type="button" class="btn btn-soft" onclick="closeModal()">Batal</button><button class="btn btn-primary" type="submit">Simpan Data</button></div></form></div></div>`;
- $('recordForm').onsubmit=e=>{e.preventDefault();const fd=new FormData(e.target),obj={id:id||crypto.randomUUID(),updatedAt:new Date().toISOString()};for(const [key,value] of fd)obj[key]=value;let arr=state[k]||[];const ix=arr.findIndex(x=>x.id===id);if(ix>=0)arr[ix]=obj;else arr.unshift(obj);state[k]=arr;persist();closeModal();render();toast('Data berhasil disimpan.')};
-}
-function closeModal(){$('modalRoot').innerHTML=''}
-function removeItem(k,id){if(!confirm('Hapus data ini? Tindakan ini tidak dapat dibatalkan.'))return;state[k]=state[k].filter(x=>x.id!==id);persist();render();toast('Data dihapus.')}
-function openQuickAdd(){const opts=Object.entries(schemas).map(([k,s])=>`<button class="btn btn-soft justify-start" onclick="closeModal();go('${k}');openForm('${k}')">${s.title}</button>`).join('');$('modalRoot').innerHTML=`<div class="modal-backdrop fixed inset-0 z-50 flex items-center justify-center p-4" onclick="if(event.target===this)closeModal()"><div class="surface p-5 w-full max-w-md"><div class="flex justify-between mb-4"><h3 class="font-black">Tambah Data</h3><button onclick="closeModal()">✕</button></div><div class="grid grid-cols-2 gap-2">${opts}</div></div></div>`}
-function renderReports(){const totalViews=state.analytics.reduce((a,x)=>a+(+x.views||0),0),totalOrders=state.affiliate.reduce((a,x)=>a+(+x.orders||0),0),commission=state.affiliate.reduce((a,x)=>a+(+x.actual||0),0);$('view').innerHTML=`<div class="surface p-5 mb-4"><div class="flex flex-wrap items-center justify-between gap-3"><div><h2 class="font-black text-lg">Report Center</h2><p class="text-xs text-slate-500 muted mt-1">Ringkasan seluruh data yang tersimpan pada perangkat ini.</p></div><div class="flex gap-2 flex-wrap"><button class="btn btn-primary" onclick="exportExcel()"><i data-lucide="file-spreadsheet" class="w-4 h-4"></i> Export Excel</button><button class="btn btn-dark" onclick="window.print()"><i data-lucide="printer" class="w-4 h-4"></i> Cetak / PDF</button><button class="btn btn-soft" onclick="exportCSV()"><i data-lucide="download" class="w-4 h-4"></i> Export CSV</button></div></div></div><div class="grid sm:grid-cols-3 gap-3 mb-4">${card('Total Views',num(totalViews),'eye')}${card('Total Pesanan Affiliate',num(totalOrders),'shopping-cart','amber')}${card('Komisi Aktual Cair',money(commission),'wallet','emerald')}</div><div class="surface p-5"><h3 class="font-black mb-3">Isi laporan</h3><p class="text-xs text-slate-500 muted">File Excel berisi sheet terpisah untuk setiap modul: klien, akun, planner, analytics, affiliate, finance, tasks, dan assets. PDF dibuat melalui fitur cetak browser.</p></div>`;if(window.lucide)lucide.createIcons()}
-function exportExcel(){if(!window.XLSX){toast('Library Excel belum termuat.');return}const wb=XLSX.utils.book_new();Object.keys(schemas).forEach(k=>{const rows=state[k].map(({id,updatedAt,...r})=>r);XLSX.utils.book_append_sheet(wb,XLSX.utils.json_to_sheet(rows.length?rows:[{}]),k.slice(0,31))});XLSX.writeFile(wb,'BOBY-CREATOR-STUDIO-REPORT.xlsx')}
-function exportCSV(){const all=[];Object.keys(schemas).forEach(k=>state[k].forEach(x=>all.push({Modul:k,...x})));const keys=[...new Set(all.flatMap(x=>Object.keys(x)))];const csv=[keys,...all.map(o=>keys.map(k=>o[k]??''))].map(row=>row.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\r\n');download(new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}),'BOBY-CREATOR-STUDIO-REPORT.csv')}
-function download(blob,name){const a=document.createElement('a'),url=URL.createObjectURL(blob);a.href=url;a.download=name;a.click();URL.revokeObjectURL(url)}
-function renderSettings(){$('view').innerHTML=`<div class="grid lg:grid-cols-2 gap-4"><div class="surface p-5"><div class="flex gap-3 items-center mb-3"><div class="w-10 h-10 bg-emerald-50 text-emerald-700 rounded-xl grid place-items-center"><i data-lucide="database-backup"></i></div><div><h3 class="font-black">Backup & Restore</h3><p class="text-xs text-slate-500 muted">Simpan salinan semua data sebagai JSON.</p></div></div><p class="text-xs text-slate-500 muted mb-4">Backup dapat dipakai untuk memindahkan data atau memulihkan data pada browser lain. Simpan file backup di tempat aman.</p><div class="flex flex-wrap gap-2"><button class="btn btn-primary" onclick="backup()"><i data-lucide="download" class="w-4 h-4"></i> Download Backup JSON</button><label class="btn btn-soft cursor-pointer"><i data-lucide="upload" class="w-4 h-4"></i> Restore JSON<input type="file" accept=".json,application/json" class="hidden" onchange="restore(event)"></label></div></div><div class="surface p-5"><div class="flex gap-3 items-center mb-3"><div class="w-10 h-10 bg-indigo-50 text-indigo-700 rounded-xl grid place-items-center"><i data-lucide="info"></i></div><div><h3 class="font-black">Status Aplikasi</h3><p class="text-xs text-slate-500 muted">Informasi penyimpanan dan data.</p></div></div><div class="text-xs space-y-2"><div class="flex justify-between"><span class="text-slate-500">Metode penyimpanan</span><b>Browser LocalStorage</b></div><div class="flex justify-between"><span class="text-slate-500">Jumlah seluruh record</span><b>${Object.values(state).reduce((a,x)=>a+x.length,0)}</b></div><div class="flex justify-between"><span class="text-slate-500">Status</span><b class="text-emerald-600">Aktif di perangkat ini</b></div></div><div class="bg-amber-50 text-amber-900 rounded-xl p-3 text-[11px] mt-4 leading-relaxed"><b>Catatan penting:</b> versi HTML satu file ini menyimpan data di browser/perangkat yang digunakan. Belum tersambung ke Firebase atau sinkronisasi antarperangkat. Jangan hapus data browser sebelum membuat backup.</div></div><div class="surface p-5 lg:col-span-2"><h3 class="font-black text-rose-700">Reset Data</h3><p class="text-xs text-slate-500 muted mt-1 mb-3">Hapus seluruh data aplikasi dari browser ini. Pastikan sudah memiliki backup.</p><button class="btn btn-danger" onclick="resetAll()">Hapus Semua Data</button></div></div>`;if(window.lucide)lucide.createIcons()}
-function backup(){download(new Blob([JSON.stringify({app:'BOBY CREATOR STUDIO',version:3,exportedAt:new Date().toISOString(),data:state},null,2)],{type:'application/json'}),'BOBY-CREATOR-BACKUP.json');toast('Backup berhasil dibuat.')}
-function restore(e){const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const parsed=JSON.parse(reader.result),data=parsed.data||parsed;if(!confirm('Pulihkan backup? Data yang ada saat ini akan diganti.'))return;Object.keys(schemas).forEach(k=>state[k]=Array.isArray(data[k])?data[k]:[]);persist();render();toast('Backup berhasil dipulihkan.')}catch(err){alert('File backup tidak valid.')}};reader.readAsText(file)}
-function resetAll(){if(!confirm('Yakin menghapus SEMUA data? Buat backup terlebih dahulu.'))return;Object.keys(schemas).forEach(k=>state[k]=[]);persist();render();toast('Semua data telah dihapus.')}
-function openFormFromModule(k){go(k);openForm(k)}
-document.addEventListener('DOMContentLoaded',()=>{if(localStorage.getItem('boby_theme')==='dark')document.documentElement.classList.add('dark');$('todayLabel').textContent=new Date().toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'long',year:'numeric'});refreshNav();render();});
-</script>
+<!-- ==================== APPLICATION JAVASCRIPT ==================== -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getFirestore, doc, setDoc, getDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    // --- STATE & STORAGE KEYS ---
+    const STORAGE_KEY = 'BOBY_CREATOR_STUDIO_DB_V1';
+    const FIREBASE_CFG_KEY = 'BOBY_CREATOR_STUDIO_FB_CFG';
+
+    // Konfigurasi Default Firebase milik Boby Anggara (Otomatis Aktif)
+    const DEFAULT_FIREBASE_CONFIG = {
+      apiKey: "AIzaSyBts_aqGp_1EosViZfHink-eJDpV9QAijw",
+      authDomain: "boby-creator-studio.firebaseapp.com",
+      projectId: "boby-creator-studio",
+      storageBucket: "boby-creator-studio.firebasestorage.app",
+      messagingSenderId: "133686903556",
+      appId: "1:133686903556:web:ff7cf35c3b02fb95860651",
+      measurementId: "G-YDEGTXNBT"
+    };
+
+    let db = {
+      clients: [],
+      accounts: [],
+      contents: [],
+      analytics: [],
+      affiliates: [],
+      tasks: []
+    };
+
+    let activeTab = 'dashboard';
+    let dashChartMode = 'weekly';
+    let plannerViewMode = 'list';
+    let currentCalendarDate = new Date();
+    let dashboardChartInstance = null;
+    let analyticsChartInstance = null;
+    let firestoreDb = null;
+    let unsubscribeRealtime = null;
+    let isApplyingCloudUpdate = false;
+
+    // --- LOAD INITIAL DATA (LOCAL CACHE FIRST) ---
+    function loadDatabase() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY) || localStorage.getItem('BOBY_CREATOR_STUDIO_DB_V2');
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          db = {
+            clients: Array.isArray(parsed.clients) ? parsed.clients : [],
+            accounts: Array.isArray(parsed.accounts) ? parsed.accounts : [],
+            contents: Array.isArray(parsed.contents) ? parsed.contents : [],
+            analytics: Array.isArray(parsed.analytics) ? parsed.analytics : [],
+            affiliates: Array.isArray(parsed.affiliates) ? parsed.affiliates : [],
+            tasks: Array.isArray(parsed.tasks) ? parsed.tasks : []
+          };
+        }
+      } catch (err) {
+        console.error('Gagal memuat LocalStorage:', err);
+      }
+    }
+
+    function saveDatabase() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(db));
+        refreshAllViews();
+        if (firestoreDb && !isApplyingCloudUpdate) {
+          pushToFirestoreSilent();
+        }
+      } catch (err) {
+        console.error('Gagal menyimpan data:', err);
+        showToast('Penyimpanan penuh atau gagal menyimpan!', 'error');
+      }
+    }
+
+    // --- UTILITIES ---
+    function uid() {
+      return 'id_' + Date.now().toString(36) + '_' + Math.random().toString(36).substring(2, 7);
+    }
+
+    function todayISO() {
+      const d = new Date();
+      return d.toISOString().split('T')[0];
+    }
+
+    function formatNumber(num) {
+      return Number(num || 0).toLocaleString('id-ID');
+    }
+
+    function formatRupiah(num) {
+      return 'Rp ' + Number(num || 0).toLocaleString('id-ID');
+    }
+
+    function formatDateID(dateStr) {
+      if (!dateStr) return '-';
+      const parts = dateStr.split('-');
+      if (parts.length !== 3) return dateStr;
+      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+      return `${parts[2]} ${months[parseInt(parts[1], 10) - 1]} ${parts[0]}`;
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function showToast(message, type = 'success') {
+      const container = document.getElementById('toast-container');
+      if (!container) return;
+      const el = document.createElement('div');
+      const bg = type === 'success' ? 'bg-slate-900 text-white border-emerald-500' : 'bg-rose-600 text-white border-rose-300';
+      el.className = `pointer-events-auto flex items-center gap-2.5 px-4 py-3 rounded-xl shadow-lg border-l-4 ${bg} text-xs font-bold transition-all`;
+      el.innerHTML = `<span>${escapeHtml(message)}</span>`;
+      container.appendChild(el);
+      setTimeout(() => {
+        el.style.opacity = '0';
+        setTimeout(() => el.remove(), 300);
+      }, 3000);
+    }
+
+    // --- NAVIGATION & TAB SWITCHING ---
+    const tabMeta = {
+      dashboard: { title: 'Dashboard Utama', subtitle: 'Ringkasan seluruh pekerjaan & metrik performa real-time' },
+      clients: { title: 'Manajemen Klien', subtitle: 'Kelola daftar klien, brand, status kerja sama, dan ruang lingkup pekerjaan' },
+      accounts: { title: 'Manajemen Akun Media Sosial', subtitle: 'Kelola akun TikTok, Instagram, dan Shopee milik klien maupun pribadi' },
+      planner: { title: 'Content Planner & Kalender', subtitle: 'Susun jadwal publikasi, ide, pillar, hook, script, caption, dan status produksi' },
+      analytics: { title: 'Social Media Analytics', subtitle: 'Hitung Engagement Rate otomatis, grafik performa, dan perbandingan periode' },
+      affiliate: { title: 'Affiliate Tracker', subtitle: 'Pantau performa produk affiliate, klik, pesanan, Conversion Rate, GMV, dan komisi' },
+      tasks: { title: 'Task Management', subtitle: 'Daftar pekerjaan harian, prioritas, dan pengingat deadline otomatis' },
+      reports: { title: 'Report Center', subtitle: 'Laporan mingguan, bulanan, per klien, serta Export PDF, Excel, dan CSV' },
+      settings: { title: 'Database, Backup & Firebase', subtitle: 'Pengaturan penyimpanan lokal browser dan koneksi Cloud Firestore' }
+    };
+
+    window.switchTab = function(tabName) {
+      activeTab = tabName;
+      document.querySelectorAll('.tab-section').forEach(sec => sec.classList.add('hidden'));
+      const target = document.getElementById(`sec-${tabName}`);
+      if (target) target.classList.remove('hidden');
+
+      const meta = tabMeta[tabName] || tabMeta.dashboard;
+      document.getElementById('page-title').textContent = meta.title;
+      document.getElementById('page-subtitle').textContent = meta.subtitle;
+
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        if (btn.dataset.tab === tabName) {
+          btn.className = 'nav-btn w-full flex items-center justify-between gap-3 px-3.5 py-3 rounded-xl text-sm font-bold bg-indigo-600 text-white shadow-sm transition-all';
+        } else {
+          btn.className = 'nav-btn w-full flex items-center justify-between gap-3 px-3.5 py-3 rounded-xl text-sm font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition-all';
+        }
+      });
+
+      document.querySelectorAll('.mob-nav-btn').forEach(btn => {
+        if (btn.dataset.tab === tabName) {
+          btn.className = 'mob-nav-btn flex flex-col items-center justify-center py-1 px-2 rounded-xl text-[11px] font-extrabold text-indigo-600 transition';
+        } else {
+          btn.className = 'mob-nav-btn flex flex-col items-center justify-center py-1 px-2 rounded-xl text-[11px] font-semibold text-slate-500 transition';
+        }
+      });
+
+      refreshAllViews();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    window.toggleMobileMoreSheet = function(show) {
+      const sheet = document.getElementById('mobile-more-sheet');
+      if (show) sheet.classList.remove('hidden');
+      else sheet.classList.add('hidden');
+    };
+
+    // --- MODALS & CONFIRMATION ---
+    window.closeModal = function(id) {
+      document.getElementById(id).classList.add('hidden');
+    };
+
+    function askDeleteConfirmation(message, onConfirm) {
+      document.getElementById('confirm-message').textContent = message;
+      const modal = document.getElementById('modal-confirm');
+      modal.classList.remove('hidden');
+      const yesBtn = document.getElementById('btn-confirm-yes');
+      yesBtn.onclick = () => {
+        modal.classList.add('hidden');
+        onConfirm();
+      };
+    }
+
+    function populateClientSelects() {
+      const selects = ['account-client', 'content-client', 'analytics-client', 'report-client'];
+      selects.forEach(selectId => {
+        const el = document.getElementById(selectId);
+        if (!el) return;
+        const currentVal = el.value;
+        if (selectId === 'report-client') {
+          el.innerHTML = `<option value="ALL">Semua Klien & Proyek Pribadi</option><option value="Pribadi / Internal">Pribadi / Internal</option>`;
+        } else {
+          el.innerHTML = `<option value="Pribadi / Internal">Pribadi / Internal</option>`;
+        }
+        db.clients.forEach(c => {
+          const label = `${escapeHtml(c.name)} (${escapeHtml(c.brand)})`;
+          el.innerHTML += `<option value="${escapeHtml(c.name)}">${label}</option>`;
+        });
+        if (currentVal) el.value = currentVal;
+      });
+    }
+
+    // ==================== 1. DASHBOARD RENDERING ====================
+    window.setDashboardChartMode = function(mode) {
+      dashChartMode = mode;
+      const btnW = document.getElementById('btn-chart-weekly');
+      const btnM = document.getElementById('btn-chart-monthly');
+      if (mode === 'weekly') {
+        btnW.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-white text-slate-900 shadow-sm transition';
+        btnM.className = 'px-3 py-1.5 rounded-lg text-xs font-bold text-slate-600 hover:text-slate-900 transition';
+      } else {
+        btnM.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-white text-slate-900 shadow-sm transition';
+        btnW.className = 'px-3 py-1.5 rounded-lg text-xs font-bold text-slate-600 hover:text-slate-900 transition';
+      }
+      renderDashboardChart();
+    };
+
+    function renderDashboard() {
+      const totalClients = db.clients.length;
+      const activeClients = db.clients.filter(c => c.status === 'Aktif').length;
+      const totalAccounts = db.accounts.length;
+      const totalContents = db.contents.length;
+      const uploadedContents = db.contents.filter(c => c.status === 'Sudah upload').length;
+      const readyUploadContents = db.contents.filter(c => c.status === 'Siap upload').length;
+
+      const totalViews = db.analytics.reduce((acc, a) => acc + Number(a.views || 0), 0);
+      const baseFollowers = db.accounts.reduce((acc, a) => acc + Number(a.followers || 0), 0);
+      const gainedFollowers = db.analytics.reduce((acc, a) => acc + Number(a.followersGained || 0), 0);
+
+      let avgER = 0;
+      if (db.analytics.length > 0) {
+        const sumER = db.analytics.reduce((acc, a) => acc + Number(a.er || 0), 0);
+        avgER = sumER / db.analytics.length;
+      }
+
+      const affClicks = db.affiliates.reduce((acc, f) => acc + Number(f.clicks || 0), 0);
+      const affOrders = db.affiliates.reduce((acc, f) => acc + Number(f.orders || 0), 0);
+      const affGMV = db.affiliates.reduce((acc, f) => acc + Number(f.gmv || 0), 0);
+      const affComm = db.affiliates.reduce((acc, f) => acc + Number(f.commission || 0), 0);
+      const affCR = affClicks > 0 ? ((affOrders / affClicks) * 100) : 0;
+
+      document.getElementById('dash-total-clients').textContent = formatNumber(totalClients);
+      document.getElementById('dash-active-clients').textContent = `${formatNumber(activeClients)} Klien Aktif`;
+      document.getElementById('dash-total-accounts').textContent = formatNumber(totalAccounts);
+      document.getElementById('dash-total-content').textContent = formatNumber(totalContents);
+      document.getElementById('dash-uploaded-content').textContent = `${formatNumber(uploadedContents)} Sudah Upload`;
+      document.getElementById('dash-total-views').textContent = formatNumber(totalViews);
+      document.getElementById('dash-total-followers').textContent = formatNumber(baseFollowers + gainedFollowers);
+      document.getElementById('dash-followers-growth').textContent = `+${formatNumber(gainedFollowers)} dari Konten`;
+      document.getElementById('dash-avg-er').textContent = `${avgER.toFixed(2)}%`;
+      document.getElementById('dash-aff-clicks').textContent = formatNumber(affClicks);
+      document.getElementById('dash-aff-cr').textContent = `CR: ${affCR.toFixed(2)}%`;
+      document.getElementById('dash-aff-orders').textContent = formatNumber(affOrders);
+      document.getElementById('dash-aff-gmv').textContent = `GMV: ${formatRupiah(affGMV)}`;
+      document.getElementById('dash-aff-commission').textContent = formatRupiah(affComm);
+      document.getElementById('dash-ready-upload-count').textContent = `${readyUploadContents} Konten`;
+
+      const upcomingContainer = document.getElementById('dash-upcoming-list');
+      const pendingTasks = db.tasks
+        .filter(t => t.status !== 'Selesai')
+        .sort((a, b) => (a.deadline || '').localeCompare(b.deadline || ''));
+
+      if (pendingTasks.length === 0) {
+        upcomingContainer.innerHTML = `
+          <div class="p-4 rounded-xl bg-slate-50 border border-dashed border-slate-200 text-center">
+            <p class="text-xs font-semibold text-slate-600">Tidak Ada Tugas Tertunda</p>
+            <p class="text-[11px] text-slate-400 mt-0.5">Tambahkan pekerjaan di menu Task Management untuk memantau deadline.</p>
+          </div>`;
+      } else {
+        upcomingContainer.innerHTML = pendingTasks.slice(0, 5).map(t => {
+          const badge = getDeadlineStatusBadge(t.deadline, t.status);
+          return `
+            <div class="p-3 rounded-xl border border-slate-200/80 hover:bg-slate-50 flex items-start justify-between gap-2">
+              <div class="min-w-0">
+                <p class="text-xs font-bold text-slate-900 truncate">${escapeHtml(t.title)}</p>
+                <p class="text-[11px] text-slate-500 mt-0.5">Deadline: ${formatDateID(t.deadline)} • Prioritas ${escapeHtml(t.priority)}</p>
+              </div>
+              ${badge}
+            </div>`;
+        }).join('');
+      }
+
+      renderDashboardChart();
+    }
+
+    function renderDashboardChart() {
+      const emptyOverlay = document.getElementById('dashboard-chart-empty');
+      const ctx = document.getElementById('dashboardChart');
+      if (!ctx) return;
+
+      if (db.analytics.length === 0) {
+        emptyOverlay.classList.remove('hidden');
+        if (dashboardChartInstance) {
+          dashboardChartInstance.destroy();
+          dashboardChartInstance = null;
+        }
+        return;
+      }
+      emptyOverlay.classList.add('hidden');
+
+      const sorted = [...db.analytics].sort((a, b) => (a.date || '').localeCompare(b.date || ''));
+      let labels = [];
+      let viewsData = [];
+      let erData = [];
+
+      if (dashChartMode === 'weekly') {
+        const recent = sorted.slice(-7);
+        labels = recent.map(item => `${formatDateID(item.date).slice(0, 6)} (${item.title.slice(0, 10)}...)`);
+        viewsData = recent.map(item => Number(item.views || 0));
+        erData = recent.map(item => Number(item.er || 0));
+      } else {
+        const monthMap = {};
+        sorted.forEach(item => {
+          const ym = (item.date || '').slice(0, 7) || 'Lainnya';
+          if (!monthMap[ym]) monthMap[ym] = { views: 0, erSum: 0, count: 0 };
+          monthMap[ym].views += Number(item.views || 0);
+          monthMap[ym].erSum += Number(item.er || 0);
+          monthMap[ym].count += 1;
+        });
+        labels = Object.keys(monthMap);
+        viewsData = labels.map(k => monthMap[k].views);
+        erData = labels.map(k => Number((monthMap[k].erSum / monthMap[k].count).toFixed(2)));
+      }
+
+      if (dashboardChartInstance) dashboardChartInstance.destroy();
+      dashboardChartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels,
+          datasets: [
+            {
+              label: 'Total Views',
+              data: viewsData,
+              backgroundColor: 'rgba(79, 70, 229, 0.85)',
+              borderRadius: 8,
+              yAxisID: 'y'
+            },
+            {
+              label: 'Engagement Rate (%)',
+              data: erData,
+              type: 'line',
+              borderColor: '#f43f5e',
+              backgroundColor: '#f43f5e',
+              borderWidth: 2.5,
+              tension: 0.35,
+              yAxisID: 'y1'
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { mode: 'index', intersect: false },
+          plugins: {
+            legend: { position: 'top', labels: { boxWidth: 12, font: { size: 11 } } }
+          },
+          scales: {
+            y: { type: 'linear', position: 'left', beginAtZero: true, grid: { color: '#f1f5f9' } },
+            y1: { type: 'linear', position: 'right', beginAtZero: true, grid: { drawOnChartArea: false } }
+          }
+        }
+      });
+    }
+
+    // ==================== 2. CLIENTS CRUD ====================
+    window.openClientModal = function(id = null) {
+      document.getElementById('client-id').value = '';
+      document.getElementById('client-name').value = '';
+      document.getElementById('client-brand').value = '';
+      document.getElementById('client-date').value = todayISO();
+      document.getElementById('client-status').value = 'Aktif';
+      document.getElementById('client-notes').value = '';
+      document.getElementById('modal-client-title').textContent = 'Tambah Klien Baru';
+
+      if (id) {
+        const c = db.clients.find(x => x.id === id);
+        if (c) {
+          document.getElementById('client-id').value = c.id;
+          document.getElementById('client-name').value = c.name;
+          document.getElementById('client-brand').value = c.brand;
+          document.getElementById('client-date').value = c.startDate;
+          document.getElementById('client-status').value = c.status;
+          document.getElementById('client-notes').value = c.notes || '';
+          document.getElementById('modal-client-title').textContent = 'Edit Data Klien';
+        }
+      }
+      document.getElementById('modal-client').classList.remove('hidden');
+    };
+
+    window.saveClient = function(e) {
+      e.preventDefault();
+      const id = document.getElementById('client-id').value;
+      const payload = {
+        id: id || uid(),
+        name: document.getElementById('client-name').value.trim(),
+        brand: document.getElementById('client-brand').value.trim(),
+        startDate: document.getElementById('client-date').value,
+        status: document.getElementById('client-status').value,
+        notes: document.getElementById('client-notes').value.trim()
+      };
+
+      if (id) {
+        const idx = db.clients.findIndex(x => x.id === id);
+        if (idx > -1) db.clients[idx] = payload;
+        showToast('Data klien berhasil diperbarui!');
+      } else {
+        db.clients.unshift(payload);
+        showToast('Klien baru berhasil ditambahkan!');
+      }
+      closeModal('modal-client');
+      saveDatabase();
+    };
+
+    window.deleteClient = function(id) {
+      const c = db.clients.find(x => x.id === id);
+      askDeleteConfirmation(`Hapus klien "${c ? c.name : ''}" beserta catatannya?`, () => {
+        db.clients = db.clients.filter(x => x.id !== id);
+        saveDatabase();
+        showToast('Klien berhasil dihapus');
+      });
+    };
+
+    window.renderClients = function() {
+      const q = (document.getElementById('search-clients')?.value || '').toLowerCase();
+      const statusFilter = document.getElementById('filter-clients-status')?.value || 'ALL';
+
+      const filtered = db.clients.filter(c => {
+        const matchQ = c.name.toLowerCase().includes(q) || c.brand.toLowerCase().includes(q) || (c.notes || '').toLowerCase().includes(q);
+        const matchS = statusFilter === 'ALL' || c.status === statusFilter;
+        return matchQ && matchS;
+      });
+
+      const tbody = document.getElementById('clients-table-body');
+      const mobileCards = document.getElementById('clients-mobile-cards');
+      const empty = document.getElementById('clients-empty');
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = '';
+        mobileCards.innerHTML = '';
+        empty.classList.remove('hidden');
+        return;
+      }
+      empty.classList.add('hidden');
+
+      const statusBadge = (st) => {
+        const map = {
+          'Aktif': 'bg-emerald-50 text-emerald-700 border-emerald-200',
+          'Prospek / Negosiasi': 'bg-amber-50 text-amber-700 border-amber-200',
+          'Jeda': 'bg-slate-100 text-slate-700 border-slate-300',
+          'Selesai': 'bg-rose-50 text-rose-700 border-rose-200'
+        };
+        return `<span class="px-2.5 py-1 rounded-full text-xs font-bold border ${map[st] || map['Aktif']}">${escapeHtml(st)}</span>`;
+      };
+
+      tbody.innerHTML = filtered.map(c => `
+        <tr class="hover:bg-slate-50/80">
+          <td class="py-3.5 px-5">
+            <p class="font-bold text-slate-900">${escapeHtml(c.name)}</p>
+            <p class="text-xs text-indigo-600 font-semibold">${escapeHtml(c.brand)}</p>
+          </td>
+          <td class="py-3.5 px-4 text-slate-600 text-xs font-medium">${formatDateID(c.startDate)}</td>
+          <td class="py-3.5 px-4">${statusBadge(c.status)}</td>
+          <td class="py-3.5 px-4 text-xs text-slate-600 max-w-xs truncate">${escapeHtml(c.notes || '-')}</td>
+          <td class="py-3.5 px-5 text-right space-x-1">
+            <button onclick="openClientModal('${c.id}')" class="px-2.5 py-1.5 rounded-lg border border-slate-200 text-xs font-bold text-slate-700 hover:bg-slate-100">Edit</button>
+            <button onclick="deleteClient('${c.id}')" class="px-2.5 py-1.5 rounded-lg border border-rose-200 text-xs font-bold text-rose-600 hover:bg-rose-50">Hapus</button>
+          </td>
+        </tr>
+      `).join('');
+
+      mobileCards.innerHTML = filtered.map(c => `
+        <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-sm space-y-2.5">
+          <div class="flex items-start justify-between gap-2">
+            <div>
+              <h4 class="font-bold text-slate-900 text-sm">${escapeHtml(c.name)}</h4>
+              <p class="text-xs font-semibold text-indigo-600">${escapeHtml(c.brand)}</p>
+            </div>
+            ${statusBadge(c.status)}
+          </div>
+          <p class="text-xs text-slate-600">${escapeHtml(c.notes || 'Tidak ada catatan khusus.')}</p>
+          <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+            <span>Mulai: ${formatDateID(c.startDate)}</span>
+            <div class="space-x-1.5">
+              <button onclick="openClientModal('${c.id}')" class="px-3 py-1 rounded-lg bg-slate-100 text-slate-700 font-bold">Edit</button>
+              <button onclick="deleteClient('${c.id}')" class="px-3 py-1 rounded-lg bg-rose-50 text-rose-600 font-bold">Hapus</button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    };
+
+    // ==================== 3. SOCIAL ACCOUNTS CRUD ====================
+    window.openAccountModal = function(id = null) {
+      populateClientSelects();
+      document.getElementById('account-id').value = '';
+      document.getElementById('account-name').value = '';
+      document.getElementById('account-username').value = '';
+      document.getElementById('account-platform').value = 'TikTok';
+      document.getElementById('account-client').value = 'Pribadi / Internal';
+      document.getElementById('account-followers').value = '';
+      document.getElementById('account-notes').value = '';
+      document.getElementById('modal-account-title').textContent = 'Tambah Akun Media Sosial';
+
+      if (id) {
+        const a = db.accounts.find(x => x.id === id);
+        if (a) {
+          document.getElementById('account-id').value = a.id;
+          document.getElementById('account-name').value = a.name;
+          document.getElementById('account-username').value = a.username;
+          document.getElementById('account-platform').value = a.platform;
+          document.getElementById('account-client').value = a.client || 'Pribadi / Internal';
+          document.getElementById('account-followers').value = a.followers;
+          document.getElementById('account-notes').value = a.notes || '';
+          document.getElementById('modal-account-title').textContent = 'Edit Akun Media Sosial';
+        }
+      }
+      document.getElementById('modal-account').classList.remove('hidden');
+    };
+
+    window.saveAccount = function(e) {
+      e.preventDefault();
+      const id = document.getElementById('account-id').value;
+      const payload = {
+        id: id || uid(),
+        name: document.getElementById('account-name').value.trim(),
+        username: document.getElementById('account-username').value.trim(),
+        platform: document.getElementById('account-platform').value,
+        client: document.getElementById('account-client').value,
+        followers: Number(document.getElementById('account-followers').value || 0),
+        notes: document.getElementById('account-notes').value.trim()
+      };
+
+      if (id) {
+        const idx = db.accounts.findIndex(x => x.id === id);
+        if (idx > -1) db.accounts[idx] = payload;
+        showToast('Akun media sosial diperbarui!');
+      } else {
+        db.accounts.unshift(payload);
+        showToast('Akun media sosial ditambahkan!');
+      }
+      closeModal('modal-account');
+      saveDatabase();
+    };
+
+    window.deleteAccount = function(id) {
+      const a = db.accounts.find(x => x.id === id);
+      askDeleteConfirmation(`Hapus akun "${a ? a.username : ''}"?`, () => {
+        db.accounts = db.accounts.filter(x => x.id !== id);
+        saveDatabase();
+        showToast('Akun media sosial dihapus');
+      });
+    };
+
+    function getPlatformBadge(platform) {
+      const styles = {
+        'TikTok': 'bg-slate-900 text-white',
+        'Instagram': 'bg-pink-50 text-pink-700 border border-pink-200',
+        'Shopee': 'bg-orange-50 text-orange-700 border border-orange-200',
+        'TikTok Shop': 'bg-slate-900 text-white'
+      };
+      return `<span class="px-2.5 py-1 rounded-full text-xs font-bold ${styles[platform] || 'bg-indigo-50 text-indigo-700'}">${escapeHtml(platform)}</span>`;
+    }
+
+    window.renderAccounts = function() {
+      const q = (document.getElementById('search-accounts')?.value || '').toLowerCase();
+      const pf = document.getElementById('filter-accounts-platform')?.value || 'ALL';
+
+      const filtered = db.accounts.filter(a => {
+        const matchQ = a.name.toLowerCase().includes(q) || a.username.toLowerCase().includes(q) || (a.client || '').toLowerCase().includes(q);
+        const matchP = pf === 'ALL' || a.platform === pf;
+        return matchQ && matchP;
+      });
+
+      const tbody = document.getElementById('accounts-table-body');
+      const mobileCards = document.getElementById('accounts-mobile-cards');
+      const empty = document.getElementById('accounts-empty');
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = '';
+        mobileCards.innerHTML = '';
+        empty.classList.remove('hidden');
+        return;
+      }
+      empty.classList.add('hidden');
+
+      tbody.innerHTML = filtered.map(a => `
+        <tr class="hover:bg-slate-50/80">
+          <td class="py-3.5 px-5">
+            <p class="font-bold text-slate-900">${escapeHtml(a.name)}</p>
+            <p class="text-xs text-slate-500 font-medium">${escapeHtml(a.username)}</p>
+          </td>
+          <td class="py-3.5 px-4">${getPlatformBadge(a.platform)}</td>
+          <td class="py-3.5 px-4 text-xs font-semibold text-slate-700">${escapeHtml(a.client)}</td>
+          <td class="py-3.5 px-4 font-bold text-slate-900">${formatNumber(a.followers)}</td>
+          <td class="py-3.5 px-4 text-xs text-slate-500 max-w-xs truncate">${escapeHtml(a.notes || '-')}</td>
+          <td class="py-3.5 px-5 text-right space-x-1">
+            <button onclick="openAccountModal('${a.id}')" class="px-2.5 py-1.5 rounded-lg border border-slate-200 text-xs font-bold text-slate-700 hover:bg-slate-100">Edit</button>
+            <button onclick="deleteAccount('${a.id}')" class="px-2.5 py-1.5 rounded-lg border border-rose-200 text-xs font-bold text-rose-600 hover:bg-rose-50">Hapus</button>
+          </td>
+        </tr>
+      `).join('');
+
+      mobileCards.innerHTML = filtered.map(a => `
+        <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-sm space-y-2.5">
+          <div class="flex items-start justify-between gap-2">
+            <div>
+              <h4 class="font-bold text-slate-900 text-sm">${escapeHtml(a.name)}</h4>
+              <p class="text-xs text-indigo-600 font-semibold">${escapeHtml(a.username)} • ${escapeHtml(a.client)}</p>
+            </div>
+            ${getPlatformBadge(a.platform)}
+          </div>
+          <div class="flex items-center justify-between text-xs bg-slate-50 px-3 py-2 rounded-xl">
+            <span class="text-slate-500">Jumlah Followers:</span>
+            <span class="font-extrabold text-slate-900">${formatNumber(a.followers)}</span>
+          </div>
+          <p class="text-xs text-slate-500">${escapeHtml(a.notes || '')}</p>
+          <div class="pt-2 border-t border-slate-100 flex justify-end gap-1.5 text-xs">
+            <button onclick="openAccountModal('${a.id}')" class="px-3 py-1 rounded-lg bg-slate-100 text-slate-700 font-bold">Edit</button>
+            <button onclick="deleteAccount('${a.id}')" class="px-3 py-1 rounded-lg bg-rose-50 text-rose-600 font-bold">Hapus</button>
+          </div>
+        </div>
+      `).join('');
+    };
+
+    // ==================== 4. CONTENT PLANNER & CALENDAR ====================
+    const CONTENT_STATUSES = ['Ide', 'Script', 'Produksi', 'Editing', 'Review', 'Siap upload', 'Sudah upload'];
+
+    window.setPlannerView = function(mode) {
+      plannerViewMode = mode;
+      const listEl = document.getElementById('planner-list-view');
+      const calEl = document.getElementById('planner-calendar-view');
+      const btnL = document.getElementById('btn-planner-list');
+      const btnC = document.getElementById('btn-planner-calendar');
+
+      if (mode === 'calendar') {
+        listEl.classList.add('hidden');
+        calEl.classList.remove('hidden');
+        btnC.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-white text-slate-900 shadow-sm flex items-center gap-1.5';
+        btnL.className = 'px-3 py-1.5 rounded-lg text-xs font-bold text-slate-600 hover:text-slate-900 flex items-center gap-1.5';
+      } else {
+        calEl.classList.add('hidden');
+        listEl.classList.remove('hidden');
+        btnL.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-white text-slate-900 shadow-sm flex items-center gap-1.5';
+        btnC.className = 'px-3 py-1.5 rounded-lg text-xs font-bold text-slate-600 hover:text-slate-900 flex items-center gap-1.5';
+      }
+      renderPlanner();
+    };
+
+    window.changeCalendarMonth = function(offset) {
+      if (offset === 0) {
+        currentCalendarDate = new Date();
+      } else {
+        currentCalendarDate = new Date(currentCalendarDate.getFullYear(), currentCalendarDate.getMonth() + offset, 1);
+      }
+      renderPlannerCalendar();
+    };
+
+    window.openContentModal = function(id = null, presetDate = null) {
+      populateClientSelects();
+      document.getElementById('content-id').value = '';
+      document.getElementById('content-date').value = presetDate || todayISO();
+      document.getElementById('content-client').value = 'Pribadi / Internal';
+      document.getElementById('content-platform').value = 'TikTok';
+      document.getElementById('content-title').value = '';
+      document.getElementById('content-status').value = 'Ide';
+      document.getElementById('content-pillar').value = '';
+      document.getElementById('content-idea').value = '';
+      document.getElementById('content-hook').value = '';
+      document.getElementById('content-script').value = '';
+      document.getElementById('content-caption').value = '';
+      document.getElementById('content-cta').value = '';
+      document.getElementById('content-hashtag').value = '';
+      document.getElementById('modal-content-title').textContent = 'Buat Rencana Konten Baru';
+
+      if (id) {
+        const item = db.contents.find(x => x.id === id);
+        if (item) {
+          document.getElementById('content-id').value = item.id;
+          document.getElementById('content-date').value = item.date;
+          document.getElementById('content-client').value = item.client || 'Pribadi / Internal';
+          document.getElementById('content-platform').value = item.platform;
+          document.getElementById('content-title').value = item.title;
+          document.getElementById('content-status').value = item.status;
+          document.getElementById('content-pillar').value = item.pillar || '';
+          document.getElementById('content-idea').value = item.idea || '';
+          document.getElementById('content-hook').value = item.hook || '';
+          document.getElementById('content-script').value = item.script || '';
+          document.getElementById('content-caption').value = item.caption || '';
+          document.getElementById('content-cta').value = item.cta || '';
+          document.getElementById('content-hashtag').value = item.hashtag || '';
+          document.getElementById('modal-content-title').textContent = 'Edit Rencana Konten';
+        }
+      }
+      document.getElementById('modal-content').classList.remove('hidden');
+    };
+
+    window.saveContent = function(e) {
+      e.preventDefault();
+      const id = document.getElementById('content-id').value;
+      const payload = {
+        id: id || uid(),
+        date: document.getElementById('content-date').value,
+        client: document.getElementById('content-client').value,
+        platform: document.getElementById('content-platform').value,
+        title: document.getElementById('content-title').value.trim(),
+        status: document.getElementById('content-status').value,
+        pillar: document.getElementById('content-pillar').value.trim(),
+        idea: document.getElementById('content-idea').value.trim(),
+        hook: document.getElementById('content-hook').value.trim(),
+        script: document.getElementById('content-script').value.trim(),
+        caption: document.getElementById('content-caption').value.trim(),
+        cta: document.getElementById('content-cta').value.trim(),
+        hashtag: document.getElementById('content-hashtag').value.trim()
+      };
+
+      if (id) {
+        const idx = db.contents.findIndex(x => x.id === id);
+        if (idx > -1) db.contents[idx] = payload;
+        showToast('Rencana konten diperbarui!');
+      } else {
+        db.contents.unshift(payload);
+        showToast('Rencana konten berhasil disimpan!');
+      }
+      closeModal('modal-content');
+      saveDatabase();
+    };
+
+    window.quickChangeContentStatus = function(id, newStatus) {
+      const item = db.contents.find(x => x.id === id);
+      if (item) {
+        item.status = newStatus;
+        saveDatabase();
+        showToast(`Status diubah ke "${newStatus}"`);
+      }
+    };
+
+    window.deleteContent = function(id) {
+      const item = db.contents.find(x => x.id === id);
+      askDeleteConfirmation(`Hapus rencana konten "${item ? item.title : ''}"?`, () => {
+        db.contents = db.contents.filter(x => x.id !== id);
+        saveDatabase();
+        showToast('Konten berhasil dihapus');
+      });
+    };
+
+    function getStatusColorClass(st) {
+      const map = {
+        'Ide': 'bg-slate-100 text-slate-700',
+        'Script': 'bg-sky-50 text-sky-700',
+        'Produksi': 'bg-amber-50 text-amber-700',
+        'Editing': 'bg-violet-50 text-violet-700',
+        'Review': 'bg-orange-50 text-orange-700',
+        'Siap upload': 'bg-indigo-50 text-indigo-700',
+        'Sudah upload': 'bg-emerald-50 text-emerald-700'
+      };
+      return map[st] || 'bg-slate-100 text-slate-700';
+    }
+
+    window.renderPlanner = function() {
+      const summaryEl = document.getElementById('planner-status-summary');
+      summaryEl.innerHTML = CONTENT_STATUSES.map(st => {
+        const count = db.contents.filter(c => c.status === st).length;
+        return `
+          <div class="bg-white rounded-xl p-2.5 border border-slate-200/80 flex items-center justify-between">
+            <span class="text-[11px] font-bold text-slate-600 truncate">${escapeHtml(st)}</span>
+            <span class="px-2 py-0.5 rounded-lg text-xs font-extrabold ${getStatusColorClass(st)}">${count}</span>
+          </div>`;
+      }).join('');
+
+      if (plannerViewMode === 'calendar') {
+        renderPlannerCalendar();
+        document.getElementById('planner-empty').classList.add('hidden');
+        return;
+      }
+
+      const q = (document.getElementById('search-planner')?.value || '').toLowerCase();
+      const sf = document.getElementById('filter-planner-status')?.value || 'ALL';
+      const pf = document.getElementById('filter-planner-platform')?.value || 'ALL';
+
+      const filtered = db.contents.filter(c => {
+        const text = `${c.title} ${c.pillar} ${c.hook} ${c.script} ${c.client}`.toLowerCase();
+        const matchQ = text.includes(q);
+        const matchS = sf === 'ALL' || c.status === sf;
+        const matchP = pf === 'ALL' || c.platform === pf;
+        return matchQ && matchS && matchP;
+      });
+
+      const tbody = document.getElementById('planner-table-body');
+      const mobileCards = document.getElementById('planner-mobile-cards');
+      const empty = document.getElementById('planner-empty');
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = '';
+        mobileCards.innerHTML = '';
+        empty.classList.remove('hidden');
+        return;
+      }
+      empty.classList.add('hidden');
+
+      tbody.innerHTML = filtered.map(c => `
+        <tr class="hover:bg-slate-50/80">
+          <td class="py-3.5 px-5">
+            <p class="text-[11px] font-bold text-indigo-600">${formatDateID(c.date)}</p>
+            <p class="font-bold text-slate-900 mt-0.5">${escapeHtml(c.title)}</p>
+            <p class="text-xs text-slate-400 truncate max-w-xs">${escapeHtml(c.idea || '')}</p>
+          </td>
+          <td class="py-3.5 px-4">
+            <p class="text-xs font-bold text-slate-800 mb-1">${escapeHtml(c.client)}</p>
+            ${getPlatformBadge(c.platform)}
+          </td>
+          <td class="py-3.5 px-4 max-w-xs">
+            <span class="inline-block px-2 py-0.5 rounded bg-slate-100 text-slate-700 text-[11px] font-bold mb-1">${escapeHtml(c.pillar)}</span>
+            <p class="text-xs text-slate-600 line-clamp-2"><strong>Hook:</strong> ${escapeHtml(c.hook || '-')}</p>
+          </td>
+          <td class="py-3.5 px-4">
+            <select onchange="quickChangeContentStatus('${c.id}', this.value)" class="px-2.5 py-1.5 rounded-xl text-xs font-bold border border-slate-200 ${getStatusColorClass(c.status)}">
+              ${CONTENT_STATUSES.map(st => `<option value="${st}" ${c.status === st ? 'selected' : ''}>${st}</option>`).join('')}
+            </select>
+          </td>
+          <td class="py-3.5 px-5 text-right space-x-1">
+            <button onclick="openContentModal('${c.id}')" class="px-2.5 py-1.5 rounded-lg border border-slate-200 text-xs font-bold text-slate-700 hover:bg-slate-100">Detail / Edit</button>
+            <button onclick="deleteContent('${c.id}')" class="px-2.5 py-1.5 rounded-lg border border-rose-200 text-xs font-bold text-rose-600 hover:bg-rose-50">Hapus</button>
+          </td>
+        </tr>
+      `).join('');
+
+      mobileCards.innerHTML = filtered.map(c => `
+        <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-sm space-y-2.5">
+          <div class="flex items-start justify-between gap-2">
+            <div>
+              <span class="text-[11px] font-bold text-indigo-600">${formatDateID(c.date)} • ${escapeHtml(c.client)}</span>
+              <h4 class="font-bold text-slate-900 text-sm mt-0.5">${escapeHtml(c.title)}</h4>
+            </div>
+            ${getPlatformBadge(c.platform)}
+          </div>
+          <div class="text-xs text-slate-600 space-y-1 bg-slate-50 p-3 rounded-xl">
+            <p><strong>Pillar:</strong> ${escapeHtml(c.pillar)}</p>
+            <p><strong>Hook:</strong> ${escapeHtml(c.hook || '-')}</p>
+            <p><strong>CTA:</strong> ${escapeHtml(c.cta || '-')}</p>
+          </div>
+          <div class="pt-2 flex items-center justify-between gap-2">
+            <select onchange="quickChangeContentStatus('${c.id}', this.value)" class="px-2.5 py-1.5 rounded-xl text-xs font-bold border border-slate-200 ${getStatusColorClass(c.status)}">
+              ${CONTENT_STATUSES.map(st => `<option value="${st}" ${c.status === st ? 'selected' : ''}>${st}</option>`).join('')}
+            </select>
+            <div class="space-x-1 text-xs">
+              <button onclick="openContentModal('${c.id}')" class="px-3 py-1.5 rounded-lg bg-slate-100 text-slate-700 font-bold">Edit</button>
+              <button onclick="deleteContent('${c.id}')" class="px-3 py-1.5 rounded-lg bg-rose-50 text-rose-600 font-bold">Hapus</button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    };
+
+    function renderPlannerCalendar() {
+      const year = currentCalendarDate.getFullYear();
+      const month = currentCalendarDate.getMonth();
+      const monthNames = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+      document.getElementById('calendar-month-label').textContent = `${monthNames[month]} ${year}`;
+
+      const firstDay = new Date(year, month, 1).getDay();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      const grid = document.getElementById('calendar-grid');
+      let html = '';
+
+      for (let i = 0; i < firstDay; i++) {
+        html += `<div class="min-h-[80px] sm:min-h-[105px] rounded-xl bg-slate-50/60 border border-slate-100"></div>`;
+      }
+
+      for (let d = 1; d <= daysInMonth; d++) {
+        const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+        const items = db.contents.filter(c => c.date === dateStr);
+        const isToday = dateStr === todayISO();
+
+        html += `
+          <div onclick="openContentModal(null, '${dateStr}')" class="min-h-[80px] sm:min-h-[105px] p-1.5 sm:p-2 rounded-xl border ${isToday ? 'border-indigo-500 bg-indigo-50/20' : 'border-slate-200 bg-white'} hover:border-indigo-400 transition cursor-pointer flex flex-col justify-between">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-extrabold ${isToday ? 'bg-indigo-600 text-white w-6 h-6 rounded-full flex items-center justify-center' : 'text-slate-700'}">${d}</span>
+              ${items.length > 0 ? `<span class="text-[10px] font-bold text-indigo-600">${items.length}</span>` : ''}
+            </div>
+            <div class="space-y-1 mt-1 overflow-hidden">
+              ${items.slice(0, 2).map(it => `
+                <div onclick="event.stopPropagation(); openContentModal('${it.id}')" class="px-1.5 py-0.5 rounded text-[10px] font-semibold truncate ${getStatusColorClass(it.status)}">
+                  ${escapeHtml(it.title)}
+                </div>
+              `).join('')}
+              ${items.length > 2 ? `<p class="text-[9px] text-slate-400 font-bold">+${items.length - 2} lagi</p>` : ''}
+            </div>
+          </div>`;
+      }
+      grid.innerHTML = html;
+    }
+
+    // ==================== 5. SOCIAL MEDIA ANALYTICS ====================
+    window.previewAnalyticsER = function() {
+      const views = Number(document.getElementById('analytics-views').value || 0);
+      const likes = Number(document.getElementById('analytics-likes').value || 0);
+      const comments = Number(document.getElementById('analytics-comments').value || 0);
+      const shares = Number(document.getElementById('analytics-shares').value || 0);
+      const saves = Number(document.getElementById('analytics-saves').value || 0);
+      const eng = likes + comments + shares + saves;
+      const er = views > 0 ? (eng / views) * 100 : 0;
+      document.getElementById('analytics-er-preview').textContent = `${er.toFixed(2)}%`;
+    };
+
+    window.openAnalyticsModal = function(id = null) {
+      populateClientSelects();
+      document.getElementById('analytics-id').value = '';
+      document.getElementById('analytics-date').value = todayISO();
+      document.getElementById('analytics-platform').value = 'TikTok';
+      document.getElementById('analytics-client').value = 'Pribadi / Internal';
+      document.getElementById('analytics-title').value = '';
+      document.getElementById('analytics-views').value = 0;
+      document.getElementById('analytics-reach').value = 0;
+      document.getElementById('analytics-followers').value = 0;
+      document.getElementById('analytics-likes').value = 0;
+      document.getElementById('analytics-comments').value = 0;
+      document.getElementById('analytics-shares').value = 0;
+      document.getElementById('analytics-saves').value = 0;
+      document.getElementById('analytics-er-preview').textContent = '0.00%';
+      document.getElementById('modal-analytics-title').textContent = 'Input Data Performa Konten';
+
+      if (id) {
+        const a = db.analytics.find(x => x.id === id);
+        if (a) {
+          document.getElementById('analytics-id').value = a.id;
+          document.getElementById('analytics-date').value = a.date;
+          document.getElementById('analytics-platform').value = a.platform;
+          document.getElementById('analytics-client').value = a.client || 'Pribadi / Internal';
+          document.getElementById('analytics-title').value = a.title;
+          document.getElementById('analytics-views').value = a.views;
+          document.getElementById('analytics-reach').value = a.reach;
+          document.getElementById('analytics-followers').value = a.followersGained;
+          document.getElementById('analytics-likes').value = a.likes;
+          document.getElementById('analytics-comments').value = a.comments;
+          document.getElementById('analytics-shares').value = a.shares;
+          document.getElementById('analytics-saves').value = a.saves;
+          previewAnalyticsER();
+          document.getElementById('modal-analytics-title').textContent = 'Edit Data Performa Konten';
+        }
+      }
+      document.getElementById('modal-analytics').classList.remove('hidden');
+    };
+
+    window.saveAnalytics = function(e) {
+      e.preventDefault();
+      const id = document.getElementById('analytics-id').value;
+      const views = Number(document.getElementById('analytics-views').value || 0);
+      const reach = Number(document.getElementById('analytics-reach').value || 0);
+      const likes = Number(document.getElementById('analytics-likes').value || 0);
+      const comments = Number(document.getElementById('analytics-comments').value || 0);
+      const shares = Number(document.getElementById('analytics-shares').value || 0);
+      const saves = Number(document.getElementById('analytics-saves').value || 0);
+      const followersGained = Number(document.getElementById('analytics-followers').value || 0);
+      const engagement = likes + comments + shares + saves;
+      const er = views > 0 ? Number(((engagement / views) * 100).toFixed(2)) : 0;
+
+      const payload = {
+        id: id || uid(),
+        date: document.getElementById('analytics-date').value,
+        platform: document.getElementById('analytics-platform').value,
+        client: document.getElementById('analytics-client').value,
+        title: document.getElementById('analytics-title').value.trim(),
+        views,
+        reach,
+        likes,
+        comments,
+        shares,
+        saves,
+        followersGained,
+        engagement,
+        er
+      };
+
+      if (id) {
+        const idx = db.analytics.findIndex(x => x.id === id);
+        if (idx > -1) db.analytics[idx] = payload;
+        showToast('Data analitik berhasil diperbarui!');
+      } else {
+        db.analytics.unshift(payload);
+        showToast('Data performa konten berhasil disimpan!');
+      }
+      closeModal('modal-analytics');
+      saveDatabase();
+    };
+
+    window.deleteAnalytics = function(id) {
+      const a = db.analytics.find(x => x.id === id);
+      askDeleteConfirmation(`Hapus data analitik konten "${a ? a.title : ''}"?`, () => {
+        db.analytics = db.analytics.filter(x => x.id !== id);
+        saveDatabase();
+        showToast('Data analitik dihapus');
+      });
+    };
+
+    window.renderAnalytics = function() {
+      const q = (document.getElementById('search-analytics')?.value || '').toLowerCase();
+      const pf = document.getElementById('filter-analytics-platform')?.value || 'ALL';
+
+      const filtered = db.analytics.filter(a => {
+        const matchQ = a.title.toLowerCase().includes(q) || (a.client || '').toLowerCase().includes(q);
+        const matchP = pf === 'ALL' || a.platform === pf;
+        return matchQ && matchP;
+      });
+
+      const bestBox = document.getElementById('analytics-best-box');
+      const lowBox = document.getElementById('analytics-lowest-box');
+      const compBox = document.getElementById('analytics-comparison-box');
+
+      if (db.analytics.length > 0) {
+        const sortedByViews = [...db.analytics].sort((a, b) => b.views - a.views);
+        const best = sortedByViews[0];
+        const low = sortedByViews[sortedByViews.length - 1];
+
+        bestBox.innerHTML = `
+          <p class="font-bold text-slate-900 text-sm truncate">${escapeHtml(best.title)}</p>
+          <p class="text-xs text-slate-500 mt-0.5">${escapeHtml(best.platform)} • ${formatDateID(best.date)}</p>
+          <div class="flex items-center gap-3 mt-2 text-xs font-extrabold text-emerald-700">
+            <span>${formatNumber(best.views)} Views</span>
+            <span>ER: ${best.er}%</span>
+          </div>`;
+
+        lowBox.innerHTML = `
+          <p class="font-bold text-slate-900 text-sm truncate">${escapeHtml(low.title)}</p>
+          <p class="text-xs text-slate-500 mt-0.5">${escapeHtml(low.platform)} • ${formatDateID(low.date)}</p>
+          <div class="flex items-center gap-3 mt-2 text-xs font-extrabold text-rose-600">
+            <span>${formatNumber(low.views)} Views</span>
+            <span>ER: ${low.er}%</span>
+          </div>`;
+
+        const now = new Date();
+        const curYM = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+        const prevDate = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+        const prevYM = `${prevDate.getFullYear()}-${String(prevDate.getMonth() + 1).padStart(2, '0')}`;
+
+        const curViews = db.analytics.filter(a => (a.date || '').startsWith(curYM)).reduce((s, x) => s + x.views, 0);
+        const prevViews = db.analytics.filter(a => (a.date || '').startsWith(prevYM)).reduce((s, x) => s + x.views, 0);
+        const diffPct = prevViews > 0 ? (((curViews - prevViews) / prevViews) * 100).toFixed(1) : (curViews > 0 ? '100' : '0');
+
+        compBox.innerHTML = `
+          <div class="flex items-center justify-between text-xs">
+            <span class="text-slate-500">Bulan Ini (${curYM}):</span>
+            <span class="font-bold text-slate-900">${formatNumber(curViews)} Views</span>
+          </div>
+          <div class="flex items-center justify-between text-xs mt-1">
+            <span class="text-slate-500">Bulan Lalu (${prevYM}):</span>
+            <span class="font-bold text-slate-700">${formatNumber(prevViews)} Views</span>
+          </div>
+          <p class="text-xs font-extrabold mt-2 ${Number(diffPct) >= 0 ? 'text-emerald-600' : 'text-rose-600'}">
+            Pertumbuhan: ${Number(diffPct) >= 0 ? '+' : ''}${diffPct}%
+          </p>`;
+      } else {
+        bestBox.innerHTML = `<p class="text-xs text-slate-400">Belum ada data analitik.</p>`;
+        lowBox.innerHTML = `<p class="text-xs text-slate-400">Belum ada data analitik.</p>`;
+        compBox.innerHTML = `<p class="text-xs text-slate-400">Belum ada data periode.</p>`;
+      }
+
+      const chartEmpty = document.getElementById('analytics-chart-empty');
+      const ctx = document.getElementById('analyticsChart');
+      if (filtered.length === 0) {
+        chartEmpty.classList.remove('hidden');
+        if (analyticsChartInstance) {
+          analyticsChartInstance.destroy();
+          analyticsChartInstance = null;
+        }
+      } else {
+        chartEmpty.classList.add('hidden');
+        const cData = [...filtered].reverse().slice(-10);
+        if (analyticsChartInstance) analyticsChartInstance.destroy();
+        analyticsChartInstance = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: cData.map(x => x.title.slice(0, 14)),
+            datasets: [
+              { label: 'Views', data: cData.map(x => x.views), backgroundColor: '#4f46e5', borderRadius: 6 },
+              { label: 'Reach', data: cData.map(x => x.reach), backgroundColor: '#0ea5e9', borderRadius: 6 }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { position: 'top' } }
+          }
+        });
+      }
+
+      const tbody = document.getElementById('analytics-table-body');
+      const mobileCards = document.getElementById('analytics-mobile-cards');
+      const empty = document.getElementById('analytics-empty');
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = '';
+        mobileCards.innerHTML = '';
+        empty.classList.remove('hidden');
+        return;
+      }
+      empty.classList.add('hidden');
+
+      tbody.innerHTML = filtered.map(a => `
+        <tr class="hover:bg-slate-50/80">
+          <td class="py-3.5 px-5">
+            <p class="text-[11px] font-bold text-indigo-600">${formatDateID(a.date)} • ${escapeHtml(a.client)}</p>
+            <p class="font-bold text-slate-900">${escapeHtml(a.title)}</p>
+          </td>
+          <td class="py-3.5 px-3">${getPlatformBadge(a.platform)}</td>
+          <td class="py-3.5 px-3 text-xs">
+            <p class="font-bold text-slate-900">${formatNumber(a.views)} Views</p>
+            <p class="text-slate-500">Reach: ${formatNumber(a.reach)}</p>
+          </td>
+          <td class="py-3.5 px-3 text-xs text-slate-600">
+            L: ${formatNumber(a.likes)} • C: ${formatNumber(a.comments)}<br/>
+            S: ${formatNumber(a.shares)} • Sv: ${formatNumber(a.saves)}
+          </td>
+          <td class="py-3.5 px-3">
+            <span class="px-2.5 py-1 rounded-full text-xs font-extrabold bg-rose-50 text-rose-700">${a.er}%</span>
+          </td>
+          <td class="py-3.5 px-3 font-bold text-emerald-600 text-xs">+${formatNumber(a.followersGained)}</td>
+          <td class="py-3.5 px-5 text-right space-x-1">
+            <button onclick="openAnalyticsModal('${a.id}')" class="px-2.5 py-1.5 rounded-lg border border-slate-200 text-xs font-bold text-slate-700 hover:bg-slate-100">Edit</button>
+            <button onclick="deleteAnalytics('${a.id}')" class="px-2.5 py-1.5 rounded-lg border border-rose-200 text-xs font-bold text-rose-600 hover:bg-rose-50">Hapus</button>
+          </td>
+        </tr>
+      `).join('');
+
+      mobileCards.innerHTML = filtered.map(a => `
+        <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-sm space-y-2.5">
+          <div class="flex items-start justify-between gap-2">
+            <div>
+              <span class="text-[11px] font-bold text-indigo-600">${formatDateID(a.date)}</span>
+              <h4 class="font-bold text-slate-900 text-sm">${escapeHtml(a.title)}</h4>
+            </div>
+            ${getPlatformBadge(a.platform)}
+          </div>
+          <div class="grid grid-cols-3 gap-2 bg-slate-50 p-2.5 rounded-xl text-center text-xs">
+            <div><p class="text-slate-400 text-[10px]">Views</p><p class="font-extrabold text-slate-900">${formatNumber(a.views)}</p></div>
+            <div><p class="text-slate-400 text-[10px]">ER (%)</p><p class="font-extrabold text-rose-600">${a.er}%</p></div>
+            <div><p class="text-slate-400 text-[10px]">+Followers</p><p class="font-extrabold text-emerald-600">+${formatNumber(a.followersGained)}</p></div>
+          </div>
+          <div class="pt-1 flex justify-end gap-1.5 text-xs">
+            <button onclick="openAnalyticsModal('${a.id}')" class="px-3 py-1 rounded-lg bg-slate-100 text-slate-700 font-bold">Edit</button>
+            <button onclick="deleteAnalytics('${a.id}')" class="px-3 py-1 rounded-lg bg-rose-50 text-rose-600 font-bold">Hapus</button>
+          </div>
+        </div>
+      `).join('');
+    };
+
+    // ==================== 6. AFFILIATE TRACKER ====================
+    window.previewAffiliateCR = function() {
+      const clicks = Number(document.getElementById('aff-clicks').value || 0);
+      const orders = Number(document.getElementById('aff-orders').value || 0);
+      const cr = clicks > 0 ? (orders / clicks) * 100 : 0;
+      document.getElementById('aff-cr-preview').textContent = `${cr.toFixed(2)}%`;
+    };
+
+    window.openAffiliateModal = function(id = null) {
+      document.getElementById('aff-id').value = '';
+      document.getElementById('aff-date').value = todayISO();
+      document.getElementById('aff-platform').value = 'Shopee';
+      document.getElementById('aff-product').value = '';
+      document.getElementById('aff-link').value = '';
+      document.getElementById('aff-clicks').value = 0;
+      document.getElementById('aff-orders').value = 0;
+      document.getElementById('aff-gmv').value = 0;
+      document.getElementById('aff-commission').value = 0;
+      document.getElementById('aff-cr-preview').textContent = '0.00%';
+      document.getElementById('modal-affiliate-title').textContent = 'Catat Produk & Performa Affiliate';
+
+      if (id) {
+        const f = db.affiliates.find(x => x.id === id);
+        if (f) {
+          document.getElementById('aff-id').value = f.id;
+          document.getElementById('aff-date').value = f.date;
+          document.getElementById('aff-platform').value = f.platform;
+          document.getElementById('aff-product').value = f.product;
+          document.getElementById('aff-link').value = f.link || '';
+          document.getElementById('aff-clicks').value = f.clicks;
+          document.getElementById('aff-orders').value = f.orders;
+          document.getElementById('aff-gmv').value = f.gmv;
+          document.getElementById('aff-commission').value = f.commission;
+          previewAffiliateCR();
+          document.getElementById('modal-affiliate-title').textContent = 'Edit Data Produk Affiliate';
+        }
+      }
+      document.getElementById('modal-affiliate').classList.remove('hidden');
+    };
+
+    window.saveAffiliate = function(e) {
+      e.preventDefault();
+      const id = document.getElementById('aff-id').value;
+      const clicks = Number(document.getElementById('aff-clicks').value || 0);
+      const orders = Number(document.getElementById('aff-orders').value || 0);
+      const gmv = Number(document.getElementById('aff-gmv').value || 0);
+      const commission = Number(document.getElementById('aff-commission').value || 0);
+      const cr = clicks > 0 ? Number(((orders / clicks) * 100).toFixed(2)) : 0;
+
+      const payload = {
+        id: id || uid(),
+        date: document.getElementById('aff-date').value,
+        platform: document.getElementById('aff-platform').value,
+        product: document.getElementById('aff-product').value.trim(),
+        link: document.getElementById('aff-link').value.trim(),
+        clicks,
+        orders,
+        gmv,
+        commission,
+        cr
+      };
+
+      if (id) {
+        const idx = db.affiliates.findIndex(x => x.id === id);
+        if (idx > -1) db.affiliates[idx] = payload;
+        showToast('Data affiliate diperbarui!');
+      } else {
+        db.affiliates.unshift(payload);
+        showToast('Data produk affiliate disimpan!');
+      }
+      closeModal('modal-affiliate');
+      saveDatabase();
+    };
+
+    window.deleteAffiliate = function(id) {
+      const f = db.affiliates.find(x => x.id === id);
+      askDeleteConfirmation(`Hapus riwayat produk "${f ? f.product : ''}"?`, () => {
+        db.affiliates = db.affiliates.filter(x => x.id !== id);
+        saveDatabase();
+        showToast('Data affiliate dihapus');
+      });
+    };
+
+    window.renderAffiliate = function() {
+      const q = (document.getElementById('search-affiliate')?.value || '').toLowerCase();
+      const pf = document.getElementById('filter-affiliate-platform')?.value || 'ALL';
+
+      const filtered = db.affiliates.filter(f => {
+        const matchQ = f.product.toLowerCase().includes(q);
+        const matchP = pf === 'ALL' || f.platform === pf;
+        return matchQ && matchP;
+      });
+
+      const sumClicks = filtered.reduce((s, x) => s + Number(x.clicks || 0), 0);
+      const sumOrders = filtered.reduce((s, x) => s + Number(x.orders || 0), 0);
+      const sumGMV = filtered.reduce((s, x) => s + Number(x.gmv || 0), 0);
+      const sumComm = filtered.reduce((s, x) => s + Number(x.commission || 0), 0);
+      const avgCR = sumClicks > 0 ? ((sumOrders / sumClicks) * 100).toFixed(2) : '0.00';
+
+      document.getElementById('aff-sum-clicks').textContent = formatNumber(sumClicks);
+      document.getElementById('aff-sum-orders').innerHTML = `${formatNumber(sumOrders)} <span class="text-xs font-bold text-amber-600">(${avgCR}%)</span>`;
+      document.getElementById('aff-sum-gmv').textContent = formatRupiah(sumGMV);
+      document.getElementById('aff-sum-commission').textContent = formatRupiah(sumComm);
+
+      const tbody = document.getElementById('affiliate-table-body');
+      const mobileCards = document.getElementById('affiliate-mobile-cards');
+      const empty = document.getElementById('affiliate-empty');
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = '';
+        mobileCards.innerHTML = '';
+        empty.classList.remove('hidden');
+        return;
+      }
+      empty.classList.add('hidden');
+
+      tbody.innerHTML = filtered.map(f => `
+        <tr class="hover:bg-slate-50/80">
+          <td class="py-3.5 px-5">
+            <p class="text-[11px] font-bold text-slate-400">${formatDateID(f.date)}</p>
+            <p class="font-bold text-slate-900">${escapeHtml(f.product)}</p>
+            ${f.link ? `<a href="${escapeHtml(f.link)}" target="_blank" rel="noopener" class="text-xs text-indigo-600 hover:underline">Buka Link Produk ↗</a>` : ''}
+          </td>
+          <td class="py-3.5 px-3">${getPlatformBadge(f.platform)}</td>
+          <td class="py-3.5 px-3 text-xs">
+            <p class="font-bold text-slate-900">${formatNumber(f.clicks)} Klik</p>
+            <p class="text-slate-500">${formatNumber(f.orders)} Pesanan</p>
+          </td>
+          <td class="py-3.5 px-3">
+            <span class="px-2.5 py-1 rounded-full text-xs font-extrabold bg-amber-50 text-amber-700">${f.cr}%</span>
+          </td>
+          <td class="py-3.5 px-3 text-xs font-semibold text-slate-700">${formatRupiah(f.gmv)}</td>
+          <td class="py-3.5 px-3 text-sm font-extrabold text-emerald-600">${formatRupiah(f.commission)}</td>
+          <td class="py-3.5 px-5 text-right space-x-1">
+            <button onclick="openAffiliateModal('${f.id}')" class="px-2.5 py-1.5 rounded-lg border border-slate-200 text-xs font-bold text-slate-700 hover:bg-slate-100">Edit</button>
+            <button onclick="deleteAffiliate('${f.id}')" class="px-2.5 py-1.5 rounded-lg border border-rose-200 text-xs font-bold text-rose-600 hover:bg-rose-50">Hapus</button>
+          </td>
+        </tr>
+      `).join('');
+
+      mobileCards.innerHTML = filtered.map(f => `
+        <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-sm space-y-2.5">
+          <div class="flex items-start justify-between gap-2">
+            <div>
+              <span class="text-[11px] font-bold text-slate-400">${formatDateID(f.date)}</span>
+              <h4 class="font-bold text-slate-900 text-sm">${escapeHtml(f.product)}</h4>
+            </div>
+            ${getPlatformBadge(f.platform)}
+          </div>
+          <div class="grid grid-cols-3 gap-2 bg-slate-50 p-2.5 rounded-xl text-center text-xs">
+            <div><p class="text-slate-400 text-[10px]">Klik / Order</p><p class="font-bold text-slate-900">${formatNumber(f.clicks)} / ${formatNumber(f.orders)}</p></div>
+            <div><p class="text-slate-400 text-[10px]">CR (%)</p><p class="font-extrabold text-amber-600">${f.cr}%</p></div>
+            <div><p class="text-slate-400 text-[10px]">Komisi</p><p class="font-extrabold text-emerald-600">${formatRupiah(f.commission)}</p></div>
+          </div>
+          <div class="pt-1 flex items-center justify-between text-xs">
+            <span class="text-slate-500">GMV: ${formatRupiah(f.gmv)}</span>
+            <div class="space-x-1.5">
+              <button onclick="openAffiliateModal('${f.id}')" class="px-3 py-1 rounded-lg bg-slate-100 text-slate-700 font-bold">Edit</button>
+              <button onclick="deleteAffiliate('${f.id}')" class="px-3 py-1 rounded-lg bg-rose-50 text-rose-600 font-bold">Hapus</button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    };
+
+    // ==================== 7. TASK MANAGEMENT & DEADLINE REMINDER ====================
+    function getDeadlineDiffDays(deadlineStr) {
+      if (!deadlineStr) return 999;
+      const today = new Date(todayISO());
+      const target = new Date(deadlineStr);
+      return Math.round((target - today) / (1000 * 60 * 60 * 24));
+    }
+
+    function getDeadlineStatusBadge(deadlineStr, status) {
+      if (status === 'Selesai') {
+        return `<span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700">Selesai</span>`;
+      }
+      const diff = getDeadlineDiffDays(deadlineStr);
+      if (diff < 0) {
+        return `<span class="px-2.5 py-1 rounded-full text-[11px] font-extrabold bg-rose-100 text-rose-700">Terlambat (${Math.abs(diff)} hr)</span>`;
+      }
+      if (diff === 0) {
+        return `<span class="px-2.5 py-1 rounded-full text-[11px] font-extrabold bg-amber-100 text-amber-800">Hari Ini!</span>`;
+      }
+      if (diff <= 3) {
+        return `<span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-amber-50 text-amber-700">${diff} Hari Lagi</span>`;
+      }
+      return `<span class="px-2.5 py-1 rounded-full text-[11px] font-semibold bg-slate-100 text-slate-600">${diff} Hari Lagi</span>`;
+    }
+
+    function updateDeadlineReminders() {
+      const urgentTasks = db.tasks.filter(t => t.status !== 'Selesai' && getDeadlineDiffDays(t.deadline) <= 2);
+      const count = urgentTasks.length;
+
+      const sideBadge = document.getElementById('sidebar-task-badge');
+      const headerAlert = document.getElementById('header-deadline-alert');
+      const headerText = document.getElementById('header-deadline-text');
+      const banner = document.getElementById('urgent-reminder-banner');
+      const bannerMsg = document.getElementById('urgent-reminder-message');
+      const mobDot = document.getElementById('mob-more-badge');
+
+      if (count > 0) {
+        sideBadge.textContent = count;
+        sideBadge.classList.remove('hidden');
+        headerAlert.classList.remove('hidden');
+        headerAlert.classList.add('inline-flex');
+        headerText.textContent = `${count} Deadline Dekat`;
+        banner.classList.remove('hidden');
+        bannerMsg.textContent = `Pengingat Deadline: Kamu memiliki ${count} pekerjaan penting yang jatuh tempo dalam ≤ 2 hari atau sudah lewat waktu!`;
+        mobDot.classList.remove('hidden');
+      } else {
+        sideBadge.classList.add('hidden');
+        headerAlert.classList.add('hidden');
+        headerAlert.classList.remove('inline-flex');
+        banner.classList.add('hidden');
+        mobDot.classList.add('hidden');
+      }
+    }
+
+    window.openTaskModal = function(id = null) {
+      document.getElementById('task-id').value = '';
+      document.getElementById('task-title').value = '';
+      document.getElementById('task-deadline').value = todayISO();
+      document.getElementById('task-priority').value = 'Sedang';
+      document.getElementById('task-status').value = 'Belum Dikerjakan';
+      document.getElementById('task-notes').value = '';
+      document.getElementById('modal-task-title').textContent = 'Tambah Pekerjaan Baru';
+
+      if (id) {
+        const t = db.tasks.find(x => x.id === id);
+        if (t) {
+          document.getElementById('task-id').value = t.id;
+          document.getElementById('task-title').value = t.title;
+          document.getElementById('task-deadline').value = t.deadline;
+          document.getElementById('task-priority').value = t.priority;
+          document.getElementById('task-status').value = t.status;
+          document.getElementById('task-notes').value = t.notes || '';
+          document.getElementById('modal-task-title').textContent = 'Edit Pekerjaan';
+        }
+      }
+      document.getElementById('modal-task').classList.remove('hidden');
+    };
+
+    window.saveTask = function(e) {
+      e.preventDefault();
+      const id = document.getElementById('task-id').value;
+      const payload = {
+        id: id || uid(),
+        title: document.getElementById('task-title').value.trim(),
+        deadline: document.getElementById('task-deadline').value,
+        priority: document.getElementById('task-priority').value,
+        status: document.getElementById('task-status').value,
+        notes: document.getElementById('task-notes').value.trim()
+      };
+
+      if (id) {
+        const idx = db.tasks.findIndex(x => x.id === id);
+        if (idx > -1) db.tasks[idx] = payload;
+        showToast('Pekerjaan diperbarui!');
+      } else {
+        db.tasks.unshift(payload);
+        showToast('Pekerjaan baru ditambahkan!');
+      }
+      closeModal('modal-task');
+      saveDatabase();
+    };
+
+    window.toggleTaskDone = function(id) {
+      const t = db.tasks.find(x => x.id === id);
+      if (t) {
+        t.status = t.status === 'Selesai' ? 'Belum Dikerjakan' : 'Selesai';
+        saveDatabase();
+        showToast(`Status pekerjaan: ${t.status}`);
+      }
+    };
+
+    window.deleteTask = function(id) {
+      const t = db.tasks.find(x => x.id === id);
+      askDeleteConfirmation(`Hapus pekerjaan "${t ? t.title : ''}"?`, () => {
+        db.tasks = db.tasks.filter(x => x.id !== id);
+        saveDatabase();
+        showToast('Pekerjaan dihapus');
+      });
+    };
+
+    window.renderTasks = function() {
+      const q = (document.getElementById('search-tasks')?.value || '').toLowerCase();
+      const sf = document.getElementById('filter-tasks-status')?.value || 'ALL';
+
+      const filtered = db.tasks.filter(t => {
+        const matchQ = t.title.toLowerCase().includes(q) || (t.notes || '').toLowerCase().includes(q);
+        const matchS = sf === 'ALL' || t.status === sf;
+        return matchQ && matchS;
+      });
+
+      const tbody = document.getElementById('tasks-table-body');
+      const mobileCards = document.getElementById('tasks-mobile-cards');
+      const empty = document.getElementById('tasks-empty');
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = '';
+        mobileCards.innerHTML = '';
+        empty.classList.remove('hidden');
+        return;
+      }
+      empty.classList.add('hidden');
+
+      const prioBadge = (p) => {
+        const m = {
+          'Tinggi': 'bg-rose-50 text-rose-700 border-rose-200',
+          'Sedang': 'bg-amber-50 text-amber-700 border-amber-200',
+          'Rendah': 'bg-slate-100 text-slate-600 border-slate-200'
+        };
+        return `<span class="px-2.5 py-1 rounded-full text-xs font-bold border ${m[p] || m['Sedang']}">${escapeHtml(p)}</span>`;
+      };
+
+      tbody.innerHTML = filtered.map(t => `
+        <tr class="hover:bg-slate-50/80">
+          <td class="py-3.5 px-5">
+            <p class="font-bold ${t.status === 'Selesai' ? 'line-through text-slate-400' : 'text-slate-900'}">${escapeHtml(t.title)}</p>
+            <p class="text-xs text-slate-500">${escapeHtml(t.notes || '-')}</p>
+          </td>
+          <td class="py-3.5 px-4">
+            <p class="text-xs font-bold text-slate-700 mb-1">${formatDateID(t.deadline)}</p>
+            ${getDeadlineStatusBadge(t.deadline, t.status)}
+          </td>
+          <td class="py-3.5 px-4">${prioBadge(t.priority)}</td>
+          <td class="py-3.5 px-4">
+            <button onclick="toggleTaskDone('${t.id}')" class="px-3 py-1.5 rounded-xl text-xs font-bold border ${t.status === 'Selesai' ? 'bg-emerald-50 text-emerald-700 border-emerald-200' : 'bg-slate-100 text-slate-700 border-slate-200'}">
+              ${escapeHtml(t.status)}
+            </button>
+          </td>
+          <td class="py-3.5 px-5 text-right space-x-1">
+            <button onclick="openTaskModal('${t.id}')" class="px-2.5 py-1.5 rounded-lg border border-slate-200 text-xs font-bold text-slate-700 hover:bg-slate-100">Edit</button>
+            <button onclick="deleteTask('${t.id}')" class="px-2.5 py-1.5 rounded-lg border border-rose-200 text-xs font-bold text-rose-600 hover:bg-rose-50">Hapus</button>
+          </td>
+        </tr>
+      `).join('');
+
+      mobileCards.innerHTML = filtered.map(t => `
+        <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-sm space-y-2.5">
+          <div class="flex items-start justify-between gap-2">
+            <div>
+              <h4 class="font-bold text-sm ${t.status === 'Selesai' ? 'line-through text-slate-400' : 'text-slate-900'}">${escapeHtml(t.title)}</h4>
+              <p class="text-xs text-slate-500 mt-0.5">Deadline: ${formatDateID(t.deadline)}</p>
+            </div>
+            ${getDeadlineStatusBadge(t.deadline, t.status)}
+          </div>
+          <p class="text-xs text-slate-600">${escapeHtml(t.notes || '')}</p>
+          <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
+            <button onclick="toggleTaskDone('${t.id}')" class="px-3 py-1 rounded-lg bg-emerald-50 text-emerald-700 font-bold">
+              ${t.status === 'Selesai' ? 'Buka Kembali' : 'Tandai Selesai'}
+            </button>
+            <div class="space-x-1">
+              <button onclick="openTaskModal('${t.id}')" class="px-3 py-1 rounded-lg bg-slate-100 text-slate-700 font-bold">Edit</button>
+              <button onclick="deleteTask('${t.id}')" class="px-3 py-1 rounded-lg bg-rose-50 text-rose-600 font-bold">Hapus</button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    };
+
+    // ==================== 8. REPORT CENTER & EXPORT ====================
+    function getFilteredReportData() {
+      const period = document.getElementById('report-period')?.value || 'monthly';
+      const client = document.getElementById('report-client')?.value || 'ALL';
+      const now = new Date(todayISO());
+      const daysLimit = period === 'weekly' ? 7 : (period === 'monthly' ? 30 : 99999);
+
+      const withinDays = (dateStr) => {
+        if (!dateStr || daysLimit === 99999) return true;
+        const diff = Math.round((now - new Date(dateStr)) / (1000 * 60 * 60 * 24));
+        return diff >= 0 && diff <= daysLimit;
+      };
+
+      const perf = db.analytics.filter(a => withinDays(a.date) && (client === 'ALL' || a.client === client));
+      const aff = db.affiliates.filter(f => withinDays(f.date));
+      const contents = db.contents.filter(c => withinDays(c.date) && (client === 'ALL' || c.client === client));
+
+      return { perf, aff, contents, period, client };
+    }
+
+    window.renderReportCenter = function() {
+      const { perf, aff, contents, period, client } = getFilteredReportData();
+      const reportType = document.getElementById('report-type')?.value || 'all';
+
+      const periodName = period === 'weekly' ? 'Mingguan (7 Hari Terakhir)' : (period === 'monthly' ? 'Bulanan (30 Hari Terakhir)' : 'Seluruh Periode');
+      document.getElementById('report-header-title').textContent = `Laporan Performa ${periodName}`;
+      document.getElementById('report-header-meta').textContent = `Filter Klien: ${client === 'ALL' ? 'Semua Klien & Proyek' : client} • Disusun oleh Boby Anggara`;
+      document.getElementById('report-date-badge').textContent = `Tanggal Cetak: ${formatDateID(todayISO())}`;
+
+      const totalViews = perf.reduce((s, x) => s + Number(x.views || 0), 0);
+      const avgER = perf.length > 0 ? (perf.reduce((s, x) => s + Number(x.er || 0), 0) / perf.length).toFixed(2) : '0.00';
+      const totalFollowers = perf.reduce((s, x) => s + Number(x.followersGained || 0), 0);
+      const totalComm = aff.reduce((s, x) => s + Number(x.commission || 0), 0);
+
+      document.getElementById('rep-kpi-content').textContent = `${contents.length} Konten`;
+      document.getElementById('rep-kpi-views').textContent = `${formatNumber(totalViews)} (${avgER}%)`;
+      document.getElementById('rep-kpi-followers').textContent = `+${formatNumber(totalFollowers)}`;
+      document.getElementById('rep-kpi-commission').textContent = formatRupiah(totalComm);
+
+      const secPerf = document.getElementById('rep-sec-performance');
+      const secAff = document.getElementById('rep-sec-affiliate');
+      secPerf.classList.toggle('hidden', reportType === 'affiliate');
+      secAff.classList.toggle('hidden', reportType === 'performance');
+
+      const perfBody = document.getElementById('rep-table-performance');
+      perfBody.innerHTML = perf.length === 0
+        ? `<tr><td colspan="7" class="py-4 text-center text-slate-400">Belum ada data performa pada periode ini.</td></tr>`
+        : perf.map(p => `
+            <tr>
+              <td class="py-2 px-3">${formatDateID(p.date)}</td>
+              <td class="py-2 px-3 font-bold text-slate-900">${escapeHtml(p.title)}</td>
+              <td class="py-2 px-3">${escapeHtml(p.platform)}</td>
+              <td class="py-2 px-3">${formatNumber(p.views)}</td>
+              <td class="py-2 px-3">${formatNumber(p.reach)}</td>
+              <td class="py-2 px-3">${formatNumber(p.engagement)}</td>
+              <td class="py-2 px-3 font-bold text-indigo-600">${p.er}%</td>
+            </tr>`).join('');
+
+      const affBody = document.getElementById('rep-table-affiliate');
+      affBody.innerHTML = aff.length === 0
+        ? `<tr><td colspan="8" class="py-4 text-center text-slate-400">Belum ada data affiliate pada periode ini.</td></tr>`
+        : aff.map(f => `
+            <tr>
+              <td class="py-2 px-3">${formatDateID(f.date)}</td>
+              <td class="py-2 px-3 font-bold text-slate-900">${escapeHtml(f.product)}</td>
+              <td class="py-2 px-3">${escapeHtml(f.platform)}</td>
+              <td class="py-2 px-3">${formatNumber(f.clicks)}</td>
+              <td class="py-2 px-3">${formatNumber(f.orders)}</td>
+              <td class="py-2 px-3 font-bold text-amber-600">${f.cr}%</td>
+              <td class="py-2 px-3">${formatRupiah(f.gmv)}</td>
+              <td class="py-2 px-3 font-bold text-emerald-600">${formatRupiah(f.commission)}</td>
+            </tr>`).join('');
+    };
+
+    window.exportReportPDF = function() {
+      window.print();
+    };
+
+    window.exportReportCSV = function() {
+      const { perf, aff } = getFilteredReportData();
+      let csv = 'KATEGORI,TANGGAL,NAMA KONTEN / PRODUK,PLATFORM,VIEWS / KLIK,REACH / PESANAN,ER (%) / CR (%),FOLLOWERS / KOMISI (RP)\n';
+      perf.forEach(p => {
+        csv += `"Analitik Konten","${p.date}","${p.title.replace(/"/g, '""')}","${p.platform}",${p.views},${p.reach},${p.er},${p.followersGained}\n`;
+      });
+      aff.forEach(f => {
+        csv += `"Affiliate","${f.date}","${f.product.replace(/"/g, '""')}","${f.platform}",${f.clicks},${f.orders},${f.cr},${f.commission}\n`;
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `Laporan_Boby_Creator_Studio_${todayISO()}.csv`;
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast('Laporan CSV berhasil diunduh!');
+    };
+
+    window.exportReportExcel = function() {
+      const content = document.getElementById('printable-report-area').innerHTML;
+      const html = `
+        <html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel">
+        <head><meta charset="UTF-8"></head>
+        <body>${content}</body></html>`;
+      const blob = new Blob([html], { type: 'application/vnd.ms-excel' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `Laporan_Boby_Creator_Studio_${todayISO()}.xls`;
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast('Laporan Excel (.xls) berhasil diunduh!');
+    };
+
+    // ==================== 9. BACKUP & REALTIME FIREBASE CONNECTOR ====================
+    window.downloadBackupJSON = function() {
+      const blob = new Blob([JSON.stringify(db, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `Backup_BobyCreatorStudio_${todayISO()}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast('File Backup (.json) berhasil diunduh!');
+    };
+
+    window.restoreBackupJSON = function(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        try {
+          const parsed = JSON.parse(ev.target.result);
+          if (parsed && typeof parsed === 'object') {
+            db = {
+              clients: Array.isArray(parsed.clients) ? parsed.clients : [],
+              accounts: Array.isArray(parsed.accounts) ? parsed.accounts : [],
+              contents: Array.isArray(parsed.contents) ? parsed.contents : [],
+              analytics: Array.isArray(parsed.analytics) ? parsed.analytics : [],
+              affiliates: Array.isArray(parsed.affiliates) ? parsed.affiliates : [],
+              tasks: Array.isArray(parsed.tasks) ? parsed.tasks : []
+            };
+            saveDatabase();
+            showToast('Data backup berhasil dipulihkan!');
+          }
+        } catch (err) {
+          showToast('File backup tidak valid!', 'error');
+        }
+      };
+      reader.readAsText(file);
+    };
+
+    window.confirmResetAllData = function() {
+      askDeleteConfirmation('Apakah kamu yakin ingin menghapus seluruh data di browser ini hingga bersih?', () => {
+        db = { clients: [], accounts: [], contents: [], analytics: [], affiliates: [], tasks: [] };
+        saveDatabase();
+        showToast('Seluruh data berhasil dibersihkan');
+      });
+    };
+
+    async function initFirebaseIfConfigured() {
+      let cfg = DEFAULT_FIREBASE_CONFIG;
+      const rawCfg = localStorage.getItem(FIREBASE_CFG_KEY);
+      if (rawCfg) {
+        try {
+          const parsed = JSON.parse(rawCfg);
+          if (parsed && parsed.apiKey && parsed.projectId) {
+            cfg = parsed;
+          }
+        } catch (e) {}
+      }
+
+      if (document.getElementById('fb-apiKey')) document.getElementById('fb-apiKey').value = cfg.apiKey || '';
+      if (document.getElementById('fb-projectId')) document.getElementById('fb-projectId').value = cfg.projectId || '';
+      if (document.getElementById('fb-authDomain')) document.getElementById('fb-authDomain').value = cfg.authDomain || '';
+      if (document.getElementById('fb-appId')) document.getElementById('fb-appId').value = cfg.appId || '';
+
+      try {
+        const app = initializeApp(cfg);
+        firestoreDb = getFirestore(app);
+        const docRef = doc(firestoreDb, 'bobyStudioWorkspace', 'mainData');
+
+        // Pasang Realtime Listener (onSnapshot) agar perubahan di HP/Laptop langsung sinkron otomatis
+        if (unsubscribeRealtime) unsubscribeRealtime();
+        unsubscribeRealtime = onSnapshot(docRef, (snap) => {
+          if (snap.exists()) {
+            const cloudData = snap.data();
+            if (cloudData && cloudData.payload) {
+              isApplyingCloudUpdate = true;
+              const parsed = JSON.parse(cloudData.payload);
+              db = {
+                clients: Array.isArray(parsed.clients) ? parsed.clients : [],
+                accounts: Array.isArray(parsed.accounts) ? parsed.accounts : [],
+                contents: Array.isArray(parsed.contents) ? parsed.contents : [],
+                analytics: Array.isArray(parsed.analytics) ? parsed.analytics : [],
+                affiliates: Array.isArray(parsed.affiliates) ? parsed.affiliates : [],
+                tasks: Array.isArray(parsed.tasks) ? parsed.tasks : []
+              };
+              localStorage.setItem(STORAGE_KEY, JSON.stringify(db));
+              refreshAllViews();
+              isApplyingCloudUpdate = false;
+            }
+          } else {
+            pushToFirestoreSilent();
+          }
+          setStorageStatusUI(true);
+        }, (err) => {
+          console.error('Error Realtime Firestore:', err);
+          setStorageStatusUI(false);
+          showToast('Koneksi Cloud tertolak: Cek tab Rules di Firebase Console', 'error');
+        });
+      } catch (err) {
+        console.warn('Koneksi Firebase belum aktif:', err);
+        setStorageStatusUI(false);
+      }
+    }
+
+    async function pushToFirestoreSilent() {
+      if (!firestoreDb) return;
+      try {
+        await setDoc(doc(firestoreDb, 'bobyStudioWorkspace', 'mainData'), {
+          payload: JSON.stringify(db),
+          updatedAt: new Date().toISOString()
+        });
+        setStorageStatusUI(true);
+      } catch (err) {
+        console.warn('Gagal sinkronisasi ke Firestore:', err);
+      }
+    }
+
+    window.saveFirebaseConfig = async function(e) {
+      e.preventDefault();
+      const cfg = {
+        apiKey: document.getElementById('fb-apiKey').value.trim(),
+        projectId: document.getElementById('fb-projectId').value.trim(),
+        authDomain: document.getElementById('fb-authDomain').value.trim(),
+        appId: document.getElementById('fb-appId').value.trim()
+      };
+      if (!cfg.apiKey || !cfg.projectId) {
+        showToast('API Key dan Project ID wajib diisi!', 'error');
+        return;
+      }
+      localStorage.setItem(FIREBASE_CFG_KEY, JSON.stringify(cfg));
+      showToast('Menghubungkan ke Firebase Firestore...');
+      await initFirebaseIfConfigured();
+    };
+
+    window.syncWithFirebaseNow = async function() {
+      await pushToFirestoreSilent();
+      showToast('Data berhasil disinkronkan ke Cloud Firestore!');
+    };
+
+    window.disconnectFirebase = function() {
+      if (unsubscribeRealtime) unsubscribeRealtime();
+      localStorage.removeItem(FIREBASE_CFG_KEY);
+      firestoreDb = null;
+      setStorageStatusUI(false);
+      showToast('Koneksi Firebase diputuskan. Kembali ke mode Lokal.');
+    };
+
+    function setStorageStatusUI(isCloud) {
+      const fbBadge = document.getElementById('firebase-status-badge');
+      const syncBtn = document.getElementById('btn-firebase-sync');
+      const headerLabel = document.getElementById('header-storage-label');
+      const headerDot = document.getElementById('header-storage-dot');
+      const deskBadge = document.getElementById('storage-badge-desktop');
+      const deskDesc = document.getElementById('storage-desc-desktop');
+
+      if (isCloud) {
+        if (fbBadge) {
+          fbBadge.textContent = 'Terhubung ke Cloud Firestore';
+          fbBadge.className = 'px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700';
+        }
+        if (syncBtn) syncBtn.classList.remove('hidden');
+        if (headerLabel) headerLabel.textContent = 'Cloud + Lokal Aktif';
+        if (headerDot) headerDot.className = 'w-2 h-2 rounded-full bg-sky-500';
+        if (deskBadge) deskBadge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span> Cloud + Lokal`;
+        if (deskDesc) deskDesc.textContent = 'Data tersimpan di browser dan tersinkronisasi realtime ke Firebase Firestore.';
+      } else {
+        if (fbBadge) {
+          fbBadge.textContent = 'Belum Terhubung (Mode Lokal)';
+          fbBadge.className = 'px-2.5 py-1 rounded-full text-[11px] font-bold bg-slate-100 text-slate-600';
+        }
+        if (syncBtn) syncBtn.classList.add('hidden');
+        if (headerLabel) headerLabel.textContent = 'Penyimpanan Lokal';
+        if (headerDot) headerDot.className = 'w-2 h-2 rounded-full bg-emerald-500';
+        if (deskBadge) deskBadge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Lokal Aktif`;
+        if (deskDesc) deskDesc.textContent = 'Tersimpan otomatis di perangkat ini. Aman saat di-refresh.';
+      }
+    }
+
+    // --- REFRESH ALL VIEWS ---
+    function refreshAllViews() {
+      populateClientSelects();
+      updateDeadlineReminders();
+      renderDashboard();
+      renderClients();
+      renderAccounts();
+      renderPlanner();
+      renderAnalytics();
+      renderAffiliate();
+      renderTasks();
+      renderReportCenter();
+      if (window.lucide) window.lucide.createIcons();
+    }
+
+    // --- INITIALIZE APP ---
+    window.addEventListener('DOMContentLoaded', () => {
+      loadDatabase();
+      switchTab('dashboard');
+      initFirebaseIfConfigured();
+    });
+  </script>
 </body>
 </html>
