@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>BOBY CREATOR STUDIO 6.5 — Project-Based Content Planning Suite</title>
+  <title>BOBY CREATOR STUDIO 6.5 — Project & Account Management Suite</title>
   <meta name="theme-color" content="#0f172a" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -66,17 +66,17 @@
     </div>
 
     <nav class="flex-1 px-3 py-3 space-y-1 overflow-y-auto">
-      <button onclick="switchTab('planner')" data-tab="planner" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold bg-indigo-600 text-white shadow-sm transition-all">
+      <button onclick="switchTab('projects')" data-tab="projects" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold bg-indigo-600 text-white shadow-sm transition-all">
+        <i data-lucide="folder-kanban" class="w-4 h-4 shrink-0 text-amber-300"></i>
+        <span>Kelola Project & Akun</span>
+      </button>
+
+      <button onclick="switchTab('planner')" data-tab="planner" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition-all">
         <div class="flex items-center gap-3">
           <i data-lucide="calendar-days" class="w-4 h-4 shrink-0"></i>
           <span>Content Planner Visual</span>
         </div>
         <span id="sidebar-planner-badge" class="px-1.5 py-0.5 rounded text-[10px] font-extrabold bg-indigo-800 text-white">0</span>
-      </button>
-
-      <button onclick="switchTab('projects')" data-tab="projects" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition-all">
-        <i data-lucide="folder-kanban" class="w-4 h-4 shrink-0 text-amber-400"></i>
-        <span>Kelola Project & Kampanye</span>
       </button>
 
       <button onclick="switchTab('dashboard')" data-tab="dashboard" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition-all">
@@ -130,7 +130,7 @@
           <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Firebase Aktif
         </span>
       </div>
-      <p class="text-[10px] text-slate-400">Sinkronisasi Cloud Firestore realtime.</p>
+      <p class="text-[10px] text-slate-400">Cloud Firestore realtime aktif.</p>
     </div>
   </aside>
 
@@ -142,15 +142,14 @@
           <i data-lucide="sparkles" class="w-4 h-4"></i>
         </div>
         <div>
-          <h2 id="page-title" class="text-base sm:text-lg font-extrabold text-slate-900 truncate">Content Planner Visual</h2>
-          <p id="page-subtitle" class="text-xs text-slate-500 truncate">Struktur Project, Akun Sosmed & Jadwal 24 Jam</p>
+          <h2 id="page-title" class="text-base sm:text-lg font-extrabold text-slate-900 truncate">Kelola Project & Akun</h2>
+          <p id="page-subtitle" class="text-xs text-slate-500 truncate">Pilih Klien, atur Project & masukkan username akun medsosnya</p>
         </div>
       </div>
 
-      <!-- Right Header Actions (HIERARCHICAL PROJECT SWITCHER) -->
+      <!-- Right Header Actions (PROJECT SWITCHER) -->
       <div class="flex items-center gap-2 sm:gap-3 shrink-0">
-        <!-- PROJECT SWITCHER DROPDOWN -->
-        <div class="flex items-center gap-1.5 bg-indigo-50/70 hover:bg-indigo-100/80 border border-indigo-200 px-3 py-1.5 rounded-xl transition shadow-xs">
+        <div class="flex items-center gap-1.5 bg-indigo-50/80 hover:bg-indigo-100 border border-indigo-200 px-3 py-1.5 rounded-xl transition shadow-xs">
           <i data-lucide="folder-kanban" class="w-3.5 h-3.5 text-indigo-600 shrink-0"></i>
           <select id="global-project-filter" onchange="onGlobalProjectFilterChange(this.value)" class="bg-transparent text-xs font-extrabold text-indigo-950 focus:outline-none cursor-pointer pr-1">
             <option value="ALL">🌐 Semua Project & Akun (Global)</option>
@@ -172,8 +171,25 @@
 
     <main class="flex-1 p-4 sm:p-6 pb-safe max-w-7xl w-full mx-auto space-y-6">
 
-      <!-- ==================== 1. CONTENT PLANNER VISUAL ==================== -->
-      <section id="sec-planner" class="tab-section space-y-5">
+      <!-- ==================== 1. KELOLA PROJECT & AKUN MEDSOS (MODUL UTAMA) ==================== -->
+      <section id="sec-projects" class="tab-section space-y-5">
+        <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-xs flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
+          <div>
+            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-indigo-50 text-indigo-600 uppercase tracking-wider">Pusat Manajemen Akun Klien</span>
+            <h3 class="font-extrabold text-base text-slate-900 mt-1">Daftar Project & Akun Sosial Media Klien</h3>
+            <p class="text-xs text-slate-500 mt-0.5">Setiap project menampung klien pemilik dan daftar akun media sosial yang kamu masukkan sendiri.</p>
+          </div>
+          <button onclick="openProjectModal()" class="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-sm transition shrink-0">
+            <i data-lucide="plus-circle" class="w-4 h-4"></i> Buat Project Baru
+          </button>
+        </div>
+
+        <!-- Grid Kartu Project -->
+        <div id="projects-showcase-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+      </section>
+
+      <!-- ==================== 2. CONTENT PLANNER VISUAL ==================== -->
+      <section id="sec-planner" class="tab-section hidden space-y-5">
         <!-- Visual Stats Strip -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
           <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-xs flex items-center justify-between">
@@ -214,18 +230,18 @@
           </div>
         </div>
 
-        <!-- Project Info Banner (Muncul saat ada Project Terpilih) -->
+        <!-- Project Info Banner -->
         <div id="planner-project-banner" class="hidden bg-gradient-to-r from-indigo-900 to-slate-900 p-4 rounded-2xl text-white flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm">
           <div>
             <div class="flex items-center gap-2">
               <span class="px-2 py-0.5 rounded text-[10px] font-extrabold uppercase bg-indigo-500 text-white">Project Aktif</span>
               <h3 id="banner-project-name" class="font-extrabold text-sm sm:text-base">Nama Project</h3>
             </div>
-            <p id="banner-project-desc" class="text-xs text-indigo-200 mt-1">Klien: - • 0 Akun Terkait</p>
+            <p id="banner-project-desc" class="text-xs text-indigo-200 mt-1">Klien: - • Akun Medsos Terkait</p>
           </div>
           <div class="flex items-center gap-2">
             <button onclick="openContentModal()" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-sm">
-              <i data-lucide="plus" class="w-3.5 h-3.5"></i> Buat Konten Project Ini
+              <i data-lucide="plus" class="w-3.5 h-3.5"></i> Buat Konten di Project Ini
             </button>
             <button onclick="resetToGlobalProject()" class="px-3 py-1.5 bg-white/10 hover:bg-white/20 text-white rounded-xl text-xs font-bold">
               Lihat Semua
@@ -263,7 +279,7 @@
           </div>
         </div>
 
-        <!-- TAMPILAN 1: KALENDER BULANAN LENGKAP -->
+        <!-- TAMPILAN KALENDER BULANAN -->
         <div id="planner-calendar-view" class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-xs space-y-4">
           <div class="flex items-center justify-between border-b pb-3.5">
             <div class="flex items-center gap-3">
@@ -288,7 +304,6 @@
             </div>
           </div>
 
-          <!-- Day Headers (Min - Sab) -->
           <div class="grid grid-cols-7 gap-1 sm:gap-2 text-center text-[11px] font-extrabold text-slate-400 uppercase tracking-wider py-1">
             <div class="text-rose-500">Min</div>
             <div>Sen</div>
@@ -299,11 +314,10 @@
             <div class="text-indigo-600">Sab</div>
           </div>
 
-          <!-- Calendar Days Grid -->
           <div id="calendar-days-grid" class="grid grid-cols-7 gap-1.5 sm:gap-2"></div>
         </div>
 
-        <!-- TAMPILAN 2: TABEL DAFTAR KONTEN -->
+        <!-- TAMPILAN TABEL DAFTAR KONTEN -->
         <div id="planner-list-view" class="hidden bg-white rounded-2xl border border-slate-200 overflow-x-auto shadow-xs">
           <table class="w-full text-left text-xs">
             <thead class="bg-slate-50 text-slate-500 uppercase font-bold border-b">
@@ -320,22 +334,6 @@
             <tbody id="planner-table-body" class="divide-y divide-slate-100"></tbody>
           </table>
         </div>
-      </section>
-
-      <!-- ==================== 2. KELOLA PROJECT & KAMPANYE (MODUL BARU V6.5) ==================== -->
-      <section id="sec-projects" class="tab-section hidden space-y-5">
-        <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-xs flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
-          <div>
-            <h3 class="font-extrabold text-sm text-slate-900">Kelola Project & Kampanye Klien</h3>
-            <p class="text-xs text-slate-500">Satu klien dapat memiliki beberapa project, dan setiap project memiliki akun sosmed khususnya.</p>
-          </div>
-          <button onclick="openProjectModal()" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm transition">
-            <i data-lucide="plus" class="w-4 h-4"></i> Buat Project Baru
-          </button>
-        </div>
-
-        <!-- Grid Kartu Project -->
-        <div id="projects-showcase-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
       </section>
 
       <!-- ==================== 3. GEMINI AI ASSISTANT ==================== -->
@@ -494,23 +492,6 @@ Klik tombol "Generate dengan Gemini AI" untuk membuat konsep konten instan!
             <p class="text-[11px] text-slate-400 mt-1">Total Akumulasi</p>
           </div>
         </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div class="lg:col-span-2 bg-white rounded-2xl p-5 border border-slate-200/80 shadow-xs">
-            <div class="flex justify-between items-center mb-3">
-              <h4 class="font-bold text-slate-900 text-sm">Grafik Performa Views Konten</h4>
-              <span id="chart-project-tag" class="text-[11px] font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-md">Semua Project</span>
-            </div>
-            <div class="relative w-full h-64"><canvas id="dashboardChart"></canvas></div>
-          </div>
-          <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-xs space-y-3">
-            <div class="flex justify-between items-center">
-              <h4 class="font-bold text-slate-900 text-sm">Deadline Terdekat</h4>
-              <button onclick="switchTab('tasks')" class="text-xs text-indigo-600 font-bold hover:underline">Semua</button>
-            </div>
-            <div id="dash-upcoming-list" class="space-y-2 max-h-60 overflow-y-auto"></div>
-          </div>
-        </div>
       </section>
 
       <!-- ==================== 5. MANAJEMEN KLIEN ==================== -->
@@ -548,25 +529,6 @@ Klik tombol "Generate dengan Gemini AI" untuk membuat konsep konten instan!
         </div>
 
         <div id="accounts-showcase-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
-
-        <div class="bg-white rounded-2xl border border-slate-200 overflow-x-auto mt-4 shadow-xs">
-          <div class="px-4 py-3 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
-            <span class="text-xs font-bold text-slate-700 uppercase tracking-wider">Inventaris Seluruh Akun</span>
-            <span id="accounts-count-badge" class="text-xs font-semibold text-slate-400">0 Akun Terdaftar</span>
-          </div>
-          <table class="w-full text-left text-sm">
-            <thead class="bg-slate-50 text-slate-500 uppercase text-[11px] font-bold border-b">
-              <tr>
-                <th class="p-3.5">Akun & Username</th>
-                <th class="p-3.5">Platform</th>
-                <th class="p-3.5">Klien Pemilik</th>
-                <th class="p-3.5">Followers</th>
-                <th class="p-3.5 text-right">Aksi</th>
-              </tr>
-            </thead>
-            <tbody id="accounts-table-body" class="divide-y divide-slate-100"></tbody>
-          </table>
-        </div>
       </section>
 
       <!-- 7. ANALYTICS -->
@@ -653,8 +615,8 @@ Klik tombol "Generate dengan Gemini AI" untuk membuat konsep konten instan!
 
   <!-- MOBILE BOTTOM NAV -->
   <nav class="no-print lg:hidden fixed bottom-0 inset-x-0 bg-white border-t border-slate-200 z-30 flex items-center justify-around py-2 px-1 shadow-lg">
-    <button onclick="switchTab('planner')" data-tab="planner" class="mob-nav-btn flex flex-col items-center text-[10px] font-bold text-indigo-600"><i data-lucide="calendar-days" class="w-5 h-5 mb-0.5"></i>Planner</button>
-    <button onclick="switchTab('projects')" data-tab="projects" class="mob-nav-btn flex flex-col items-center text-[10px] font-bold text-slate-500"><i data-lucide="folder-kanban" class="w-5 h-5 mb-0.5"></i>Project</button>
+    <button onclick="switchTab('projects')" data-tab="projects" class="mob-nav-btn flex flex-col items-center text-[10px] font-bold text-indigo-600"><i data-lucide="folder-kanban" class="w-5 h-5 mb-0.5"></i>Project</button>
+    <button onclick="switchTab('planner')" data-tab="planner" class="mob-nav-btn flex flex-col items-center text-[10px] font-bold text-slate-500"><i data-lucide="calendar-days" class="w-5 h-5 mb-0.5"></i>Planner</button>
     <button onclick="switchTab('dashboard')" data-tab="dashboard" class="mob-nav-btn flex flex-col items-center text-[10px] font-bold text-slate-500"><i data-lucide="layout-dashboard" class="w-5 h-5 mb-0.5"></i>Dashboard</button>
     <button onclick="switchTab('ai')" data-tab="ai" class="mob-nav-btn flex flex-col items-center text-[10px] font-bold text-amber-600"><i data-lucide="sparkles" class="w-5 h-5 mb-0.5 text-amber-500"></i>AI</button>
     <button onclick="switchTab('tasks')" data-tab="tasks" class="mob-nav-btn flex flex-col items-center text-[10px] font-bold text-slate-500"><i data-lucide="check-square" class="w-5 h-5 mb-0.5"></i>Tugas</button>
@@ -662,29 +624,29 @@ Klik tombol "Generate dengan Gemini AI" untuk membuat konsep konten instan!
 
   <!-- ==================== ALL MODALS ==================== -->
 
-  <!-- MODAL KELOLA PROJECT (BARU V6.5) -->
+  <!-- MODAL KELOLA PROJECT (LENGKAP DENGAN INPUT USERNAME MANDIRI) -->
   <div id="modal-project" class="no-print hidden fixed inset-0 z-50 bg-slate-900/60 flex items-center justify-center p-4 overflow-y-auto">
-    <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl space-y-4 my-8 max-h-[92vh] overflow-y-auto">
+    <div class="bg-white rounded-3xl max-w-xl w-full p-6 shadow-2xl space-y-4 my-8 max-h-[92vh] overflow-y-auto">
       <div class="flex items-center justify-between border-b pb-3">
         <div>
           <h3 id="modal-project-title" class="font-extrabold text-base text-slate-900">Buat Project / Kampanye Baru</h3>
-          <p class="text-xs text-slate-500">Hubungkan klien dan pilih akun media sosial yang ditugaskan</p>
+          <p class="text-xs text-slate-500">Pilih Klien pemilik dan ketikkan akun-akun medsos yang ditugaskan</p>
         </div>
         <button onclick="closeModal('modal-project')" class="text-slate-400 hover:text-slate-600"><i data-lucide="x" class="w-5 h-5"></i></button>
       </div>
 
-      <form onsubmit="saveProject(event)" class="space-y-3.5">
+      <form onsubmit="saveProject(event)" class="space-y-4">
         <input type="hidden" id="project-id" />
         
         <div>
           <label class="block text-xs font-bold text-slate-700 mb-1">Nama Project / Kampanye *</label>
-          <input type="text" id="project-name" required placeholder="Contoh: Campaign 11.11 Fashion Fest" class="w-full px-3 py-2 border rounded-xl text-xs font-semibold" />
+          <input type="text" id="project-name" required placeholder="Contoh: Campaign 11.11 Lisy Fashion" class="w-full px-3 py-2 border rounded-xl text-xs font-semibold" />
         </div>
 
         <div class="grid grid-cols-2 gap-3">
           <div>
             <label class="block text-xs font-bold text-slate-700 mb-1">Klien Pemilik *</label>
-            <select id="project-client-select" required class="w-full px-3 py-2 border rounded-xl text-xs bg-white font-medium"></select>
+            <select id="project-client-select" required class="w-full px-3 py-2 border rounded-xl text-xs bg-white font-bold text-indigo-900"></select>
           </div>
           <div>
             <label class="block text-xs font-bold text-slate-700 mb-1">Status Project</label>
@@ -696,29 +658,58 @@ Klik tombol "Generate dengan Gemini AI" untuk membuat konsep konten instan!
           </div>
         </div>
 
-        <!-- Pemilihan Akun Sosmed yang Terlibat di Project Ini -->
-        <div>
-          <label class="block text-xs font-bold text-slate-700 mb-1 flex items-center justify-between">
-            <span>Akun Sosmed yang Dilibatkan di Project Ini:</span>
-            <span class="text-[10px] text-indigo-600 font-bold">Pilih minimal 1 akun</span>
-          </label>
-          <div id="project-accounts-checkboxes" class="space-y-1.5 p-3 rounded-xl border border-slate-200 bg-slate-50 max-h-36 overflow-y-auto text-xs"></div>
+        <!-- AREA INPUT MANDIRI AKUN MEDSOS PROJECT -->
+        <div class="p-4 rounded-2xl bg-indigo-50/50 border border-indigo-100 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-extrabold text-indigo-900 flex items-center gap-1.5">
+              <i data-lucide="share-2" class="w-4 h-4 text-indigo-600"></i> Masukkan Akun Medsos Klien untuk Project Ini
+            </span>
+            <span class="text-[10px] text-indigo-600 font-bold">Ketik Sendiri</span>
+          </div>
+
+          <!-- Form Mini Tambah Akun -->
+          <div class="grid grid-cols-1 sm:grid-cols-12 gap-2 bg-white p-2.5 rounded-xl border border-indigo-200/80 shadow-2xs">
+            <div class="sm:col-span-4">
+              <select id="input-inline-platform" class="w-full px-2 py-1.5 border rounded-lg text-xs font-semibold bg-slate-50">
+                <option value="TikTok">TikTok</option>
+                <option value="Instagram">Instagram</option>
+                <option value="Shopee">Shopee Video</option>
+                <option value="YouTube">YouTube</option>
+              </select>
+            </div>
+            <div class="sm:col-span-5">
+              <input type="text" id="input-inline-username" placeholder="@username_klien" class="w-full px-2.5 py-1.5 border rounded-lg text-xs font-bold" />
+            </div>
+            <div class="sm:col-span-3">
+              <button type="button" onclick="addInlineAccountToProject()" class="w-full py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-bold flex items-center justify-center gap-1 transition">
+                <i data-lucide="plus" class="w-3.5 h-3.5"></i> Tambah
+              </button>
+            </div>
+          </div>
+
+          <!-- Daftar Akun yang Ditugaskan ke Project Ini -->
+          <div class="space-y-1.5">
+            <p class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Daftar Akun yang Terdaftar di Project Ini:</p>
+            <div id="project-active-accounts-list" class="flex flex-wrap gap-1.5 min-h-[36px] p-2 rounded-xl bg-white border border-slate-200">
+              <span class="text-[11px] text-slate-400 italic">Belum ada akun yang dimasukkan. Ketik username di atas lalu klik Tambah.</span>
+            </div>
+          </div>
         </div>
 
         <div>
-          <label class="block text-xs font-bold text-slate-700 mb-1">Deskripsi / Target Project (Opsional)</label>
-          <textarea id="project-desc" rows="2" placeholder="Catatan deliverables konten atau target GMV/views..." class="w-full px-3 py-2 border rounded-xl text-xs"></textarea>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Catatan / Deskripsi Project</label>
+          <textarea id="project-desc" rows="2" placeholder="Catatan target deliverables konten atau brief kerja..." class="w-full px-3 py-2 border rounded-xl text-xs"></textarea>
         </div>
 
         <div class="flex justify-end gap-2 pt-2 border-t">
           <button type="button" onclick="closeModal('modal-project')" class="px-4 py-2 border rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-50">Batal</button>
-          <button type="submit" class="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold shadow-sm">Simpan Project</button>
+          <button type="submit" class="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold shadow-sm">Simpan Project & Akun</button>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- MODAL CONTENT PLANNER (TERHUBUNG KE PROJECT & JAM 24 JAM) -->
+  <!-- MODAL CONTENT PLANNER -->
   <div id="modal-content" class="no-print hidden fixed inset-0 z-50 bg-slate-900/60 flex items-center justify-center p-4 overflow-y-auto">
     <div class="bg-white rounded-3xl max-w-xl w-full p-6 shadow-2xl space-y-4 my-8 max-h-[92vh] overflow-y-auto">
       <div class="flex items-center justify-between border-b pb-3">
@@ -750,7 +741,6 @@ Klik tombol "Generate dengan Gemini AI" untuk membuat konsep konten instan!
             <input type="date" id="content-date" required class="w-full px-3 py-2 border rounded-xl text-xs font-semibold bg-white" />
           </div>
 
-          <!-- Input Jam Digital 24 Jam Murni -->
           <div>
             <label class="block text-xs font-bold text-slate-700 mb-1 flex items-center justify-between">
               <span>Jam Posting (24 Jam) *</span>
@@ -847,7 +837,6 @@ Klik tombol "Generate dengan Gemini AI" untuk membuat konsep konten instan!
           <p id="tele-meta" class="text-xs text-indigo-600 font-semibold mt-0.5">Jadwal: 11 Nov 2026</p>
         </div>
 
-        <!-- Hook Highlight Box -->
         <div class="p-4 rounded-2xl bg-amber-50 border border-amber-200 space-y-1">
           <p class="text-[10px] font-extrabold uppercase text-amber-800 tracking-wider flex items-center gap-1">
             <i data-lucide="zap" class="w-3 h-3 text-amber-600"></i> Hook 3 Detik Pertama (Pancingan Audiens):
@@ -857,7 +846,6 @@ Klik tombol "Generate dengan Gemini AI" untuk membuat konsep konten instan!
           </p>
         </div>
 
-        <!-- Script Reading Box -->
         <div class="space-y-1.5">
           <p class="text-[10px] font-extrabold uppercase text-slate-400 tracking-wider flex items-center gap-1">
             <i data-lucide="file-text" class="w-3 h-3 text-slate-400"></i> Naskah Voice Over & Alur Adegan:
@@ -867,7 +855,6 @@ Belum ada naskah script.
           </div>
         </div>
 
-        <!-- Caption Box -->
         <div class="p-4 rounded-2xl bg-slate-100 border border-slate-200 space-y-1">
           <div class="flex items-center justify-between">
             <p class="text-[10px] font-extrabold uppercase text-slate-500 tracking-wider">Teks Caption Siap Posting:</p>
@@ -932,15 +919,15 @@ Belum ada naskah script.
     </div>
   </div>
 
-  <!-- MODAL AKUN MEDIA SOSIAL -->
+  <!-- MODAL AKUN MEDIA SOSIAL (INVENTARIS LENGKAP) -->
   <div id="modal-account" class="no-print hidden fixed inset-0 z-50 bg-slate-900/60 flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl max-w-lg w-full p-5 space-y-3 shadow-xl">
       <h3 id="modal-account-title" class="font-bold text-base text-slate-900">Tambah Akun Media Sosial</h3>
       <form onsubmit="saveAccount(event)" class="space-y-3">
         <input type="hidden" id="account-id" />
         <div class="grid grid-cols-2 gap-2">
-          <div><label class="block text-xs font-bold mb-1">Nama Akun / Label</label><input type="text" id="account-name" required placeholder="Contoh: Akun Fashion Zy" class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
-          <div><label class="block text-xs font-bold mb-1">Username (@)</label><input type="text" id="account-username" required placeholder="@chocoovora" class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
+          <div><label class="block text-xs font-bold mb-1">Nama Akun / Label</label><input type="text" id="account-name" required placeholder="Contoh: Akun Fashion Lisy" class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
+          <div><label class="block text-xs font-bold mb-1">Username (@)</label><input type="text" id="account-username" required placeholder="@lisy_fashion" class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
         </div>
         <div class="grid grid-cols-3 gap-2">
           <div>
@@ -1064,7 +1051,10 @@ Belum ada naskah script.
       tasks: [] 
     };
 
-    let activeTab = 'planner';
+    // State sementara untuk akun yang sedang ditambahkan di modal project
+    let tempProjectAccounts = [];
+
+    let activeTab = 'projects';
     let plannerMode = 'calendar';
     let currentCalendarDate = new Date();
     let activeProjectFilter = 'ALL';
@@ -1162,7 +1152,6 @@ Belum ada naskah script.
       });
     }
 
-    // Buat Project Otomatis jika baru pertama kali migrasi ke v6.5 agar data lama langsung tertata
     function autoCreateDefaultProjectIfNeeded() {
       if (db.projects.length === 0) {
         const defaultProjectId = 'proj_default';
@@ -1176,7 +1165,6 @@ Belum ada naskah script.
           desc: 'Project utama otomatis untuk menampung seluruh konten dan akun awal.'
         });
 
-        // Hubungkan konten lama yang belum punya project ke project default ini
         db.contents.forEach(c => {
           if (!c.projectId) c.projectId = defaultProjectId;
         });
@@ -1203,8 +1191,8 @@ Belum ada naskah script.
       });
 
       const titleMap = {
+        projects: 'Kelola Project & Akun Medsos',
         planner: 'Content Planner Visual',
-        projects: 'Kelola Project & Kampanye Klien',
         dashboard: 'Dashboard Utama',
         ai: 'Boby AI Creator Assistant (Gemini Engine)',
         accounts: 'Inventaris Akun Media Sosial',
@@ -1224,7 +1212,6 @@ Belum ada naskah script.
     window.closeModal = function(id) { document.getElementById(id).classList.add('hidden'); };
     window.openClientModal = function() { document.getElementById('modal-client').classList.remove('hidden'); };
 
-    // --- POPULATE WAKTU 24 JAM ---
     function populateTimeDropdowns() {
       const hSel = document.getElementById('content-hour');
       const mSel = document.getElementById('content-minute');
@@ -1252,27 +1239,19 @@ Belum ada naskah script.
       }
     };
 
-    // --- MODAL KELOLA PROJECT (V6.5) ---
+    // =========================================================================
+    // MODUL PROJECT DENGAN INPUT USERNAME MANDIRI SECARA LANGSUNG
+    // =========================================================================
     window.openProjectModal = function(id = null) {
       populateClientDropdownInProject();
+      tempProjectAccounts = []; // reset state akun project
       
       document.getElementById('project-id').value = '';
       document.getElementById('project-name').value = '';
       document.getElementById('project-desc').value = '';
       document.getElementById('project-status').value = 'Aktif';
+      document.getElementById('input-inline-username').value = '';
       document.getElementById('modal-project-title').textContent = 'Buat Project / Kampanye Baru';
-
-      // Checkboxes Akun
-      const boxContainer = document.getElementById('project-accounts-checkboxes');
-      boxContainer.innerHTML = db.accounts.length === 0 
-        ? '<p class="text-slate-400">Belum ada akun media sosial yang terdaftar.</p>'
-        : db.accounts.map(a => `
-          <label class="flex items-center gap-2 cursor-pointer hover:bg-slate-100 p-1 rounded">
-            <input type="checkbox" name="proj-acc" value="${a.id}" class="rounded text-indigo-600 focus:ring-indigo-500" />
-            <span class="font-bold text-slate-800">${escapeHtml(a.name)}</span>
-            <span class="text-slate-500">(${escapeHtml(a.username)} • ${escapeHtml(a.platform)})</span>
-          </label>
-        `).join('');
 
       if (id) {
         const p = db.projects.find(x => x.id === id);
@@ -1284,12 +1263,23 @@ Belum ada naskah script.
           document.getElementById('project-desc').value = p.desc || '';
           document.getElementById('modal-project-title').textContent = 'Edit Project / Kampanye';
 
-          const chks = document.querySelectorAll('input[name="proj-acc"]');
-          chks.forEach(chk => {
-            chk.checked = Array.isArray(p.accountIds) && p.accountIds.includes(chk.value);
-          });
+          // Ambil akun yang terhubung ke project ini
+          if (Array.isArray(p.accountIds)) {
+            p.accountIds.forEach(accId => {
+              const acc = db.accounts.find(a => a.id === accId);
+              if (acc) {
+                tempProjectAccounts.push({
+                  id: acc.id,
+                  platform: acc.platform,
+                  username: acc.username,
+                  isExisting: true
+                });
+              }
+            });
+          }
         }
       }
+      renderTempProjectAccountsList();
       document.getElementById('modal-project').classList.remove('hidden');
     };
 
@@ -1306,34 +1296,118 @@ Belum ada naskah script.
       if (accClientSel) accClientSel.innerHTML = html;
     }
 
+    // Tombol: "+ Tambah" di dalam Form Project
+    window.addInlineAccountToProject = function() {
+      const platform = document.getElementById('input-inline-platform').value;
+      const rawUser = document.getElementById('input-inline-username').value.trim();
+
+      if (!rawUser) {
+        showToast('Ketikkan username akun terlebih dahulu!', true);
+        return;
+      }
+
+      const cleanUsername = rawUser.replace(/^@+/, '@');
+
+      // Cek apakah akun dengan username & platform ini sudah ada di temp list
+      const exists = tempProjectAccounts.some(a => a.platform === platform && a.username.toLowerCase() === cleanUsername.toLowerCase());
+      if (exists) {
+        showToast('Akun ini sudah dimasukkan ke daftar project!', true);
+        return;
+      }
+
+      tempProjectAccounts.push({
+        id: uid(),
+        platform,
+        username: cleanUsername,
+        isExisting: false // baru dibuat user di modal ini
+      });
+
+      document.getElementById('input-inline-username').value = '';
+      renderTempProjectAccountsList();
+      showToast(`Akun ${platform} (${cleanUsername}) ditambahkan ke project!`);
+    };
+
+    window.removeInlineAccountFromProject = function(index) {
+      tempProjectAccounts.splice(index, 1);
+      renderTempProjectAccountsList();
+    };
+
+    function renderTempProjectAccountsList() {
+      const container = document.getElementById('project-active-accounts-list');
+      if (!container) return;
+
+      if (tempProjectAccounts.length === 0) {
+        container.innerHTML = '<span class="text-[11px] text-slate-400 italic">Belum ada akun. Pilih platform & ketik username di atas lalu klik Tambah.</span>';
+        return;
+      }
+
+      container.innerHTML = tempProjectAccounts.map((a, idx) => `
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold bg-indigo-50 border border-indigo-200 text-indigo-900 shadow-2xs">
+          <span class="px-1 py-0.2 rounded bg-indigo-600 text-white text-[9px] uppercase">${escapeHtml(a.platform)}</span>
+          <span>${escapeHtml(a.username)}</span>
+          <button type="button" onclick="removeInlineAccountFromProject(${idx})" class="text-rose-500 hover:text-rose-700 font-extrabold ml-1 text-sm leading-none" title="Hapus akun ini">&times;</button>
+        </span>
+      `).join('');
+    }
+
+    // Simpan Project & Sinkronkan Akun-Akun Baru ke Inventaris Global
     window.saveProject = function(e) {
       e.preventDefault();
       const id = document.getElementById('project-id').value;
-      const checkedAccs = Array.from(document.querySelectorAll('input[name="proj-acc"]:checked')).map(el => el.value);
+      const clientId = document.getElementById('project-client-select').value;
+      const projectName = document.getElementById('project-name').value.trim();
+
+      if (tempProjectAccounts.length === 0) {
+        showToast('Peringatan: Masukkan minimal 1 akun medsos untuk project ini!', true);
+      }
+
+      const finalAccountIds = [];
+
+      // Proses setiap akun di tempProjectAccounts
+      tempProjectAccounts.forEach(tempAcc => {
+        // Cek apakah akun ini sudah ada di db.accounts global
+        let existing = db.accounts.find(a => a.platform === tempAcc.platform && a.username.toLowerCase() === tempAcc.username.toLowerCase());
+        
+        if (existing) {
+          finalAccountIds.push(existing.id);
+        } else {
+          // Buat akun baru di database global atas nama klien terpilih
+          const newAcc = {
+            id: tempAcc.id,
+            name: `${tempAcc.platform} ${tempAcc.username}`,
+            username: tempAcc.username,
+            platform: tempAcc.platform,
+            clientId: clientId,
+            followers: 0
+          };
+          db.accounts.unshift(newAcc);
+          finalAccountIds.push(newAcc.id);
+        }
+      });
 
       const payload = {
         id: id || uid(),
-        name: document.getElementById('project-name').value.trim(),
-        clientId: document.getElementById('project-client-select').value,
+        name: projectName,
+        clientId: clientId,
         status: document.getElementById('project-status').value,
         desc: document.getElementById('project-desc').value.trim(),
-        accountIds: checkedAccs
+        accountIds: finalAccountIds
       };
 
       if (id) {
         const idx = db.projects.findIndex(x => x.id === id);
         if (idx > -1) db.projects[idx] = payload;
-        showToast('Project diperbarui!');
+        showToast('Project & Akun berhasil diperbarui!');
       } else {
         db.projects.unshift(payload);
-        showToast('Project baru berhasil dibuat!');
+        showToast('Project & Akun baru berhasil dibuat!');
       }
       closeModal('modal-project');
       saveToCloud();
     };
 
     window.deleteProject = function(id) {
-      if (confirm("Hapus project ini? Konten yang terkait tidak akan terhapus, namun project-nya akan dilepas.")) {
+      if (confirm("Hapus project ini? Konten terkait tidak akan terhapus, namun project-nya akan dilepas.")) {
         db.projects = db.projects.filter(x => x.id !== id);
         if (activeProjectFilter === id) activeProjectFilter = 'ALL';
         saveToCloud();
@@ -1357,12 +1431,10 @@ Belum ada naskah script.
       document.getElementById('content-status').value = 'Ide';
       document.getElementById('modal-content-title').textContent = 'Rencana Konten Baru';
 
-      // Jika user sedang memfilter satu project tertentu, kunci langsung ke project itu
       if (activeProjectFilter !== 'ALL') {
         document.getElementById('content-project-select').value = activeProjectFilter;
       }
       
-      // Update dropdown akun berdasarkan project yang terpilih
       window.onContentProjectChange(document.getElementById('content-project-select').value);
 
       if (id) {
@@ -1400,29 +1472,29 @@ Belum ada naskah script.
         : db.projects.map(p => {
           const client = db.clients.find(c => c.id === p.clientId);
           const clientName = client ? client.name : 'Internal';
-          return `<option value="${p.id}">📁 ${escapeHtml(p.name)} (${escapeHtml(clientName)})</option>`;
+          return `<option value="${p.id}">📁 [${escapeHtml(clientName)}] ${escapeHtml(p.name)}</option>`;
         }).join('');
     }
 
-    // Ketika Project diganti di modal form, filter dropdown akun sosmed khusus yang ada di project tersebut
     window.onContentProjectChange = function(projId) {
       const accSel = document.getElementById('content-account-select');
       if (!accSel) return;
 
       const project = db.projects.find(p => p.id === projId);
-      let allowedAccounts = db.accounts;
+      let allowedAccounts = [];
 
-      // Jika project memiliki daftar accountIds tertentu, ambil hanya akun tersebut!
       if (project && Array.isArray(project.accountIds) && project.accountIds.length > 0) {
         allowedAccounts = db.accounts.filter(a => project.accountIds.includes(a.id));
+      } else {
+        allowedAccounts = db.accounts;
       }
 
       if (allowedAccounts.length === 0) {
-        accSel.innerHTML = '<option value="">Semua Akun / Tanpa Akun Khusus</option>';
+        accSel.innerHTML = '<option value="">⚠️ Belum ada akun di project ini (Tambahkan di menu Project)</option>';
       } else {
         accSel.innerHTML = allowedAccounts.map(a => {
           const cleanUser = a.username.replace(/^@+/, '@');
-          return `<option value="${a.id}">${escapeHtml(a.name)} (${escapeHtml(cleanUser)} • ${escapeHtml(a.platform)})</option>`;
+          return `<option value="${a.id}">${escapeHtml(cleanUser)} • ${escapeHtml(a.platform)}</option>`;
         }).join('');
       }
     };
@@ -1434,7 +1506,6 @@ Belum ada naskah script.
       const label = project ? `Project: ${project.name}` : 'Semua Project (Global)';
       
       document.getElementById('sidebar-active-project-label').textContent = label;
-      document.getElementById('chart-project-tag').textContent = label;
 
       const banner = document.getElementById('planner-project-banner');
       if (project) {
@@ -1552,7 +1623,6 @@ Belum ada naskah script.
         html += `<div class="min-h-[85px] sm:min-h-[105px] rounded-2xl bg-slate-50/60 border border-slate-100"></div>`;
       }
 
-      // Filter konten berdasarkan project yang dipilih
       const isFiltered = activeProjectFilter !== 'ALL';
       const filteredContents = isFiltered 
         ? db.contents.filter(c => c.projectId === activeProjectFilter) 
@@ -1882,7 +1952,6 @@ Belum ada naskah script.
       a.click();
     };
 
-    // --- POPULATE DROPDOWNS & RENDERING ENGINE ---
     function populateGlobalProjectDropdown() {
       const globalSel = document.getElementById('global-project-filter');
       if (!globalSel) return;
@@ -2031,7 +2100,6 @@ Belum ada naskah script.
       renderPlanner();
       renderProjects();
 
-      // Filtered Analytics & Followers Count
       const filteredAnalytics = activeProjectFilter !== 'ALL'
         ? db.analytics.filter(a => a.projectId === activeProjectFilter)
         : db.analytics;
@@ -2062,48 +2130,27 @@ Belum ada naskah script.
 
       // Showcase Akun
       const showcase = document.getElementById('accounts-showcase-grid');
-      const badgeCount = document.getElementById('accounts-count-badge');
-      if (badgeCount) badgeCount.textContent = `${db.accounts.length} Akun Terdaftar`;
-
-      const platformColors = {
-        'TikTok': 'from-slate-900 to-slate-800 text-white',
-        'Instagram': 'from-pink-600 to-purple-600 text-white',
-        'Shopee': 'from-orange-500 to-amber-600 text-white',
-        'YouTube': 'from-red-600 to-rose-700 text-white'
-      };
-
       if (showcase) {
         showcase.innerHTML = db.accounts.length === 0 
-          ? '<p class="text-xs text-slate-400 p-4 col-span-3">Belum ada akun media sosial. Klik tombol Tambah Akun Baru di atas!</p>'
+          ? '<p class="text-xs text-slate-400 p-4 col-span-3">Belum ada akun media sosial.</p>'
           : db.accounts.map(acc => {
             const client = db.clients.find(c => c.id === acc.clientId);
             const clientName = client ? client.name : 'Internal';
-            const gradient = platformColors[acc.platform] || 'from-indigo-600 to-violet-700 text-white';
             const cleanUser = acc.username.replace(/^@+/, '@');
             const postCount = db.contents.filter(c => c.accountId === acc.id).length;
             return `
               <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-xs space-y-3 transition">
                 <div class="flex items-center justify-between">
-                  <span class="px-2.5 py-1 rounded-xl text-[10px] font-extrabold uppercase bg-gradient-to-r ${gradient}">${escapeHtml(acc.platform)}</span>
+                  <span class="px-2 py-0.5 rounded-lg text-[10px] font-extrabold uppercase bg-slate-900 text-white">${escapeHtml(acc.platform)}</span>
                   <span class="text-[10px] font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full">${escapeHtml(clientName)}</span>
                 </div>
                 <div>
                   <h4 class="font-extrabold text-base text-slate-900 truncate">${escapeHtml(acc.name)}</h4>
                   <p class="text-xs text-indigo-600 font-semibold">${escapeHtml(cleanUser)}</p>
                 </div>
-                <div class="grid grid-cols-2 gap-2 bg-slate-50 p-2.5 rounded-xl text-center">
-                  <div>
-                    <p class="text-[10px] text-slate-400 uppercase font-bold">Followers</p>
-                    <p class="text-xs font-extrabold text-slate-900">${formatNumber(acc.followers)}</p>
-                  </div>
-                  <div>
-                    <p class="text-[10px] text-slate-400 uppercase font-bold">Konten</p>
-                    <p class="text-xs font-extrabold text-indigo-600">${postCount}</p>
-                  </div>
-                </div>
-                <div class="flex items-center justify-end gap-1.5 pt-1 border-t">
-                  <button onclick="openAccountModal('${acc.id}')" class="p-1.5 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-600"><i data-lucide="edit-3" class="w-3.5 h-3.5"></i></button>
-                  <button onclick="db.accounts=db.accounts.filter(x=>x.id!='${acc.id}');saveToCloud();" class="p-1.5 rounded-xl border border-rose-200 text-rose-600 hover:bg-rose-50"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
+                <div class="flex items-center justify-between pt-1 border-t text-xs">
+                  <span class="text-slate-500">Konten: ${postCount}</span>
+                  <button onclick="db.accounts=db.accounts.filter(x=>x.id!='${acc.id}');saveToCloud();" class="text-rose-600 font-bold hover:underline">Hapus</button>
                 </div>
               </div>
             `;
@@ -2111,22 +2158,6 @@ Belum ada naskah script.
       }
 
       // Tables
-      document.getElementById('accounts-table-body').innerHTML = db.accounts.map(a => {
-        const client = db.clients.find(c => c.id === a.clientId);
-        const cleanUser = a.username.replace(/^@+/, '@');
-        return `
-          <tr class="hover:bg-slate-50">
-            <td class="p-3.5 font-bold">${escapeHtml(a.name)} (${escapeHtml(cleanUser)})</td>
-            <td class="p-3.5"><span class="px-2 py-0.5 rounded-md text-xs font-bold bg-slate-100">${escapeHtml(a.platform)}</span></td>
-            <td class="p-3.5 text-slate-600">${escapeHtml(client ? client.name : 'Internal')}</td>
-            <td class="p-3.5 font-bold">${formatNumber(a.followers)}</td>
-            <td class="p-3.5 text-right space-x-2">
-              <button onclick="openAccountModal('${a.id}')" class="text-slate-600 font-bold text-xs hover:underline">Edit</button>
-              <button onclick="db.accounts=db.accounts.filter(x=>x.id!='${a.id}');saveToCloud();" class="text-rose-600 font-bold text-xs hover:underline">Hapus</button>
-            </td>
-          </tr>`;
-      }).join('');
-
       document.getElementById('clients-table-body').innerHTML = db.clients.map(c => {
         const pCount = db.projects.filter(p => p.clientId === c.id).length;
         return `
@@ -2180,27 +2211,12 @@ Belum ada naskah script.
       document.getElementById('dash-upcoming-list').innerHTML = pending.length === 0 ? '<p class="text-xs text-slate-400">Tidak ada tugas tertunda.</p>' :
         pending.slice(0, 4).map(t => `<div class="p-2.5 rounded-xl border border-slate-100 text-xs"><p class="font-bold text-slate-900">${escapeHtml(t.title)}</p><p class="text-slate-500">Deadline: ${formatDateID(t.deadline)}</p></div>`).join('');
 
-      // Chart Rendering
-      const ctx = document.getElementById('dashboardChart');
-      if (ctx) {
-        if (chartInstance) chartInstance.destroy();
-        const sorted = [...filteredAnalytics].slice(-7);
-        chartInstance = new Chart(ctx, {
-          type: 'bar',
-          data: {
-            labels: sorted.map(x => x.title.slice(0, 10)),
-            datasets: [{ label: 'Views', data: sorted.map(x => x.views), backgroundColor: '#4f46e5', borderRadius: 8 }]
-          },
-          options: { responsive: true, maintainAspectRatio: false }
-        });
-      }
-
       if (window.lucide) window.lucide.createIcons();
     }
 
     window.addEventListener('DOMContentLoaded', () => {
       initRealtime();
-      switchTab('planner');
+      switchTab('projects');
     });
   </script>
 </body>
