@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>BOBY CREATOR STUDIO — Personal Social Media Command Center</title>
+  <title>BOBY CREATOR STUDIO — Multi-Account Command Center</title>
   <meta name="theme-color" content="#0f172a" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,57 +40,68 @@
       </div>
       <div class="overflow-hidden">
         <h1 class="font-extrabold text-sm tracking-tight text-white truncate">BOBY CREATOR STUDIO</h1>
-        <p class="text-[11px] text-slate-400 truncate">Command Center</p>
+        <p class="text-[11px] text-indigo-400 font-semibold truncate">Multi-Account Suite</p>
       </div>
     </div>
 
-    <nav class="flex-1 px-3 py-5 space-y-1 overflow-y-auto">
-      <button onclick="switchTab('dashboard')" data-tab="dashboard" class="nav-btn w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm font-semibold transition-all">
-        <i data-lucide="layout-dashboard" class="w-5 h-5 shrink-0"></i><span>Dashboard</span>
+    <!-- Active Filter Indicator in Sidebar -->
+    <div class="px-4 pt-3 pb-1">
+      <div class="p-2.5 rounded-xl bg-slate-800/80 border border-slate-700/60 flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-indigo-400 animate-pulse"></span>
+        <div class="min-w-0">
+          <p class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Fokus Akun Aktif</p>
+          <p id="sidebar-active-account-label" class="text-xs font-bold text-white truncate">Semua Akun (Global)</p>
+        </div>
+      </div>
+    </div>
+
+    <nav class="flex-1 px-3 py-3 space-y-1 overflow-y-auto">
+      <button onclick="switchTab('dashboard')" data-tab="dashboard" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all">
+        <i data-lucide="layout-dashboard" class="w-4 h-4 shrink-0"></i><span>Dashboard Utama</span>
       </button>
-      <button onclick="switchTab('clients')" data-tab="clients" class="nav-btn w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm font-semibold transition-all">
-        <i data-lucide="briefcase" class="w-5 h-5 shrink-0"></i><span>Manajemen Klien</span>
+      <button onclick="switchTab('accounts')" data-tab="accounts" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all">
+        <i data-lucide="share-2" class="w-4 h-4 shrink-0"></i><span>Kelola Multi-Akun</span>
       </button>
-      <button onclick="switchTab('accounts')" data-tab="accounts" class="nav-btn w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm font-semibold transition-all">
-        <i data-lucide="share-2" class="w-5 h-5 shrink-0"></i><span>Akun Media Sosial</span>
+      <button onclick="switchTab('clients')" data-tab="clients" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all">
+        <i data-lucide="briefcase" class="w-4 h-4 shrink-0"></i><span>Manajemen Klien</span>
       </button>
-      <button onclick="switchTab('planner')" data-tab="planner" class="nav-btn w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm font-semibold transition-all">
-        <i data-lucide="calendar-days" class="w-5 h-5 shrink-0"></i><span>Content Planner</span>
+      <button onclick="switchTab('planner')" data-tab="planner" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all">
+        <i data-lucide="calendar-days" class="w-4 h-4 shrink-0"></i><span>Content Planner</span>
       </button>
-      <button onclick="switchTab('analytics')" data-tab="analytics" class="nav-btn w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm font-semibold transition-all">
-        <i data-lucide="bar-chart-3" class="w-5 h-5 shrink-0"></i><span>Analytics</span>
+      <button onclick="switchTab('analytics')" data-tab="analytics" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all">
+        <i data-lucide="bar-chart-3" class="w-4 h-4 shrink-0"></i><span>Analytics Performa</span>
       </button>
-      <button onclick="switchTab('affiliate')" data-tab="affiliate" class="nav-btn w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm font-semibold transition-all">
-        <i data-lucide="shopping-bag" class="w-5 h-5 shrink-0"></i><span>Affiliate Tracker</span>
+      <button onclick="switchTab('affiliate')" data-tab="affiliate" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all">
+        <i data-lucide="shopping-bag" class="w-4 h-4 shrink-0"></i><span>Affiliate Tracker</span>
       </button>
-      <button onclick="switchTab('tasks')" data-tab="tasks" class="nav-btn w-full flex items-center justify-between px-3.5 py-3 rounded-xl text-sm font-semibold transition-all">
-        <div class="flex items-center gap-3"><i data-lucide="check-square" class="w-5 h-5 shrink-0"></i><span>Tugas & Deadline</span></div>
+      <button onclick="switchTab('tasks')" data-tab="tasks" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all">
+        <div class="flex items-center gap-3"><i data-lucide="check-square" class="w-4 h-4 shrink-0"></i><span>Tugas & Deadline</span></div>
         <span id="sidebar-task-badge" class="hidden px-2 py-0.5 text-[10px] font-bold rounded-full bg-rose-500 text-white">0</span>
       </button>
-      <button onclick="switchTab('reports')" data-tab="reports" class="nav-btn w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm font-semibold transition-all">
-        <i data-lucide="file-spreadsheet" class="w-5 h-5 shrink-0"></i><span>Report Center</span>
+      <button onclick="switchTab('reports')" data-tab="reports" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all">
+        <i data-lucide="file-spreadsheet" class="w-4 h-4 shrink-0"></i><span>Report Center</span>
       </button>
-      <div class="pt-4 mt-4 border-t border-slate-800">
-        <button onclick="switchTab('settings')" data-tab="settings" class="nav-btn w-full flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm font-semibold transition-all">
-          <i data-lucide="database" class="w-5 h-5 shrink-0"></i><span>Database & Cloud</span>
+      <div class="pt-3 mt-3 border-t border-slate-800">
+        <button onclick="switchTab('settings')" data-tab="settings" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all">
+          <i data-lucide="database" class="w-4 h-4 shrink-0"></i><span>Database & Cloud</span>
         </button>
       </div>
     </nav>
 
-    <div class="p-4 m-3 rounded-xl bg-slate-800/70 border border-slate-700/60">
+    <div class="p-3.5 m-3 rounded-xl bg-slate-800/70 border border-slate-700/60">
       <div class="flex items-center justify-between mb-1">
         <span class="text-xs font-semibold text-slate-300">Penyimpanan</span>
-        <span id="storage-badge-desktop" class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-bold bg-emerald-500/20 text-emerald-300">
+        <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-bold bg-emerald-500/20 text-emerald-300">
           <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Firebase Aktif
         </span>
       </div>
-      <p class="text-[11px] text-slate-400">Sinkronisasi Cloud Firestore aktif otomatis.</p>
+      <p class="text-[10px] text-slate-400">Sinkronisasi Cloud Firestore aktif otomatis.</p>
     </div>
   </aside>
 
   <!-- CONTENT AREA -->
   <div class="flex-1 lg:pl-72 flex flex-col min-h-screen w-full">
-    <header class="no-print sticky top-0 z-20 bg-white/90 backdrop-blur-md border-b border-slate-200 px-4 sm:px-6 py-3.5 flex items-center justify-between gap-3">
+    <header class="no-print sticky top-0 z-20 bg-white/90 backdrop-blur-md border-b border-slate-200 px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
       <div class="flex items-center gap-3 min-w-0">
         <div class="lg:hidden w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white shrink-0">
           <i data-lucide="sparkles" class="w-4 h-4"></i>
@@ -100,9 +111,21 @@
           <p id="page-subtitle" class="text-xs text-slate-500 truncate">Ringkasan seluruh pekerjaan & performa</p>
         </div>
       </div>
-      <div class="flex items-center gap-2">
-        <span id="cloud-pill" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
-          <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Cloud Firestore Aktif
+
+      <!-- Right Header: Account Switcher & Cloud Status -->
+      <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+        <!-- GLOBAL MULTI-ACCOUNT DROPDOWN -->
+        <div class="flex items-center gap-1.5 bg-slate-100 hover:bg-slate-200/80 border border-slate-200 px-2.5 py-1.5 rounded-xl transition">
+          <i data-lucide="users" class="w-3.5 h-3.5 text-indigo-600 shrink-0"></i>
+          <select id="global-account-filter" onchange="onGlobalAccountFilterChange(this.value)" class="bg-transparent text-xs font-bold text-slate-800 focus:outline-none cursor-pointer pr-1">
+            <option value="ALL">🌐 Semua Akun (Global)</option>
+          </select>
+        </div>
+
+        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span class="hidden sm:inline">Cloud Firestore Aktif</span>
+          <span class="sm:hidden">Cloud</span>
         </span>
       </div>
     </header>
@@ -113,22 +136,23 @@
       <section id="sec-dashboard" class="tab-section space-y-6">
         <div class="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 rounded-2xl p-5 sm:p-6 text-white shadow-lg flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div class="space-y-1">
-            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-400/20">
-              <i data-lucide="zap" class="w-3.5 h-3.5"></i> Cloud Connected
-            </span>
+            <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-400/20">
+              <i data-lucide="zap" class="w-3.5 h-3.5"></i> Multi-Account Connected
+            </div>
             <h3 class="text-lg sm:text-2xl font-extrabold">Halo, Boby Anggara!</h3>
-            <p class="text-xs sm:text-sm text-slate-300">Pusat kendali klien, rencana konten, analitik, dan komisi affiliate.</p>
+            <p id="dash-filter-desc" class="text-xs sm:text-sm text-slate-300">Menampilkan metrik performa seluruh akun media sosial & affiliate.</p>
           </div>
           <div class="flex gap-2">
-            <button onclick="switchTab('planner'); openContentModal();" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-xs font-bold text-white shadow-sm flex items-center gap-1.5">
+            <button onclick="switchTab('planner'); openContentModal();" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-xs font-bold text-white shadow-sm flex items-center gap-1.5 transition">
               <i data-lucide="plus-circle" class="w-4 h-4"></i> Buat Konten
             </button>
-            <button onclick="switchTab('analytics'); openAnalyticsModal();" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-xs font-semibold text-white flex items-center gap-1.5">
+            <button onclick="switchTab('analytics'); openAnalyticsModal();" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-xs font-semibold text-white flex items-center gap-1.5 transition">
               <i data-lucide="trending-up" class="w-4 h-4"></i> Input Performa
             </button>
           </div>
         </div>
 
+        <!-- 9 KPI Cards -->
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-3 sm:gap-4">
           <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-sm">
             <p class="text-xs font-semibold text-slate-500">Total Klien</p>
@@ -136,9 +160,9 @@
             <p id="dash-active-clients" class="text-[11px] text-emerald-600 font-semibold mt-1">0 Aktif</p>
           </div>
           <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-sm">
-            <p class="text-xs font-semibold text-slate-500">Akun Medsos</p>
+            <p class="text-xs font-semibold text-slate-500">Akun Terpantau</p>
             <h4 id="dash-total-accounts" class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">0</h4>
-            <p class="text-[11px] text-slate-400 mt-1">TikTok, IG, Shopee</p>
+            <p id="dash-account-breakdown" class="text-[11px] text-slate-400 mt-1">TikTok, IG, Shopee</p>
           </div>
           <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-sm">
             <p class="text-xs font-semibold text-slate-500">Total Konten</p>
@@ -148,17 +172,17 @@
           <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-sm">
             <p class="text-xs font-semibold text-slate-500">Total Views</p>
             <h4 id="dash-total-views" class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">0</h4>
-            <p class="text-[11px] text-slate-400 mt-1">Akumulasi</p>
+            <p class="text-[11px] text-slate-400 mt-1">Views Akumulasi</p>
           </div>
           <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-sm">
             <p class="text-xs font-semibold text-slate-500">Total Followers</p>
             <h4 id="dash-total-followers" class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">0</h4>
-            <p class="text-[11px] text-emerald-600 font-semibold mt-1">Seluruh Akun</p>
+            <p id="dash-followers-sub" class="text-[11px] text-emerald-600 font-semibold mt-1">Seluruh Akun</p>
           </div>
           <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-sm">
             <p class="text-xs font-semibold text-slate-500">Rata-rata ER</p>
             <h4 id="dash-avg-er" class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">0%</h4>
-            <p class="text-[11px] text-slate-400 mt-1">Engagement Rate</p>
+            <p class="text-[11px] text-slate-400 mt-1">Engagement Rate Views</p>
           </div>
           <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-sm">
             <p class="text-xs font-semibold text-slate-500">Klik Affiliate</p>
@@ -173,27 +197,78 @@
           <div class="col-span-2 sm:col-span-1 bg-white rounded-2xl p-4 border border-emerald-200 shadow-sm">
             <p class="text-xs font-semibold text-emerald-700">Estimasi Komisi</p>
             <h4 id="dash-aff-commission" class="text-xl sm:text-2xl font-extrabold text-emerald-600 mt-1">Rp 0</h4>
-            <p class="text-[11px] text-slate-400 mt-1">Total Cair & Estimasi</p>
+            <p class="text-[11px] text-slate-400 mt-1">Total Akumulasi</p>
           </div>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div class="lg:col-span-2 bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm">
-            <h4 class="font-bold text-slate-900 text-sm mb-3">Grafik Performa Views Konten</h4>
+            <div class="flex justify-between items-center mb-3">
+              <h4 class="font-bold text-slate-900 text-sm">Grafik Performa Views Konten</h4>
+              <span id="chart-account-tag" class="text-[11px] font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-md">Semua Akun</span>
+            </div>
             <div class="relative w-full h-64"><canvas id="dashboardChart"></canvas></div>
           </div>
           <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm space-y-3">
-            <h4 class="font-bold text-slate-900 text-sm">Deadline Terdekat</h4>
+            <div class="flex justify-between items-center">
+              <h4 class="font-bold text-slate-900 text-sm">Deadline Terdekat</h4>
+              <button onclick="switchTab('tasks')" class="text-xs text-indigo-600 font-bold hover:underline">Semua</button>
+            </div>
             <div id="dash-upcoming-list" class="space-y-2 max-h-60 overflow-y-auto"></div>
           </div>
         </div>
       </section>
 
-      <!-- 2. KLIEN -->
+      <!-- 2. KELOLA MULTI-AKUN (MODUL MULTI-ACCOUNT) -->
+      <section id="sec-accounts" class="tab-section hidden space-y-5">
+        <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-sm flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+          <div class="flex flex-1 flex-col sm:flex-row gap-2.5">
+            <input type="text" id="search-accounts" oninput="renderAccounts()" placeholder="Cari nama akun atau @username..." class="px-3.5 py-2 rounded-xl border border-slate-200 text-xs flex-1 max-w-sm" />
+            <select id="filter-accounts-platform" onchange="renderAccounts()" class="px-3.5 py-2 rounded-xl border border-slate-200 text-xs bg-white">
+              <option value="ALL">Semua Platform</option>
+              <option value="TikTok">TikTok</option>
+              <option value="Instagram">Instagram</option>
+              <option value="Shopee">Shopee Video</option>
+              <option value="YouTube">YouTube</option>
+            </select>
+          </div>
+          <button onclick="openAccountModal()" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm transition">
+            <i data-lucide="plus" class="w-4 h-4"></i> Tambah Akun Baru
+          </button>
+        </div>
+
+        <!-- VISUAL GRID SHOWCASE AKUN-AKUN -->
+        <div>
+          <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">Kartu Profil Multi-Akun</h3>
+          <div id="accounts-showcase-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+        </div>
+
+        <!-- Table View -->
+        <div class="bg-white rounded-2xl border border-slate-200 overflow-x-auto mt-4">
+          <div class="px-4 py-3 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
+            <span class="text-xs font-bold text-slate-700 uppercase tracking-wider">Inventaris Seluruh Akun</span>
+            <span id="accounts-count-badge" class="text-xs font-semibold text-slate-400">0 Akun Terdaftar</span>
+          </div>
+          <table class="w-full text-left text-sm">
+            <thead class="bg-slate-50 text-slate-500 uppercase text-[11px] font-bold border-b">
+              <tr>
+                <th class="p-3.5">Akun & Username</th>
+                <th class="p-3.5">Platform</th>
+                <th class="p-3.5">Klien Pemilik</th>
+                <th class="p-3.5">Followers</th>
+                <th class="p-3.5 text-right">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="accounts-table-body" class="divide-y divide-slate-100"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 3. KLIEN -->
       <section id="sec-clients" class="tab-section hidden space-y-4">
         <div class="flex justify-between items-center gap-2">
           <input type="text" id="search-clients" oninput="renderClients()" placeholder="Cari klien..." class="px-3.5 py-2 rounded-xl border border-slate-200 text-sm flex-1 max-w-sm" />
-          <button onclick="openClientModal()" class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-bold text-xs flex items-center gap-1.5"><i data-lucide="plus" class="w-4 h-4"></i> Tambah Klien</button>
+          <button onclick="openClientModal()" class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm"><i data-lucide="plus" class="w-4 h-4"></i> Tambah Klien</button>
         </div>
         <div class="bg-white rounded-2xl border border-slate-200 overflow-x-auto">
           <table class="w-full text-left text-sm">
@@ -205,32 +280,16 @@
         </div>
       </section>
 
-      <!-- 3. AKUN MEDSOS -->
-      <section id="sec-accounts" class="tab-section hidden space-y-4">
-        <div class="flex justify-between items-center gap-2">
-          <input type="text" id="search-accounts" oninput="renderAccounts()" placeholder="Cari username..." class="px-3.5 py-2 rounded-xl border border-slate-200 text-sm flex-1 max-w-sm" />
-          <button onclick="openAccountModal()" class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-bold text-xs flex items-center gap-1.5"><i data-lucide="plus" class="w-4 h-4"></i> Tambah Akun</button>
-        </div>
-        <div class="bg-white rounded-2xl border border-slate-200 overflow-x-auto">
-          <table class="w-full text-left text-sm">
-            <thead class="bg-slate-50 text-slate-500 uppercase text-[11px] font-bold border-b">
-              <tr><th class="p-4">Akun</th><th class="p-4">Platform</th><th class="p-4">Klien</th><th class="p-4">Followers</th><th class="p-4 text-right">Aksi</th></tr>
-            </thead>
-            <tbody id="accounts-table-body" class="divide-y divide-slate-100"></tbody>
-          </table>
-        </div>
-      </section>
-
       <!-- 4. CONTENT PLANNER -->
       <section id="sec-planner" class="tab-section hidden space-y-4">
         <div class="flex justify-between items-center gap-2">
           <input type="text" id="search-planner" oninput="renderPlanner()" placeholder="Cari konten..." class="px-3.5 py-2 rounded-xl border border-slate-200 text-sm flex-1 max-w-sm" />
-          <button onclick="openContentModal()" class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-bold text-xs flex items-center gap-1.5"><i data-lucide="plus" class="w-4 h-4"></i> Buat Konten</button>
+          <button onclick="openContentModal()" class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm"><i data-lucide="plus" class="w-4 h-4"></i> Buat Konten</button>
         </div>
         <div class="bg-white rounded-2xl border border-slate-200 overflow-x-auto">
           <table class="w-full text-left text-sm">
             <thead class="bg-slate-50 text-slate-500 uppercase text-[11px] font-bold border-b">
-              <tr><th class="p-4">Tanggal & Judul</th><th class="p-4">Platform</th><th class="p-4">Pillar</th><th class="p-4">Status</th><th class="p-4 text-right">Aksi</th></tr>
+              <tr><th class="p-4">Tanggal & Judul</th><th class="p-4">Akun / Platform</th><th class="p-4">Pillar</th><th class="p-4">Status</th><th class="p-4 text-right">Aksi</th></tr>
             </thead>
             <tbody id="planner-table-body" class="divide-y divide-slate-100"></tbody>
           </table>
@@ -241,12 +300,12 @@
       <section id="sec-analytics" class="tab-section hidden space-y-4">
         <div class="flex justify-between items-center gap-2">
           <input type="text" id="search-analytics" oninput="renderAnalytics()" placeholder="Cari analitik..." class="px-3.5 py-2 rounded-xl border border-slate-200 text-sm flex-1 max-w-sm" />
-          <button onclick="openAnalyticsModal()" class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-bold text-xs flex items-center gap-1.5"><i data-lucide="plus" class="w-4 h-4"></i> Input Performa</button>
+          <button onclick="openAnalyticsModal()" class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm"><i data-lucide="plus" class="w-4 h-4"></i> Input Performa</button>
         </div>
         <div class="bg-white rounded-2xl border border-slate-200 overflow-x-auto">
           <table class="w-full text-left text-sm">
             <thead class="bg-slate-50 text-slate-500 uppercase text-[11px] font-bold border-b">
-              <tr><th class="p-4">Tanggal & Nama Konten</th><th class="p-4">Platform</th><th class="p-4">Views</th><th class="p-4">Interaksi</th><th class="p-4">ER (%)</th><th class="p-4 text-right">Aksi</th></tr>
+              <tr><th class="p-4">Tanggal & Nama Konten</th><th class="p-4">Akun / Platform</th><th class="p-4">Views</th><th class="p-4">Interaksi</th><th class="p-4">ER (%)</th><th class="p-4 text-right">Aksi</th></tr>
             </thead>
             <tbody id="analytics-table-body" class="divide-y divide-slate-100"></tbody>
           </table>
@@ -257,7 +316,7 @@
       <section id="sec-affiliate" class="tab-section hidden space-y-4">
         <div class="flex justify-between items-center gap-2">
           <input type="text" id="search-affiliate" oninput="renderAffiliate()" placeholder="Cari produk..." class="px-3.5 py-2 rounded-xl border border-slate-200 text-sm flex-1 max-w-sm" />
-          <button onclick="openAffiliateModal()" class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-bold text-xs flex items-center gap-1.5"><i data-lucide="plus" class="w-4 h-4"></i> Catat Produk</button>
+          <button onclick="openAffiliateModal()" class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm"><i data-lucide="plus" class="w-4 h-4"></i> Catat Produk</button>
         </div>
         <div class="bg-white rounded-2xl border border-slate-200 overflow-x-auto">
           <table class="w-full text-left text-sm">
@@ -273,7 +332,7 @@
       <section id="sec-tasks" class="tab-section hidden space-y-4">
         <div class="flex justify-between items-center gap-2">
           <input type="text" id="search-tasks" oninput="renderTasks()" placeholder="Cari tugas..." class="px-3.5 py-2 rounded-xl border border-slate-200 text-sm flex-1 max-w-sm" />
-          <button onclick="openTaskModal()" class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-bold text-xs flex items-center gap-1.5"><i data-lucide="plus" class="w-4 h-4"></i> Tambah Tugas</button>
+          <button onclick="openTaskModal()" class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm"><i data-lucide="plus" class="w-4 h-4"></i> Tambah Tugas</button>
         </div>
         <div class="bg-white rounded-2xl border border-slate-200 overflow-x-auto">
           <table class="w-full text-left text-sm">
@@ -287,22 +346,22 @@
 
       <!-- 8. REPORTS -->
       <section id="sec-reports" class="tab-section hidden space-y-4">
-        <div class="bg-white rounded-2xl p-5 border border-slate-200 flex justify-between items-center">
+        <div class="bg-white rounded-2xl p-5 border border-slate-200 flex justify-between items-center shadow-sm">
           <div><h3 class="font-bold text-base text-slate-900">Laporan Resmi</h3><p class="text-xs text-slate-500">Cetak laporan langsung atau unduh CSV</p></div>
           <div class="flex gap-2">
-            <button onclick="window.print()" class="px-4 py-2 rounded-xl bg-rose-600 text-white font-bold text-xs">Export PDF / Cetak</button>
-            <button onclick="exportReportCSV()" class="px-4 py-2 rounded-xl bg-slate-800 text-white font-bold text-xs">Export CSV</button>
+            <button onclick="window.print()" class="px-4 py-2 rounded-xl bg-rose-600 text-white font-bold text-xs shadow-sm">Export PDF / Cetak</button>
+            <button onclick="exportReportCSV()" class="px-4 py-2 rounded-xl bg-slate-800 text-white font-bold text-xs shadow-sm">Export CSV</button>
           </div>
         </div>
       </section>
 
       <!-- 9. SETTINGS -->
       <section id="sec-settings" class="tab-section hidden space-y-4">
-        <div class="bg-white rounded-2xl p-6 border border-slate-200 space-y-3">
+        <div class="bg-white rounded-2xl p-6 border border-slate-200 space-y-3 shadow-sm">
           <h3 class="font-bold text-base text-slate-900">Penyimpanan Cloud Firestore Terhubung</h3>
-          <p class="text-xs text-slate-600 leading-relaxed">Website ini sudah otomatis tersinkronisasi secara realtime ke database Cloud Firestore proyek <strong>boby-creator-studio</strong>. Setiap perubahan data yang kamu simpan akan otomatis tersinkronisasi antar perangkat.</p>
+          <p class="text-xs text-slate-600 leading-relaxed">Website ini sudah otomatis tersinkronisasi secara realtime ke database Cloud Firestore proyek <strong>boby-creator-studio</strong>. Setiap perubahan data multi-akun yang kamu simpan akan otomatis tersinkronisasi antar perangkat.</p>
           <div class="pt-2">
-            <button onclick="downloadBackupJSON()" class="px-4 py-2 rounded-xl bg-slate-900 text-white font-bold text-xs">Download Backup Cadangan (.json)</button>
+            <button onclick="downloadBackupJSON()" class="px-4 py-2 rounded-xl bg-slate-900 text-white font-bold text-xs shadow-sm">Download Backup Cadangan (.json)</button>
           </div>
         </div>
       </section>
@@ -313,15 +372,15 @@
   <!-- MOBILE BOTTOM NAV -->
   <nav class="no-print lg:hidden fixed bottom-0 inset-x-0 bg-white border-t border-slate-200 z-30 flex items-center justify-around py-2 px-1 shadow-lg">
     <button onclick="switchTab('dashboard')" data-tab="dashboard" class="mob-nav-btn flex flex-col items-center text-[10px] font-bold"><i data-lucide="layout-dashboard" class="w-5 h-5 mb-0.5"></i>Dashboard</button>
-    <button onclick="switchTab('clients')" data-tab="clients" class="mob-nav-btn flex flex-col items-center text-[10px] font-bold text-slate-500"><i data-lucide="briefcase" class="w-5 h-5 mb-0.5"></i>Klien</button>
+    <button onclick="switchTab('accounts')" data-tab="accounts" class="mob-nav-btn flex flex-col items-center text-[10px] font-bold text-slate-500"><i data-lucide="share-2" class="w-5 h-5 mb-0.5"></i>Akun</button>
     <button onclick="switchTab('planner')" data-tab="planner" class="mob-nav-btn flex flex-col items-center text-[10px] font-bold text-slate-500"><i data-lucide="calendar-days" class="w-5 h-5 mb-0.5"></i>Planner</button>
     <button onclick="switchTab('analytics')" data-tab="analytics" class="mob-nav-btn flex flex-col items-center text-[10px] font-bold text-slate-500"><i data-lucide="bar-chart-3" class="w-5 h-5 mb-0.5"></i>Analytics</button>
     <button onclick="switchTab('tasks')" data-tab="tasks" class="mob-nav-btn flex flex-col items-center text-[10px] font-bold text-slate-500"><i data-lucide="check-square" class="w-5 h-5 mb-0.5"></i>Tugas</button>
   </nav>
 
-  <!-- MODALS -->
+  <!-- MODAL KLIEN -->
   <div id="modal-client" class="no-print hidden fixed inset-0 z-50 bg-slate-900/60 flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl max-w-lg w-full p-5 space-y-3">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-5 space-y-3 shadow-xl">
       <h3 class="font-bold text-base text-slate-900">Tambah Data Klien</h3>
       <form onsubmit="saveClient(event)" class="space-y-3">
         <div><label class="block text-xs font-bold mb-1">Nama Klien</label><input type="text" id="client-name" required class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
@@ -330,52 +389,103 @@
           <div><label class="block text-xs font-bold mb-1">Mulai</label><input type="date" id="client-date" required class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
           <div><label class="block text-xs font-bold mb-1">Status</label><select id="client-status" class="w-full px-3 py-2 border rounded-xl text-sm bg-white"><option value="Aktif">Aktif</option><option value="Prospek">Prospek</option><option value="Selesai">Selesai</option></select></div>
         </div>
-        <div class="flex justify-end gap-2 pt-2"><button type="button" onclick="closeModal('modal-client')" class="px-4 py-2 border rounded-xl text-xs font-bold">Batal</button><button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-xs font-bold">Simpan</button></div>
+        <div class="flex justify-end gap-2 pt-2">
+          <button type="button" onclick="closeModal('modal-client')" class="px-4 py-2 border rounded-xl text-xs font-bold">Batal</button>
+          <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-xs font-bold">Simpan</button>
+        </div>
       </form>
     </div>
   </div>
 
+  <!-- MODAL AKUN MEDIA SOSIAL (MULTI-AKUN PRO) -->
   <div id="modal-account" class="no-print hidden fixed inset-0 z-50 bg-slate-900/60 flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl max-w-lg w-full p-5 space-y-3">
-      <h3 class="font-bold text-base text-slate-900">Tambah Akun Media Sosial</h3>
+    <div class="bg-white rounded-2xl max-w-lg w-full p-5 space-y-3 shadow-xl">
+      <h3 id="modal-account-title" class="font-bold text-base text-slate-900">Tambah Akun Media Sosial</h3>
       <form onsubmit="saveAccount(event)" class="space-y-3">
+        <input type="hidden" id="account-id" />
         <div class="grid grid-cols-2 gap-2">
-          <div><label class="block text-xs font-bold mb-1">Nama Akun</label><input type="text" id="account-name" required class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
-          <div><label class="block text-xs font-bold mb-1">Username (@)</label><input type="text" id="account-username" required class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
+          <div><label class="block text-xs font-bold mb-1">Nama Akun / Brand</label><input type="text" id="account-name" required placeholder="Contoh: Chocoovora" class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
+          <div><label class="block text-xs font-bold mb-1">Username (@)</label><input type="text" id="account-username" required placeholder="@chocoovora" class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
         </div>
         <div class="grid grid-cols-3 gap-2">
-          <div><label class="block text-xs font-bold mb-1">Platform</label><select id="account-platform" class="w-full px-3 py-2 border rounded-xl text-sm bg-white"><option value="TikTok">TikTok</option><option value="Instagram">Instagram</option><option value="Shopee">Shopee</option></select></div>
-          <div><label class="block text-xs font-bold mb-1">Klien</label><input type="text" id="account-client" value="Pribadi" class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
-          <div><label class="block text-xs font-bold mb-1">Followers</label><input type="number" id="account-followers" value="0" required class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
+          <div>
+            <label class="block text-xs font-bold mb-1">Platform</label>
+            <select id="account-platform" class="w-full px-3 py-2 border rounded-xl text-sm bg-white">
+              <option value="TikTok">TikTok</option>
+              <option value="Instagram">Instagram</option>
+              <option value="Shopee">Shopee Video</option>
+              <option value="YouTube">YouTube</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold mb-1">Klien Pemilik</label>
+            <input type="text" id="account-client" value="Pribadi / Internal" class="w-full px-3 py-2 border rounded-xl text-sm" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold mb-1">Jumlah Followers</label>
+            <input type="number" id="account-followers" value="0" required class="w-full px-3 py-2 border rounded-xl text-sm" />
+          </div>
         </div>
-        <div class="flex justify-end gap-2 pt-2"><button type="button" onclick="closeModal('modal-account')" class="px-4 py-2 border rounded-xl text-xs font-bold">Batal</button><button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-xs font-bold">Simpan</button></div>
+        <div class="flex justify-end gap-2 pt-2">
+          <button type="button" onclick="closeModal('modal-account')" class="px-4 py-2 border rounded-xl text-xs font-bold">Batal</button>
+          <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-xs font-bold">Simpan Akun</button>
+        </div>
       </form>
     </div>
   </div>
 
+  <!-- MODAL CONTENT PLANNER -->
   <div id="modal-content" class="no-print hidden fixed inset-0 z-50 bg-slate-900/60 flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl max-w-lg w-full p-5 space-y-3">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-5 space-y-3 shadow-xl">
       <h3 class="font-bold text-base text-slate-900">Rencana Konten</h3>
       <form onsubmit="saveContent(event)" class="space-y-3">
         <div class="grid grid-cols-3 gap-2">
           <div><label class="block text-xs font-bold mb-1">Tanggal</label><input type="date" id="content-date" required class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
-          <div><label class="block text-xs font-bold mb-1">Platform</label><select id="content-platform" class="w-full px-3 py-2 border rounded-xl text-sm bg-white"><option value="TikTok">TikTok</option><option value="Instagram">Instagram</option></select></div>
-          <div><label class="block text-xs font-bold mb-1">Status</label><select id="content-status" class="w-full px-3 py-2 border rounded-xl text-sm bg-white"><option value="Ide">Ide</option><option value="Script">Script</option><option value="Produksi">Produksi</option><option value="Editing">Editing</option><option value="Siap upload">Siap upload</option><option value="Sudah upload">Sudah upload</option></select></div>
+          <div>
+            <label class="block text-xs font-bold mb-1">Target Akun</label>
+            <select id="content-account-select" class="w-full px-3 py-2 border rounded-xl text-sm bg-white">
+              <option value="ALL">Akun Utama</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold mb-1">Status</label>
+            <select id="content-status" class="w-full px-3 py-2 border rounded-xl text-sm bg-white font-semibold">
+              <option value="Ide">Ide</option>
+              <option value="Script">Script</option>
+              <option value="Produksi">Produksi</option>
+              <option value="Editing">Editing</option>
+              <option value="Siap upload">Siap upload</option>
+              <option value="Sudah upload">Sudah upload</option>
+            </select>
+          </div>
         </div>
         <div><label class="block text-xs font-bold mb-1">Judul Konten</label><input type="text" id="content-title" required class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
-        <div><label class="block text-xs font-bold mb-1">Pillar</label><input type="text" id="content-pillar" required placeholder="Edukasi / OOTD / Review" class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
-        <div class="flex justify-end gap-2 pt-2"><button type="button" onclick="closeModal('modal-content')" class="px-4 py-2 border rounded-xl text-xs font-bold">Batal</button><button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-xs font-bold">Simpan</button></div>
+        <div class="grid grid-cols-2 gap-2">
+          <div><label class="block text-xs font-bold mb-1">Pillar</label><input type="text" id="content-pillar" required placeholder="Edukasi / OOTD / Review" class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
+          <div><label class="block text-xs font-bold mb-1">Platform</label><select id="content-platform" class="w-full px-3 py-2 border rounded-xl text-sm bg-white"><option value="TikTok">TikTok</option><option value="Instagram">Instagram</option><option value="Shopee">Shopee Video</option><option value="YouTube">YouTube</option></select></div>
+        </div>
+        <div class="flex justify-end gap-2 pt-2">
+          <button type="button" onclick="closeModal('modal-content')" class="px-4 py-2 border rounded-xl text-xs font-bold">Batal</button>
+          <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-xs font-bold">Simpan</button>
+        </div>
       </form>
     </div>
   </div>
 
+  <!-- MODAL ANALYTICS -->
   <div id="modal-analytics" class="no-print hidden fixed inset-0 z-50 bg-slate-900/60 flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl max-w-lg w-full p-5 space-y-3">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-5 space-y-3 shadow-xl">
       <h3 class="font-bold text-base text-slate-900">Input Performa Konten</h3>
       <form onsubmit="saveAnalytics(event)" class="space-y-3">
-        <div class="grid grid-cols-2 gap-2">
+        <div class="grid grid-cols-3 gap-2">
           <div><label class="block text-xs font-bold mb-1">Tanggal</label><input type="date" id="analytics-date" required class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
-          <div><label class="block text-xs font-bold mb-1">Platform</label><select id="analytics-platform" class="w-full px-3 py-2 border rounded-xl text-sm bg-white"><option value="TikTok">TikTok</option><option value="Instagram">Instagram</option></select></div>
+          <div>
+            <label class="block text-xs font-bold mb-1">Untuk Akun</label>
+            <select id="analytics-account-select" class="w-full px-3 py-2 border rounded-xl text-sm bg-white">
+              <option value="ALL">Akun Utama</option>
+            </select>
+          </div>
+          <div><label class="block text-xs font-bold mb-1">Platform</label><select id="analytics-platform" class="w-full px-3 py-2 border rounded-xl text-sm bg-white"><option value="TikTok">TikTok</option><option value="Instagram">Instagram</option><option value="Shopee">Shopee</option><option value="YouTube">YouTube</option></select></div>
         </div>
         <div><label class="block text-xs font-bold mb-1">Nama Konten</label><input type="text" id="analytics-title" required class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
         <div class="grid grid-cols-3 gap-2">
@@ -383,13 +493,17 @@
           <div><label class="block text-xs font-bold mb-1">Likes</label><input type="number" id="analytics-likes" value="0" required class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
           <div><label class="block text-xs font-bold mb-1">Comments</label><input type="number" id="analytics-comments" value="0" required class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
         </div>
-        <div class="flex justify-end gap-2 pt-2"><button type="button" onclick="closeModal('modal-analytics')" class="px-4 py-2 border rounded-xl text-xs font-bold">Batal</button><button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-xs font-bold">Simpan</button></div>
+        <div class="flex justify-end gap-2 pt-2">
+          <button type="button" onclick="closeModal('modal-analytics')" class="px-4 py-2 border rounded-xl text-xs font-bold">Batal</button>
+          <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-xs font-bold">Simpan</button>
+        </div>
       </form>
     </div>
   </div>
 
+  <!-- MODAL AFFILIATE -->
   <div id="modal-affiliate" class="no-print hidden fixed inset-0 z-50 bg-slate-900/60 flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl max-w-lg w-full p-5 space-y-3">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-5 space-y-3 shadow-xl">
       <h3 class="font-bold text-base text-slate-900">Catat Produk Affiliate</h3>
       <form onsubmit="saveAffiliate(event)" class="space-y-3">
         <div><label class="block text-xs font-bold mb-1">Nama Produk</label><input type="text" id="aff-product" required class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
@@ -399,13 +513,17 @@
           <div><label class="block text-xs font-bold mb-1">GMV (Rp)</label><input type="number" id="aff-gmv" value="0" required class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
           <div><label class="block text-xs font-bold mb-1">Komisi (Rp)</label><input type="number" id="aff-commission" value="0" required class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
         </div>
-        <div class="flex justify-end gap-2 pt-2"><button type="button" onclick="closeModal('modal-affiliate')" class="px-4 py-2 border rounded-xl text-xs font-bold">Batal</button><button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-xs font-bold">Simpan</button></div>
+        <div class="flex justify-end gap-2 pt-2">
+          <button type="button" onclick="closeModal('modal-affiliate')" class="px-4 py-2 border rounded-xl text-xs font-bold">Batal</button>
+          <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-xs font-bold">Simpan</button>
+        </div>
       </form>
     </div>
   </div>
 
+  <!-- MODAL TASK -->
   <div id="modal-task" class="no-print hidden fixed inset-0 z-50 bg-slate-900/60 flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl max-w-lg w-full p-5 space-y-3">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-5 space-y-3 shadow-xl">
       <h3 class="font-bold text-base text-slate-900">Tambah Tugas</h3>
       <form onsubmit="saveTask(event)" class="space-y-3">
         <div><label class="block text-xs font-bold mb-1">Pekerjaan</label><input type="text" id="task-title" required class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
@@ -413,14 +531,17 @@
           <div><label class="block text-xs font-bold mb-1">Deadline</label><input type="date" id="task-deadline" required class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
           <div><label class="block text-xs font-bold mb-1">Prioritas</label><select id="task-priority" class="w-full px-3 py-2 border rounded-xl text-sm bg-white"><option value="Tinggi">Tinggi</option><option value="Sedang" selected>Sedang</option><option value="Rendah">Rendah</option></select></div>
         </div>
-        <div class="flex justify-end gap-2 pt-2"><button type="button" onclick="closeModal('modal-task')" class="px-4 py-2 border rounded-xl text-xs font-bold">Batal</button><button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-xs font-bold">Simpan</button></div>
+        <div class="flex justify-end gap-2 pt-2">
+          <button type="button" onclick="closeModal('modal-task')" class="px-4 py-2 border rounded-xl text-xs font-bold">Batal</button>
+          <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-xs font-bold">Simpan</button>
+        </div>
       </form>
     </div>
   </div>
 
   <div id="toast-container" class="no-print fixed top-4 right-4 z-50 space-y-2 pointer-events-none"></div>
 
-  <!-- SCRIPT UTAMA: TERHUBUNG KE CLOUD FIRESTORE -->
+  <!-- ==================== SCRIPT UTAMA: MULTI-ACCOUNT & FIREBASE FIRESTORE ==================== -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
     import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
@@ -442,6 +563,7 @@
     const STORAGE_KEY = 'BOBY_CREATOR_STUDIO_DB_V2';
     let db = { clients: [], accounts: [], contents: [], analytics: [], affiliates: [], tasks: [] };
     let activeTab = 'dashboard';
+    let activeAccountFilter = 'ALL';
     let chartInstance = null;
 
     function uid() { return 'id_' + Date.now().toString(36) + '_' + Math.random().toString(36).substring(2, 6); }
@@ -471,11 +593,18 @@
 
     function initRealtime() {
       const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) { try { db = JSON.parse(raw); refreshAll(); } catch(e){} }
+      if (raw) { 
+        try { 
+          db = JSON.parse(raw); 
+          if (!Array.isArray(db.accounts)) db.accounts = [];
+          refreshAll(); 
+        } catch(e){} 
+      }
       onSnapshot(docRef, (snap) => {
         if (snap.exists() && snap.data().payload) {
           try {
             db = JSON.parse(snap.data().payload);
+            if (!Array.isArray(db.accounts)) db.accounts = [];
             localStorage.setItem(STORAGE_KEY, JSON.stringify(db));
             refreshAll();
           } catch(e){}
@@ -495,21 +624,84 @@
 
       document.querySelectorAll('.nav-btn').forEach(b => {
         b.className = b.dataset.tab === t 
-          ? 'nav-btn w-full flex items-center justify-between gap-3 px-3.5 py-3 rounded-xl text-sm font-bold bg-indigo-600 text-white shadow-sm'
-          : 'nav-btn w-full flex items-center justify-between gap-3 px-3.5 py-3 rounded-xl text-sm font-semibold text-slate-300 hover:bg-slate-800 hover:text-white';
+          ? 'nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold bg-indigo-600 text-white shadow-sm'
+          : 'nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white';
       });
+
+      const titleMap = {
+        dashboard: 'Dashboard Utama',
+        accounts: 'Kelola Multi-Akun Media Sosial',
+        clients: 'Manajemen Klien',
+        planner: 'Content Planner',
+        analytics: 'Analytics Performa Konten',
+        affiliate: 'Affiliate Tracker',
+        tasks: 'Task Management',
+        reports: 'Report Center',
+        settings: 'Database & Cloud Firestore'
+      };
+      document.getElementById('page-title').textContent = titleMap[t] || 'Command Center';
+
       refreshAll();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
     window.closeModal = function(id) { document.getElementById(id).classList.add('hidden'); };
     window.openClientModal = function() { document.getElementById('modal-client').classList.remove('hidden'); };
-    window.openAccountModal = function() { document.getElementById('modal-account').classList.remove('hidden'); };
+    window.openAccountModal = function(id = null) { 
+      document.getElementById('account-id').value = '';
+      document.getElementById('account-name').value = '';
+      document.getElementById('account-username').value = '';
+      document.getElementById('account-platform').value = 'TikTok';
+      document.getElementById('account-client').value = 'Pribadi / Internal';
+      document.getElementById('account-followers').value = 0;
+      document.getElementById('modal-account-title').textContent = 'Tambah Akun Media Sosial';
+
+      if (id) {
+        const a = db.accounts.find(x => x.id === id);
+        if (a) {
+          document.getElementById('account-id').value = a.id;
+          document.getElementById('account-name').value = a.name;
+          document.getElementById('account-username').value = a.username;
+          document.getElementById('account-platform').value = a.platform;
+          document.getElementById('account-client').value = a.client || 'Pribadi / Internal';
+          document.getElementById('account-followers').value = a.followers;
+          document.getElementById('modal-account-title').textContent = 'Edit Akun Media Sosial';
+        }
+      }
+      document.getElementById('modal-account').classList.remove('hidden'); 
+    };
     window.openContentModal = function() { document.getElementById('modal-content').classList.remove('hidden'); };
     window.openAnalyticsModal = function() { document.getElementById('modal-analytics').classList.remove('hidden'); };
     window.openAffiliateModal = function() { document.getElementById('modal-affiliate').classList.remove('hidden'); };
     window.openTaskModal = function() { document.getElementById('modal-task').classList.remove('hidden'); };
 
+    // --- MULTI-ACCOUNT FILTER CONTROLLER ---
+    window.onGlobalAccountFilterChange = function(val) {
+      activeAccountFilter = val;
+      const acc = db.accounts.find(x => x.id === val);
+      const label = acc ? `${acc.name} (${acc.username})` : 'Semua Akun (Global)';
+      document.getElementById('sidebar-active-account-label').textContent = label;
+      document.getElementById('chart-account-tag').textContent = label;
+      
+      const desc = document.getElementById('dash-filter-desc');
+      if (acc) {
+        desc.textContent = `Fokus menampilkan data analitik dan jadwal untuk ${acc.name} (${acc.platform}).`;
+      } else {
+        desc.textContent = 'Menampilkan akumulasi data seluruh akun media sosial & affiliate.';
+      }
+      
+      refreshAll();
+      showToast(`Filter beralih ke: ${label}`);
+    };
+
+    window.selectAccountDirectly = function(accId) {
+      const select = document.getElementById('global-account-filter');
+      if (select) select.value = accId;
+      window.onGlobalAccountFilterChange(accId);
+      window.switchTab('dashboard');
+    };
+
+    // --- CRUD OPERASIONAL ---
     window.saveClient = function(e) {
       e.preventDefault();
       db.clients.unshift({
@@ -526,17 +718,26 @@
 
     window.saveAccount = function(e) {
       e.preventDefault();
-      db.accounts.unshift({
-        id: uid(),
+      const id = document.getElementById('account-id').value;
+      const payload = {
+        id: id || uid(),
         name: document.getElementById('account-name').value.trim(),
         username: document.getElementById('account-username').value.trim(),
         platform: document.getElementById('account-platform').value,
         client: document.getElementById('account-client').value,
         followers: Number(document.getElementById('account-followers').value || 0)
-      });
+      };
+
+      if (id) {
+        const idx = db.accounts.findIndex(x => x.id === id);
+        if (idx > -1) db.accounts[idx] = payload;
+        showToast('Akun media sosial diperbarui!');
+      } else {
+        db.accounts.unshift(payload);
+        showToast('Akun media sosial baru ditambahkan!');
+      }
       closeModal('modal-account');
       saveToCloud();
-      showToast('Akun tersimpan!');
     };
 
     window.saveContent = function(e) {
@@ -544,6 +745,7 @@
       db.contents.unshift({
         id: uid(),
         date: document.getElementById('content-date').value,
+        accountId: document.getElementById('content-account-select').value,
         platform: document.getElementById('content-platform').value,
         status: document.getElementById('content-status').value,
         title: document.getElementById('content-title').value.trim(),
@@ -563,6 +765,7 @@
       db.analytics.unshift({
         id: uid(),
         date: document.getElementById('analytics-date').value,
+        accountId: document.getElementById('analytics-account-select').value,
         platform: document.getElementById('analytics-platform').value,
         title: document.getElementById('analytics-title').value.trim(),
         views, likes, comments, er
@@ -604,9 +807,10 @@
     };
 
     window.exportReportCSV = function() {
-      let csv = 'Kategori,Nama,Detail,Tanggal\n';
-      db.contents.forEach(c => csv += `"Konten","${c.title}","${c.platform}","${c.date}"\n`);
-      db.affiliates.forEach(f => csv += `"Affiliate","${f.product}","Komisi: ${f.commission}","-"\n`);
+      let csv = 'Kategori,Nama/Judul,Detail/Platform,Tanggal,Metrik\n';
+      db.contents.forEach(c => csv += `"Konten","${c.title}","${c.platform}","${c.date}","Status: ${c.status}"\n`);
+      db.analytics.forEach(a => csv += `"Analitik","${a.title}","${a.platform}","${a.date}","Views: ${a.views}, ER: ${a.er}%"\n`);
+      db.affiliates.forEach(f => csv += `"Affiliate","${f.product}","Shopee","-","Komisi: ${f.commission}, GMV: ${f.gmv}"\n`);
       const a = document.createElement('a');
       a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv' }));
       a.download = `laporan_boby_studio_${todayISO()}.csv`;
@@ -620,16 +824,58 @@
       a.click();
     };
 
+    // --- REFRESH SEMUA TAMPILAN SESUAI FILTER AKUN ---
+    function populateAccountDropdowns() {
+      const globalSel = document.getElementById('global-account-filter');
+      const contentSel = document.getElementById('content-account-select');
+      const analSel = document.getElementById('analytics-account-select');
+
+      const currentGlobalVal = globalSel.value;
+      globalSel.innerHTML = '<option value="ALL">🌐 Semua Akun (Global)</option>';
+      if (contentSel) contentSel.innerHTML = '<option value="ALL">Akun Utama / Tanpa Akun</option>';
+      if (analSel) analSel.innerHTML = '<option value="ALL">Akun Utama / Tanpa Akun</option>';
+
+      db.accounts.forEach(acc => {
+        const opt = `<option value="${acc.id}">${acc.name} (${acc.username} - ${acc.platform})</option>`;
+        globalSel.innerHTML += opt;
+        if (contentSel) contentSel.innerHTML += opt;
+        if (analSel) analSel.innerHTML += opt;
+      });
+
+      globalSel.value = currentGlobalVal || 'ALL';
+    }
+
     function refreshAll() {
+      populateAccountDropdowns();
+
+      // Data Filtering
+      const isFiltered = activeAccountFilter !== 'ALL';
+      const targetAccount = isFiltered ? db.accounts.find(a => a.id === activeAccountFilter) : null;
+
+      const filteredContents = isFiltered 
+        ? db.contents.filter(c => c.accountId === activeAccountFilter || (targetAccount && c.platform === targetAccount.platform)) 
+        : db.contents;
+
+      const filteredAnalytics = isFiltered 
+        ? db.analytics.filter(a => a.accountId === activeAccountFilter || (targetAccount && a.platform === targetAccount.platform)) 
+        : db.analytics;
+
+      const totalFollowersCount = isFiltered && targetAccount 
+        ? Number(targetAccount.followers || 0)
+        : db.accounts.reduce((a, b) => a + Number(b.followers || 0), 0);
+
+      // KPI Update
       document.getElementById('dash-total-clients').textContent = formatNumber(db.clients.length);
       document.getElementById('dash-active-clients').textContent = `${db.clients.filter(c => c.status === 'Aktif').length} Aktif`;
-      document.getElementById('dash-total-accounts').textContent = formatNumber(db.accounts.length);
-      document.getElementById('dash-total-content').textContent = formatNumber(db.contents.length);
-      document.getElementById('dash-uploaded-content').textContent = `${db.contents.filter(c => c.status === 'Sudah upload').length} Sudah Upload`;
-      document.getElementById('dash-total-views').textContent = formatNumber(db.analytics.reduce((a, b) => a + Number(b.views || 0), 0));
-      document.getElementById('dash-total-followers').textContent = formatNumber(db.accounts.reduce((a, b) => a + Number(b.followers || 0), 0));
+      document.getElementById('dash-total-accounts').textContent = isFiltered ? '1 (Fokus)' : formatNumber(db.accounts.length);
+      document.getElementById('dash-account-breakdown').textContent = isFiltered && targetAccount ? `${targetAccount.platform} • ${targetAccount.username}` : 'TikTok, IG, Shopee, YT';
+      document.getElementById('dash-total-content').textContent = formatNumber(filteredContents.length);
+      document.getElementById('dash-uploaded-content').textContent = `${filteredContents.filter(c => c.status === 'Sudah upload').length} Sudah Upload`;
+      document.getElementById('dash-total-views').textContent = formatNumber(filteredAnalytics.reduce((a, b) => a + Number(b.views || 0), 0));
+      document.getElementById('dash-total-followers').textContent = formatNumber(totalFollowersCount);
+      document.getElementById('dash-followers-sub').textContent = isFiltered && targetAccount ? targetAccount.username : 'Seluruh Akun';
 
-      const avgER = db.analytics.length > 0 ? (db.analytics.reduce((a, b) => a + Number(b.er || 0), 0) / db.analytics.length).toFixed(2) : 0;
+      const avgER = filteredAnalytics.length > 0 ? (filteredAnalytics.reduce((a, b) => a + Number(b.er || 0), 0) / filteredAnalytics.length).toFixed(2) : 0;
       document.getElementById('dash-avg-er').textContent = `${avgER}%`;
 
       const affClicks = db.affiliates.reduce((a, b) => a + Number(b.clicks || 0), 0);
@@ -640,31 +886,145 @@
       document.getElementById('dash-aff-gmv').textContent = `GMV: ${formatRupiah(db.affiliates.reduce((a, b) => a + Number(b.gmv || 0), 0))}`;
       document.getElementById('dash-aff-commission').textContent = formatRupiah(db.affiliates.reduce((a, b) => a + Number(b.commission || 0), 0));
 
+      // Visual Cards Multi-Akun Showcase Grid
+      const showcase = document.getElementById('accounts-showcase-grid');
+      const badgeCount = document.getElementById('accounts-count-badge');
+      if (badgeCount) badgeCount.textContent = `${db.accounts.length} Akun Terdaftar`;
+
+      const platformColors = {
+        'TikTok': 'from-slate-900 to-slate-800 text-white border-slate-700',
+        'Instagram': 'from-pink-600 to-purple-600 text-white border-pink-400',
+        'Shopee': 'from-orange-500 to-amber-600 text-white border-orange-400',
+        'YouTube': 'from-red-600 to-rose-700 text-white border-red-500'
+      };
+
+      if (showcase) {
+        showcase.innerHTML = db.accounts.length === 0 
+          ? '<p class="text-xs text-slate-400 p-4 col-span-3">Belum ada akun media sosial. Klik tombol Tambah Akun Baru di atas!</p>'
+          : db.accounts.map(acc => {
+            const isCurrentActive = activeAccountFilter === acc.id;
+            const gradient = platformColors[acc.platform] || 'from-indigo-600 to-violet-700 text-white border-indigo-400';
+            const postCount = db.contents.filter(c => c.accountId === acc.id || c.platform === acc.platform).length;
+            return `
+              <div class="bg-white rounded-2xl border ${isCurrentActive ? 'border-indigo-500 ring-2 ring-indigo-500/30' : 'border-slate-200'} p-4 shadow-sm space-y-3 transition">
+                <div class="flex items-center justify-between">
+                  <span class="px-2.5 py-1 rounded-xl text-[10px] font-extrabold uppercase bg-gradient-to-r ${gradient}">${escapeHtml(acc.platform)}</span>
+                  ${isCurrentActive ? '<span class="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">Sedang Dipilih</span>' : ''}
+                </div>
+                <div>
+                  <h4 class="font-extrabold text-base text-slate-900 truncate">${escapeHtml(acc.name)}</h4>
+                  <p class="text-xs text-indigo-600 font-semibold">${escapeHtml(acc.username)}</p>
+                </div>
+                <div class="grid grid-cols-2 gap-2 bg-slate-50 p-2.5 rounded-xl text-center">
+                  <div>
+                    <p class="text-[10px] text-slate-400 uppercase font-bold">Followers</p>
+                    <p class="text-xs font-extrabold text-slate-900">${formatNumber(acc.followers)}</p>
+                  </div>
+                  <div>
+                    <p class="text-[10px] text-slate-400 uppercase font-bold">Konten</p>
+                    <p class="text-xs font-extrabold text-indigo-600">${postCount}</p>
+                  </div>
+                </div>
+                <div class="flex items-center gap-1.5 pt-1">
+                  <button onclick="selectAccountDirectly('${acc.id}')" class="flex-1 py-1.5 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold text-xs transition">
+                    Pilih & Filter &rarr;
+                  </button>
+                  <button onclick="openAccountModal('${acc.id}')" class="p-1.5 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-600"><i data-lucide="edit-3" class="w-3.5 h-3.5"></i></button>
+                  <button onclick="db.accounts=db.accounts.filter(x=>x.id!='${acc.id}');saveToCloud();" class="p-1.5 rounded-xl border border-rose-200 text-rose-600 hover:bg-rose-50"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
+                </div>
+              </div>
+            `;
+          }).join('');
+      }
+
       // Tables
-      document.getElementById('clients-table-body').innerHTML = db.clients.map(c => `<tr><td class="p-4 font-bold">${escapeHtml(c.name)} (${escapeHtml(c.brand)})</td><td class="p-4">${c.startDate}</td><td class="p-4">${escapeHtml(c.status)}</td><td class="p-4">-</td><td class="p-4 text-right"><button onclick="db.clients=db.clients.filter(x=>x.id!='${c.id}');saveToCloud();" class="text-rose-600 font-bold text-xs">Hapus</button></td></tr>`).join('');
-      document.getElementById('accounts-table-body').innerHTML = db.accounts.map(a => `<tr><td class="p-4 font-bold">${escapeHtml(a.name)} (${escapeHtml(a.username)})</td><td class="p-4">${escapeHtml(a.platform)}</td><td class="p-4">${escapeHtml(a.client)}</td><td class="p-4">${formatNumber(a.followers)}</td><td class="p-4 text-right"><button onclick="db.accounts=db.accounts.filter(x=>x.id!='${a.id}');saveToCloud();" class="text-rose-600 font-bold text-xs">Hapus</button></td></tr>`).join('');
-      document.getElementById('planner-table-body').innerHTML = db.contents.map(c => `<tr><td class="p-4"><span class="text-xs text-indigo-600 font-bold">${c.date}</span><p class="font-bold">${escapeHtml(c.title)}</p></td><td class="p-4">${escapeHtml(c.platform)}</td><td class="p-4">${escapeHtml(c.pillar)}</td><td class="p-4 font-bold">${escapeHtml(c.status)}</td><td class="p-4 text-right"><button onclick="db.contents=db.contents.filter(x=>x.id!='${c.id}');saveToCloud();" class="text-rose-600 font-bold text-xs">Hapus</button></td></tr>`).join('');
-      document.getElementById('analytics-table-body').innerHTML = db.analytics.map(a => `<tr><td class="p-4"><span class="text-xs text-indigo-600 font-bold">${a.date}</span><p class="font-bold">${escapeHtml(a.title)}</p></td><td class="p-4">${escapeHtml(a.platform)}</td><td class="p-4 font-bold">${formatNumber(a.views)}</td><td class="p-4">${formatNumber(a.likes + a.comments)}</td><td class="p-4 font-bold text-rose-600">${a.er}%</td><td class="p-4 text-right"><button onclick="db.analytics=db.analytics.filter(x=>x.id!='${a.id}');saveToCloud();" class="text-rose-600 font-bold text-xs">Hapus</button></td></tr>`).join('');
-      document.getElementById('affiliate-table-body').innerHTML = db.affiliates.map(f => `<tr><td class="p-4 font-bold">${escapeHtml(f.product)}</td><td class="p-4">${formatNumber(f.clicks)}</td><td class="p-4">${formatNumber(f.orders)}</td><td class="p-4 font-bold text-amber-600">${f.cr}%</td><td class="p-4">${formatRupiah(f.gmv)}</td><td class="p-4 font-bold text-emerald-600">${formatRupiah(f.commission)}</td><td class="p-4 text-right"><button onclick="db.affiliates=db.affiliates.filter(x=>x.id!='${f.id}');saveToCloud();" class="text-rose-600 font-bold text-xs">Hapus</button></td></tr>`).join('');
-      document.getElementById('tasks-table-body').innerHTML = db.tasks.map(t => `<tr><td class="p-4 font-bold">${escapeHtml(t.title)}</td><td class="p-4">${t.deadline}</td><td class="p-4">${escapeHtml(t.priority)}</td><td class="p-4">${escapeHtml(t.status)}</td><td class="p-4 text-right"><button onclick="db.tasks=db.tasks.filter(x=>x.id!='${t.id}');saveToCloud();" class="text-rose-600 font-bold text-xs">Hapus</button></td></tr>`).join('');
+      document.getElementById('accounts-table-body').innerHTML = db.accounts.map(a => `
+        <tr class="hover:bg-slate-50">
+          <td class="p-3.5 font-bold">${escapeHtml(a.name)} (${escapeHtml(a.username)})</td>
+          <td class="p-3.5"><span class="px-2 py-0.5 rounded-md text-xs font-bold bg-slate-100">${escapeHtml(a.platform)}</span></td>
+          <td class="p-3.5 text-slate-600">${escapeHtml(a.client)}</td>
+          <td class="p-3.5 font-bold">${formatNumber(a.followers)}</td>
+          <td class="p-3.5 text-right space-x-2">
+            <button onclick="selectAccountDirectly('${a.id}')" class="text-indigo-600 font-bold text-xs hover:underline">Pilih</button>
+            <button onclick="openAccountModal('${a.id}')" class="text-slate-600 font-bold text-xs hover:underline">Edit</button>
+            <button onclick="db.accounts=db.accounts.filter(x=>x.id!='${a.id}');saveToCloud();" class="text-rose-600 font-bold text-xs hover:underline">Hapus</button>
+          </td>
+        </tr>`).join('');
+
+      document.getElementById('clients-table-body').innerHTML = db.clients.map(c => `
+        <tr class="hover:bg-slate-50">
+          <td class="p-4 font-bold">${escapeHtml(c.name)} (${escapeHtml(c.brand)})</td>
+          <td class="p-4">${c.startDate}</td>
+          <td class="p-4"><span class="px-2 py-0.5 rounded-md text-xs font-bold bg-emerald-50 text-emerald-700">${escapeHtml(c.status)}</span></td>
+          <td class="p-4 text-slate-400">-</td>
+          <td class="p-4 text-right"><button onclick="db.clients=db.clients.filter(x=>x.id!='${c.id}');saveToCloud();" class="text-rose-600 font-bold text-xs">Hapus</button></td>
+        </tr>`).join('');
+
+      document.getElementById('planner-table-body').innerHTML = filteredContents.map(c => {
+        const acc = db.accounts.find(x => x.id === c.accountId);
+        const accTag = acc ? `@${acc.username}` : c.platform;
+        return `
+          <tr class="hover:bg-slate-50">
+            <td class="p-4"><span class="text-xs text-indigo-600 font-bold">${c.date}</span><p class="font-bold text-slate-900">${escapeHtml(c.title)}</p></td>
+            <td class="p-4"><span class="px-2 py-0.5 rounded-md text-xs font-bold bg-indigo-50 text-indigo-700">${escapeHtml(accTag)}</span></td>
+            <td class="p-4 text-slate-600">${escapeHtml(c.pillar)}</td>
+            <td class="p-4 font-bold text-slate-700">${escapeHtml(c.status)}</td>
+            <td class="p-4 text-right"><button onclick="db.contents=db.contents.filter(x=>x.id!='${c.id}');saveToCloud();" class="text-rose-600 font-bold text-xs">Hapus</button></td>
+          </tr>`;
+      }).join('');
+
+      document.getElementById('analytics-table-body').innerHTML = filteredAnalytics.map(a => {
+        const acc = db.accounts.find(x => x.id === a.accountId);
+        const accTag = acc ? `@${acc.username}` : a.platform;
+        return `
+          <tr class="hover:bg-slate-50">
+            <td class="p-4"><span class="text-xs text-indigo-600 font-bold">${a.date}</span><p class="font-bold text-slate-900">${escapeHtml(a.title)}</p></td>
+            <td class="p-4"><span class="px-2 py-0.5 rounded-md text-xs font-bold bg-indigo-50 text-indigo-700">${escapeHtml(accTag)}</span></td>
+            <td class="p-4 font-bold">${formatNumber(a.views)}</td>
+            <td class="p-4">${formatNumber(a.likes + a.comments)}</td>
+            <td class="p-4 font-bold text-rose-600">${a.er}%</td>
+            <td class="p-4 text-right"><button onclick="db.analytics=db.analytics.filter(x=>x.id!='${a.id}');saveToCloud();" class="text-rose-600 font-bold text-xs">Hapus</button></td>
+          </tr>`;
+      }).join('');
+
+      document.getElementById('affiliate-table-body').innerHTML = db.affiliates.map(f => `
+        <tr class="hover:bg-slate-50">
+          <td class="p-4 font-bold">${escapeHtml(f.product)}</td>
+          <td class="p-4">${formatNumber(f.clicks)}</td>
+          <td class="p-4">${formatNumber(f.orders)}</td>
+          <td class="p-4 font-bold text-amber-600">${f.cr}%</td>
+          <td class="p-4">${formatRupiah(f.gmv)}</td>
+          <td class="p-4 font-bold text-emerald-600">${formatRupiah(f.commission)}</td>
+          <td class="p-4 text-right"><button onclick="db.affiliates=db.affiliates.filter(x=>x.id!='${f.id}');saveToCloud();" class="text-rose-600 font-bold text-xs">Hapus</button></td>
+        </tr>`).join('');
+
+      document.getElementById('tasks-table-body').innerHTML = db.tasks.map(t => `
+        <tr class="hover:bg-slate-50">
+          <td class="p-4 font-bold">${escapeHtml(t.title)}</td>
+          <td class="p-4">${t.deadline}</td>
+          <td class="p-4"><span class="px-2 py-0.5 rounded-md text-xs font-bold bg-amber-50 text-amber-700">${escapeHtml(t.priority)}</span></td>
+          <td class="p-4 font-bold">${escapeHtml(t.status)}</td>
+          <td class="p-4 text-right"><button onclick="db.tasks=db.tasks.filter(x=>x.id!='${t.id}');saveToCloud();" class="text-rose-600 font-bold text-xs">Hapus</button></td>
+        </tr>`).join('');
 
       // Tasks Badge & Upcoming
       const pending = db.tasks.filter(t => t.status !== 'Selesai');
       const badge = document.getElementById('sidebar-task-badge');
       if (pending.length > 0) { badge.textContent = pending.length; badge.classList.remove('hidden'); } else { badge.classList.add('hidden'); }
+      
       document.getElementById('dash-upcoming-list').innerHTML = pending.length === 0 ? '<p class="text-xs text-slate-400">Tidak ada tugas tertunda.</p>' :
         pending.slice(0, 4).map(t => `<div class="p-2.5 rounded-xl border border-slate-100 text-xs"><p class="font-bold text-slate-900">${escapeHtml(t.title)}</p><p class="text-slate-500">Deadline: ${t.deadline}</p></div>`).join('');
 
-      // Chart
+      // Chart Rendering (Filtered by Account)
       const ctx = document.getElementById('dashboardChart');
       if (ctx) {
         if (chartInstance) chartInstance.destroy();
-        const sorted = [...db.analytics].slice(-7);
+        const sorted = [...filteredAnalytics].slice(-7);
         chartInstance = new Chart(ctx, {
           type: 'bar',
           data: {
             labels: sorted.map(x => x.title.slice(0, 10)),
-            datasets: [{ label: 'Views', data: sorted.map(x => x.views), backgroundColor: '#4f46e5', borderRadius: 6 }]
+            datasets: [{ label: 'Views', data: sorted.map(x => x.views), backgroundColor: '#4f46e5', borderRadius: 8 }]
           },
           options: { responsive: true, maintainAspectRatio: false }
         });
