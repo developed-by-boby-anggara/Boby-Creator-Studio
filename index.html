@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>BOBY CREATOR STUDIO — Multi-Account & Gemini AI Command Center</title>
+  <title>BOBY CREATOR STUDIO — Multi-Account & Visual Planner Suite</title>
   <meta name="theme-color" content="#0f172a" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,7 +40,7 @@
       </div>
       <div class="overflow-hidden">
         <h1 class="font-extrabold text-sm tracking-tight text-white truncate">BOBY CREATOR STUDIO</h1>
-        <p class="text-[11px] text-indigo-400 font-semibold truncate">Multi-Account & Gemini AI</p>
+        <p class="text-[11px] text-indigo-400 font-semibold truncate">Visual Planner & AI Suite</p>
       </div>
     </div>
 
@@ -60,7 +60,7 @@
         <i data-lucide="layout-dashboard" class="w-4 h-4 shrink-0"></i><span>Dashboard Utama</span>
       </button>
 
-      <!-- MENU BARU: AI CREATOR ASSISTANT -->
+      <!-- GEMINI AI CREATOR ASSISTANT -->
       <button onclick="switchTab('ai')" data-tab="ai" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold text-amber-300 bg-amber-500/10 border border-amber-500/20 hover:bg-amber-500/20 transition-all">
         <div class="flex items-center gap-3">
           <i data-lucide="bot" class="w-4 h-4 text-amber-400 shrink-0 animate-pulse"></i>
@@ -69,14 +69,14 @@
         <span class="px-1.5 py-0.5 rounded text-[9px] font-extrabold bg-amber-500 text-slate-900">PRO</span>
       </button>
 
+      <button onclick="switchTab('planner')" data-tab="planner" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all">
+        <i data-lucide="calendar-days" class="w-4 h-4 shrink-0"></i><span>Content Planner Visual</span>
+      </button>
       <button onclick="switchTab('accounts')" data-tab="accounts" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all">
         <i data-lucide="share-2" class="w-4 h-4 shrink-0"></i><span>Kelola Multi-Akun</span>
       </button>
       <button onclick="switchTab('clients')" data-tab="clients" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all">
         <i data-lucide="briefcase" class="w-4 h-4 shrink-0"></i><span>Manajemen Klien</span>
-      </button>
-      <button onclick="switchTab('planner')" data-tab="planner" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all">
-        <i data-lucide="calendar-days" class="w-4 h-4 shrink-0"></i><span>Content Planner</span>
       </button>
       <button onclick="switchTab('analytics')" data-tab="analytics" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all">
         <i data-lucide="bar-chart-3" class="w-4 h-4 shrink-0"></i><span>Analytics Performa</span>
@@ -105,7 +105,7 @@
           <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Firebase Aktif
         </span>
       </div>
-      <p class="text-[10px] text-slate-400">Cloud Firestore aktif otomatis.</p>
+      <p class="text-[10px] text-slate-400">Cloud Firestore aktif realtime.</p>
     </div>
   </aside>
 
@@ -117,20 +117,18 @@
           <i data-lucide="sparkles" class="w-4 h-4"></i>
         </div>
         <div>
-          <h2 id="page-title" class="text-base sm:text-lg font-extrabold text-slate-900 truncate">Dashboard Utama</h2>
-          <p id="page-subtitle" class="text-xs text-slate-500 truncate">Ringkasan seluruh pekerjaan & performa</p>
+          <h2 id="page-title" class="text-base sm:text-lg font-extrabold text-slate-900 truncate">Content Planner Visual</h2>
+          <p id="page-subtitle" class="text-xs text-slate-500 truncate">Kalender jadwal publikasi tanggal, bulan & tahun</p>
         </div>
       </div>
 
-      <!-- Right Header: Account Switcher, AI Quick Trigger & Cloud Status -->
+      <!-- Right Header -->
       <div class="flex items-center gap-2 sm:gap-3 shrink-0">
-        <!-- Button Buka AI Cepat -->
         <button onclick="switchTab('ai')" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-500/10 text-amber-700 border border-amber-300 text-xs font-bold hover:bg-amber-500/20 transition">
           <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-500"></i>
           <span>Gemini AI</span>
         </button>
 
-        <!-- GLOBAL MULTI-ACCOUNT DROPDOWN -->
         <div class="flex items-center gap-1.5 bg-slate-100 hover:bg-slate-200/80 border border-slate-200 px-2.5 py-1.5 rounded-xl transition">
           <i data-lucide="users" class="w-3.5 h-3.5 text-indigo-600 shrink-0"></i>
           <select id="global-account-filter" onchange="onGlobalAccountFilterChange(this.value)" class="bg-transparent text-xs font-bold text-slate-800 focus:outline-none cursor-pointer pr-1">
@@ -148,9 +146,100 @@
 
     <main class="flex-1 p-4 sm:p-6 pb-safe max-w-7xl w-full mx-auto space-y-6">
 
-      <!-- ==================== 1. GEMINI AI CREATOR ASSISTANT (MODUL BARU) ==================== -->
+      <!-- ==================== 1. CONTENT PLANNER VISUAL ==================== -->
+      <section id="sec-planner" class="tab-section space-y-5">
+        <!-- Control Bar & View Switcher -->
+        <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-sm flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
+          <div class="flex flex-1 flex-col sm:flex-row gap-2">
+            <input type="text" id="search-planner" oninput="renderPlanner()" placeholder="Cari nama konten atau tema..." class="px-3.5 py-2 rounded-xl border border-slate-200 text-xs flex-1 max-w-sm" />
+            <select id="filter-planner-status" onchange="renderPlanner()" class="px-3 py-2 rounded-xl border border-slate-200 text-xs bg-white font-medium">
+              <option value="ALL">Semua Status</option>
+              <option value="Ide">Ide</option>
+              <option value="Script">Script</option>
+              <option value="Produksi">Produksi</option>
+              <option value="Editing">Editing</option>
+              <option value="Siap upload">Siap upload</option>
+              <option value="Sudah upload">Sudah upload</option>
+            </select>
+          </div>
+
+          <!-- Switcher Mode & Tombol Tambah -->
+          <div class="flex items-center justify-between sm:justify-end gap-2">
+            <div class="inline-flex rounded-xl bg-slate-100 p-1 border border-slate-200 text-xs font-bold">
+              <button onclick="setPlannerMode('calendar')" id="btn-mode-cal" class="px-3 py-1.5 rounded-lg bg-white text-indigo-600 shadow-sm flex items-center gap-1.5 transition">
+                <i data-lucide="calendar" class="w-3.5 h-3.5"></i> Kalender Bulanan
+              </button>
+              <button onclick="setPlannerMode('list')" id="btn-mode-list" class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 flex items-center gap-1.5 transition">
+                <i data-lucide="list" class="w-3.5 h-3.5"></i> Tampilan Tabel
+              </button>
+            </div>
+            <button onclick="openContentModal()" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm transition">
+              <i data-lucide="plus" class="w-4 h-4"></i> Buat Konten
+            </button>
+          </div>
+        </div>
+
+        <!-- TAMPILAN 1: KALENDER BULANAN LENGKAP -->
+        <div id="planner-calendar-view" class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm space-y-4">
+          <!-- Month & Year Navigation Header -->
+          <div class="flex items-center justify-between border-b pb-3.5">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold">
+                <i data-lucide="calendar" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h3 id="calendar-month-year-label" class="font-extrabold text-base sm:text-lg text-slate-900">November 2026</h3>
+                <p class="text-[11px] text-slate-500">Klik pada kotak tanggal untuk menjadwalkan konten langsung</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <button onclick="changeCalendarMonth(-1)" class="p-2 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 transition" title="Bulan Sebelumnya">
+                <i data-lucide="chevron-left" class="w-4 h-4"></i>
+              </button>
+              <button onclick="changeCalendarMonth(0)" class="px-3 py-1.5 rounded-xl border border-slate-200 text-xs font-bold hover:bg-slate-50 text-slate-700 transition">
+                Hari Ini
+              </button>
+              <button onclick="changeCalendarMonth(1)" class="p-2 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 transition" title="Bulan Berikutnya">
+                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Day Headers (Min - Sab) -->
+          <div class="grid grid-cols-7 gap-1 sm:gap-2 text-center text-[11px] font-extrabold text-slate-400 uppercase tracking-wider">
+            <div class="text-rose-500">Min</div>
+            <div>Sen</div>
+            <div>Sel</div>
+            <div>Rab</div>
+            <div>Kam</div>
+            <div>Jum</div>
+            <div class="text-indigo-600">Sab</div>
+          </div>
+
+          <!-- Calendar Days Grid (Populated by JS) -->
+          <div id="calendar-days-grid" class="grid grid-cols-7 gap-1.5 sm:gap-2"></div>
+        </div>
+
+        <!-- TAMPILAN 2: TABEL DAFTAR KONTEN -->
+        <div id="planner-list-view" class="hidden bg-white rounded-2xl border border-slate-200 overflow-x-auto shadow-sm">
+          <table class="w-full text-left text-sm">
+            <thead class="bg-slate-50 text-slate-500 uppercase text-[11px] font-bold border-b">
+              <tr>
+                <th class="p-4">Jadwal Publikasi</th>
+                <th class="p-4">Judul Konten</th>
+                <th class="p-4">Akun & Platform</th>
+                <th class="p-4">Pillar</th>
+                <th class="p-4">Status</th>
+                <th class="p-4 text-right">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="planner-table-body" class="divide-y divide-slate-100"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ==================== 2. GEMINI AI CREATOR ASSISTANT ==================== -->
       <section id="sec-ai" class="tab-section hidden space-y-5">
-        <!-- Banner Pengenalan AI -->
         <div class="bg-gradient-to-r from-amber-500 via-orange-600 to-indigo-700 rounded-2xl p-5 sm:p-6 text-white shadow-lg flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div class="space-y-1">
             <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-white/20 text-amber-100 border border-white/20">
@@ -158,7 +247,7 @@
             </div>
             <h3 class="text-lg sm:text-2xl font-extrabold">Boby AI Creator Assistant</h3>
             <p class="text-xs sm:text-sm text-amber-100 max-w-xl">
-              Buat hook viral 3 detik pertama, naskah script voice over, alur visual adegan, caption, dan CTA otomatis dalam hitungan detik.
+              Buat hook viral 3 detik, naskah script voice over, alur visual adegan, dan caption otomatis dengan 1 klik.
             </p>
           </div>
           <button onclick="openAIKeyModal()" class="px-4 py-2 rounded-xl bg-white text-slate-900 font-extrabold text-xs shadow-md flex items-center gap-1.5 hover:bg-slate-100 transition shrink-0">
@@ -168,31 +257,27 @@
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <!-- Kolom Kiri: Form Input Generator -->
           <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm space-y-4">
             <h4 class="font-extrabold text-slate-900 text-sm flex items-center gap-2">
               <i data-lucide="sliders" class="w-4 h-4 text-indigo-600"></i> Parameter Konten
             </h4>
-
             <div>
               <label class="block text-xs font-bold text-slate-700 mb-1">Jenis Bantuan AI *</label>
-              <select id="ai-type" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs font-semibold bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+              <select id="ai-type" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs font-semibold bg-white">
                 <option value="complete">🚀 Paket Lengkap (Hook + Script + Caption + CTA)</option>
                 <option value="hook">🔥 5 Ide Hook Viral (3 Detik Pertama)</option>
                 <option value="script">🎬 Script Alur Visual & Voice Over</option>
                 <option value="caption">✍️ Caption Menjual & Hashtags Algoritma</option>
               </select>
             </div>
-
             <div>
               <label class="block text-xs font-bold text-slate-700 mb-1">Topik / Produk / Ide Pokok *</label>
-              <textarea id="ai-topic" rows="3" placeholder="Contoh: Cardigan knit premium ala Korea di bawah 100 ribu untuk outfit kuliah/kerja santai..." class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
+              <textarea id="ai-topic" rows="3" placeholder="Contoh: Kemeja flanel pria santai di bawah 100 ribu..." class="w-full px-3 py-2 border rounded-xl text-xs"></textarea>
             </div>
-
             <div class="grid grid-cols-2 gap-2">
               <div>
-                <label class="block text-xs font-bold text-slate-700 mb-1">Platform Target</label>
-                <select id="ai-platform" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs bg-white">
+                <label class="block text-xs font-bold text-slate-700 mb-1">Platform</label>
+                <select id="ai-platform" class="w-full px-3 py-2 border rounded-xl text-xs bg-white">
                   <option value="TikTok">TikTok</option>
                   <option value="Instagram Reels">Instagram Reels</option>
                   <option value="Shopee Video">Shopee Video</option>
@@ -200,23 +285,20 @@
                 </select>
               </div>
               <div>
-                <label class="block text-xs font-bold text-slate-700 mb-1">Gaya Bahasa (Tone)</label>
-                <select id="ai-tone" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs bg-white">
-                  <option value="Santai, Akrab, dan Gaul (Gen-Z)">Santai & Gaul</option>
-                  <option value="Persuasif dan Menjual (Hard Selling)">Persuasif / Jualan</option>
-                  <option value="Elegan, Edukatif, dan Profesional">Elegan & Edukatif</option>
-                  <option value="Storytelling Emosional / Curhat">Storytelling</option>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Gaya Bahasa</label>
+                <select id="ai-tone" class="w-full px-3 py-2 border rounded-xl text-xs bg-white">
+                  <option value="Santai & Gaul (Gen-Z)">Santai & Gaul</option>
+                  <option value="Persuasif (Jualan)">Persuasif / Jualan</option>
+                  <option value="Elegan & Edukatif">Elegan & Edukatif</option>
                 </select>
               </div>
             </div>
-
             <button onclick="generateContentWithGemini()" id="btn-generate-ai" class="w-full py-3 rounded-xl bg-gradient-to-r from-amber-500 to-indigo-600 hover:from-amber-600 hover:to-indigo-700 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-md transition">
               <i data-lucide="sparkles" class="w-4 h-4"></i>
               <span>Generate dengan Gemini AI</span>
             </button>
           </div>
 
-          <!-- Kolom Kanan: Hasil Generasi AI & Tombol 1-Klik Masuk Planner -->
           <div class="lg:col-span-2 bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm flex flex-col justify-between space-y-4">
             <div class="space-y-3">
               <div class="flex items-center justify-between border-b pb-2">
@@ -225,7 +307,7 @@
                   <h4 class="font-extrabold text-slate-900 text-sm">Hasil Rekomendasi Naskah AI</h4>
                 </div>
                 <div id="ai-action-buttons" class="hidden flex items-center gap-2">
-                  <button onclick="copyAIText()" class="px-2.5 py-1 rounded-lg border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-bold flex items-center gap-1">
+                  <button onclick="copyAIText()" class="px-2.5 py-1 rounded-lg border border-slate-200 text-slate-700 text-xs font-bold flex items-center gap-1">
                     <i data-lucide="copy" class="w-3.5 h-3.5"></i> Salin
                   </button>
                   <button onclick="transferAIToPlanner()" class="px-3 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold flex items-center gap-1.5 shadow-sm">
@@ -233,23 +315,20 @@
                   </button>
                 </div>
               </div>
-
-              <!-- Area Preview Teks AI -->
               <div id="ai-output-box" class="min-h-[280px] p-4 rounded-xl bg-slate-50 border border-slate-100 text-xs text-slate-700 leading-relaxed font-mono whitespace-pre-wrap select-text">
-Klik tombol "Generate dengan Gemini AI" di samping untuk membuat konsep konten berkualitas tinggi secara instan!
+Klik tombol "Generate dengan Gemini AI" untuk membuat konsep konten instan!
               </div>
             </div>
-
             <div class="pt-3 border-t text-[11px] text-slate-400 flex items-center justify-between">
               <span>Model: Google Gemini 1.5 Flash</span>
-              <span>Kuotanya gratis setiap hari dari Google</span>
+              <span>Gratis via Google AI Studio</span>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- 2. DASHBOARD -->
-      <section id="sec-dashboard" class="tab-section space-y-6">
+      <!-- ==================== 3. DASHBOARD ==================== -->
+      <section id="sec-dashboard" class="tab-section hidden space-y-6">
         <div class="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 rounded-2xl p-5 sm:p-6 text-white shadow-lg flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div class="space-y-1">
             <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-400/20">
@@ -268,7 +347,6 @@ Klik tombol "Generate dengan Gemini AI" di samping untuk membuat konsep konten b
           </div>
         </div>
 
-        <!-- 9 KPI Cards -->
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-3 sm:gap-4">
           <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-sm">
             <p class="text-xs font-semibold text-slate-500">Total Klien</p>
@@ -335,7 +413,7 @@ Klik tombol "Generate dengan Gemini AI" di samping untuk membuat konsep konten b
         </div>
       </section>
 
-      <!-- 3. KELOLA MULTI-AKUN -->
+      <!-- 4. KELOLA MULTI-AKUN -->
       <section id="sec-accounts" class="tab-section hidden space-y-5">
         <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-sm flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
           <div class="flex flex-1 flex-col sm:flex-row gap-2.5">
@@ -378,7 +456,7 @@ Klik tombol "Generate dengan Gemini AI" di samping untuk membuat konsep konten b
         </div>
       </section>
 
-      <!-- 4. KLIEN -->
+      <!-- 5. KLIEN -->
       <section id="sec-clients" class="tab-section hidden space-y-4">
         <div class="flex justify-between items-center gap-2">
           <input type="text" id="search-clients" oninput="renderClients()" placeholder="Cari klien..." class="px-3.5 py-2 rounded-xl border border-slate-200 text-sm flex-1 max-w-sm" />
@@ -390,27 +468,6 @@ Klik tombol "Generate dengan Gemini AI" di samping untuk membuat konsep konten b
               <tr><th class="p-4">Klien & Brand</th><th class="p-4">Mulai</th><th class="p-4">Status</th><th class="p-4">Catatan</th><th class="p-4 text-right">Aksi</th></tr>
             </thead>
             <tbody id="clients-table-body" class="divide-y divide-slate-100"></tbody>
-          </table>
-        </div>
-      </section>
-
-      <!-- 5. CONTENT PLANNER -->
-      <section id="sec-planner" class="tab-section hidden space-y-4">
-        <div class="flex justify-between items-center gap-2">
-          <input type="text" id="search-planner" oninput="renderPlanner()" placeholder="Cari konten..." class="px-3.5 py-2 rounded-xl border border-slate-200 text-sm flex-1 max-w-sm" />
-          <div class="flex gap-2">
-            <button onclick="switchTab('ai')" class="px-3.5 py-2 rounded-xl bg-amber-500/10 border border-amber-300 text-amber-800 font-bold text-xs flex items-center gap-1.5 shadow-sm">
-              <i data-lucide="sparkles" class="w-4 h-4 text-amber-500"></i> Buat via AI
-            </button>
-            <button onclick="openContentModal()" class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm"><i data-lucide="plus" class="w-4 h-4"></i> Buat Konten</button>
-          </div>
-        </div>
-        <div class="bg-white rounded-2xl border border-slate-200 overflow-x-auto">
-          <table class="w-full text-left text-sm">
-            <thead class="bg-slate-50 text-slate-500 uppercase text-[11px] font-bold border-b">
-              <tr><th class="p-4">Tanggal & Judul</th><th class="p-4">Akun / Platform</th><th class="p-4">Pillar</th><th class="p-4">Status</th><th class="p-4 text-right">Aksi</th></tr>
-            </thead>
-            <tbody id="planner-table-body" class="divide-y divide-slate-100"></tbody>
           </table>
         </div>
       </section>
@@ -500,9 +557,9 @@ Klik tombol "Generate dengan Gemini AI" di samping untuk membuat konsep konten b
   <!-- MOBILE BOTTOM NAV -->
   <nav class="no-print lg:hidden fixed bottom-0 inset-x-0 bg-white border-t border-slate-200 z-30 flex items-center justify-around py-2 px-1 shadow-lg">
     <button onclick="switchTab('dashboard')" data-tab="dashboard" class="mob-nav-btn flex flex-col items-center text-[10px] font-bold"><i data-lucide="layout-dashboard" class="w-5 h-5 mb-0.5"></i>Dashboard</button>
+    <button onclick="switchTab('planner')" data-tab="planner" class="mob-nav-btn flex flex-col items-center text-[10px] font-bold text-indigo-600"><i data-lucide="calendar-days" class="w-5 h-5 mb-0.5"></i>Planner</button>
     <button onclick="switchTab('ai')" data-tab="ai" class="mob-nav-btn flex flex-col items-center text-[10px] font-bold text-amber-600"><i data-lucide="sparkles" class="w-5 h-5 mb-0.5 text-amber-500"></i>Gemini AI</button>
     <button onclick="switchTab('accounts')" data-tab="accounts" class="mob-nav-btn flex flex-col items-center text-[10px] font-bold text-slate-500"><i data-lucide="share-2" class="w-5 h-5 mb-0.5"></i>Akun</button>
-    <button onclick="switchTab('planner')" data-tab="planner" class="mob-nav-btn flex flex-col items-center text-[10px] font-bold text-slate-500"><i data-lucide="calendar-days" class="w-5 h-5 mb-0.5"></i>Planner</button>
     <button onclick="switchTab('tasks')" data-tab="tasks" class="mob-nav-btn flex flex-col items-center text-[10px] font-bold text-slate-500"><i data-lucide="check-square" class="w-5 h-5 mb-0.5"></i>Tugas</button>
   </nav>
 
@@ -516,7 +573,7 @@ Klik tombol "Generate dengan Gemini AI" di samping untuk membuat konsep konten b
         <button onclick="closeModal('modal-ai-key')"><i data-lucide="x" class="w-4 h-4"></i></button>
       </div>
       <p class="text-xs text-slate-500 leading-relaxed">
-        Tempelkan API Key dari Google AI Studio milikmu di bawah ini. Kunci ini disimpan secara privat di browser perangkat ini dan tidak akan terunggah ke repositori GitHub publik.
+        Tempelkan API Key dari Google AI Studio milikmu di bawah ini. Kunci disimpan privat di browser.
       </p>
       <div>
         <label class="block text-xs font-bold text-slate-700 mb-1">Gemini API Key</label>
@@ -585,22 +642,35 @@ Klik tombol "Generate dengan Gemini AI" di samping untuk membuat konsep konten b
     </div>
   </div>
 
-  <!-- MODAL CONTENT PLANNER -->
+  <!-- MODAL CONTENT PLANNER (LENGKAP DENGAN EDIT, TANGGAL & JAM POSTING) -->
   <div id="modal-content" class="no-print hidden fixed inset-0 z-50 bg-slate-900/60 flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl max-w-lg w-full p-5 space-y-3 shadow-xl">
-      <h3 class="font-bold text-base text-slate-900">Rencana Konten</h3>
+      <div class="flex items-center justify-between border-b pb-2">
+        <h3 id="modal-content-title" class="font-extrabold text-base text-slate-900">Rencana Konten Baru</h3>
+        <button onclick="closeModal('modal-content')" class="text-slate-400 hover:text-slate-600"><i data-lucide="x" class="w-5 h-5"></i></button>
+      </div>
       <form onsubmit="saveContent(event)" class="space-y-3">
-        <div class="grid grid-cols-3 gap-2">
-          <div><label class="block text-xs font-bold mb-1">Tanggal</label><input type="date" id="content-date" required class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
+        <input type="hidden" id="content-id" />
+        <div class="grid grid-cols-2 gap-2">
           <div>
-            <label class="block text-xs font-bold mb-1">Target Akun</label>
-            <select id="content-account-select" class="w-full px-3 py-2 border rounded-xl text-sm bg-white">
+            <label class="block text-xs font-bold text-slate-700 mb-1">Tanggal Publikasi *</label>
+            <input type="date" id="content-date" required class="w-full px-3 py-2 border rounded-xl text-xs font-semibold bg-white" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Jam Posting (Opsional)</label>
+            <input type="time" id="content-time" value="19:00" class="w-full px-3 py-2 border rounded-xl text-xs font-semibold bg-white" />
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Target Akun Medsos *</label>
+            <select id="content-account-select" class="w-full px-3 py-2 border rounded-xl text-xs bg-white font-medium">
               <option value="ALL">Akun Utama</option>
             </select>
           </div>
           <div>
-            <label class="block text-xs font-bold mb-1">Status</label>
-            <select id="content-status" class="w-full px-3 py-2 border rounded-xl text-sm bg-white font-semibold">
+            <label class="block text-xs font-bold text-slate-700 mb-1">Status Produksi *</label>
+            <select id="content-status" class="w-full px-3 py-2 border rounded-xl text-xs bg-white font-bold">
               <option value="Ide">Ide</option>
               <option value="Script">Script</option>
               <option value="Produksi">Produksi</option>
@@ -610,14 +680,28 @@ Klik tombol "Generate dengan Gemini AI" di samping untuk membuat konsep konten b
             </select>
           </div>
         </div>
-        <div><label class="block text-xs font-bold mb-1">Judul Konten</label><input type="text" id="content-title" required class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
-        <div class="grid grid-cols-2 gap-2">
-          <div><label class="block text-xs font-bold mb-1">Pillar</label><input type="text" id="content-pillar" required placeholder="Edukasi / OOTD / Review" class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
-          <div><label class="block text-xs font-bold mb-1">Platform</label><select id="content-platform" class="w-full px-3 py-2 border rounded-xl text-sm bg-white"><option value="TikTok">TikTok</option><option value="Instagram">Instagram</option><option value="Shopee">Shopee Video</option><option value="YouTube">YouTube</option></select></div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Judul / Konsep Konten *</label>
+          <input type="text" id="content-title" required placeholder="Contoh: Rekomendasi 3 Outfit Santai Pria..." class="w-full px-3 py-2 border rounded-xl text-xs" />
         </div>
-        <div class="flex justify-end gap-2 pt-2">
-          <button type="button" onclick="closeModal('modal-content')" class="px-4 py-2 border rounded-xl text-xs font-bold">Batal</button>
-          <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-xs font-bold">Simpan</button>
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Content Pillar *</label>
+            <input type="text" id="content-pillar" required placeholder="Edukasi / OOTD / Review" class="w-full px-3 py-2 border rounded-xl text-xs" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Platform Utama</label>
+            <select id="content-platform" class="w-full px-3 py-2 border rounded-xl text-xs bg-white">
+              <option value="TikTok">TikTok</option>
+              <option value="Instagram">Instagram</option>
+              <option value="Shopee">Shopee Video</option>
+              <option value="YouTube">YouTube</option>
+            </select>
+          </div>
+        </div>
+        <div class="flex justify-end gap-2 pt-2 border-t">
+          <button type="button" onclick="closeModal('modal-content')" class="px-4 py-2 border rounded-xl text-xs font-bold text-slate-600">Batal</button>
+          <button type="submit" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold shadow-sm">Simpan Rencana</button>
         </div>
       </form>
     </div>
@@ -692,7 +776,7 @@ Klik tombol "Generate dengan Gemini AI" di samping untuk membuat konsep konten b
 
   <div id="toast-container" class="no-print fixed top-4 right-4 z-50 space-y-2 pointer-events-none"></div>
 
-  <!-- SCRIPT UTAMA: MULTI-AKUN, FIREBASE & GOOGLE GEMINI AI -->
+  <!-- SCRIPT UTAMA: MULTI-AKUN, VISUAL PLANNER, FIREBASE & GEMINI AI -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
     import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
@@ -715,7 +799,9 @@ Klik tombol "Generate dengan Gemini AI" di samping untuk membuat konsep konten b
     const GEMINI_KEY_STORAGE = 'BOBY_GEMINI_API_KEY_SECURE';
 
     let db = { clients: [], accounts: [], contents: [], analytics: [], affiliates: [], tasks: [] };
-    let activeTab = 'dashboard';
+    let activeTab = 'planner';
+    let plannerMode = 'calendar';
+    let currentCalendarDate = new Date();
     let activeAccountFilter = 'ALL';
     let chartInstance = null;
     let latestAIGeneratedText = '';
@@ -725,6 +811,18 @@ Klik tombol "Generate dengan Gemini AI" di samping untuk membuat konsep konten b
     function formatNumber(n) { return Number(n || 0).toLocaleString('id-ID'); }
     function formatRupiah(n) { return 'Rp ' + Number(n || 0).toLocaleString('id-ID'); }
     function escapeHtml(str) { return String(str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+
+    // Format Tanggal Bahasa Indonesia: Hari, Tanggal Bulan Tahun
+    function formatDateID(dateStr) {
+      if (!dateStr) return '-';
+      const parts = dateStr.split('-');
+      if (parts.length !== 3) return dateStr;
+      const days = ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
+      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+      const d = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+      const dayName = isNaN(d.getDay()) ? '' : days[d.getDay()] + ', ';
+      return `${dayName}${parts[2]} ${months[parseInt(parts[1], 10) - 1]} ${parts[0]}`;
+    }
 
     function showToast(msg, isErr = false) {
       const c = document.getElementById('toast-container');
@@ -790,11 +888,11 @@ Klik tombol "Generate dengan Gemini AI" di samping untuk membuat konsep konten b
       });
 
       const titleMap = {
+        planner: 'Content Planner Visual',
         dashboard: 'Dashboard Utama',
         ai: 'Boby AI Creator Assistant (Gemini Engine)',
         accounts: 'Kelola Multi-Akun Media Sosial',
         clients: 'Manajemen Klien',
-        planner: 'Content Planner',
         analytics: 'Analytics Performa Konten',
         affiliate: 'Affiliate Tracker',
         tasks: 'Task Management',
@@ -832,10 +930,138 @@ Klik tombol "Generate dengan Gemini AI" di samping untuk membuat konsep konten b
       }
       document.getElementById('modal-account').classList.remove('hidden'); 
     };
-    window.openContentModal = function() { document.getElementById('modal-content').classList.remove('hidden'); };
+
+    // FORM RENCANA KONTEN (LENGKAP DENGAN PREFILL TANGGAL & EDIT)
+    window.openContentModal = function(id = null, presetDate = null) {
+      document.getElementById('content-id').value = '';
+      document.getElementById('content-date').value = presetDate || todayISO();
+      document.getElementById('content-time').value = '19:00';
+      document.getElementById('content-title').value = '';
+      document.getElementById('content-pillar').value = '';
+      document.getElementById('content-status').value = 'Ide';
+      document.getElementById('modal-content-title').textContent = 'Rencana Konten Baru';
+
+      if (id) {
+        const c = db.contents.find(x => x.id === id);
+        if (c) {
+          document.getElementById('content-id').value = c.id;
+          document.getElementById('content-date').value = c.date;
+          document.getElementById('content-time').value = c.time || '19:00';
+          document.getElementById('content-account-select').value = c.accountId || 'ALL';
+          document.getElementById('content-platform').value = c.platform || 'TikTok';
+          document.getElementById('content-status').value = c.status || 'Ide';
+          document.getElementById('content-title').value = c.title;
+          document.getElementById('content-pillar').value = c.pillar || '';
+          document.getElementById('modal-content-title').textContent = 'Edit Rencana Konten';
+        }
+      }
+      document.getElementById('modal-content').classList.remove('hidden');
+    };
+
     window.openAnalyticsModal = function() { document.getElementById('modal-analytics').classList.remove('hidden'); };
     window.openAffiliateModal = function() { document.getElementById('modal-affiliate').classList.remove('hidden'); };
     window.openTaskModal = function() { document.getElementById('modal-task').classList.remove('hidden'); };
+
+    // --- KALENDER BULANAN & TAMPILAN PLANNER ---
+    window.setPlannerMode = function(mode) {
+      plannerMode = mode;
+      const calView = document.getElementById('planner-calendar-view');
+      const listView = document.getElementById('planner-list-view');
+      const btnCal = document.getElementById('btn-mode-cal');
+      const btnList = document.getElementById('btn-mode-list');
+
+      if (mode === 'calendar') {
+        calView.classList.remove('hidden');
+        listView.classList.add('hidden');
+        btnCal.className = "px-3 py-1.5 rounded-lg bg-white text-indigo-600 shadow-sm flex items-center gap-1.5 transition";
+        btnList.className = "px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 flex items-center gap-1.5 transition";
+      } else {
+        calView.classList.add('hidden');
+        listView.classList.remove('hidden');
+        btnList.className = "px-3 py-1.5 rounded-lg bg-white text-indigo-600 shadow-sm flex items-center gap-1.5 transition";
+        btnCal.className = "px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 flex items-center gap-1.5 transition";
+      }
+      renderPlanner();
+    };
+
+    window.changeCalendarMonth = function(offset) {
+      if (offset === 0) {
+        currentCalendarDate = new Date();
+      } else {
+        currentCalendarDate = new Date(currentCalendarDate.getFullYear(), currentCalendarDate.getMonth() + offset, 1);
+      }
+      renderCalendarVisual();
+    };
+
+    function renderCalendarVisual() {
+      const year = currentCalendarDate.getFullYear();
+      const month = currentCalendarDate.getMonth();
+      const monthNames = [
+        'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 
+        'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+      ];
+      
+      const label = document.getElementById('calendar-month-year-label');
+      if (label) label.textContent = `${monthNames[month]} ${year}`;
+
+      const firstDay = new Date(year, month, 1).getDay();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      const grid = document.getElementById('calendar-days-grid');
+      if (!grid) return;
+
+      let html = '';
+
+      // Kotak hari kosong sebelum tanggal 1
+      for (let i = 0; i < firstDay; i++) {
+        html += `<div class="min-h-[85px] sm:min-h-[105px] rounded-xl bg-slate-50/60 border border-slate-100"></div>`;
+      }
+
+      // Filter konten berdasarkan akun aktif jika ada
+      const isFiltered = activeAccountFilter !== 'ALL';
+      const targetAccount = isFiltered ? db.accounts.find(a => a.id === activeAccountFilter) : null;
+      const filteredContents = isFiltered 
+        ? db.contents.filter(c => c.accountId === activeAccountFilter || (targetAccount && c.platform === targetAccount.platform)) 
+        : db.contents;
+
+      // Kotak setiap tanggal 1 s/d daysInMonth
+      for (let d = 1; d <= daysInMonth; d++) {
+        const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+        const items = filteredContents.filter(c => c.date === dateStr);
+        const isToday = dateStr === todayISO();
+
+        html += `
+          <div onclick="openContentModal(null, '${dateStr}')" class="min-h-[85px] sm:min-h-[105px] p-2 rounded-xl border ${
+            isToday ? 'border-indigo-500 bg-indigo-50/20 shadow-xs' : 'border-slate-200 bg-white hover:border-indigo-300'
+          } cursor-pointer transition flex flex-col justify-between group">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-extrabold ${
+                isToday ? 'w-6 h-6 rounded-full bg-indigo-600 text-white flex items-center justify-center' : 'text-slate-800'
+              }">${d}</span>
+              ${items.length > 0 ? `<span class="text-[10px] font-bold text-indigo-600 bg-indigo-50 px-1.5 py-0.2 rounded-md">${items.length} Post</span>` : ''}
+            </div>
+            
+            <div class="space-y-1 mt-1 overflow-hidden">
+              ${items.slice(0, 2).map(it => {
+                const acc = db.accounts.find(x => x.id === it.accountId);
+                const rawUsername = acc ? acc.username : it.platform;
+                const cleanTag = rawUsername.replace(/^@+/, '@');
+                return `
+                  <div onclick="event.stopPropagation(); openContentModal('${it.id}')" class="p-1 rounded text-[10px] font-semibold truncate bg-indigo-50 border border-indigo-100 text-indigo-700 hover:bg-indigo-100 transition" title="${escapeHtml(it.title)}">
+                    <span class="font-bold text-indigo-900">${cleanTag}:</span> ${escapeHtml(it.title)}
+                  </div>
+                `;
+              }).join('')}
+              ${items.length > 2 ? `<p class="text-[9px] text-slate-400 font-bold">+${items.length - 2} lagi</p>` : ''}
+            </div>
+
+            <div class="hidden group-hover:flex items-center justify-end text-[9px] text-indigo-500 font-bold">
+              + Jadwal
+            </div>
+          </div>
+        `;
+      }
+      grid.innerHTML = html;
+    }
 
     // --- GEMINI AI INTEGRATION ENGINE ---
     window.openAIKeyModal = function() {
@@ -853,7 +1079,7 @@ Klik tombol "Generate dengan Gemini AI" di samping untuk membuat konsep konten b
       localStorage.setItem(GEMINI_KEY_STORAGE, keyVal);
       closeModal('modal-ai-key');
       updateAIKeyStatusUI();
-      showToast('Gemini API Key tersimpan aman di browser!');
+      showToast('Gemini API Key tersimpan!');
     };
 
     function updateAIKeyStatusUI() {
@@ -899,18 +1125,17 @@ Klik tombol "Generate dengan Gemini AI" di samping untuk membuat konsep konten b
 
       btn.disabled = true;
       btn.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i><span>Gemini sedang berpikir & menulis naskah...</span>`;
-      outputBox.textContent = "Sedang menghubungkan ke server Google Gemini AI...\nHarap tunggu beberapa detik...";
+      outputBox.textContent = "Menghubungkan ke server Google Gemini AI...\nHarap tunggu sebentar...";
 
-      // Prompt Engineering Otomatis
       let promptInstruction = `Bertindaklah sebagai Senior Social Media Strategist & Content Creator profesional untuk akun media sosial creator Boby Anggara.\n`;
       promptInstruction += `Topik / Produk Konten: "${topic}"\nTarget Platform: ${platform}\nGaya Bahasa: ${tone}\n\n`;
 
       if (type === 'hook') {
-        promptInstruction += `Buatkan 5 variasi kalimat pembuka (Hook 3 detik pertama) yang sangat memancing rasa penasaran, membuat penonton berhenti scrolling, dan relevan dengan audiens Indonesia. Berikan format nomor 1-5 dengan penjelasan psikologi singkatnya.`;
+        promptInstruction += `Buatkan 5 variasi kalimat pembuka (Hook 3 detik pertama) yang sangat memancing rasa penasaran penonton Indonesia. Berikan format nomor 1-5 dengan penjelasan psikologi singkatnya.`;
       } else if (type === 'script') {
-        promptInstruction += `Buatkan naskah video pendek berdurasi 30-60 detik dengan tabel/format alur adegan visual (apa yang tampil di kamera) dan kalimat voice over/narasi yang diucapkan. Pastikan ritmenya cepat dan enak didengar.`;
+        promptInstruction += `Buatkan naskah video pendek berdurasi 30-60 detik dengan tabel/format alur adegan visual (apa yang tampil di kamera) dan kalimat voice over/narasi yang diucapkan.`;
       } else if (type === 'caption') {
-        promptInstruction += `Buatkan caption menarik dengan copywriting persuasif, Call To Action (CTA) yang jelas, serta 15 hashtag relevan dan trending untuk algoritma ${platform}.`;
+        promptInstruction += `Buatkan caption menarik dengan copywriting persuasif, Call To Action (CTA), serta 15 hashtag relevan dan trending untuk algoritma ${platform}.`;
       } else {
         promptInstruction += `Buatkan paket lengkap naskah konten dengan struktur:
 1. JUDUL KONTEN: (Judul menarik maksimal 10 kata)
@@ -943,14 +1168,14 @@ Tuliskan dengan bahasa yang rapi, natural, dan siap dipublikasikan.`;
           latestAIGeneratedText = textResult;
           outputBox.textContent = textResult;
           actionBtns.classList.remove('hidden');
-          showToast('Naskah konten berhasil dibuat oleh Gemini AI!');
+          showToast('Naskah konten berhasil dibuat!');
         } else {
           throw new Error('Tidak ada respon teks dari Gemini.');
         }
       } catch (err) {
         console.error('Gemini API Error:', err);
-        outputBox.textContent = `Gagal membuat konten:\n${err.message}\n\nPastikan API Key kamu aktif dan koneksi internet stabil.`;
-        showToast('Gagal menghubungi Gemini AI: ' + err.message, true);
+        outputBox.textContent = `Gagal membuat konten:\n${err.message}\n\nPastikan API Key kamu aktif.`;
+        showToast('Gagal: ' + err.message, true);
       } finally {
         btn.disabled = false;
         btn.innerHTML = `<i data-lucide="sparkles" class="w-4 h-4"></i><span>Generate Ulang dengan Gemini AI</span>`;
@@ -961,30 +1186,29 @@ Tuliskan dengan bahasa yang rapi, natural, dan siap dipublikasikan.`;
     window.copyAIText = function() {
       if (!latestAIGeneratedText) return;
       navigator.clipboard.writeText(latestAIGeneratedText).then(() => {
-        showToast('Naskah AI berhasil disalin ke clipboard!');
+        showToast('Naskah AI berhasil disalin!');
       });
     };
 
     window.transferAIToPlanner = function() {
       if (!latestAIGeneratedText) return;
-      
       const topic = document.getElementById('ai-topic').value.trim();
       const platform = document.getElementById('ai-platform').value;
 
-      // Buka modal Content Planner dan isi otomatis
       window.openContentModal();
       document.getElementById('content-title').value = topic ? topic.slice(0, 70) : 'Konten Rekomendasi Gemini AI';
       document.getElementById('content-platform').value = platform === 'Shopee Video' ? 'Shopee' : (platform.includes('Reels') ? 'Instagram' : 'TikTok');
       document.getElementById('content-pillar').value = 'AI Generated';
       
-      showToast('Konten AI berhasil dipindahkan ke formulir Planner!');
+      showToast('Konten AI dipindahkan ke form Planner!');
     };
 
     // --- MULTI-ACCOUNT FILTER CONTROLLER ---
     window.onGlobalAccountFilterChange = function(val) {
       activeAccountFilter = val;
       const acc = db.accounts.find(x => x.id === val);
-      const label = acc ? `${acc.name} (${acc.username})` : 'Semua Akun (Global)';
+      const cleanUsername = acc ? acc.username.replace(/^@+/, '@') : '';
+      const label = acc ? `${acc.name} (${cleanUsername})` : 'Semua Akun (Global)';
       document.getElementById('sidebar-active-account-label').textContent = label;
       document.getElementById('chart-account-tag').textContent = label;
       
@@ -996,14 +1220,14 @@ Tuliskan dengan bahasa yang rapi, natural, dan siap dipublikasikan.`;
       }
       
       refreshAll();
-      showToast(`Filter beralih ke: ${label}`);
+      showToast(`Filter: ${label}`);
     };
 
     window.selectAccountDirectly = function(accId) {
       const select = document.getElementById('global-account-filter');
       if (select) select.value = accId;
       window.onGlobalAccountFilterChange(accId);
-      window.switchTab('dashboard');
+      window.switchTab('planner');
     };
 
     // --- CRUD OPERASIONAL ---
@@ -1024,10 +1248,13 @@ Tuliskan dengan bahasa yang rapi, natural, dan siap dipublikasikan.`;
     window.saveAccount = function(e) {
       e.preventDefault();
       const id = document.getElementById('account-id').value;
+      const rawUser = document.getElementById('account-username').value.trim();
+      const cleanUsername = rawUser.replace(/^@+/, '@');
+
       const payload = {
         id: id || uid(),
         name: document.getElementById('account-name').value.trim(),
-        username: document.getElementById('account-username').value.trim(),
+        username: cleanUsername,
         platform: document.getElementById('account-platform').value,
         client: document.getElementById('account-client').value,
         followers: Number(document.getElementById('account-followers').value || 0)
@@ -1039,7 +1266,7 @@ Tuliskan dengan bahasa yang rapi, natural, dan siap dipublikasikan.`;
         showToast('Akun media sosial diperbarui!');
       } else {
         db.accounts.unshift(payload);
-        showToast('Akun media sosial baru ditambahkan!');
+        showToast('Akun baru ditambahkan!');
       }
       closeModal('modal-account');
       saveToCloud();
@@ -1047,18 +1274,28 @@ Tuliskan dengan bahasa yang rapi, natural, dan siap dipublikasikan.`;
 
     window.saveContent = function(e) {
       e.preventDefault();
-      db.contents.unshift({
-        id: uid(),
+      const id = document.getElementById('content-id').value;
+      const payload = {
+        id: id || uid(),
         date: document.getElementById('content-date').value,
+        time: document.getElementById('content-time').value || '19:00',
         accountId: document.getElementById('content-account-select').value,
         platform: document.getElementById('content-platform').value,
         status: document.getElementById('content-status').value,
         title: document.getElementById('content-title').value.trim(),
         pillar: document.getElementById('content-pillar').value.trim()
-      });
+      };
+
+      if (id) {
+        const idx = db.contents.findIndex(x => x.id === id);
+        if (idx > -1) db.contents[idx] = payload;
+        showToast('Rencana konten diperbarui!');
+      } else {
+        db.contents.unshift(payload);
+        showToast('Rencana konten tersimpan!');
+      }
       closeModal('modal-content');
       saveToCloud();
-      showToast('Konten tersimpan!');
     };
 
     window.saveAnalytics = function(e) {
@@ -1141,7 +1378,8 @@ Tuliskan dengan bahasa yang rapi, natural, dan siap dipublikasikan.`;
       if (analSel) analSel.innerHTML = '<option value="ALL">Akun Utama / Tanpa Akun</option>';
 
       db.accounts.forEach(acc => {
-        const opt = `<option value="${acc.id}">${acc.name} (${acc.username} - ${acc.platform})</option>`;
+        const cleanUser = acc.username.replace(/^@+/, '@');
+        const opt = `<option value="${acc.id}">${acc.name} (${cleanUser} - ${acc.platform})</option>`;
         globalSel.innerHTML += opt;
         if (contentSel) contentSel.innerHTML += opt;
         if (analSel) analSel.innerHTML += opt;
@@ -1150,17 +1388,58 @@ Tuliskan dengan bahasa yang rapi, natural, dan siap dipublikasikan.`;
       globalSel.value = currentGlobalVal || 'ALL';
     }
 
-    function refreshAll() {
-      populateAccountDropdowns();
-      updateAIKeyStatusUI();
+    window.renderPlanner = function() {
+      renderCalendarVisual();
 
-      // Data Filtering
+      const q = (document.getElementById('search-planner')?.value || '').toLowerCase();
+      const sf = document.getElementById('filter-planner-status')?.value || 'ALL';
+
       const isFiltered = activeAccountFilter !== 'ALL';
       const targetAccount = isFiltered ? db.accounts.find(a => a.id === activeAccountFilter) : null;
-
       const filteredContents = isFiltered 
         ? db.contents.filter(c => c.accountId === activeAccountFilter || (targetAccount && c.platform === targetAccount.platform)) 
         : db.contents;
+
+      const finalContents = filteredContents.filter(c => {
+        const matchQ = c.title.toLowerCase().includes(q) || (c.pillar || '').toLowerCase().includes(q);
+        const matchS = sf === 'ALL' || c.status === sf;
+        return matchQ && matchS;
+      });
+
+      const tbody = document.getElementById('planner-table-body');
+      if (tbody) {
+        tbody.innerHTML = finalContents.length === 0 
+          ? '<tr><td colspan="6" class="p-6 text-center text-slate-400 text-xs">Belum ada jadwal konten. Klik tombol Buat Konten di atas!</td></tr>'
+          : finalContents.map(c => {
+            const acc = db.accounts.find(x => x.id === c.accountId);
+            const rawUser = acc ? acc.username : c.platform;
+            const cleanTag = rawUser.replace(/^@+/, '@');
+            return `
+              <tr class="hover:bg-slate-50">
+                <td class="p-4">
+                  <span class="text-xs text-indigo-600 font-bold">${formatDateID(c.date)}</span>
+                  <p class="text-[11px] text-slate-400 font-semibold mt-0.5">Jam: ${c.time || '19:00'}</p>
+                </td>
+                <td class="p-4"><p class="font-bold text-slate-900">${escapeHtml(c.title)}</p></td>
+                <td class="p-4"><span class="px-2 py-0.5 rounded-md text-xs font-bold bg-indigo-50 text-indigo-700">${escapeHtml(cleanTag)}</span></td>
+                <td class="p-4 text-slate-600">${escapeHtml(c.pillar)}</td>
+                <td class="p-4"><span class="px-2 py-0.5 rounded-md text-xs font-bold bg-slate-100">${escapeHtml(c.status)}</span></td>
+                <td class="p-4 text-right space-x-2">
+                  <button onclick="openContentModal('${c.id}')" class="text-indigo-600 font-bold text-xs hover:underline">Edit</button>
+                  <button onclick="db.contents=db.contents.filter(x=>x.id!='${c.id}');saveToCloud();" class="text-rose-600 font-bold text-xs hover:underline">Hapus</button>
+                </td>
+              </tr>`;
+          }).join('');
+      }
+    };
+
+    function refreshAll() {
+      populateAccountDropdowns();
+      updateAIKeyStatusUI();
+      renderPlanner();
+
+      const isFiltered = activeAccountFilter !== 'ALL';
+      const targetAccount = isFiltered ? db.accounts.find(a => a.id === activeAccountFilter) : null;
 
       const filteredAnalytics = isFiltered 
         ? db.analytics.filter(a => a.accountId === activeAccountFilter || (targetAccount && a.platform === targetAccount.platform)) 
@@ -1174,12 +1453,12 @@ Tuliskan dengan bahasa yang rapi, natural, dan siap dipublikasikan.`;
       document.getElementById('dash-total-clients').textContent = formatNumber(db.clients.length);
       document.getElementById('dash-active-clients').textContent = `${db.clients.filter(c => c.status === 'Aktif').length} Aktif`;
       document.getElementById('dash-total-accounts').textContent = isFiltered ? '1 (Fokus)' : formatNumber(db.accounts.length);
-      document.getElementById('dash-account-breakdown').textContent = isFiltered && targetAccount ? `${targetAccount.platform} • ${targetAccount.username}` : 'TikTok, IG, Shopee, YT';
-      document.getElementById('dash-total-content').textContent = formatNumber(filteredContents.length);
-      document.getElementById('dash-uploaded-content').textContent = `${filteredContents.filter(c => c.status === 'Sudah upload').length} Sudah Upload`;
+      document.getElementById('dash-account-breakdown').textContent = isFiltered && targetAccount ? `${targetAccount.platform} • ${targetAccount.username.replace(/^@+/, '@')}` : 'TikTok, IG, Shopee, YT';
+      document.getElementById('dash-total-content').textContent = formatNumber(db.contents.length);
+      document.getElementById('dash-uploaded-content').textContent = `${db.contents.filter(c => c.status === 'Sudah upload').length} Sudah Upload`;
       document.getElementById('dash-total-views').textContent = formatNumber(filteredAnalytics.reduce((a, b) => a + Number(b.views || 0), 0));
       document.getElementById('dash-total-followers').textContent = formatNumber(totalFollowersCount);
-      document.getElementById('dash-followers-sub').textContent = isFiltered && targetAccount ? targetAccount.username : 'Seluruh Akun';
+      document.getElementById('dash-followers-sub').textContent = isFiltered && targetAccount ? targetAccount.username.replace(/^@+/, '@') : 'Seluruh Akun';
 
       const avgER = filteredAnalytics.length > 0 ? (filteredAnalytics.reduce((a, b) => a + Number(b.er || 0), 0) / filteredAnalytics.length).toFixed(2) : 0;
       document.getElementById('dash-avg-er').textContent = `${avgER}%`;
@@ -1198,10 +1477,10 @@ Tuliskan dengan bahasa yang rapi, natural, dan siap dipublikasikan.`;
       if (badgeCount) badgeCount.textContent = `${db.accounts.length} Akun Terdaftar`;
 
       const platformColors = {
-        'TikTok': 'from-slate-900 to-slate-800 text-white border-slate-700',
-        'Instagram': 'from-pink-600 to-purple-600 text-white border-pink-400',
-        'Shopee': 'from-orange-500 to-amber-600 text-white border-orange-400',
-        'YouTube': 'from-red-600 to-rose-700 text-white border-red-500'
+        'TikTok': 'from-slate-900 to-slate-800 text-white',
+        'Instagram': 'from-pink-600 to-purple-600 text-white',
+        'Shopee': 'from-orange-500 to-amber-600 text-white',
+        'YouTube': 'from-red-600 to-rose-700 text-white'
       };
 
       if (showcase) {
@@ -1209,7 +1488,8 @@ Tuliskan dengan bahasa yang rapi, natural, dan siap dipublikasikan.`;
           ? '<p class="text-xs text-slate-400 p-4 col-span-3">Belum ada akun media sosial. Klik tombol Tambah Akun Baru di atas!</p>'
           : db.accounts.map(acc => {
             const isCurrentActive = activeAccountFilter === acc.id;
-            const gradient = platformColors[acc.platform] || 'from-indigo-600 to-violet-700 text-white border-indigo-400';
+            const gradient = platformColors[acc.platform] || 'from-indigo-600 to-violet-700 text-white';
+            const cleanUser = acc.username.replace(/^@+/, '@');
             const postCount = db.contents.filter(c => c.accountId === acc.id || c.platform === acc.platform).length;
             return `
               <div class="bg-white rounded-2xl border ${isCurrentActive ? 'border-indigo-500 ring-2 ring-indigo-500/30' : 'border-slate-200'} p-4 shadow-sm space-y-3 transition">
@@ -1219,7 +1499,7 @@ Tuliskan dengan bahasa yang rapi, natural, dan siap dipublikasikan.`;
                 </div>
                 <div>
                   <h4 class="font-extrabold text-base text-slate-900 truncate">${escapeHtml(acc.name)}</h4>
-                  <p class="text-xs text-indigo-600 font-semibold">${escapeHtml(acc.username)}</p>
+                  <p class="text-xs text-indigo-600 font-semibold">${escapeHtml(cleanUser)}</p>
                 </div>
                 <div class="grid grid-cols-2 gap-2 bg-slate-50 p-2.5 rounded-xl text-center">
                   <div>
@@ -1244,18 +1524,21 @@ Tuliskan dengan bahasa yang rapi, natural, dan siap dipublikasikan.`;
       }
 
       // Tables
-      document.getElementById('accounts-table-body').innerHTML = db.accounts.map(a => `
-        <tr class="hover:bg-slate-50">
-          <td class="p-3.5 font-bold">${escapeHtml(a.name)} (${escapeHtml(a.username)})</td>
-          <td class="p-3.5"><span class="px-2 py-0.5 rounded-md text-xs font-bold bg-slate-100">${escapeHtml(a.platform)}</span></td>
-          <td class="p-3.5 text-slate-600">${escapeHtml(a.client)}</td>
-          <td class="p-3.5 font-bold">${formatNumber(a.followers)}</td>
-          <td class="p-3.5 text-right space-x-2">
-            <button onclick="selectAccountDirectly('${a.id}')" class="text-indigo-600 font-bold text-xs hover:underline">Pilih</button>
-            <button onclick="openAccountModal('${a.id}')" class="text-slate-600 font-bold text-xs hover:underline">Edit</button>
-            <button onclick="db.accounts=db.accounts.filter(x=>x.id!='${a.id}');saveToCloud();" class="text-rose-600 font-bold text-xs hover:underline">Hapus</button>
-          </td>
-        </tr>`).join('');
+      document.getElementById('accounts-table-body').innerHTML = db.accounts.map(a => {
+        const cleanUser = a.username.replace(/^@+/, '@');
+        return `
+          <tr class="hover:bg-slate-50">
+            <td class="p-3.5 font-bold">${escapeHtml(a.name)} (${escapeHtml(cleanUser)})</td>
+            <td class="p-3.5"><span class="px-2 py-0.5 rounded-md text-xs font-bold bg-slate-100">${escapeHtml(a.platform)}</span></td>
+            <td class="p-3.5 text-slate-600">${escapeHtml(a.client)}</td>
+            <td class="p-3.5 font-bold">${formatNumber(a.followers)}</td>
+            <td class="p-3.5 text-right space-x-2">
+              <button onclick="selectAccountDirectly('${a.id}')" class="text-indigo-600 font-bold text-xs hover:underline">Pilih</button>
+              <button onclick="openAccountModal('${a.id}')" class="text-slate-600 font-bold text-xs hover:underline">Edit</button>
+              <button onclick="db.accounts=db.accounts.filter(x=>x.id!='${a.id}');saveToCloud();" class="text-rose-600 font-bold text-xs hover:underline">Hapus</button>
+            </td>
+          </tr>`;
+      }).join('');
 
       document.getElementById('clients-table-body').innerHTML = db.clients.map(c => `
         <tr class="hover:bg-slate-50">
@@ -1266,26 +1549,14 @@ Tuliskan dengan bahasa yang rapi, natural, dan siap dipublikasikan.`;
           <td class="p-4 text-right"><button onclick="db.clients=db.clients.filter(x=>x.id!='${c.id}');saveToCloud();" class="text-rose-600 font-bold text-xs">Hapus</button></td>
         </tr>`).join('');
 
-      document.getElementById('planner-table-body').innerHTML = filteredContents.map(c => {
-        const acc = db.accounts.find(x => x.id === c.accountId);
-        const accTag = acc ? `@${acc.username}` : c.platform;
-        return `
-          <tr class="hover:bg-slate-50">
-            <td class="p-4"><span class="text-xs text-indigo-600 font-bold">${c.date}</span><p class="font-bold text-slate-900">${escapeHtml(c.title)}</p></td>
-            <td class="p-4"><span class="px-2 py-0.5 rounded-md text-xs font-bold bg-indigo-50 text-indigo-700">${escapeHtml(accTag)}</span></td>
-            <td class="p-4 text-slate-600">${escapeHtml(c.pillar)}</td>
-            <td class="p-4 font-bold text-slate-700">${escapeHtml(c.status)}</td>
-            <td class="p-4 text-right"><button onclick="db.contents=db.contents.filter(x=>x.id!='${c.id}');saveToCloud();" class="text-rose-600 font-bold text-xs">Hapus</button></td>
-          </tr>`;
-      }).join('');
-
       document.getElementById('analytics-table-body').innerHTML = filteredAnalytics.map(a => {
         const acc = db.accounts.find(x => x.id === a.accountId);
-        const accTag = acc ? `@${acc.username}` : a.platform;
+        const rawUser = acc ? acc.username : a.platform;
+        const cleanTag = rawUser.replace(/^@+/, '@');
         return `
           <tr class="hover:bg-slate-50">
-            <td class="p-4"><span class="text-xs text-indigo-600 font-bold">${a.date}</span><p class="font-bold text-slate-900">${escapeHtml(a.title)}</p></td>
-            <td class="p-4"><span class="px-2 py-0.5 rounded-md text-xs font-bold bg-indigo-50 text-indigo-700">${escapeHtml(accTag)}</span></td>
+            <td class="p-4"><span class="text-xs text-indigo-600 font-bold">${formatDateID(a.date)}</span><p class="font-bold text-slate-900">${escapeHtml(a.title)}</p></td>
+            <td class="p-4"><span class="px-2 py-0.5 rounded-md text-xs font-bold bg-indigo-50 text-indigo-700">${escapeHtml(cleanTag)}</span></td>
             <td class="p-4 font-bold">${formatNumber(a.views)}</td>
             <td class="p-4">${formatNumber(a.likes + a.comments)}</td>
             <td class="p-4 font-bold text-rose-600">${a.er}%</td>
@@ -1307,7 +1578,7 @@ Tuliskan dengan bahasa yang rapi, natural, dan siap dipublikasikan.`;
       document.getElementById('tasks-table-body').innerHTML = db.tasks.map(t => `
         <tr class="hover:bg-slate-50">
           <td class="p-4 font-bold">${escapeHtml(t.title)}</td>
-          <td class="p-4">${t.deadline}</td>
+          <td class="p-4">${formatDateID(t.deadline)}</td>
           <td class="p-4"><span class="px-2 py-0.5 rounded-md text-xs font-bold bg-amber-50 text-amber-700">${escapeHtml(t.priority)}</span></td>
           <td class="p-4 font-bold">${escapeHtml(t.status)}</td>
           <td class="p-4 text-right"><button onclick="db.tasks=db.tasks.filter(x=>x.id!='${t.id}');saveToCloud();" class="text-rose-600 font-bold text-xs">Hapus</button></td>
@@ -1319,9 +1590,9 @@ Tuliskan dengan bahasa yang rapi, natural, dan siap dipublikasikan.`;
       if (badge) { badge.textContent = pending.length; badge.classList.remove('hidden'); } else { badge.classList.add('hidden'); }
       
       document.getElementById('dash-upcoming-list').innerHTML = pending.length === 0 ? '<p class="text-xs text-slate-400">Tidak ada tugas tertunda.</p>' :
-        pending.slice(0, 4).map(t => `<div class="p-2.5 rounded-xl border border-slate-100 text-xs"><p class="font-bold text-slate-900">${escapeHtml(t.title)}</p><p class="text-slate-500">Deadline: ${t.deadline}</p></div>`).join('');
+        pending.slice(0, 4).map(t => `<div class="p-2.5 rounded-xl border border-slate-100 text-xs"><p class="font-bold text-slate-900">${escapeHtml(t.title)}</p><p class="text-slate-500">Deadline: ${formatDateID(t.deadline)}</p></div>`).join('');
 
-      // Chart Rendering (Filtered by Account)
+      // Chart Rendering
       const ctx = document.getElementById('dashboardChart');
       if (ctx) {
         if (chartInstance) chartInstance.destroy();
@@ -1330,7 +1601,7 @@ Tuliskan dengan bahasa yang rapi, natural, dan siap dipublikasikan.`;
           type: 'bar',
           data: {
             labels: sorted.map(x => x.title.slice(0, 10)),
-            datasets: [{ label: 'Views', data: sorted.map(x => x.views), backgroundColor: '#4f46e5', borderRadius: 6 }]
+            datasets: [{ label: 'Views', data: sorted.map(x => x.views), backgroundColor: '#4f46e5', borderRadius: 8 }]
           },
           options: { responsive: true, maintainAspectRatio: false }
         });
@@ -1341,7 +1612,7 @@ Tuliskan dengan bahasa yang rapi, natural, dan siap dipublikasikan.`;
 
     window.addEventListener('DOMContentLoaded', () => {
       initRealtime();
-      switchTab('dashboard');
+      switchTab('planner');
     });
   </script>
 </body>
