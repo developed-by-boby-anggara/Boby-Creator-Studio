@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>BOBY CREATOR STUDIO V7.1 PRO — Cyber-Luxe Command Center</title>
+  <title>BOBY CREATOR STUDIO V7.2 PRO — All-In-One Creator Command Center</title>
   <meta name="theme-color" content="#0f172a" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -41,25 +41,29 @@
         radial-gradient(at 100% 0%, rgba(217, 70, 239, 0.12) 0px, transparent 50%);
       color: #f1f5f9;
     }
-    html.dark .glass-panel { background-color: rgba(17, 24, 39, 0.88) !important; border-color: #1e293b !important; color: #f8fafc; }
+    html.dark .glass-panel { background-color: rgba(17, 24, 39, 0.9) !important; border-color: #1e293b !important; color: #f8fafc; }
     html.dark .bg-white { background-color: #111827 !important; color: #f1f5f9; }
-    html.dark .bg-slate-50 { background-color: #1e293b !important; }
+    html.dark .bg-slate-50, html.dark .bg-slate-100 { background-color: #1e293b !important; color: #e2e8f0; }
     html.dark .border-slate-200, html.dark .border-slate-200\/80, html.dark .border-slate-100 { border-color: #1f2937 !important; }
     html.dark .text-slate-900, html.dark .text-slate-800, html.dark .text-slate-700 { color: #f8fafc !important; }
     html.dark .text-slate-600, html.dark .text-slate-500 { color: #94a3b8 !important; }
     html.dark input, html.dark select, html.dark textarea { background-color: #0f172a !important; border-color: #334155 !important; color: #f8fafc !important; }
 
     .glass-panel {
-      background-color: rgba(255, 255, 255, 0.92);
+      background-color: rgba(255, 255, 255, 0.93);
       backdrop-filter: blur(12px);
     }
     .cal-cell-populated {
-      background: linear-gradient(145deg, rgba(238, 242, 255, 0.75) 0%, rgba(245, 243, 255, 0.85) 100%);
+      background: linear-gradient(145deg, rgba(238, 242, 255, 0.8) 0%, rgba(253, 242, 248, 0.85) 100%);
       border-color: #a5b4fc !important;
     }
     html.dark .cal-cell-populated {
       background: linear-gradient(145deg, rgba(30, 27, 75, 0.55) 0%, rgba(49, 46, 129, 0.4) 100%);
       border-color: #4f46e5 !important;
+    }
+    .kanban-col-dropzone.drag-over {
+      background-color: rgba(99, 102, 241, 0.12) !important;
+      border-color: #6366f1 !important;
     }
     ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-track { background: transparent; }
@@ -75,24 +79,25 @@
 </head>
 <body class="min-h-screen flex flex-col lg:flex-row antialiased selection:bg-indigo-600 selection:text-white">
 
-  <!-- ==================== DESKTOP SIDEBAR ==================== -->
-  <aside class="no-print hidden lg:flex lg:flex-col lg:w-72 lg:fixed lg:inset-y-0 bg-slate-950 text-white border-r border-slate-800/80 z-30 select-none shadow-2xl">
-    <div class="p-5 border-b border-slate-800/80 flex items-center justify-between gap-3 bg-gradient-to-r from-slate-950 via-indigo-950/60 to-slate-950">
-      <div class="flex items-center gap-3 min-w-0">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center shadow-lg shadow-indigo-500/30 shrink-0">
-          <i data-lucide="sparkles" class="w-5 h-5 text-white"></i>
-        </div>
-        <div class="overflow-hidden">
-          <h1 class="font-extrabold text-sm tracking-tight text-white truncate">BOBY CREATOR STUDIO</h1>
-          <p class="text-[11px] text-indigo-400 font-semibold truncate">Cyber-Luxe Suite V7.1 Pro</p>
+  <!-- ==================== DESKTOP SIDEBAR (FIXED LEFT ALIGNMENT) ==================== -->
+  <aside class="no-print hidden lg:flex lg:flex-col lg:w-72 lg:fixed lg:inset-y-0 bg-slate-950 text-white border-r border-slate-800/90 z-30 select-none shadow-2xl">
+    <!-- Brand Header (Tidak Terpotong) -->
+    <div class="p-4 border-b border-slate-800/90 flex items-center gap-3 bg-gradient-to-r from-slate-950 via-indigo-950/70 to-slate-950">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center shadow-lg shadow-indigo-500/30 shrink-0">
+        <i data-lucide="sparkles" class="w-5 h-5 text-white"></i>
+      </div>
+      <div class="min-w-0 flex-1">
+        <h1 class="font-extrabold text-[13px] tracking-tight text-white whitespace-nowrap">BOBY CREATOR STUDIO</h1>
+        <div class="flex items-center gap-1.5 mt-1">
+          <span class="px-1.5 py-0.5 rounded text-[9px] font-extrabold bg-gradient-to-r from-indigo-500 to-pink-500 text-white leading-none">V7.2 PRO</span>
+          <span class="text-[10px] text-indigo-300 font-semibold truncate">Cyber-Luxe Suite</span>
         </div>
       </div>
-      <span class="px-2 py-0.5 rounded-md text-[9px] font-extrabold bg-gradient-to-r from-indigo-500 to-pink-500 text-white shadow-xs">V7.1 PRO</span>
     </div>
 
     <!-- Active Project Focus Strip -->
     <div class="px-3 pt-3 pb-1">
-      <div class="p-2.5 rounded-xl bg-gradient-to-r from-slate-900 to-indigo-950/60 border border-indigo-500/30 flex items-center justify-between gap-2">
+      <div class="p-2.5 rounded-xl bg-slate-900/95 border border-indigo-500/30 flex items-center justify-between gap-2">
         <div class="flex items-center gap-2 min-w-0">
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0"></span>
           <div class="min-w-0">
@@ -104,41 +109,80 @@
       </div>
     </div>
 
-    <!-- 10 STRUCTURED NAVIGATION MENUS -->
+    <!-- 10 STRUCTURED NAVIGATION MENUS (RATA KIRI PRESISI) -->
     <nav class="flex-1 px-3 py-3 space-y-1 overflow-y-auto">
-      <button onclick="switchTab('dashboard')" data-tab="dashboard" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-md transition-all">
-        <i data-lucide="layout-dashboard" class="w-4 h-4 shrink-0"></i><span>1. Dashboard Utama</span>
+      <button onclick="switchTab('dashboard')" data-tab="dashboard" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs transition-all">
+        <div class="flex items-center gap-3 min-w-0">
+          <i data-lucide="layout-dashboard" class="w-4 h-4 shrink-0 text-indigo-400"></i>
+          <span class="truncate">1. Dashboard Utama</span>
+        </div>
       </button>
-      <button onclick="switchTab('clients')" data-tab="clients" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800/80 hover:text-white transition-all">
-        <i data-lucide="briefcase" class="w-4 h-4 shrink-0 text-sky-400"></i><span>2. Manajemen Klien</span>
+
+      <button onclick="switchTab('clients')" data-tab="clients" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs transition-all">
+        <div class="flex items-center gap-3 min-w-0">
+          <i data-lucide="briefcase" class="w-4 h-4 shrink-0 text-sky-400"></i>
+          <span class="truncate">2. Manajemen Klien</span>
+        </div>
       </button>
-      <button onclick="switchTab('projects')" data-tab="projects" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800/80 hover:text-white transition-all">
-        <i data-lucide="folder-kanban" class="w-4 h-4 shrink-0 text-amber-400"></i><span>3. Kelola Project & Akun</span>
+
+      <button onclick="switchTab('projects')" data-tab="projects" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs transition-all">
+        <div class="flex items-center gap-3 min-w-0">
+          <i data-lucide="folder-kanban" class="w-4 h-4 shrink-0 text-amber-400"></i>
+          <span class="truncate">3. Kelola Project & Akun</span>
+        </div>
       </button>
-      <button onclick="switchTab('planner')" data-tab="planner" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800/80 hover:text-white transition-all">
-        <div class="flex items-center gap-3"><i data-lucide="calendar-days" class="w-4 h-4 shrink-0 text-pink-400"></i><span>4. Content Planner Visual</span></div>
-        <span id="sidebar-planner-badge" class="px-1.5 py-0.5 rounded-full text-[10px] font-extrabold bg-pink-500 text-white">0</span>
+
+      <button onclick="switchTab('planner')" data-tab="planner" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs transition-all">
+        <div class="flex items-center gap-3 min-w-0">
+          <i data-lucide="calendar-days" class="w-4 h-4 shrink-0 text-pink-400"></i>
+          <span class="truncate">4. Content Planner Visual</span>
+        </div>
+        <span id="sidebar-planner-badge" class="px-1.5 py-0.5 rounded-full text-[10px] font-extrabold bg-pink-500 text-white shrink-0">0</span>
       </button>
-      <button onclick="switchTab('analytics')" data-tab="analytics" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800/80 hover:text-white transition-all">
-        <i data-lucide="bar-chart-3" class="w-4 h-4 shrink-0 text-teal-400"></i><span>5. Analytics Performa</span>
+
+      <button onclick="switchTab('analytics')" data-tab="analytics" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs transition-all">
+        <div class="flex items-center gap-3 min-w-0">
+          <i data-lucide="bar-chart-3" class="w-4 h-4 shrink-0 text-teal-400"></i>
+          <span class="truncate">5. Analytics Performa</span>
+        </div>
       </button>
-      <button onclick="switchTab('affiliate')" data-tab="affiliate" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800/80 hover:text-white transition-all">
-        <i data-lucide="shopping-bag" class="w-4 h-4 shrink-0 text-orange-400"></i><span>6. Affiliate Tracker</span>
+
+      <button onclick="switchTab('affiliate')" data-tab="affiliate" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs transition-all">
+        <div class="flex items-center gap-3 min-w-0">
+          <i data-lucide="shopping-bag" class="w-4 h-4 shrink-0 text-orange-400"></i>
+          <span class="truncate">6. Affiliate Tracker</span>
+        </div>
       </button>
-      <button onclick="switchTab('ai')" data-tab="ai" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold text-amber-300 bg-amber-500/10 border border-amber-500/20 hover:bg-amber-500/20 transition-all">
-        <div class="flex items-center gap-3"><i data-lucide="bot" class="w-4 h-4 text-amber-400 shrink-0"></i><span>7. Gemini AI Assistant</span></div>
-        <span class="px-1.5 py-0.5 rounded text-[9px] font-extrabold bg-amber-500 text-slate-900">AI</span>
+
+      <button onclick="switchTab('ai')" data-tab="ai" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs transition-all">
+        <div class="flex items-center gap-3 min-w-0">
+          <i data-lucide="bot" class="w-4 h-4 shrink-0 text-amber-400"></i>
+          <span class="truncate">7. Gemini AI Assistant</span>
+        </div>
+        <span class="px-1.5 py-0.5 rounded text-[9px] font-extrabold bg-amber-500 text-slate-900 shrink-0">AI</span>
       </button>
-      <button onclick="switchTab('tasks')" data-tab="tasks" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800/80 hover:text-white transition-all">
-        <div class="flex items-center gap-3"><i data-lucide="check-square" class="w-4 h-4 shrink-0 text-rose-400"></i><span>8. Tugas & Deadline</span></div>
-        <span id="sidebar-task-badge" class="hidden px-2 py-0.5 text-[10px] font-bold rounded-full bg-rose-500 text-white">0</span>
+
+      <button onclick="switchTab('tasks')" data-tab="tasks" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs transition-all">
+        <div class="flex items-center gap-3 min-w-0">
+          <i data-lucide="check-square" class="w-4 h-4 shrink-0 text-rose-400"></i>
+          <span class="truncate">8. Tugas & Deadline</span>
+        </div>
+        <span id="sidebar-task-badge" class="hidden px-2 py-0.5 text-[10px] font-bold rounded-full bg-rose-500 text-white shrink-0">0</span>
       </button>
-      <button onclick="switchTab('reports')" data-tab="reports" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800/80 hover:text-white transition-all">
-        <i data-lucide="file-spreadsheet" class="w-4 h-4 shrink-0 text-purple-400"></i><span>9. Report Center</span>
+
+      <button onclick="switchTab('reports')" data-tab="reports" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs transition-all">
+        <div class="flex items-center gap-3 min-w-0">
+          <i data-lucide="file-spreadsheet" class="w-4 h-4 shrink-0 text-purple-400"></i>
+          <span class="truncate">9. Report Center</span>
+        </div>
       </button>
+
       <div class="pt-2 mt-2 border-t border-slate-800/80">
-        <button onclick="switchTab('settings')" data-tab="settings" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800/80 hover:text-white transition-all">
-          <i data-lucide="database" class="w-4 h-4 shrink-0 text-cyan-400"></i><span>10. Database & Backup</span>
+        <button onclick="switchTab('settings')" data-tab="settings" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs transition-all">
+          <div class="flex items-center gap-3 min-w-0">
+            <i data-lucide="database" class="w-4 h-4 shrink-0 text-cyan-400"></i>
+            <span class="truncate">10. Database & Backup</span>
+          </div>
         </button>
       </div>
     </nav>
@@ -164,8 +208,8 @@
           <i data-lucide="menu" class="w-4 h-4"></i>
         </button>
         <div class="min-w-0">
-          <h2 id="page-title" class="text-sm sm:text-lg font-extrabold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent truncate">1. Dashboard Utama</h2>
-          <p id="page-subtitle" class="text-[11px] text-slate-500 truncate hidden sm:block">Pusat kendali kreatif, jadwal kalender penuh warna & analitik</p>
+          <h2 id="page-title" class="text-sm sm:text-lg font-extrabold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent truncate">4. Content Planner Visual</h2>
+          <p id="page-subtitle" class="text-[11px] text-slate-500 truncate hidden sm:block">Kalender visual, Papan Kanban drag & drop, dan Teleprompter Auto-Scroll</p>
         </div>
       </div>
 
@@ -246,14 +290,14 @@
     <main class="flex-1 p-4 sm:p-6 pb-safe max-w-7xl w-full mx-auto space-y-6">
 
       <!-- ==================== 1. DASHBOARD UTAMA ==================== -->
-      <section id="sec-dashboard" class="tab-section space-y-6">
+      <section id="sec-dashboard" class="tab-section hidden space-y-6">
         <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-purple-950 rounded-3xl p-5 sm:p-7 text-white shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4 border border-indigo-500/20">
           <div class="space-y-1.5">
             <div class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-[11px] font-extrabold bg-gradient-to-r from-indigo-500/30 to-pink-500/30 text-indigo-200 border border-indigo-400/30">
-              <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-300"></i> Cyber-Luxe Edition V7.1 Pro
+              <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-300"></i> Cyber-Luxe Edition V7.2 Pro
             </div>
             <h3 class="text-xl sm:text-2xl font-extrabold">Halo, Boby Anggara!</h3>
-            <p id="dash-filter-desc" class="text-xs sm:text-sm text-indigo-200/90">Kendalikan seluruh project buatanmu, kalender konten berwarna, analitik & komisi affiliate secara real-time.</p>
+            <p id="dash-filter-desc" class="text-xs sm:text-sm text-indigo-200/90">Kendalikan seluruh project buatanmu, kalender konten, papan Kanban & Teleprompter Shooting secara real-time.</p>
           </div>
           <div class="flex flex-wrap gap-2.5">
             <button onclick="openProjectModal()" class="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/15 text-xs font-extrabold text-white flex items-center gap-1.5 transition">
@@ -380,10 +424,8 @@
           </div>
         </div>
 
-        <!-- Grid Kartu Project -->
         <div id="projects-showcase-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
 
-        <!-- Tabel Inventaris Seluruh Akun -->
         <div class="glass-panel rounded-2xl border border-slate-200 overflow-x-auto shadow-sm">
           <div class="px-4 py-3 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
             <span class="text-xs font-extrabold text-slate-700 uppercase tracking-wider">Inventaris Seluruh Akun Media Sosial</span>
@@ -398,8 +440,8 @@
         </div>
       </section>
 
-      <!-- ==================== 4. CONTENT PLANNER VISUAL (COLORFUL EDITION) ==================== -->
-      <section id="sec-planner" class="tab-section hidden space-y-5">
+      <!-- ==================== 4. CONTENT PLANNER VISUAL (KALENDER + KANBAN + TABEL) ==================== -->
+      <section id="sec-planner" class="tab-section space-y-5">
         <!-- Colorful Stats Strip -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
           <div class="rounded-2xl p-4 bg-gradient-to-br from-indigo-600 to-violet-700 text-white shadow-md flex items-center justify-between">
@@ -432,7 +474,7 @@
           </div>
         </div>
 
-        <!-- Controls & View Switcher -->
+        <!-- Controls & 3-Way View Switcher (Kalender | Kanban | Tabel) -->
         <div class="glass-panel rounded-2xl p-4 border border-slate-200/80 shadow-sm flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
           <div class="flex flex-1 flex-col sm:flex-row gap-2">
             <input type="text" id="search-planner" oninput="renderPlanner()" placeholder="Cari judul konten, hook, atau pillar..." class="px-3.5 py-2 rounded-xl border border-slate-200 text-xs flex-1 max-w-sm" />
@@ -446,16 +488,17 @@
               <option value="Sudah upload">✅ Sudah upload</option>
             </select>
           </div>
-          <div class="flex items-center justify-between sm:justify-end gap-2">
+          <div class="flex flex-wrap items-center justify-between sm:justify-end gap-2">
             <div class="inline-flex rounded-xl bg-slate-100 p-1 border border-slate-200 text-xs font-bold">
-              <button onclick="setPlannerMode('calendar')" id="btn-mode-cal" class="px-3 py-1.5 rounded-lg bg-white text-indigo-600 shadow-xs flex items-center gap-1.5"><i data-lucide="calendar" class="w-3.5 h-3.5"></i> Kalender</button>
-              <button onclick="setPlannerMode('list')" id="btn-mode-list" class="px-3 py-1.5 rounded-lg text-slate-600 flex items-center gap-1.5"><i data-lucide="list" class="w-3.5 h-3.5"></i> Tabel</button>
+              <button onclick="setPlannerMode('calendar')" id="btn-mode-cal" class="px-3 py-1.5 rounded-lg bg-white text-indigo-600 shadow-xs flex items-center gap-1.5 transition"><i data-lucide="calendar" class="w-3.5 h-3.5"></i> Kalender</button>
+              <button onclick="setPlannerMode('kanban')" id="btn-mode-kanban" class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 flex items-center gap-1.5 transition"><i data-lucide="columns" class="w-3.5 h-3.5"></i> Kanban</button>
+              <button onclick="setPlannerMode('list')" id="btn-mode-list" class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 flex items-center gap-1.5 transition"><i data-lucide="list" class="w-3.5 h-3.5"></i> Tabel</button>
             </div>
             <button onclick="openContentModal()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:opacity-95 text-white font-extrabold text-xs flex items-center gap-1.5 shadow-md"><i data-lucide="plus" class="w-4 h-4"></i> Buat Konten</button>
           </div>
         </div>
 
-        <!-- Calendar View -->
+        <!-- VIEW 1: KALENDER VISUAL -->
         <div id="planner-calendar-view" class="glass-panel rounded-3xl p-5 border border-slate-200/90 shadow-md space-y-4">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200/80 pb-3.5">
             <div>
@@ -463,7 +506,7 @@
                 <h3 id="calendar-month-year-label" class="font-extrabold text-lg sm:text-xl bg-gradient-to-r from-indigo-600 to-pink-600 bg-clip-text text-transparent">November 2026</h3>
                 <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-indigo-50 text-indigo-600 border border-indigo-200">Interactive Color Grid</span>
               </div>
-              <p class="text-[11px] text-slate-500 mt-0.5">Klik kotak tanggal untuk tambah jadwal baru. Gunakan tombol 🎬 / ✏️ / 🗑️ langsung pada kartu konten.</p>
+              <p class="text-[11px] text-slate-500 mt-0.5">Klik kotak tanggal untuk tambah jadwal baru. Gunakan tombol 🎬 Shooting / ✏️ Edit / 🗑️ Hapus langsung pada kartu.</p>
             </div>
             <div class="flex items-center gap-1.5">
               <button onclick="changeCalendarMonth(-1)" class="p-2 rounded-xl border border-slate-200 bg-white hover:bg-indigo-50"><i data-lucide="chevron-left" class="w-4 h-4"></i></button>
@@ -483,11 +526,19 @@
           <div id="calendar-days-grid" class="grid grid-cols-7 gap-2"></div>
         </div>
 
-        <!-- Table List View -->
+        <!-- VIEW 2: PAPAN KANBAN INTERAKTIF (DRAG & DROP + CHECKLIST PRODUKSI) -->
+        <div id="planner-kanban-view" class="hidden space-y-3">
+          <div class="flex items-center justify-between px-1">
+            <p class="text-xs font-bold text-slate-500">💡 Tips: Geser (*Drag & Drop*) kartu antar kolom atau centang checklist produksi langsung di dalam kartu.</p>
+          </div>
+          <div id="kanban-board-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-3.5 items-start"></div>
+        </div>
+
+        <!-- VIEW 3: TABEL DAFTAR KONTEN -->
         <div id="planner-list-view" class="hidden glass-panel rounded-2xl border border-slate-200 overflow-x-auto shadow-sm">
           <table class="w-full text-left text-xs">
             <thead class="bg-slate-50 text-slate-500 uppercase font-bold border-b">
-              <tr><th class="p-4">Jadwal & Jam</th><th class="p-4">Project & Klien</th><th class="p-4">Judul & Warna Kartu</th><th class="p-4">Akun & Platform</th><th class="p-4">Pillar</th><th class="p-4">Status (Ubah Cepat)</th><th class="p-4 text-right">Aksi Lengkap</th></tr>
+              <tr><th class="p-4">Jadwal & Jam</th><th class="p-4">Project & Klien</th><th class="p-4">Judul & Warna Kartu</th><th class="p-4">Checklist Produksi</th><th class="p-4">Akun & Platform</th><th class="p-4">Status (Ubah Cepat)</th><th class="p-4 text-right">Aksi Lengkap</th></tr>
             </thead>
             <tbody id="planner-table-body" class="divide-y divide-slate-100"></tbody>
           </table>
@@ -657,7 +708,7 @@
         <div class="glass-panel rounded-2xl p-6 border border-slate-200 space-y-4 shadow-sm">
           <div class="border-b pb-3 flex justify-between items-center">
             <div>
-              <p class="text-[10px] font-extrabold text-indigo-600 uppercase tracking-wider">BOBY CREATOR STUDIO V7.1 PRO — EXECUTIVE SUMMARY</p>
+              <p class="text-[10px] font-extrabold text-indigo-600 uppercase tracking-wider">BOBY CREATOR STUDIO V7.2 PRO — EXECUTIVE SUMMARY</p>
               <h4 class="text-base font-extrabold text-slate-900 mt-0.5">Ringkasan Performa Konten, Klien & Affiliate</h4>
             </div>
             <span id="report-date-label" class="text-xs font-bold text-slate-500">-</span>
@@ -716,7 +767,7 @@
   <div id="mobile-drawer" class="no-print hidden fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-xs flex items-end justify-center">
     <div class="bg-white w-full max-w-md rounded-t-3xl p-5 space-y-4">
       <div class="flex items-center justify-between border-b pb-2">
-        <h4 class="font-extrabold text-sm text-slate-900">Navigasi Modul V7.1 Pro</h4>
+        <h4 class="font-extrabold text-sm text-slate-900">Navigasi Modul V7.2 Pro</h4>
         <button onclick="closeModal('mobile-drawer')"><i data-lucide="x" class="w-5 h-5"></i></button>
       </div>
       <div class="grid grid-cols-2 gap-2 text-xs font-bold">
@@ -854,13 +905,13 @@
     </div>
   </div>
 
-  <!-- MODAL CONTENT PLANNER (DENGAN PILIHAN WARNA KARTU & TOMBOL HAPUS LANGSUNG) -->
+  <!-- MODAL CONTENT PLANNER (DENGAN WARNA KARTU & CHECKLIST PRODUKSI) -->
   <div id="modal-content" class="no-print hidden fixed inset-0 z-50 bg-slate-900/60 flex items-center justify-center p-4 overflow-y-auto">
     <div class="bg-white rounded-3xl max-w-xl w-full p-6 shadow-2xl space-y-4 my-8 max-h-[92vh] overflow-y-auto">
       <div class="flex items-center justify-between border-b pb-3">
         <div>
           <h3 id="modal-content-title" class="font-extrabold text-base text-slate-900">Rencana Konten Baru</h3>
-          <p class="text-xs text-slate-500">Pilih warna kartu kalender, jam digital 24 jam, hook, dan naskah</p>
+          <p class="text-xs text-slate-500">Pilih warna kartu kalender, jam digital 24 jam, checklist & naskah</p>
         </div>
         <button onclick="closeModal('modal-content')"><i data-lucide="x" class="w-5 h-5"></i></button>
       </div>
@@ -894,7 +945,7 @@
           <div><label class="block text-xs font-bold text-slate-700 mb-1">Content Pillar *</label><input type="text" id="content-pillar" required placeholder="OOTD / Review / Hiburan" class="w-full px-3 py-2 border rounded-xl text-xs" /></div>
           <div><label class="block text-xs font-bold text-slate-700 mb-1">Status Produksi *</label><select id="content-status" class="w-full px-3 py-2 border rounded-xl text-xs bg-white font-extrabold"><option value="Ide">💡 Ide</option><option value="Script">📝 Script</option><option value="Produksi">🎬 Produksi</option><option value="Editing">✂️ Editing</option><option value="Siap upload">🚀 Siap upload</option><option value="Sudah upload">✅ Sudah upload</option></select></div>
           <div>
-            <label class="block text-xs font-bold text-pink-600 mb-1">🎨 Warna Kartu Kalender</label>
+            <label class="block text-xs font-bold text-pink-600 mb-1">🎨 Warna Kartu</label>
             <select id="content-color" class="w-full px-3 py-2 border border-pink-200 rounded-xl text-xs bg-white font-extrabold">
               <option value="indigo">🌌 Electric Indigo</option>
               <option value="pink">🌸 Cyber Pink</option>
@@ -906,6 +957,18 @@
             </select>
           </div>
         </div>
+
+        <!-- Checklist Produksi 4 Langkah -->
+        <div class="p-3 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
+          <label class="block text-[11px] font-extrabold text-slate-700 uppercase tracking-wider">✅ Checklist Tahapan Produksi</label>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs font-bold">
+            <label class="flex items-center gap-1.5 p-2 rounded-xl bg-white border border-slate-200 cursor-pointer"><input type="checkbox" id="chk-video" class="rounded text-indigo-600" /><span>Take Video</span></label>
+            <label class="flex items-center gap-1.5 p-2 rounded-xl bg-white border border-slate-200 cursor-pointer"><input type="checkbox" id="chk-vo" class="rounded text-indigo-600" /><span>Voice Over</span></label>
+            <label class="flex items-center gap-1.5 p-2 rounded-xl bg-white border border-slate-200 cursor-pointer"><input type="checkbox" id="chk-edit" class="rounded text-indigo-600" /><span>Edit CapCut</span></label>
+            <label class="flex items-center gap-1.5 p-2 rounded-xl bg-white border border-slate-200 cursor-pointer"><input type="checkbox" id="chk-cover" class="rounded text-indigo-600" /><span>Buat Cover</span></label>
+          </div>
+        </div>
+
         <div><label class="block text-xs font-bold text-amber-700 mb-1">🔥 Hook 3 Detik Pertama</label><input type="text" id="content-hook" placeholder="Kalimat pancingan pembuka video..." class="w-full px-3 py-2 border rounded-xl text-xs" /></div>
         <div><label class="block text-xs font-bold text-slate-700 mb-1">Script Voice Over & Alur Visual</label><textarea id="content-script" rows="3" placeholder="Naskah narasi dan adegan..." class="w-full px-3 py-2 border rounded-xl text-xs"></textarea></div>
         <div><label class="block text-xs font-bold text-slate-700 mb-1">Caption & Hashtags</label><textarea id="content-caption" rows="2" placeholder="Caption siap posting..." class="w-full px-3 py-2 border rounded-xl text-xs"></textarea></div>
@@ -920,38 +983,102 @@
     </div>
   </div>
 
-  <!-- MODAL TELEPROMPTER / SHOOTING MODE -->
-  <div id="modal-teleprompter" class="no-print hidden fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-4">
-    <div class="bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl space-y-4 max-h-[92vh] overflow-y-auto">
-      <div class="flex items-center justify-between border-b pb-3">
+  <!-- ==================== MODAL TELEPROMPTER PROFESIONAL (AUTO-SCROLL & TIMER DURASI) ==================== -->
+  <div id="modal-teleprompter" class="no-print hidden fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-3 sm:p-5">
+    <div class="bg-slate-900 text-white border border-slate-700 rounded-3xl max-w-3xl w-full p-5 sm:p-7 shadow-2xl space-y-4 max-h-[95vh] flex flex-col">
+      <!-- Top Header Teleprompter -->
+      <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3">
         <div class="flex items-center gap-2">
-          <span class="px-2.5 py-1 rounded-xl text-xs font-extrabold bg-indigo-600 text-white">🎬 Mode Shooting</span>
-          <span id="tele-project-tag" class="text-xs font-bold"></span>
+          <span class="px-3 py-1 rounded-xl text-xs font-extrabold bg-gradient-to-r from-rose-500 to-pink-600 text-white flex items-center gap-1.5 shadow-sm">
+            <span class="w-2 h-2 rounded-full bg-white animate-ping"></span> STUDIO TELEPROMPTER
+          </span>
+          <span id="tele-project-tag" class="text-xs font-bold text-slate-300"></span>
         </div>
-        <button onclick="closeModal('modal-teleprompter')"><i data-lucide="x" class="w-6 h-6"></i></button>
+        <div class="flex items-center gap-2">
+          <!-- Estimasi Durasi Bicara Badge -->
+          <span id="tele-est-duration" class="px-3 py-1 rounded-xl text-[11px] font-extrabold bg-indigo-500/20 text-indigo-300 border border-indigo-400/30">
+            ⏱️ Estimasi baca: 0 detik
+          </span>
+          <button onclick="closeTeleprompterModal()" class="p-1.5 rounded-xl bg-slate-800 text-slate-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+        </div>
       </div>
-      <div>
-        <h2 id="tele-title" class="text-lg sm:text-xl font-extrabold text-slate-900">Judul</h2>
-        <p id="tele-meta" class="text-xs text-indigo-600 font-semibold mt-0.5">-</p>
+
+      <!-- Control Bar: Play/Pause, Speed 1x-5x, Ukuran Huruf, & Stopwatch -->
+      <div class="bg-slate-800/90 border border-slate-700/80 rounded-2xl p-3 flex flex-wrap items-center justify-between gap-3">
+        <div class="flex items-center gap-2">
+          <button type="button" id="btn-tele-play" onclick="toggleTeleScroll()" class="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-extrabold text-xs flex items-center gap-1.5 shadow-md transition">
+            <i data-lucide="play" class="w-4 h-4"></i> <span>Play Auto-Scroll</span>
+          </button>
+          <button type="button" onclick="resetTeleScroll()" class="px-3 py-2 rounded-xl bg-slate-700 hover:bg-slate-600 text-white font-bold text-xs flex items-center gap-1 transition" title="Ulang dari Atas & Reset Timer">
+            <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i> Reset
+          </button>
+        </div>
+
+        <!-- Speed Control (1x - 5x) -->
+        <div class="flex items-center gap-1 bg-slate-900 px-2.5 py-1.5 rounded-xl border border-slate-700">
+          <span class="text-[10px] font-extrabold text-slate-400 uppercase mr-1">Speed:</span>
+          <button type="button" onclick="setTeleSpeed(1)" id="tele-spd-1" class="px-2 py-0.5 rounded text-xs font-extrabold bg-indigo-600 text-white">1x</button>
+          <button type="button" onclick="setTeleSpeed(2)" id="tele-spd-2" class="px-2 py-0.5 rounded text-xs font-bold text-slate-400 hover:text-white">2x</button>
+          <button type="button" onclick="setTeleSpeed(3)" id="tele-spd-3" class="px-2 py-0.5 rounded text-xs font-bold text-slate-400 hover:text-white">3x</button>
+          <button type="button" onclick="setTeleSpeed(4)" id="tele-spd-4" class="px-2 py-0.5 rounded text-xs font-bold text-slate-400 hover:text-white">4x</button>
+          <button type="button" onclick="setTeleSpeed(5)" id="tele-spd-5" class="px-2 py-0.5 rounded text-xs font-bold text-slate-400 hover:text-white">5x</button>
+        </div>
+
+        <!-- Font Size & Stopwatch -->
+        <div class="flex items-center gap-2">
+          <div class="flex items-center gap-1 bg-slate-900 px-2 py-1 rounded-xl border border-slate-700">
+            <button type="button" onclick="changeTeleFontSize(-2)" class="px-2 py-0.5 rounded hover:bg-slate-800 text-xs font-extrabold text-slate-300">A-</button>
+            <span id="tele-font-label" class="text-[10px] font-bold text-indigo-400 px-1">22px</span>
+            <button type="button" onclick="changeTeleFontSize(2)" class="px-2 py-0.5 rounded hover:bg-slate-800 text-xs font-extrabold text-slate-300">A+</button>
+          </div>
+          <div class="px-3 py-1.5 rounded-xl bg-rose-500/20 border border-rose-500/40 text-rose-300 font-mono text-xs font-extrabold flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span>
+            <span id="tele-stopwatch">00:00</span>
+          </div>
+        </div>
       </div>
-      <div class="p-4 rounded-2xl bg-amber-50 border border-amber-200 space-y-1">
-        <p class="text-[10px] font-extrabold uppercase text-amber-800">🔥 Hook 3 Detik Pertama:</p>
-        <p id="tele-hook" class="text-base font-extrabold text-slate-900">-</p>
+
+      <!-- Judul & Meta Jadwal -->
+      <div class="flex items-center justify-between px-1">
+        <div>
+          <h2 id="tele-title" class="text-base sm:text-lg font-extrabold text-white">Judul Konten</h2>
+          <p id="tele-meta" class="text-xs text-indigo-400 font-semibold">-</p>
+        </div>
       </div>
-      <div class="space-y-1">
-        <p class="text-[10px] font-extrabold uppercase text-slate-400">Naskah Voice Over & Adegan:</p>
-        <div id="tele-script" class="p-5 rounded-2xl bg-slate-50 border border-slate-200 text-sm sm:text-base text-slate-800 leading-relaxed whitespace-pre-wrap min-h-[140px]">-</div>
+
+      <!-- Layar Baca Teleprompter (Auto-Scrolling Viewport) -->
+      <div id="tele-scroll-viewport" class="relative flex-1 min-h-[240px] max-h-[360px] overflow-y-auto rounded-2xl bg-slate-950 border-2 border-indigo-500/40 p-6 sm:p-8 shadow-inner space-y-6 select-text">
+        <!-- Garis Fokus Pandangan Mata -->
+        <div class="sticky top-1/3 left-0 right-0 border-b border-dashed border-amber-400/30 pointer-events-none flex justify-end">
+          <span class="text-[9px] font-extrabold uppercase bg-amber-500/20 text-amber-300 px-1.5 py-0.2 rounded">Garis Baca Kamera</span>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-amber-500/15 border border-amber-400/40 space-y-1">
+          <p class="text-[10px] font-extrabold uppercase text-amber-300 tracking-wider">🔥 HOOK 3 DETIK PERTAMA:</p>
+          <p id="tele-hook" style="font-size: 22px;" class="font-extrabold text-amber-200 leading-relaxed">-</p>
+        </div>
+
+        <div class="space-y-2 pb-24">
+          <p class="text-[10px] font-extrabold uppercase text-indigo-400 tracking-wider">🎬 NASKAH VOICE OVER & ALUR ADEGAN:</p>
+          <div id="tele-script" style="font-size: 22px;" class="font-bold text-white leading-relaxed whitespace-pre-wrap">-</div>
+        </div>
       </div>
-      <div class="p-4 rounded-2xl bg-slate-100 border border-slate-200 space-y-1">
-        <div class="flex justify-between"><span class="text-[10px] font-extrabold uppercase text-slate-500">Caption Postingan:</span><button onclick="copyTeleCaption()" class="text-xs font-bold text-indigo-600 hover:underline">Salin Caption</button></div>
-        <p id="tele-caption" class="text-xs text-slate-600 font-mono whitespace-pre-wrap">-</p>
+
+      <!-- Caption & Footer Buttons -->
+      <div class="p-3.5 rounded-2xl bg-slate-800/70 border border-slate-700 flex items-center justify-between gap-3">
+        <div class="min-w-0 flex-1">
+          <span class="text-[10px] font-extrabold uppercase text-slate-400 block">Caption Siap Posting:</span>
+          <p id="tele-caption" class="text-xs text-slate-300 font-mono truncate">-</p>
+        </div>
+        <button onclick="copyTeleCaption()" class="px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-extrabold shrink-0">Salin Caption</button>
       </div>
-      <div class="flex items-center justify-between pt-3 border-t">
+
+      <div class="flex items-center justify-between pt-1">
         <div class="flex gap-2">
-          <button onclick="editContentFromTele()" class="px-4 py-2 rounded-xl border text-xs font-bold">✏️ Edit Konten</button>
-          <button onclick="deleteContentFromTele()" class="px-4 py-2 rounded-xl bg-rose-50 text-rose-600 text-xs font-extrabold">🗑️ Hapus</button>
+          <button onclick="editContentFromTele()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold">✏️ Edit Naskah</button>
+          <button onclick="deleteContentFromTele()" class="px-4 py-2 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 text-xs font-extrabold">🗑️ Hapus</button>
         </div>
-        <button onclick="closeModal('modal-teleprompter')" class="px-5 py-2 rounded-xl bg-slate-900 text-white text-xs font-bold">Tutup</button>
+        <button onclick="closeTeleprompterModal()" class="px-5 py-2 rounded-xl bg-white text-slate-900 text-xs font-extrabold">Selesai Shooting</button>
       </div>
     </div>
   </div>
@@ -1065,7 +1192,7 @@
 
   <div id="toast-container" class="no-print fixed top-4 right-4 z-50 space-y-2 pointer-events-none"></div>
 
-  <!-- ==================== CORE ENGINE V7.1 PRO ==================== -->
+  <!-- ==================== CORE ENGINE V7.2 PRO ==================== -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
     import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
@@ -1109,8 +1236,16 @@
     let chartInstance = null;
     let latestAIGeneratedText = '';
     let currentTeleContent = null;
+    let draggedContentId = null;
 
-    // PALET WARNA KARTU KALENDER MEWAH (CYBER-LUXE PALETTE)
+    // TELEPROMPTER ENGINE STATES
+    let teleScrollInterval = null;
+    let teleStopwatchInterval = null;
+    let teleIsPlaying = false;
+    let teleSpeed = 1;
+    let teleFontSize = 22;
+    let teleSecondsElapsed = 0;
+
     const CARD_COLOR_THEMES = {
       indigo: 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white border-indigo-400 shadow-sm shadow-indigo-500/20',
       pink: 'bg-gradient-to-r from-pink-500 to-rose-500 text-white border-pink-400 shadow-sm shadow-pink-500/20',
@@ -1120,6 +1255,8 @@
       violet: 'bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white border-purple-400 shadow-sm shadow-purple-500/20',
       rose: 'bg-gradient-to-r from-rose-600 to-red-600 text-white border-rose-400 shadow-sm shadow-rose-500/20'
     };
+
+    const STATUS_ORDER = ['Ide', 'Script', 'Produksi', 'Editing', 'Siap upload', 'Sudah upload'];
 
     function getCardColorClass(c) {
       if (c.color && CARD_COLOR_THEMES[c.color]) return CARD_COLOR_THEMES[c.color];
@@ -1258,7 +1395,6 @@
       refreshAll();
     }
 
-    // BERSIHKAN PROJECT DEFAULT OTOMATIS SESUAI PERMINTAAN USER!
     function sanitizeDatabase(data) {
       if (!data || typeof data !== 'object') data = {};
       const rawProjects = Array.isArray(data.projects) ? data.projects : [];
@@ -1266,6 +1402,9 @@
       const rawContents = Array.isArray(data.contents) ? data.contents : [];
       rawContents.forEach(c => {
         if (c.projectId === 'proj_default') c.projectId = 'NONE';
+        if (!c.checklist || typeof c.checklist !== 'object') {
+          c.checklist = { video: false, vo: false, edit: false, cover: false };
+        }
       });
 
       return {
@@ -1308,7 +1447,7 @@
       }, () => setSyncStatus('offline'));
     }
 
-    // --- NAVIGATION & HEADER MENUS ---
+    // --- NAVIGATION & HEADER MENUS (RATA KIRI PRESISI) ---
     window.switchTab = function(t) {
       activeTab = t;
       document.querySelectorAll('.tab-section').forEach(s => s.classList.add('hidden'));
@@ -1317,12 +1456,12 @@
       document.querySelectorAll('.nav-btn').forEach(b => {
         if (b.dataset.tab === t) {
           b.className = t === 'ai'
-            ? 'nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-extrabold bg-amber-500 text-slate-900 shadow-sm'
-            : 'nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-md';
+            ? 'nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-extrabold bg-amber-500 text-slate-950 shadow-md transition-all'
+            : 'nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-extrabold bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-md transition-all';
         } else {
           b.className = b.dataset.tab === 'ai'
-            ? 'nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold text-amber-300 bg-amber-500/10 border border-amber-500/20 hover:bg-amber-500/20'
-            : 'nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800/80 hover:text-white';
+            ? 'nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold text-amber-300 bg-amber-500/10 border border-amber-500/20 hover:bg-amber-500/20 transition-all'
+            : 'nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800/80 hover:text-white transition-all';
         }
       });
 
@@ -1363,7 +1502,10 @@
         e.preventDefault();
         window.openSearchModal();
       } else if (e.key === 'Escape') {
-        ['modal-search','modal-client','modal-project','modal-account','modal-content','modal-teleprompter','modal-analytics','modal-affiliate','modal-task','modal-ai-key','mobile-drawer'].forEach(window.closeModal);
+        if (!document.getElementById('modal-teleprompter')?.classList.contains('hidden')) {
+          window.closeTeleprompterModal();
+        }
+        ['modal-search','modal-client','modal-project','modal-account','modal-content','modal-analytics','modal-affiliate','modal-task','modal-ai-key','mobile-drawer'].forEach(window.closeModal);
       }
     });
 
@@ -1504,7 +1646,7 @@
       }
     };
 
-    // --- CRUD: PROJECTS & INLINE ACCOUNTS (TANPA DEFAULT PROJECT) ---
+    // --- CRUD: PROJECTS & INLINE ACCOUNTS ---
     function populateClientDropdowns() {
       let html = '<option value="client_internal">🏢 Mandiri / Brand Sendiri</option>';
       db.clients.forEach(c => { html += `<option value="${c.id}">${escapeHtml(c.name)} (${escapeHtml(c.brand)})</option>`; });
@@ -1684,7 +1826,7 @@
       }
     };
 
-    // --- CRUD: CONTENT PLANNER (DENGAN WARNA KARTU & HAPUS LANGSUNG) ---
+    // --- CRUD: CONTENT PLANNER (DENGAN WARNA KARTU & CHECKLIST PRODUKSI) ---
     window.openContentModal = function(id = null, presetDate = null) {
       populateTimeDropdowns();
       const projSel = document.getElementById('content-project-select');
@@ -1709,6 +1851,10 @@
       document.getElementById('content-caption').value = '';
       document.getElementById('content-status').value = 'Ide';
       document.getElementById('content-color').value = 'indigo';
+      document.getElementById('chk-video').checked = false;
+      document.getElementById('chk-vo').checked = false;
+      document.getElementById('chk-edit').checked = false;
+      document.getElementById('chk-cover').checked = false;
       document.getElementById('btn-delete-in-modal')?.classList.add('hidden');
       safeSetText('modal-content-title', 'Rencana Konten Baru');
 
@@ -1731,6 +1877,11 @@
           document.getElementById('content-hook').value = c.hook || '';
           document.getElementById('content-script').value = c.script || '';
           document.getElementById('content-caption').value = c.caption || '';
+          const chk = c.checklist || {};
+          document.getElementById('chk-video').checked = !!chk.video;
+          document.getElementById('chk-vo').checked = !!chk.vo;
+          document.getElementById('chk-edit').checked = !!chk.edit;
+          document.getElementById('chk-cover').checked = !!chk.cover;
           document.getElementById('btn-delete-in-modal')?.classList.remove('hidden');
           safeSetText('modal-content-title', 'Edit Rencana Konten');
         }
@@ -1771,7 +1922,13 @@
         pillar: document.getElementById('content-pillar').value.trim(),
         hook: document.getElementById('content-hook').value.trim(),
         script: document.getElementById('content-script').value.trim(),
-        caption: document.getElementById('content-caption').value.trim()
+        caption: document.getElementById('content-caption').value.trim(),
+        checklist: {
+          video: document.getElementById('chk-video').checked,
+          vo: document.getElementById('chk-vo').checked,
+          edit: document.getElementById('chk-edit').checked,
+          cover: document.getElementById('chk-cover').checked
+        }
       };
 
       if (id) {
@@ -1785,6 +1942,16 @@
       closeModal('modal-content');
       saveToCloud();
       showToast('Rencana konten disimpan!');
+    };
+
+    window.toggleContentChecklist = function(contentId, key) {
+      const c = db.contents.find(x => x.id === contentId);
+      if (!c) return;
+      if (!c.checklist || typeof c.checklist !== 'object') {
+        c.checklist = { video: false, vo: false, edit: false, cover: false };
+      }
+      c.checklist[key] = !c.checklist[key];
+      saveToCloud();
     };
 
     window.deleteContent = function(id) {
@@ -1811,7 +1978,7 @@
       if (!currentTeleContent) return;
       if (confirm(`Hapus konten "${currentTeleContent.title}"?`)) {
         db.contents = db.contents.filter(x => x.id !== currentTeleContent.id);
-        closeModal('modal-teleprompter');
+        window.closeTeleprompterModal();
         saveToCloud();
         showToast('Konten berhasil dihapus.');
       }
@@ -1827,11 +1994,72 @@
       }
     };
 
-    // --- TELEPROMPTER & COLORFUL CALENDAR ---
+    window.stepContentStatus = function(id, dir) {
+      const c = db.contents.find(x => x.id === id);
+      if (!c) return;
+      const curIdx = STATUS_ORDER.indexOf(c.status);
+      const nextIdx = Math.min(STATUS_ORDER.length - 1, Math.max(0, (curIdx === -1 ? 0 : curIdx) + dir));
+      if (STATUS_ORDER[nextIdx] !== c.status) {
+        c.status = STATUS_ORDER[nextIdx];
+        logActivity(`Geser status "${c.title}" -> ${c.status}`);
+        saveToCloud();
+        showToast(`Pindah ke: ${c.status}`);
+      }
+    };
+
+    // --- KANBAN DRAG & DROP HANDLERS ---
+    window.onKanbanDragStart = function(ev, id) {
+      draggedContentId = id;
+      ev.dataTransfer.setData('text/plain', id);
+    };
+    window.onKanbanDragOver = function(ev) {
+      ev.preventDefault();
+      ev.currentTarget.classList.add('drag-over');
+    };
+    window.onKanbanDragLeave = function(ev) {
+      ev.currentTarget.classList.remove('drag-over');
+    };
+    window.onKanbanDrop = function(ev, targetStatus) {
+      ev.preventDefault();
+      ev.currentTarget.classList.remove('drag-over');
+      const id = draggedContentId || ev.dataTransfer.getData('text/plain');
+      const c = db.contents.find(x => x.id === id);
+      if (c && c.status !== targetStatus) {
+        c.status = targetStatus;
+        logActivity(`Kanban Drop "${c.title}" -> ${targetStatus}`);
+        saveToCloud();
+        showToast(`Dipindahkan ke kolom: ${targetStatus}`);
+      }
+      draggedContentId = null;
+    };
+
+    // --- TELEPROMPTER PROFESIONAL (AUTO-SCROLL + STOPWATCH + ESTIMASI BACA) ---
+    function formatStopwatch(sec) {
+      const m = String(Math.floor(sec / 60)).padStart(2, '0');
+      const s = String(sec % 60).padStart(2, '0');
+      return `${m}:${s}`;
+    }
+
+    function stopTeleTimers() {
+      if (teleScrollInterval) { clearInterval(teleScrollInterval); teleScrollInterval = null; }
+      if (teleStopwatchInterval) { clearInterval(teleStopwatchInterval); teleStopwatchInterval = null; }
+      teleIsPlaying = false;
+      const btn = document.getElementById('btn-tele-play');
+      if (btn) {
+        btn.className = 'px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-extrabold text-xs flex items-center gap-1.5 shadow-md transition';
+        btn.innerHTML = '<i data-lucide="play" class="w-4 h-4"></i> <span>Play Auto-Scroll</span>';
+        if (window.lucide) window.lucide.createIcons();
+      }
+    }
+
     window.openTeleprompter = function(id) {
       const c = db.contents.find(x => x.id === id);
       if (!c) return;
       currentTeleContent = c;
+      stopTeleTimers();
+      teleSecondsElapsed = 0;
+      safeSetText('tele-stopwatch', '00:00');
+
       const proj = db.projects.find(p => p.id === c.projectId);
       const acc = db.accounts.find(a => a.id === c.accountId);
       safeSetHTML('tele-project-tag', `${getPlatformBadge(c.platform, acc?.username || '')} • <span>${escapeHtml(proj ? proj.name : 'Mandiri')}</span>`);
@@ -1840,7 +2068,80 @@
       safeSetText('tele-hook', c.hook || 'Belum ada Hook ditulis.');
       safeSetText('tele-script', c.script || 'Belum ada naskah script ditulis.');
       safeSetText('tele-caption', c.caption || c.title);
+
+      // Hitung jumlah kata & estimasi durasi bicara (~130 kata per menit)
+      const combinedText = `${c.hook || ''} ${c.script || ''}`.trim();
+      const words = combinedText ? combinedText.split(/\s+/).filter(Boolean).length : 0;
+      const estSec = words > 0 ? Math.max(4, Math.ceil((words / 130) * 60)) : 0;
+      const formatRec = estSec <= 30 ? 'Pas untuk 15-30s' : (estSec <= 60 ? 'Pas untuk 60s' : 'Format Panjang >60s');
+      safeSetText('tele-est-duration', `⏱️ Estimasi baca: ~${estSec} detik (${words} kata • ${formatRec})`);
+
+      const vp = document.getElementById('tele-scroll-viewport');
+      if (vp) vp.scrollTop = 0;
+
       document.getElementById('modal-teleprompter')?.classList.remove('hidden');
+      if (window.lucide) window.lucide.createIcons();
+    };
+
+    window.closeTeleprompterModal = function() {
+      stopTeleTimers();
+      closeModal('modal-teleprompter');
+    };
+
+    window.toggleTeleScroll = function() {
+      const vp = document.getElementById('tele-scroll-viewport');
+      const btn = document.getElementById('btn-tele-play');
+      if (!vp || !btn) return;
+
+      if (teleIsPlaying) {
+        stopTeleTimers();
+      } else {
+        teleIsPlaying = true;
+        btn.className = 'px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-extrabold text-xs flex items-center gap-1.5 shadow-md transition';
+        btn.innerHTML = '<i data-lucide="pause" class="w-4 h-4"></i> <span>Pause Scroll</span>';
+        if (window.lucide) window.lucide.createIcons();
+
+        teleScrollInterval = setInterval(() => {
+          vp.scrollTop += (teleSpeed * 0.85);
+          if (vp.scrollTop + vp.clientHeight >= vp.scrollHeight - 2) {
+            stopTeleTimers();
+          }
+        }, 35);
+
+        teleStopwatchInterval = setInterval(() => {
+          teleSecondsElapsed++;
+          safeSetText('tele-stopwatch', formatStopwatch(teleSecondsElapsed));
+        }, 1000);
+      }
+    };
+
+    window.resetTeleScroll = function() {
+      stopTeleTimers();
+      teleSecondsElapsed = 0;
+      safeSetText('tele-stopwatch', '00:00');
+      const vp = document.getElementById('tele-scroll-viewport');
+      if (vp) vp.scrollTop = 0;
+    };
+
+    window.setTeleSpeed = function(spd) {
+      teleSpeed = spd;
+      [1, 2, 3, 4, 5].forEach(n => {
+        const el = document.getElementById(`tele-spd-${n}`);
+        if (el) {
+          el.className = n === spd
+            ? 'px-2 py-0.5 rounded text-xs font-extrabold bg-indigo-600 text-white'
+            : 'px-2 py-0.5 rounded text-xs font-bold text-slate-400 hover:text-white';
+        }
+      });
+    };
+
+    window.changeTeleFontSize = function(delta) {
+      teleFontSize = Math.min(42, Math.max(14, teleFontSize + delta));
+      safeSetText('tele-font-label', `${teleFontSize}px`);
+      const hookEl = document.getElementById('tele-hook');
+      const scriptEl = document.getElementById('tele-script');
+      if (hookEl) hookEl.style.fontSize = `${teleFontSize}px`;
+      if (scriptEl) scriptEl.style.fontSize = `${teleFontSize}px`;
     };
 
     window.copyTeleCaption = function() {
@@ -1850,16 +2151,26 @@
 
     window.editContentFromTele = function() {
       if (!currentTeleContent) return;
-      closeModal('modal-teleprompter');
+      window.closeTeleprompterModal();
       openContentModal(currentTeleContent.id);
     };
 
+    // --- 3-WAY PLANNER MODE SWITCHER (CALENDAR | KANBAN | LIST) ---
     window.setPlannerMode = function(mode) {
       plannerMode = mode;
       document.getElementById('planner-calendar-view')?.classList.toggle('hidden', mode !== 'calendar');
+      document.getElementById('planner-kanban-view')?.classList.toggle('hidden', mode !== 'kanban');
       document.getElementById('planner-list-view')?.classList.toggle('hidden', mode !== 'list');
-      document.getElementById('btn-mode-cal').className = mode === 'calendar' ? 'px-3 py-1.5 rounded-lg bg-white text-indigo-600 shadow-xs flex items-center gap-1.5' : 'px-3 py-1.5 rounded-lg text-slate-600 flex items-center gap-1.5';
-      document.getElementById('btn-mode-list').className = mode === 'list' ? 'px-3 py-1.5 rounded-lg bg-white text-indigo-600 shadow-xs flex items-center gap-1.5' : 'px-3 py-1.5 rounded-lg text-slate-600 flex items-center gap-1.5';
+
+      const activeCls = 'px-3 py-1.5 rounded-lg bg-white text-indigo-600 shadow-xs flex items-center gap-1.5 transition';
+      const inactiveCls = 'px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 flex items-center gap-1.5 transition';
+
+      const bCal = document.getElementById('btn-mode-cal');
+      const bKan = document.getElementById('btn-mode-kanban');
+      const bLst = document.getElementById('btn-mode-list');
+      if (bCal) bCal.className = mode === 'calendar' ? activeCls : inactiveCls;
+      if (bKan) bKan.className = mode === 'kanban' ? activeCls : inactiveCls;
+      if (bLst) bLst.className = mode === 'list' ? activeCls : inactiveCls;
       renderPlanner();
     };
 
@@ -1928,6 +2239,89 @@
           </div>`;
       }
       grid.innerHTML = html;
+    }
+
+    // --- RENDER KANBAN BOARD INTERAKTIF ---
+    function renderKanbanBoard(contentsList) {
+      const board = document.getElementById('kanban-board-container');
+      if (!board) return;
+
+      const columnsMeta = [
+        { status: 'Ide', label: '💡 Ide', headerCls: 'from-slate-700 to-slate-800' },
+        { status: 'Script', label: '📝 Script', headerCls: 'from-indigo-600 to-blue-600' },
+        { status: 'Produksi', label: '🎬 Produksi', headerCls: 'from-pink-600 to-rose-600' },
+        { status: 'Editing', label: '✂️ Editing', headerCls: 'from-purple-600 to-violet-700' },
+        { status: 'Siap upload', label: '🚀 Siap Upload', headerCls: 'from-amber-500 to-orange-600' },
+        { status: 'Sudah upload', label: '✅ Sudah Upload', headerCls: 'from-emerald-600 to-teal-600' }
+      ];
+
+      board.innerHTML = columnsMeta.map(col => {
+        const colItems = contentsList.filter(c => (c.status || 'Ide') === col.status);
+        return `
+          <div ondragover="onKanbanDragOver(event)" ondragleave="onKanbanDragLeave(event)" ondrop="onKanbanDrop(event, '${col.status}')" class="kanban-col-dropzone glass-panel rounded-2xl border border-slate-200/90 p-3 space-y-3 min-h-[380px] transition-all">
+            <div class="p-2.5 rounded-xl bg-gradient-to-r ${col.headerCls} text-white flex items-center justify-between shadow-xs">
+              <span class="text-xs font-extrabold">${col.label}</span>
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-black/25">${colItems.length}</span>
+            </div>
+
+            <div class="space-y-2.5">
+              ${colItems.length === 0
+                ? `<div class="p-6 text-center border border-dashed border-slate-200 rounded-xl text-[11px] text-slate-400">Geser kartu ke sini</div>`
+                : colItems.map(c => {
+                  const chk = c.checklist || { video: false, vo: false, edit: false, cover: false };
+                  const doneCount = [chk.video, chk.vo, chk.edit, chk.cover].filter(Boolean).length;
+                  const pct = Math.round((doneCount / 4) * 100);
+                  const colorCls = getCardColorClass(c);
+                  const acc = db.accounts.find(a => a.id === c.accountId);
+                  return `
+                    <div draggable="true" ondragstart="onKanbanDragStart(event, '${c.id}')" class="bg-white rounded-2xl border border-slate-200 p-3 shadow-xs hover:shadow-md transition cursor-grab active:cursor-grabbing space-y-2.5">
+                      <div class="p-2 rounded-xl ${colorCls} flex items-center justify-between gap-1">
+                        <span class="text-[10px] font-extrabold truncate">${formatDateID(c.date)} • ${formatTime24(c.time)}</span>
+                        <span class="text-[9px] font-extrabold bg-black/20 px-1.5 py-0.5 rounded shrink-0">${escapeHtml(c.pillar || 'Konten')}</span>
+                      </div>
+
+                      <div>
+                        <h5 class="font-extrabold text-xs text-slate-900 leading-snug">${escapeHtml(c.title)}</h5>
+                        <div class="mt-1">${getPlatformBadge(c.platform, acc?.username || '')}</div>
+                      </div>
+
+                      <!-- Checklist Produksi 4 Langkah Langsung di Kartu -->
+                      <div class="p-2 rounded-xl bg-slate-50 border border-slate-100 space-y-1.5">
+                        <div class="flex items-center justify-between text-[10px] font-extrabold text-slate-500">
+                          <span>Progres Produksi</span>
+                          <span class="${pct === 100 ? 'text-emerald-600' : 'text-indigo-600'}">${doneCount}/4 (${pct}%)</span>
+                        </div>
+                        <div class="w-full h-1.5 rounded-full bg-slate-200 overflow-hidden">
+                          <div class="h-full bg-gradient-to-r from-indigo-500 to-emerald-500 transition-all" style="width: ${pct}%"></div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-1 pt-1 text-[10px] font-bold text-slate-700">
+                          <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" ${chk.video ? 'checked' : ''} onchange="toggleContentChecklist('${c.id}','video')" class="rounded text-indigo-600" /><span>Video</span></label>
+                          <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" ${chk.vo ? 'checked' : ''} onchange="toggleContentChecklist('${c.id}','vo')" class="rounded text-indigo-600" /><span>Voice Over</span></label>
+                          <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" ${chk.edit ? 'checked' : ''} onchange="toggleContentChecklist('${c.id}','edit')" class="rounded text-indigo-600" /><span>CapCut</span></label>
+                          <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" ${chk.cover ? 'checked' : ''} onchange="toggleContentChecklist('${c.id}','cover')" class="rounded text-indigo-600" /><span>Cover</span></label>
+                        </div>
+                      </div>
+
+                      <!-- Action Bar -->
+                      <div class="flex items-center justify-between pt-1 border-t border-slate-100">
+                        <div class="flex items-center gap-1">
+                          <button type="button" onclick="stepContentStatus('${c.id}', -1)" title="Geser Kiri" class="px-1.5 py-1 rounded bg-slate-100 hover:bg-slate-200 text-[10px] font-extrabold">◀</button>
+                          <button type="button" onclick="stepContentStatus('${c.id}', 1)" title="Geser Kanan" class="px-1.5 py-1 rounded bg-slate-100 hover:bg-slate-200 text-[10px] font-extrabold">▶</button>
+                        </div>
+                        <div class="flex items-center gap-1">
+                          <button type="button" onclick="openTeleprompter('${c.id}')" class="px-2 py-1 rounded-lg bg-amber-500 text-slate-950 text-[10px] font-extrabold">🎬</button>
+                          <button type="button" onclick="openContentModal('${c.id}')" class="px-2 py-1 rounded-lg bg-indigo-50 text-indigo-600 text-[10px] font-extrabold">✏️</button>
+                          <button type="button" onclick="deleteContent('${c.id}')" class="px-2 py-1 rounded-lg bg-rose-50 text-rose-600 text-[10px] font-extrabold">🗑️</button>
+                        </div>
+                      </div>
+                    </div>
+                  `;
+                }).join('')
+              }
+            </div>
+          </div>
+        `;
+      }).join('');
     }
 
     // --- GLOBAL PROJECT FILTER ---
@@ -2339,6 +2733,8 @@
       const filtered = activeProjectFilter !== 'ALL' ? db.contents.filter(c => c.projectId === activeProjectFilter) : db.contents;
       const finalContents = filtered.filter(c => (`${c.title} ${c.pillar} ${c.hook}`).toLowerCase().includes(q) && (sf === 'ALL' || c.status === sf));
 
+      renderKanbanBoard(finalContents);
+
       const today = todayISO();
       safeSetText('stat-total-planner', filtered.length);
       safeSetText('stat-today-planner', filtered.filter(c => c.date === today).length);
@@ -2353,16 +2749,19 @@
           const cl = proj ? db.clients.find(x => x.id === proj.clientId) : null;
           const acc = db.accounts.find(x => x.id === c.accountId);
           const badgeColor = getCardColorClass(c);
+          const chk = c.checklist || { video: false, vo: false, edit: false, cover: false };
+          const doneCount = [chk.video, chk.vo, chk.edit, chk.cover].filter(Boolean).length;
+
           return `
             <tr class="hover:bg-slate-50">
               <td class="p-4"><span class="text-xs text-indigo-600 font-bold">${formatDateID(c.date)}</span><p class="text-[11px] text-slate-500 font-extrabold mt-0.5">Jam ${formatTime24(c.time)} WIB</p></td>
               <td class="p-4"><p class="font-extrabold text-slate-900">${escapeHtml(proj ? proj.name : '🌟 Mandiri')}</p><p class="text-[11px] text-indigo-600 font-semibold">${escapeHtml(cl ? cl.name : 'Tanpa Project')}</p></td>
               <td class="p-4"><span class="inline-block px-2.5 py-1 rounded-lg text-xs font-extrabold ${badgeColor}">${escapeHtml(c.title)}</span><p class="text-[11px] text-slate-500 truncate max-w-xs mt-1">${escapeHtml(c.hook || '-')}</p></td>
+              <td class="p-4"><span class="px-2.5 py-1 rounded-lg text-xs font-extrabold ${doneCount === 4 ? 'bg-emerald-50 text-emerald-700' : 'bg-indigo-50 text-indigo-700'}">✅ ${doneCount}/4 Selesai</span></td>
               <td class="p-4">${getPlatformBadge(c.platform, acc?.username || '')}</td>
-              <td class="p-4 font-bold text-slate-700">${escapeHtml(c.pillar)}</td>
               <td class="p-4">
                 <select onchange="quickUpdateContentStatus('${c.id}', this.value)" class="px-2.5 py-1 rounded-lg text-xs font-extrabold border cursor-pointer">
-                  ${['Ide','Script','Produksi','Editing','Siap upload','Sudah upload'].map(st => `<option value="${st}" ${c.status === st ? 'selected' : ''}>${st}</option>`).join('')}
+                  ${STATUS_ORDER.map(st => `<option value="${st}" ${c.status === st ? 'selected' : ''}>${st}</option>`).join('')}
                 </select>
               </td>
               <td class="p-4 text-right space-x-1.5 whitespace-nowrap">
@@ -2379,7 +2778,7 @@
         ? `<div class="col-span-3 glass-panel rounded-3xl p-8 border-2 border-dashed border-indigo-200 text-center space-y-3">
             <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-500 to-pink-500 text-white flex items-center justify-center mx-auto shadow-md"><i data-lucide="folder-plus" class="w-6 h-6"></i></div>
             <h4 class="font-extrabold text-sm text-slate-900">Belum Ada Project (Bebas Default)</h4>
-            <p class="text-xs text-slate-500 max-w-md mx-auto">Sesuai permintaanmu, tidak ada project default bawaan. Silakan buat project pertamamu sendiri lengkap dengan akun medsosnya!</p>
+            <p class="text-xs text-slate-500 max-w-md mx-auto">Silakan buat project pertamamu sendiri lengkap dengan akun medsosnya!</p>
             <button onclick="openProjectModal()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-indigo-600 to-pink-600 text-white text-xs font-extrabold shadow-md">+ Buat Project Pertamamu</button>
           </div>`
         : db.projects.map(p => {
