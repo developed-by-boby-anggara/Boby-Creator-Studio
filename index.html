@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>BOBY CREATOR STUDIO 6.5 — Command Center & Visual Planner</title>
+  <title>BOBY CREATOR STUDIO 6.6 Pro — Creator Command & Content Studio</title>
   <meta name="theme-color" content="#0f172a" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -44,98 +44,106 @@
 
   <!-- ==================== DESKTOP SIDEBAR ==================== -->
   <aside class="no-print hidden lg:flex lg:flex-col lg:w-72 lg:fixed lg:inset-y-0 bg-slate-900 text-white border-r border-slate-800 z-30 select-none shadow-xl">
-    <div class="p-6 border-b border-slate-800/80 flex items-center gap-3.5">
-      <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center shadow-lg shadow-indigo-500/30 shrink-0">
-        <i data-lucide="sparkles" class="w-5 h-5 text-white"></i>
+    <!-- Brand Logo -->
+    <div class="p-5 border-b border-slate-800 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-3 min-w-0">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center shadow-lg shadow-indigo-500/30 shrink-0">
+          <i data-lucide="sparkles" class="w-5 h-5 text-white"></i>
+        </div>
+        <div class="overflow-hidden">
+          <h1 class="font-extrabold text-sm tracking-tight text-white truncate">BOBY CREATOR STUDIO</h1>
+          <p class="text-[11px] text-indigo-400 font-semibold truncate">Command Suite V6.6 Pro</p>
+        </div>
       </div>
-      <div class="overflow-hidden">
-        <h1 class="font-extrabold text-sm tracking-tight text-white truncate">BOBY CREATOR STUDIO</h1>
-        <p class="text-[11px] text-indigo-400 font-semibold truncate">Enterprise Suite V6.5</p>
-      </div>
+      <span class="px-1.5 py-0.5 rounded text-[9px] font-extrabold bg-indigo-500/20 text-indigo-300 border border-indigo-400/30">PRO</span>
     </div>
 
-    <!-- Active Project Indicator in Sidebar -->
-    <div class="px-4 pt-3 pb-1">
+    <!-- Active Project Focus Strip -->
+    <div class="px-3 pt-3 pb-1">
       <div class="p-2.5 rounded-xl bg-slate-800/80 border border-slate-700/60 flex items-center gap-2">
         <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
         <div class="min-w-0">
-          <p class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Fokus Project Aktif</p>
+          <p class="text-[9px] text-slate-400 uppercase font-extrabold tracking-wider">Fokus Project Aktif</p>
           <p id="sidebar-active-project-label" class="text-xs font-bold text-white truncate">Semua Project (Global)</p>
         </div>
       </div>
     </div>
 
-    <!-- SIDEBAR NAVIGATION MENU (DASHBOARD DI PALING ATAS!) -->
+    <!-- DAFTAR MENU URUT, JELAS, & TERSTRUKTUR -->
     <nav class="flex-1 px-3 py-3 space-y-1 overflow-y-auto">
-      <!-- 1. DASHBOARD UTAMA (TOP #1) -->
+      <!-- 1. DASHBOARD UTAMA -->
       <button onclick="switchTab('dashboard')" data-tab="dashboard" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold bg-indigo-600 text-white shadow-sm transition-all">
         <i data-lucide="layout-dashboard" class="w-4 h-4 shrink-0"></i>
-        <span>Dashboard Utama</span>
+        <span>1. Dashboard Utama</span>
       </button>
 
-      <!-- 2. KELOLA PROJECT & AKUN -->
+      <!-- 2. MANAJEMEN KLIEN -->
+      <button onclick="switchTab('clients')" data-tab="clients" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition-all">
+        <i data-lucide="briefcase" class="w-4 h-4 shrink-0 text-sky-400"></i>
+        <span>2. Manajemen Klien</span>
+      </button>
+
+      <!-- 3. KELOLA PROJECT & AKUN -->
       <button onclick="switchTab('projects')" data-tab="projects" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition-all">
         <i data-lucide="folder-kanban" class="w-4 h-4 shrink-0 text-amber-400"></i>
-        <span>Kelola Project & Akun</span>
+        <span>3. Kelola Project & Akun</span>
       </button>
 
-      <!-- 3. CONTENT PLANNER VISUAL -->
+      <!-- 4. CONTENT PLANNER VISUAL -->
       <button onclick="switchTab('planner')" data-tab="planner" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition-all">
         <div class="flex items-center gap-3">
           <i data-lucide="calendar-days" class="w-4 h-4 shrink-0 text-indigo-400"></i>
-          <span>Content Planner Visual</span>
+          <span>4. Content Planner Visual</span>
         </div>
         <span id="sidebar-planner-badge" class="px-1.5 py-0.5 rounded text-[10px] font-extrabold bg-indigo-800 text-white">0</span>
       </button>
 
-      <!-- 4. GEMINI AI ASSISTANT -->
+      <!-- 5. ANALYTICS PERFORMA -->
+      <button onclick="switchTab('analytics')" data-tab="analytics" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition-all">
+        <i data-lucide="bar-chart-3" class="w-4 h-4 shrink-0 text-teal-400"></i>
+        <span>5. Analytics Performa</span>
+      </button>
+
+      <!-- 6. AFFILIATE TRACKER -->
+      <button onclick="switchTab('affiliate')" data-tab="affiliate" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition-all">
+        <i data-lucide="shopping-bag" class="w-4 h-4 shrink-0 text-orange-400"></i>
+        <span>6. Affiliate Tracker</span>
+      </button>
+
+      <!-- 7. GEMINI AI ASSISTANT -->
       <button onclick="switchTab('ai')" data-tab="ai" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold text-amber-300 bg-amber-500/10 border border-amber-500/20 hover:bg-amber-500/20 transition-all">
         <div class="flex items-center gap-3">
           <i data-lucide="bot" class="w-4 h-4 text-amber-400 shrink-0 animate-pulse"></i>
-          <span>Gemini AI Assistant</span>
+          <span>7. Gemini AI Assistant</span>
         </div>
-        <span class="px-1.5 py-0.5 rounded text-[9px] font-extrabold bg-amber-500 text-slate-900">PRO</span>
+        <span class="px-1.5 py-0.5 rounded text-[9px] font-extrabold bg-amber-500 text-slate-900">AI</span>
       </button>
 
-      <!-- 5. MANAJEMEN KLIEN -->
-      <button onclick="switchTab('clients')" data-tab="clients" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition-all">
-        <i data-lucide="briefcase" class="w-4 h-4 shrink-0"></i><span>Manajemen Klien</span>
-      </button>
-
-      <!-- 6. INVENTARIS AKUN MEDSOS -->
-      <button onclick="switchTab('accounts')" data-tab="accounts" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition-all">
-        <i data-lucide="share-2" class="w-4 h-4 shrink-0"></i><span>Inventaris Akun Medsos</span>
-      </button>
-
-      <!-- 7. ANALYTICS PERFORMA -->
-      <button onclick="switchTab('analytics')" data-tab="analytics" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition-all">
-        <i data-lucide="bar-chart-3" class="w-4 h-4 shrink-0"></i><span>Analytics Performa</span>
-      </button>
-
-      <!-- 8. AFFILIATE TRACKER -->
-      <button onclick="switchTab('affiliate')" data-tab="affiliate" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition-all">
-        <i data-lucide="shopping-bag" class="w-4 h-4 shrink-0"></i><span>Affiliate Tracker</span>
-      </button>
-
-      <!-- 9. TUGAS & DEADLINE -->
+      <!-- 8. TUGAS & DEADLINE -->
       <button onclick="switchTab('tasks')" data-tab="tasks" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition-all">
-        <div class="flex items-center gap-3"><i data-lucide="check-square" class="w-4 h-4 shrink-0"></i><span>Tugas & Deadline</span></div>
+        <div class="flex items-center gap-3">
+          <i data-lucide="check-square" class="w-4 h-4 shrink-0 text-rose-400"></i>
+          <span>8. Tugas & Deadline</span>
+        </div>
         <span id="sidebar-task-badge" class="hidden px-2 py-0.5 text-[10px] font-bold rounded-full bg-rose-500 text-white">0</span>
       </button>
 
-      <!-- 10. REPORT CENTER -->
+      <!-- 9. REPORT CENTER -->
       <button onclick="switchTab('reports')" data-tab="reports" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition-all">
-        <i data-lucide="file-spreadsheet" class="w-4 h-4 shrink-0"></i><span>Report Center</span>
+        <i data-lucide="file-spreadsheet" class="w-4 h-4 shrink-0 text-purple-400"></i>
+        <span>9. Report Center</span>
       </button>
 
-      <!-- 11. DATABASE & CLOUD -->
-      <div class="pt-3 mt-3 border-t border-slate-800">
+      <!-- 10. DATABASE & CLOUD -->
+      <div class="pt-2 mt-2 border-t border-slate-800">
         <button onclick="switchTab('settings')" data-tab="settings" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition-all">
-          <i data-lucide="database" class="w-4 h-4 shrink-0"></i><span>Database & Cloud</span>
+          <i data-lucide="database" class="w-4 h-4 shrink-0 text-slate-400"></i>
+          <span>10. Database & Cloud</span>
         </button>
       </div>
     </nav>
 
+    <!-- Cloud Sync Status -->
     <div class="p-3.5 m-3 rounded-xl bg-slate-800/70 border border-slate-700/60">
       <div class="flex items-center justify-between mb-1">
         <span class="text-xs font-semibold text-slate-300">Penyimpanan</span>
@@ -143,13 +151,14 @@
           <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Firebase Aktif
         </span>
       </div>
-      <p class="text-[10px] text-slate-400">Sinkronisasi Cloud Firestore realtime.</p>
+      <p class="text-[10px] text-slate-400">Cloud Firestore realtime aktif.</p>
     </div>
   </aside>
 
   <!-- ==================== MAIN CONTENT WRAPPER ==================== -->
   <div class="flex-1 lg:pl-72 flex flex-col min-h-screen w-full">
-    <header class="no-print sticky top-0 z-20 bg-white/90 backdrop-blur-md border-b border-slate-200 px-4 sm:px-6 py-3 flex items-center justify-between gap-3 shadow-xs">
+    <!-- EXECUTIVE TOP HEADER -->
+    <header class="no-print sticky top-0 z-20 bg-white/95 backdrop-blur-md border-b border-slate-200 px-4 sm:px-6 py-3 flex items-center justify-between gap-3 shadow-xs">
       <div class="flex items-center gap-3 min-w-0">
         <div class="lg:hidden w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white shrink-0">
           <i data-lucide="sparkles" class="w-4 h-4"></i>
@@ -160,7 +169,7 @@
         </div>
       </div>
 
-      <!-- Right Header Actions (HIERARCHICAL PROJECT SWITCHER) -->
+      <!-- Right Header: Project Filter, Notification Bell, AI, Cloud Status -->
       <div class="flex items-center gap-2 sm:gap-3 shrink-0">
         <!-- PROJECT SWITCHER DROPDOWN -->
         <div class="flex items-center gap-1.5 bg-indigo-50/80 hover:bg-indigo-100 border border-indigo-200 px-3 py-1.5 rounded-xl transition shadow-xs">
@@ -170,11 +179,30 @@
           </select>
         </div>
 
-        <button onclick="switchTab('ai')" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-500/10 text-amber-700 border border-amber-300 text-xs font-bold hover:bg-amber-500/20 transition">
+        <!-- NOTIFICATION BELL DROPDOWN -->
+        <div class="relative">
+          <button onclick="toggleNotificationDropdown()" class="p-2 rounded-xl border border-slate-200 hover:bg-slate-100 text-slate-700 relative transition" title="Pemberitahuan & Pengingat">
+            <i data-lucide="bell" class="w-4 h-4"></i>
+            <span id="notif-badge" class="hidden absolute top-1 right-1 w-2 h-2 rounded-full bg-rose-500 ring-2 ring-white animate-pulse"></span>
+          </button>
+          <div id="notif-dropdown" class="hidden absolute right-0 mt-2 w-80 sm:w-96 rounded-2xl bg-white border border-slate-200 shadow-2xl p-4 z-40 space-y-3">
+            <div class="flex items-center justify-between border-b pb-2">
+              <h4 class="font-extrabold text-xs text-slate-900 uppercase tracking-wider flex items-center gap-1.5">
+                <i data-lucide="bell" class="w-3.5 h-3.5 text-indigo-600"></i> Pengingat & Notifikasi
+              </h4>
+              <button onclick="closeNotificationDropdown()" class="text-slate-400 hover:text-slate-600"><i data-lucide="x" class="w-4 h-4"></i></button>
+            </div>
+            <div id="notif-list" class="space-y-2 max-h-72 overflow-y-auto pr-1 text-xs"></div>
+          </div>
+        </div>
+
+        <!-- GEMINI AI QUICK BUTTON -->
+        <button onclick="switchTab('ai')" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-500/10 text-amber-800 border border-amber-300 text-xs font-bold hover:bg-amber-500/20 transition">
           <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-500"></i>
           <span>Gemini AI</span>
         </button>
 
+        <!-- CLOUD BADGE -->
         <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
           <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
           <span class="hidden sm:inline">Cloud Firestore Aktif</span>
@@ -183,9 +211,22 @@
       </div>
     </header>
 
+    <!-- TOP URGENT ANNOUNCEMENT / REMINDER BAR -->
+    <div id="urgent-reminder-banner" class="no-print hidden bg-gradient-to-r from-amber-500 to-orange-600 text-white px-4 sm:px-6 py-2.5 text-xs font-bold flex items-center justify-between gap-3 shadow-sm">
+      <div class="flex items-center gap-2 min-w-0">
+        <i data-lucide="alert-circle" class="w-4 h-4 shrink-0 animate-bounce"></i>
+        <span id="urgent-reminder-message" class="truncate">Ada jadwal publikasi konten atau tugas hari ini!</span>
+      </div>
+      <div class="flex items-center gap-2 shrink-0">
+        <button onclick="switchTab('planner')" class="px-2.5 py-0.5 rounded-lg bg-white/20 hover:bg-white/30 text-xs font-extrabold">Lihat Planner</button>
+        <button onclick="dismissUrgentBanner()" class="p-1 hover:bg-white/20 rounded-md text-white/80 hover:text-white"><i data-lucide="x" class="w-3.5 h-3.5"></i></button>
+      </div>
+    </div>
+
+    <!-- MAIN APP CONTENT -->
     <main class="flex-1 p-4 sm:p-6 pb-safe max-w-7xl w-full mx-auto space-y-6">
 
-      <!-- ==================== 1. DASHBOARD UTAMA (TOP #1) ==================== -->
+      <!-- ==================== 1. DASHBOARD UTAMA ==================== -->
       <section id="sec-dashboard" class="tab-section space-y-6">
         <!-- Hero Welcome Banner -->
         <div class="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 rounded-2xl p-5 sm:p-6 text-white shadow-lg flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -206,7 +247,7 @@
           </div>
         </div>
 
-        <!-- 9 Interactive KPI Cards (Klik langsung lompat ke halamannya!) -->
+        <!-- 9 Interactive KPI Cards -->
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-3 sm:gap-4">
           <div onclick="switchTab('projects')" class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-xs hover:border-indigo-500 hover:shadow-sm cursor-pointer transition group">
             <div class="flex items-center justify-between">
@@ -244,7 +285,7 @@
             <p class="text-[11px] text-slate-400 mt-1">Views Seluruh Akun</p>
           </div>
 
-          <div onclick="switchTab('accounts')" class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-xs hover:border-indigo-500 hover:shadow-sm cursor-pointer transition group">
+          <div onclick="switchTab('projects')" class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-xs hover:border-indigo-500 hover:shadow-sm cursor-pointer transition group">
             <div class="flex items-center justify-between">
               <p class="text-xs font-semibold text-slate-500 group-hover:text-indigo-600">Total Followers</p>
               <i data-lucide="users" class="w-4 h-4 text-slate-400 group-hover:text-indigo-600"></i>
@@ -283,7 +324,6 @@
 
         <!-- 2 Kolom: Jadwal Terdekat & Grafik Performa -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <!-- Widget Jadwal Konten Terdekat (Bisa Langsung Shooting!) -->
           <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-xs space-y-3">
             <div class="flex justify-between items-center border-b pb-2">
               <h4 class="font-extrabold text-slate-900 text-sm flex items-center gap-1.5">
@@ -294,7 +334,6 @@
             <div id="dash-upcoming-content-list" class="space-y-2 max-h-72 overflow-y-auto"></div>
           </div>
 
-          <!-- Grafik Performa Views -->
           <div class="lg:col-span-2 bg-white rounded-2xl p-5 border border-slate-200/80 shadow-xs">
             <div class="flex justify-between items-center mb-3">
               <h4 class="font-bold text-slate-900 text-sm">Grafik Performa Views Konten</h4>
@@ -305,7 +344,25 @@
         </div>
       </section>
 
-      <!-- ==================== 2. KELOLA PROJECT & AKUN ==================== -->
+      <!-- ==================== 2. MANAJEMEN KLIEN ==================== -->
+      <section id="sec-clients" class="tab-section hidden space-y-4">
+        <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-xs flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+          <div class="flex flex-1 flex-col sm:flex-row gap-2.5">
+            <input type="text" id="search-clients" oninput="renderClients()" placeholder="Cari nama klien atau brand..." class="px-3.5 py-2 rounded-xl border border-slate-200 text-sm flex-1 max-w-sm" />
+          </div>
+          <button onclick="openClientModal()" class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm"><i data-lucide="plus" class="w-4 h-4"></i> Tambah Klien</button>
+        </div>
+        <div class="bg-white rounded-2xl border border-slate-200 overflow-x-auto shadow-xs">
+          <table class="w-full text-left text-sm">
+            <thead class="bg-slate-50 text-slate-500 uppercase text-[11px] font-bold border-b">
+              <tr><th class="p-4">Klien & Brand</th><th class="p-4">Mulai Kerja Sama</th><th class="p-4">Status</th><th class="p-4">Project Aktif</th><th class="p-4 text-right">Aksi</th></tr>
+            </thead>
+            <tbody id="clients-table-body" class="divide-y divide-slate-100"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ==================== 3. KELOLA PROJECT & AKUN ==================== -->
       <section id="sec-projects" class="tab-section hidden space-y-5">
         <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-xs flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
           <div>
@@ -321,7 +378,7 @@
         <div id="projects-showcase-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
       </section>
 
-      <!-- ==================== 3. CONTENT PLANNER VISUAL ==================== -->
+      <!-- ==================== 4. CONTENT PLANNER VISUAL ==================== -->
       <section id="sec-planner" class="tab-section hidden space-y-5">
         <!-- Visual Stats Strip -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -458,7 +515,7 @@
                 <th class="p-4">Jadwal & Jam</th>
                 <th class="p-4">Project & Klien</th>
                 <th class="p-4">Judul & Konsep Konten</th>
-                <th class="p-4">Akun & Platform</th>
+                <th class="p-4">Akun & Platform (Warna Khas)</th>
                 <th class="p-4">Pillar & Hook</th>
                 <th class="p-4">Status Produksi (Ubah Cepat)</th>
                 <th class="p-4 text-right">Aksi & Shooting</th>
@@ -469,7 +526,39 @@
         </div>
       </section>
 
-      <!-- ==================== 4. GEMINI AI ASSISTANT ==================== -->
+      <!-- ==================== 5. ANALYTICS PERFORMA ==================== -->
+      <section id="sec-analytics" class="tab-section hidden space-y-4">
+        <div class="flex justify-between items-center gap-2">
+          <input type="text" id="search-analytics" oninput="renderAnalytics()" placeholder="Cari analitik..." class="px-3.5 py-2 rounded-xl border border-slate-200 text-sm flex-1 max-w-sm" />
+          <button onclick="openAnalyticsModal()" class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm"><i data-lucide="plus" class="w-4 h-4"></i> Input Performa</button>
+        </div>
+        <div class="bg-white rounded-2xl border border-slate-200 overflow-x-auto shadow-xs">
+          <table class="w-full text-left text-sm">
+            <thead class="bg-slate-50 text-slate-500 uppercase text-[11px] font-bold border-b">
+              <tr><th class="p-4">Tanggal & Nama Konten</th><th class="p-4">Akun & Platform</th><th class="p-4">Views</th><th class="p-4">Interaksi</th><th class="p-4">ER (%)</th><th class="p-4 text-right">Aksi</th></tr>
+            </thead>
+            <tbody id="analytics-table-body" class="divide-y divide-slate-100"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ==================== 6. AFFILIATE TRACKER ==================== -->
+      <section id="sec-affiliate" class="tab-section hidden space-y-4">
+        <div class="flex justify-between items-center gap-2">
+          <input type="text" id="search-affiliate" oninput="renderAffiliate()" placeholder="Cari produk..." class="px-3.5 py-2 rounded-xl border border-slate-200 text-sm flex-1 max-w-sm" />
+          <button onclick="openAffiliateModal()" class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm"><i data-lucide="plus" class="w-4 h-4"></i> Catat Produk</button>
+        </div>
+        <div class="bg-white rounded-2xl border border-slate-200 overflow-x-auto shadow-xs">
+          <table class="w-full text-left text-sm">
+            <thead class="bg-slate-50 text-slate-500 uppercase text-[11px] font-bold border-b">
+              <tr><th class="p-4">Produk</th><th class="p-4">Klik</th><th class="p-4">Pesanan</th><th class="p-4">CR (%)</th><th class="p-4">GMV</th><th class="p-4">Komisi</th><th class="p-4 text-right">Aksi</th></tr>
+            </thead>
+            <tbody id="affiliate-table-body" class="divide-y divide-slate-100"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ==================== 7. GEMINI AI ASSISTANT ==================== -->
       <section id="sec-ai" class="tab-section hidden space-y-5">
         <div class="bg-gradient-to-r from-amber-500 via-orange-600 to-indigo-700 rounded-2xl p-5 sm:p-6 text-white shadow-lg flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div class="space-y-1">
@@ -510,9 +599,9 @@
                 <label class="block text-xs font-bold text-slate-700 mb-1">Platform</label>
                 <select id="ai-platform" class="w-full px-3 py-2 border rounded-xl text-xs bg-white">
                   <option value="TikTok">TikTok</option>
-                  <option value="Instagram Reels">Instagram Reels</option>
-                  <option value="Shopee Video">Shopee Video</option>
-                  <option value="YouTube Shorts">YouTube Shorts</option>
+                  <option value="Instagram">Instagram Reels</option>
+                  <option value="Shopee">Shopee Video</option>
+                  <option value="YouTube">YouTube Shorts</option>
                 </select>
               </div>
               <div>
@@ -558,76 +647,7 @@ Klik tombol "Generate dengan Gemini AI" untuk membuat konsep konten instan!
         </div>
       </section>
 
-      <!-- ==================== 5. MANAJEMEN KLIEN ==================== -->
-      <section id="sec-clients" class="tab-section hidden space-y-4">
-        <div class="flex justify-between items-center gap-2">
-          <input type="text" id="search-clients" oninput="renderClients()" placeholder="Cari nama klien atau brand..." class="px-3.5 py-2 rounded-xl border border-slate-200 text-sm flex-1 max-w-sm" />
-          <button onclick="openClientModal()" class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm"><i data-lucide="plus" class="w-4 h-4"></i> Tambah Klien</button>
-        </div>
-        <div class="bg-white rounded-2xl border border-slate-200 overflow-x-auto shadow-xs">
-          <table class="w-full text-left text-sm">
-            <thead class="bg-slate-50 text-slate-500 uppercase text-[11px] font-bold border-b">
-              <tr><th class="p-4">Klien & Brand</th><th class="p-4">Mulai</th><th class="p-4">Status</th><th class="p-4">Project Aktif</th><th class="p-4 text-right">Aksi</th></tr>
-            </thead>
-            <tbody id="clients-table-body" class="divide-y divide-slate-100"></tbody>
-          </table>
-        </div>
-      </section>
-
-      <!-- ==================== 6. INVENTARIS AKUN MEDSOS ==================== -->
-      <section id="sec-accounts" class="tab-section hidden space-y-5">
-        <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-xs flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
-          <div class="flex flex-1 flex-col sm:flex-row gap-2.5">
-            <input type="text" id="search-accounts" oninput="renderAccounts()" placeholder="Cari nama akun atau @username..." class="px-3.5 py-2 rounded-xl border border-slate-200 text-xs flex-1 max-w-sm" />
-            <select id="filter-accounts-platform" onchange="renderAccounts()" class="px-3.5 py-2 rounded-xl border border-slate-200 text-xs bg-white">
-              <option value="ALL">Semua Platform</option>
-              <option value="TikTok">TikTok</option>
-              <option value="Instagram">Instagram</option>
-              <option value="Shopee">Shopee Video</option>
-              <option value="YouTube">YouTube</option>
-            </select>
-          </div>
-          <button onclick="openAccountModal()" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm transition">
-            <i data-lucide="plus" class="w-4 h-4"></i> Tambah Akun Baru
-          </button>
-        </div>
-
-        <div id="accounts-showcase-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
-      </section>
-
-      <!-- 7. ANALYTICS -->
-      <section id="sec-analytics" class="tab-section hidden space-y-4">
-        <div class="flex justify-between items-center gap-2">
-          <input type="text" id="search-analytics" oninput="renderAnalytics()" placeholder="Cari analitik..." class="px-3.5 py-2 rounded-xl border border-slate-200 text-sm flex-1 max-w-sm" />
-          <button onclick="openAnalyticsModal()" class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm"><i data-lucide="plus" class="w-4 h-4"></i> Input Performa</button>
-        </div>
-        <div class="bg-white rounded-2xl border border-slate-200 overflow-x-auto shadow-xs">
-          <table class="w-full text-left text-sm">
-            <thead class="bg-slate-50 text-slate-500 uppercase text-[11px] font-bold border-b">
-              <tr><th class="p-4">Tanggal & Nama Konten</th><th class="p-4">Akun / Platform</th><th class="p-4">Views</th><th class="p-4">Interaksi</th><th class="p-4">ER (%)</th><th class="p-4 text-right">Aksi</th></tr>
-            </thead>
-            <tbody id="analytics-table-body" class="divide-y divide-slate-100"></tbody>
-          </table>
-        </div>
-      </section>
-
-      <!-- 8. AFFILIATE -->
-      <section id="sec-affiliate" class="tab-section hidden space-y-4">
-        <div class="flex justify-between items-center gap-2">
-          <input type="text" id="search-affiliate" oninput="renderAffiliate()" placeholder="Cari produk..." class="px-3.5 py-2 rounded-xl border border-slate-200 text-sm flex-1 max-w-sm" />
-          <button onclick="openAffiliateModal()" class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm"><i data-lucide="plus" class="w-4 h-4"></i> Catat Produk</button>
-        </div>
-        <div class="bg-white rounded-2xl border border-slate-200 overflow-x-auto shadow-xs">
-          <table class="w-full text-left text-sm">
-            <thead class="bg-slate-50 text-slate-500 uppercase text-[11px] font-bold border-b">
-              <tr><th class="p-4">Produk</th><th class="p-4">Klik</th><th class="p-4">Pesanan</th><th class="p-4">CR (%)</th><th class="p-4">GMV</th><th class="p-4">Komisi</th><th class="p-4 text-right">Aksi</th></tr>
-            </thead>
-            <tbody id="affiliate-table-body" class="divide-y divide-slate-100"></tbody>
-          </table>
-        </div>
-      </section>
-
-      <!-- 9. TASKS -->
+      <!-- ==================== 8. TUGAS & DEADLINE ==================== -->
       <section id="sec-tasks" class="tab-section hidden space-y-4">
         <div class="flex justify-between items-center gap-2">
           <input type="text" id="search-tasks" oninput="renderTasks()" placeholder="Cari tugas..." class="px-3.5 py-2 rounded-xl border border-slate-200 text-sm flex-1 max-w-sm" />
@@ -643,7 +663,7 @@ Klik tombol "Generate dengan Gemini AI" untuk membuat konsep konten instan!
         </div>
       </section>
 
-      <!-- 10. REPORTS -->
+      <!-- ==================== 9. REPORT CENTER ==================== -->
       <section id="sec-reports" class="tab-section hidden space-y-4">
         <div class="bg-white rounded-2xl p-5 border border-slate-200 flex justify-between items-center shadow-xs">
           <div><h3 class="font-bold text-base text-slate-900">Laporan Resmi</h3><p class="text-xs text-slate-500">Cetak laporan langsung atau unduh CSV</p></div>
@@ -654,7 +674,7 @@ Klik tombol "Generate dengan Gemini AI" untuk membuat konsep konten instan!
         </div>
       </section>
 
-      <!-- 11. SETTINGS -->
+      <!-- ==================== 10. DATABASE & CLOUD ==================== -->
       <section id="sec-settings" class="tab-section hidden space-y-4">
         <div class="bg-white rounded-2xl p-6 border border-slate-200 space-y-4 shadow-xs">
           <h3 class="font-bold text-base text-slate-900">Pusat Integrasi & Penyimpanan</h3>
@@ -677,7 +697,7 @@ Klik tombol "Generate dengan Gemini AI" untuk membuat konsep konten instan!
     </main>
   </div>
 
-  <!-- MOBILE BOTTOM NAV (DASHBOARD DI PALING KIRI/AWAL) -->
+  <!-- MOBILE BOTTOM NAV -->
   <nav class="no-print lg:hidden fixed bottom-0 inset-x-0 bg-white border-t border-slate-200 z-30 flex items-center justify-around py-2 px-1 shadow-lg">
     <button onclick="switchTab('dashboard')" data-tab="dashboard" class="mob-nav-btn flex flex-col items-center text-[10px] font-bold text-indigo-600"><i data-lucide="layout-dashboard" class="w-5 h-5 mb-0.5"></i>Dashboard</button>
     <button onclick="switchTab('projects')" data-tab="projects" class="mob-nav-btn flex flex-col items-center text-[10px] font-bold text-slate-500"><i data-lucide="folder-kanban" class="w-5 h-5 mb-0.5"></i>Project</button>
@@ -722,23 +742,23 @@ Klik tombol "Generate dengan Gemini AI" untuk membuat konsep konten instan!
           </div>
         </div>
 
-        <!-- AREA INPUT MANDIRI AKUN MEDSOS PROJECT -->
+        <!-- AREA INPUT MANDIRI AKUN MEDSOS PROJECT DENGAN WARNA WARNI KHAS -->
         <div class="p-4 rounded-2xl bg-indigo-50/50 border border-indigo-100 space-y-3">
           <div class="flex items-center justify-between">
             <span class="text-xs font-extrabold text-indigo-900 flex items-center gap-1.5">
               <i data-lucide="share-2" class="w-4 h-4 text-indigo-600"></i> Masukkan Akun Medsos Klien untuk Project Ini
             </span>
-            <span class="text-[10px] text-indigo-600 font-bold">Ketik Sendiri</span>
+            <span class="text-[10px] text-indigo-600 font-bold">Warna Khas Platform</span>
           </div>
 
           <!-- Form Mini Tambah Akun -->
           <div class="grid grid-cols-1 sm:grid-cols-12 gap-2 bg-white p-2.5 rounded-xl border border-indigo-200/80 shadow-2xs">
             <div class="sm:col-span-4">
               <select id="input-inline-platform" class="w-full px-2 py-1.5 border rounded-lg text-xs font-semibold bg-slate-50">
-                <option value="TikTok">TikTok</option>
-                <option value="Instagram">Instagram</option>
-                <option value="Shopee">Shopee Video</option>
-                <option value="YouTube">YouTube</option>
+                <option value="TikTok">TikTok (Hitam Neon)</option>
+                <option value="Instagram">Instagram (Sunset Gradient)</option>
+                <option value="Shopee">Shopee Video (Oranye)</option>
+                <option value="YouTube">YouTube (Merah)</option>
               </select>
             </div>
             <div class="sm:col-span-5">
@@ -751,7 +771,7 @@ Klik tombol "Generate dengan Gemini AI" untuk membuat konsep konten instan!
             </div>
           </div>
 
-          <!-- Daftar Akun yang Ditugaskan ke Project Ini -->
+          <!-- Daftar Akun Terpilih -->
           <div class="space-y-1.5">
             <p class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Daftar Akun yang Terdaftar di Project Ini:</p>
             <div id="project-active-accounts-list" class="flex flex-wrap gap-1.5 min-h-[36px] p-2 rounded-xl bg-white border border-slate-200">
@@ -787,7 +807,6 @@ Klik tombol "Generate dengan Gemini AI" untuk membuat konsep konten instan!
       <form onsubmit="saveContent(event)" class="space-y-3.5">
         <input type="hidden" id="content-id" />
         
-        <!-- Pilihan Project & Akun Berjenjang -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 p-3 rounded-2xl bg-slate-50 border border-slate-200">
           <div>
             <label class="block text-xs font-bold text-slate-700 mb-1">Pilih Project Terkait *</label>
@@ -853,7 +872,6 @@ Klik tombol "Generate dengan Gemini AI" untuk membuat konsep konten instan!
           </div>
         </div>
 
-        <!-- Kolom Hook Viral -->
         <div>
           <label class="block text-xs font-bold text-amber-700 mb-1 flex items-center justify-between">
             <span>🔥 Hook 3 Detik Pertama (Pancingan Audiens)</span>
@@ -862,13 +880,11 @@ Klik tombol "Generate dengan Gemini AI" untuk membuat konsep konten instan!
           <input type="text" id="content-hook" placeholder="Contoh: Jangan beli kemeja sebelum kamu tahu trik bahan ini!" class="w-full px-3 py-2 border border-amber-200 bg-amber-50/30 rounded-xl text-xs font-medium" />
         </div>
 
-        <!-- Kolom Script Naskah Voice Over -->
         <div>
           <label class="block text-xs font-bold text-slate-700 mb-1">Script / Alur Naskah Voice Over & Visual</label>
           <textarea id="content-script" rows="3" placeholder="Tuliskan kata-kata pembicara atau alur adegan visual..." class="w-full px-3 py-2 border rounded-xl text-xs leading-relaxed"></textarea>
         </div>
 
-        <!-- Kolom Caption -->
         <div>
           <label class="block text-xs font-bold text-slate-700 mb-1">Caption Postingan & Hashtag</label>
           <textarea id="content-caption" rows="2" placeholder="Teks caption postingan..." class="w-full px-3 py-2 border rounded-xl text-xs"></textarea>
@@ -903,7 +919,7 @@ Klik tombol "Generate dengan Gemini AI" untuk membuat konsep konten instan!
 
         <div class="p-4 rounded-2xl bg-amber-50 border border-amber-200 space-y-1">
           <p class="text-[10px] font-extrabold uppercase text-amber-800 tracking-wider flex items-center gap-1">
-            <i data-lucide="zap" class="w-3 h-3 text-amber-600"></i> Hook 3 Detik Pertama (Pancingan Audiens):
+            <i data-lucide="zap" class="w-3 h-3 text-amber-600"></i> Hook 3 Detik Pertama:
           </p>
           <p id="tele-hook" class="text-sm sm:text-base font-extrabold text-slate-900 leading-relaxed font-sans">
             Belum ada Hook yang ditulis.
@@ -983,43 +999,6 @@ Belum ada naskah script.
     </div>
   </div>
 
-  <!-- MODAL AKUN MEDIA SOSIAL (INVENTARIS) -->
-  <div id="modal-account" class="no-print hidden fixed inset-0 z-50 bg-slate-900/60 flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl max-w-lg w-full p-5 space-y-3 shadow-xl">
-      <h3 id="modal-account-title" class="font-bold text-base text-slate-900">Tambah Akun Media Sosial</h3>
-      <form onsubmit="saveAccount(event)" class="space-y-3">
-        <input type="hidden" id="account-id" />
-        <div class="grid grid-cols-2 gap-2">
-          <div><label class="block text-xs font-bold mb-1">Nama Akun / Label</label><input type="text" id="account-name" required placeholder="Contoh: Akun Fashion Lisy" class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
-          <div><label class="block text-xs font-bold mb-1">Username (@)</label><input type="text" id="account-username" required placeholder="@lisy_fashion" class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
-        </div>
-        <div class="grid grid-cols-3 gap-2">
-          <div>
-            <label class="block text-xs font-bold mb-1">Platform</label>
-            <select id="account-platform" class="w-full px-3 py-2 border rounded-xl text-sm bg-white">
-              <option value="TikTok">TikTok</option>
-              <option value="Instagram">Instagram</option>
-              <option value="Shopee">Shopee Video</option>
-              <option value="YouTube">YouTube</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-xs font-bold mb-1">Klien Pemilik</label>
-            <select id="account-client-select" class="w-full px-3 py-2 border rounded-xl text-sm bg-white"></select>
-          </div>
-          <div>
-            <label class="block text-xs font-bold mb-1">Followers</label>
-            <input type="number" id="account-followers" value="0" required class="w-full px-3 py-2 border rounded-xl text-sm" />
-          </div>
-        </div>
-        <div class="flex justify-end gap-2 pt-2">
-          <button type="button" onclick="closeModal('modal-account')" class="px-4 py-2 border rounded-xl text-xs font-bold">Batal</button>
-          <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-xs font-bold">Simpan Akun</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
   <!-- MODAL ANALYTICS -->
   <div id="modal-analytics" class="no-print hidden fixed inset-0 z-50 bg-slate-900/60 flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl max-w-lg w-full p-5 space-y-3 shadow-xl">
@@ -1083,7 +1062,7 @@ Belum ada naskah script.
 
   <div id="toast-container" class="no-print fixed top-4 right-4 z-50 space-y-2 pointer-events-none"></div>
 
-  <!-- ==================== JAVASCRIPT LOGIC V6.5 ==================== -->
+  <!-- ==================== JAVASCRIPT LOGIC V6.6 PRO ==================== -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
     import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
@@ -1116,9 +1095,7 @@ Belum ada naskah script.
     };
 
     let tempProjectAccounts = [];
-
-    // DEFAULT TAB PADA STARTUP: DASHBOARD UTAMA!
-    let activeTab = 'dashboard';
+    let activeTab = 'dashboard'; // DEFAULT TAB PADA STARTUP: DASHBOARD UTAMA!
     let plannerMode = 'calendar';
     let currentCalendarDate = new Date();
     let activeProjectFilter = 'ALL';
@@ -1156,6 +1133,34 @@ Belum ada naskah script.
         return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
       }
       return '19:00';
+    }
+
+    // SISTEM WARNA KHAS MEDIA SOSIAL (PLATFORM COLOR SYSTEM)
+    function getPlatformBadge(platform, username = '') {
+      const p = String(platform || '').toLowerCase();
+      const u = username ? username.replace(/^@+/, '@') : '';
+
+      if (p.includes('tiktok')) {
+        return `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-extrabold bg-slate-950 text-cyan-300 border border-cyan-500/40 shadow-2xs">
+          <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span> TikTok ${u ? `(${escapeHtml(u)})` : ''}
+        </span>`;
+      } else if (p.includes('instagram') || p.includes('reels')) {
+        return `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-extrabold bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 text-white shadow-2xs">
+          IG ${u ? `(${escapeHtml(u)})` : ''}
+        </span>`;
+      } else if (p.includes('shopee')) {
+        return `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-extrabold bg-orange-500 text-white border border-orange-600 shadow-2xs">
+          Shopee ${u ? `(${escapeHtml(u)})` : ''}
+        </span>`;
+      } else if (p.includes('youtube') || p.includes('shorts')) {
+        return `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-extrabold bg-rose-600 text-white border border-rose-700 shadow-2xs">
+          YouTube ${u ? `(${escapeHtml(u)})` : ''}
+        </span>`;
+      } else {
+        return `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-bold bg-slate-100 text-slate-700">
+          ${escapeHtml(platform)} ${u ? `(${escapeHtml(u)})` : ''}
+        </span>`;
+      }
     }
 
     function showToast(msg, isErr = false) {
@@ -1255,17 +1260,16 @@ Belum ada naskah script.
       });
 
       const titleMap = {
-        dashboard: 'Dashboard Utama',
-        projects: 'Kelola Project & Akun Medsos',
-        planner: 'Content Planner Visual',
-        ai: 'Boby AI Creator Assistant (Gemini Engine)',
-        accounts: 'Inventaris Akun Media Sosial',
-        clients: 'Manajemen Klien',
-        analytics: 'Analytics Performa Konten',
-        affiliate: 'Affiliate Tracker',
-        tasks: 'Task Management',
-        reports: 'Report Center',
-        settings: 'Database & Cloud Firestore'
+        dashboard: '1. Dashboard Utama',
+        clients: '2. Manajemen Klien',
+        projects: '3. Kelola Project & Akun',
+        planner: '4. Content Planner Visual',
+        analytics: '5. Analytics Performa',
+        affiliate: '6. Affiliate Tracker',
+        ai: '7. Gemini AI Assistant (Pro)',
+        tasks: '8. Tugas & Deadline',
+        reports: '9. Report Center',
+        settings: '10. Database & Cloud Firestore'
       };
       document.getElementById('page-title').textContent = titleMap[t] || 'Command Center';
 
@@ -1275,6 +1279,89 @@ Belum ada naskah script.
 
     window.closeModal = function(id) { document.getElementById(id).classList.add('hidden'); };
     window.openClientModal = function() { document.getElementById('modal-client').classList.remove('hidden'); };
+
+    // --- SMART NOTIFICATION SYSTEM ---
+    window.toggleNotificationDropdown = function() {
+      document.getElementById('notif-dropdown')?.classList.toggle('hidden');
+    };
+    window.closeNotificationDropdown = function() {
+      document.getElementById('notif-dropdown')?.classList.add('hidden');
+    };
+    window.dismissUrgentBanner = function() {
+      document.getElementById('urgent-reminder-banner')?.classList.add('hidden');
+    };
+
+    function updateSmartNotifications() {
+      const today = todayISO();
+      const notifs = [];
+
+      // 1. Cek Konten Tayang Hari Ini
+      const todayContents = db.contents.filter(c => c.date === today && c.status !== 'Sudah upload');
+      if (todayContents.length > 0) {
+        notifs.push({
+          type: 'urgent',
+          title: 'Jadwal Konten Hari Ini!',
+          desc: `Ada ${todayContents.length} konten yang dijadwalkan tayang hari ini (${formatDateID(today)}).`,
+          actionTab: 'planner'
+        });
+      }
+
+      // 2. Cek Tugas yang Terlambat atau Deadline Hari Ini
+      const urgentTasks = db.tasks.filter(t => t.status !== 'Selesai' && t.deadline && t.deadline <= today);
+      if (urgentTasks.length > 0) {
+        notifs.push({
+          type: 'warning',
+          title: 'Tugas Jatuh Tempo!',
+          desc: `Ada ${urgentTasks.length} tugas yang harus segera diselesaikan hari ini.`,
+          actionTab: 'tasks'
+        });
+      }
+
+      // 3. Konten yang Masih di Tahap 'Ide'
+      const ideaContents = db.contents.filter(c => c.status === 'Ide');
+      if (ideaContents.length > 3) {
+        notifs.push({
+          type: 'info',
+          title: 'Bank Ide Tersedia',
+          desc: `Ada ${ideaContents.length} ide konten yang siap diproduksi atau dibuatkan script via Gemini AI.`,
+          actionTab: 'ai'
+        });
+      }
+
+      // Render Badge & Banner
+      const badge = document.getElementById('notif-badge');
+      const banner = document.getElementById('urgent-reminder-banner');
+      const bannerMsg = document.getElementById('urgent-reminder-message');
+      const notifList = document.getElementById('notif-list');
+
+      if (notifs.length > 0) {
+        if (badge) badge.classList.remove('hidden');
+        if (banner) {
+          banner.classList.remove('hidden');
+          bannerMsg.textContent = notifs[0].title + ' — ' + notifs[0].desc;
+        }
+      } else {
+        if (badge) badge.classList.add('hidden');
+        if (banner) banner.classList.add('hidden');
+      }
+
+      if (notifList) {
+        notifList.innerHTML = notifs.length === 0 
+          ? '<p class="text-slate-400 p-3 text-center italic">Semua jadwal, konten, dan tugas dalam kondisi aman terkendali!</p>'
+          : notifs.map(n => `
+            <div onclick="switchTab('${n.actionTab}'); closeNotificationDropdown();" class="p-3 rounded-xl border border-slate-200 hover:border-indigo-400 bg-slate-50 hover:bg-white cursor-pointer transition space-y-1">
+              <div class="flex items-center justify-between">
+                <span class="font-extrabold text-slate-900 flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full ${n.type === 'urgent' ? 'bg-rose-500' : (n.type === 'warning' ? 'bg-amber-500' : 'bg-indigo-500')}"></span>
+                  ${escapeHtml(n.title)}
+                </span>
+                <span class="text-[10px] font-bold text-indigo-600">Buka &rarr;</span>
+              </div>
+              <p class="text-[11px] text-slate-600 leading-snug">${escapeHtml(n.desc)}</p>
+            </div>
+          `).join('');
+      }
+    }
 
     function populateTimeDropdowns() {
       const hSel = document.getElementById('content-hour');
@@ -1347,15 +1434,11 @@ Belum ada naskah script.
 
     function populateClientDropdownInProject() {
       const sel = document.getElementById('project-client-select');
-      const accClientSel = document.getElementById('account-client-select');
-      
       let html = '<option value="client_internal">🏢 Internal / Brand Sendiri</option>';
       db.clients.forEach(c => {
         html += `<option value="${c.id}">${escapeHtml(c.name)} (${escapeHtml(c.brand)})</option>`;
       });
-
       if (sel) sel.innerHTML = html;
-      if (accClientSel) accClientSel.innerHTML = html;
     }
 
     window.addInlineAccountToProject = function() {
@@ -1368,7 +1451,6 @@ Belum ada naskah script.
       }
 
       const cleanUsername = rawUser.replace(/^@+/, '@');
-
       const exists = tempProjectAccounts.some(a => a.platform === platform && a.username.toLowerCase() === cleanUsername.toLowerCase());
       if (exists) {
         showToast('Akun ini sudah dimasukkan ke daftar project!', true);
@@ -1401,9 +1483,8 @@ Belum ada naskah script.
       }
 
       container.innerHTML = tempProjectAccounts.map((a, idx) => `
-        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold bg-indigo-50 border border-indigo-200 text-indigo-900 shadow-2xs">
-          <span class="px-1 py-0.2 rounded bg-indigo-600 text-white text-[9px] uppercase">${escapeHtml(a.platform)}</span>
-          <span>${escapeHtml(a.username)}</span>
+        <span class="inline-flex items-center gap-1.5 p-1.5 rounded-lg text-xs font-bold bg-white border border-slate-200 shadow-2xs">
+          ${getPlatformBadge(a.platform, a.username)}
           <button type="button" onclick="removeInlineAccountFromProject(${idx})" class="text-rose-500 hover:text-rose-700 font-extrabold ml-1 text-sm leading-none" title="Hapus akun ini">&times;</button>
         </span>
       `).join('');
@@ -1550,7 +1631,6 @@ Belum ada naskah script.
       }
     };
 
-    // --- QUICK STATUS UPDATER (LANGSUNG DARI TABEL / DASHBOARD!) ---
     window.quickUpdateContentStatus = function(id, newStatus) {
       const c = db.contents.find(x => x.id === id);
       if (c) {
@@ -1608,7 +1688,7 @@ Belum ada naskah script.
       const acc = db.accounts.find(x => x.id === c.accountId);
       const cleanUser = acc ? acc.username.replace(/^@+/, '@') : (c.platform || 'Medsos');
 
-      document.getElementById('tele-project-tag').textContent = `${proj ? proj.name : 'Project'} • ${cleanUser}`;
+      document.getElementById('tele-project-tag').innerHTML = `${getPlatformBadge(c.platform, cleanUser)} • <span class="font-extrabold text-slate-800">${escapeHtml(proj ? proj.name : 'Project Utama')}</span>`;
       document.getElementById('tele-title').textContent = c.title;
       document.getElementById('tele-meta').textContent = `Jadwal: ${formatDateID(c.date)} • Jam ${formatTime24(c.time)} WIB • Status: ${c.status}`;
       document.getElementById('tele-hook').textContent = c.hook || 'Belum ada Hook pancingan yang ditulis.';
@@ -1883,33 +1963,6 @@ Belum ada naskah script.
       showToast('Klien tersimpan!');
     };
 
-    window.saveAccount = function(e) {
-      e.preventDefault();
-      const id = document.getElementById('account-id').value;
-      const rawUser = document.getElementById('account-username').value.trim();
-      const cleanUsername = rawUser.replace(/^@+/, '@');
-
-      const payload = {
-        id: id || uid(),
-        name: document.getElementById('account-name').value.trim(),
-        username: cleanUsername,
-        platform: document.getElementById('account-platform').value,
-        clientId: document.getElementById('account-client-select').value,
-        followers: Number(document.getElementById('account-followers').value || 0)
-      };
-
-      if (id) {
-        const idx = db.accounts.findIndex(x => x.id === id);
-        if (idx > -1) db.accounts[idx] = payload;
-        showToast('Akun media sosial diperbarui!');
-      } else {
-        db.accounts.unshift(payload);
-        showToast('Akun baru ditambahkan!');
-      }
-      closeModal('modal-account');
-      saveToCloud();
-    };
-
     window.saveContent = function(e) {
       e.preventDefault();
       const id = document.getElementById('content-id').value;
@@ -2085,10 +2138,9 @@ Belum ada naskah script.
                   <p class="font-extrabold text-slate-900">${escapeHtml(c.title)}</p>
                   <p class="text-[11px] text-slate-500 truncate max-w-xs mt-0.5">${escapeHtml(c.hook || '-')}</p>
                 </td>
-                <td class="p-4"><span class="px-2 py-0.5 rounded-md text-xs font-bold bg-indigo-50 text-indigo-700">${escapeHtml(cleanTag)}</span></td>
-                <td class="p-4 text-slate-600">${escapeHtml(c.pillar)}</td>
+                <td class="p-4">${getPlatformBadge(c.platform, cleanTag)}</td>
+                <td class="p-4 text-slate-600 font-medium">${escapeHtml(c.pillar)}</td>
                 <td class="p-4">
-                  <!-- QUICK STATUS DROPDOWN SEKALIGUS -->
                   <select onchange="quickUpdateContentStatus('${c.id}', this.value)" class="px-2.5 py-1 rounded-lg text-xs font-extrabold border ${
                     c.status === 'Sudah upload' ? 'bg-emerald-50 text-emerald-700 border-emerald-200' : (c.status === 'Siap upload' ? 'bg-indigo-50 text-indigo-700 border-indigo-200' : 'bg-slate-100 text-slate-700 border-slate-200')
                   } cursor-pointer focus:outline-none">
@@ -2138,13 +2190,13 @@ Belum ada naskah script.
                 <p class="text-xs text-slate-500 line-clamp-2 mt-0.5">${escapeHtml(p.desc || 'Tidak ada deskripsi.')}</p>
               </div>
 
-              <!-- Akun Sosmed Terkait -->
+              <!-- Akun Sosmed Terkait dengan Warna Khas -->
               <div class="bg-slate-50 p-2.5 rounded-xl space-y-1">
                 <p class="text-[10px] text-slate-400 font-extrabold uppercase">Akun Medsos Terdaftar (${assignedAccs.length}):</p>
                 <div class="flex flex-wrap gap-1">
                   ${assignedAccs.length === 0 
                     ? '<span class="text-[11px] text-slate-400 italic">Belum ada akun terhubung</span>'
-                    : assignedAccs.map(a => `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-white border border-slate-200 text-slate-700 shadow-2xs">${a.platform} (${a.username.replace(/^@+/,'@')})</span>`).join('')
+                    : assignedAccs.map(a => getPlatformBadge(a.platform, a.username)).join('')
                   }
                 </div>
               </div>
@@ -2184,10 +2236,10 @@ Belum ada naskah script.
           <div class="p-3 rounded-xl border border-slate-200 bg-slate-50/60 hover:bg-slate-50 transition space-y-1.5">
             <div class="flex items-center justify-between">
               <span class="text-[10px] font-extrabold text-indigo-600">${formatDateID(c.date)} • Jam ${formatTime24(c.time)} WIB</span>
-              <span class="px-1.5 py-0.2 rounded text-[9px] font-extrabold bg-slate-200 text-slate-700">${c.status}</span>
+              ${getPlatformBadge(c.platform, cleanUser)}
             </div>
             <p class="font-extrabold text-xs text-slate-900 truncate">${escapeHtml(c.title)}</p>
-            <p class="text-[10px] text-slate-500 truncate">Project: ${escapeHtml(proj ? proj.name : 'Project Utama')} (${cleanUser})</p>
+            <p class="text-[10px] text-slate-500 truncate">Project: ${escapeHtml(proj ? proj.name : 'Project Utama')}</p>
             <div class="flex items-center justify-end gap-1.5 pt-1 border-t border-slate-200/60">
               <button onclick="openTeleprompter('${c.id}')" class="px-2 py-0.5 rounded bg-amber-500 hover:bg-amber-600 text-slate-900 text-[10px] font-bold">🎬 Shooting</button>
               <button onclick="quickUpdateContentStatus('${c.id}', 'Sudah upload')" class="px-2 py-0.5 rounded bg-emerald-600 hover:bg-emerald-700 text-white text-[10px] font-bold">✓ Sudah Upload</button>
@@ -2197,14 +2249,104 @@ Belum ada naskah script.
       }).join('');
     }
 
+    function renderClients() {
+      const tbody = document.getElementById('clients-table-body');
+      if (!tbody) return;
+
+      const q = (document.getElementById('search-clients')?.value || '').toLowerCase();
+      const filtered = db.clients.filter(c => c.name.toLowerCase().includes(q) || c.brand.toLowerCase().includes(q));
+
+      tbody.innerHTML = filtered.length === 0
+        ? '<tr><td colspan="5" class="p-4 text-center text-slate-400 text-xs">Belum ada klien terdaftar.</td></tr>'
+        : filtered.map(c => {
+          const pCount = db.projects.filter(p => p.clientId === c.id).length;
+          return `
+            <tr class="hover:bg-slate-50">
+              <td class="p-4 font-bold text-slate-900">${escapeHtml(c.name)} (${escapeHtml(c.brand)})</td>
+              <td class="p-4 text-slate-600">${c.startDate}</td>
+              <td class="p-4"><span class="px-2 py-0.5 rounded-md text-xs font-bold bg-emerald-50 text-emerald-700">${escapeHtml(c.status)}</span></td>
+              <td class="p-4 font-bold text-indigo-600">${pCount} Project</td>
+              <td class="p-4 text-right space-x-2">
+                <button onclick="openProjectModal(); document.getElementById('project-client-select').value='${c.id}';" class="text-indigo-600 font-bold text-xs hover:underline">+ Project</button>
+                <button onclick="db.clients=db.clients.filter(x=>x.id!='${c.id}');saveToCloud();" class="text-rose-600 font-bold text-xs hover:underline">Hapus</button>
+              </td>
+            </tr>`;
+        }).join('');
+    }
+
+    function renderAnalytics() {
+      const tbody = document.getElementById('analytics-table-body');
+      if (!tbody) return;
+
+      const q = (document.getElementById('search-analytics')?.value || '').toLowerCase();
+      const filtered = db.analytics.filter(a => a.title.toLowerCase().includes(q));
+
+      tbody.innerHTML = filtered.length === 0
+        ? '<tr><td colspan="6" class="p-4 text-center text-slate-400 text-xs">Belum ada data analitik.</td></tr>'
+        : filtered.map(a => `
+          <tr class="hover:bg-slate-50">
+            <td class="p-4"><span class="text-xs text-indigo-600 font-bold">${formatDateID(a.date)}</span><p class="font-bold text-slate-900">${escapeHtml(a.title)}</p></td>
+            <td class="p-4">${getPlatformBadge(a.platform)}</td>
+            <td class="p-4 font-bold text-slate-900">${formatNumber(a.views)}</td>
+            <td class="p-4">${formatNumber(a.likes + a.comments)}</td>
+            <td class="p-4 font-bold text-rose-600">${a.er}%</td>
+            <td class="p-4 text-right"><button onclick="db.analytics=db.analytics.filter(x=>x.id!='${a.id}');saveToCloud();" class="text-rose-600 font-bold text-xs hover:underline">Hapus</button></td>
+          </tr>`).join('');
+    }
+
+    function renderAffiliate() {
+      const tbody = document.getElementById('affiliate-table-body');
+      if (!tbody) return;
+
+      const q = (document.getElementById('search-affiliate')?.value || '').toLowerCase();
+      const filtered = db.affiliates.filter(f => f.product.toLowerCase().includes(q));
+
+      tbody.innerHTML = filtered.length === 0
+        ? '<tr><td colspan="7" class="p-4 text-center text-slate-400 text-xs">Belum ada data affiliate.</td></tr>'
+        : filtered.map(f => `
+          <tr class="hover:bg-slate-50">
+            <td class="p-4 font-bold text-slate-900">${escapeHtml(f.product)}</td>
+            <td class="p-4">${formatNumber(f.clicks)}</td>
+            <td class="p-4">${formatNumber(f.orders)}</td>
+            <td class="p-4 font-bold text-amber-600">${f.cr}%</td>
+            <td class="p-4 font-semibold">${formatRupiah(f.gmv)}</td>
+            <td class="p-4 font-extrabold text-emerald-600">${formatRupiah(f.commission)}</td>
+            <td class="p-4 text-right"><button onclick="db.affiliates=db.affiliates.filter(x=>x.id!='${f.id}');saveToCloud();" class="text-rose-600 font-bold text-xs hover:underline">Hapus</button></td>
+          </tr>`).join('');
+    }
+
+    function renderTasks() {
+      const tbody = document.getElementById('tasks-table-body');
+      if (!tbody) return;
+
+      const q = (document.getElementById('search-tasks')?.value || '').toLowerCase();
+      const filtered = db.tasks.filter(t => t.title.toLowerCase().includes(q));
+
+      tbody.innerHTML = filtered.length === 0
+        ? '<tr><td colspan="5" class="p-4 text-center text-slate-400 text-xs">Tidak ada tugas.</td></tr>'
+        : filtered.map(t => `
+          <tr class="hover:bg-slate-50">
+            <td class="p-4 font-bold text-slate-900">${escapeHtml(t.title)}</td>
+            <td class="p-4">${formatDateID(t.deadline)}</td>
+            <td class="p-4"><span class="px-2 py-0.5 rounded-md text-xs font-bold bg-amber-50 text-amber-700">${escapeHtml(t.priority)}</span></td>
+            <td class="p-4 font-bold">${escapeHtml(t.status)}</td>
+            <td class="p-4 text-right"><button onclick="db.tasks=db.tasks.filter(x=>x.id!='${t.id}');saveToCloud();" class="text-rose-600 font-bold text-xs hover:underline">Hapus</button></td>
+          </tr>`).join('');
+    }
+
     function refreshAll() {
       populateGlobalProjectDropdown();
       populateClientDropdownInProject();
       populateTimeDropdowns();
       updateAIKeyStatusUI();
+      updateSmartNotifications();
       renderPlanner();
       renderProjects();
       renderDashboardUpcomingContent();
+      renderClients();
+      renderAnalytics();
+      renderAffiliate();
+      renderTasks();
 
       const filteredAnalytics = activeProjectFilter !== 'ALL'
         ? db.analytics.filter(a => a.projectId === activeProjectFilter)
@@ -2221,7 +2363,7 @@ Belum ada naskah script.
       document.getElementById('dash-uploaded-content').textContent = `${db.contents.filter(c => c.status === 'Sudah upload').length} Sudah Upload`;
       document.getElementById('dash-total-views').textContent = formatNumber(filteredAnalytics.reduce((a, b) => a + Number(b.views || 0), 0));
       document.getElementById('dash-total-followers').textContent = formatNumber(totalFollowersCount);
-      document.getElementById('dash-followers-sub').textContent = 'Seluruh Akun';
+      document.getElementById('dash-followers-sub').textContent = 'Seluruh Akun Medsos';
 
       const avgER = filteredAnalytics.length > 0 ? (filteredAnalytics.reduce((a, b) => a + Number(b.er || 0), 0) / filteredAnalytics.length).toFixed(2) : 0;
       document.getElementById('dash-avg-er').textContent = `${avgER}%`;
@@ -2234,84 +2376,9 @@ Belum ada naskah script.
       document.getElementById('dash-aff-gmv').textContent = `GMV: ${formatRupiah(db.affiliates.reduce((a, b) => a + Number(b.gmv || 0), 0))}`;
       document.getElementById('dash-aff-commission').textContent = formatRupiah(db.affiliates.reduce((a, b) => a + Number(b.commission || 0), 0));
 
-      // Showcase Akun
-      const showcase = document.getElementById('accounts-showcase-grid');
-      if (showcase) {
-        showcase.innerHTML = db.accounts.length === 0 
-          ? '<p class="text-xs text-slate-400 p-4 col-span-3">Belum ada akun media sosial.</p>'
-          : db.accounts.map(acc => {
-            const client = db.clients.find(c => c.id === acc.clientId);
-            const clientName = client ? client.name : 'Internal';
-            const cleanUser = acc.username.replace(/^@+/, '@');
-            const postCount = db.contents.filter(c => c.accountId === acc.id).length;
-            return `
-              <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-xs space-y-3 transition">
-                <div class="flex items-center justify-between">
-                  <span class="px-2 py-0.5 rounded-lg text-[10px] font-extrabold uppercase bg-slate-900 text-white">${escapeHtml(acc.platform)}</span>
-                  <span class="text-[10px] font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full">${escapeHtml(clientName)}</span>
-                </div>
-                <div>
-                  <h4 class="font-extrabold text-base text-slate-900 truncate">${escapeHtml(acc.name)}</h4>
-                  <p class="text-xs text-indigo-600 font-semibold">${escapeHtml(cleanUser)}</p>
-                </div>
-                <div class="flex items-center justify-between pt-1 border-t text-xs">
-                  <span class="text-slate-500">Konten: ${postCount}</span>
-                  <button onclick="db.accounts=db.accounts.filter(x=>x.id!='${acc.id}');saveToCloud();" class="text-rose-600 font-bold hover:underline">Hapus</button>
-                </div>
-              </div>
-            `;
-          }).join('');
-      }
-
-      // Tables
-      document.getElementById('clients-table-body').innerHTML = db.clients.map(c => {
-        const pCount = db.projects.filter(p => p.clientId === c.id).length;
-        return `
-          <tr class="hover:bg-slate-50">
-            <td class="p-4 font-bold">${escapeHtml(c.name)} (${escapeHtml(c.brand)})</td>
-            <td class="p-4">${c.startDate}</td>
-            <td class="p-4"><span class="px-2 py-0.5 rounded-md text-xs font-bold bg-emerald-50 text-emerald-700">${escapeHtml(c.status)}</span></td>
-            <td class="p-4 font-bold text-indigo-600">${pCount} Project</td>
-            <td class="p-4 text-right space-x-2">
-              <button onclick="openProjectModal(); document.getElementById('project-client-select').value='${c.id}';" class="text-indigo-600 font-bold text-xs hover:underline">+ Project</button>
-              <button onclick="db.clients=db.clients.filter(x=>x.id!='${c.id}');saveToCloud();" class="text-rose-600 font-bold text-xs hover:underline">Hapus</button>
-            </td>
-          </tr>`;
-      }).join('');
-
-      document.getElementById('analytics-table-body').innerHTML = filteredAnalytics.map(a => `
-        <tr class="hover:bg-slate-50">
-          <td class="p-4"><span class="text-xs text-indigo-600 font-bold">${formatDateID(a.date)}</span><p class="font-bold text-slate-900">${escapeHtml(a.title)}</p></td>
-          <td class="p-4"><span class="px-2 py-0.5 rounded-md text-xs font-bold bg-indigo-50 text-indigo-700">${escapeHtml(a.platform)}</span></td>
-          <td class="p-4 font-bold">${formatNumber(a.views)}</td>
-          <td class="p-4">${formatNumber(a.likes + a.comments)}</td>
-          <td class="p-4 font-bold text-rose-600">${a.er}%</td>
-          <td class="p-4 text-right"><button onclick="db.analytics=db.analytics.filter(x=>x.id!='${a.id}');saveToCloud();" class="text-rose-600 font-bold text-xs">Hapus</button></td>
-        </tr>`).join('');
-
-      document.getElementById('affiliate-table-body').innerHTML = db.affiliates.map(f => `
-        <tr class="hover:bg-slate-50">
-          <td class="p-4 font-bold">${escapeHtml(f.product)}</td>
-          <td class="p-4">${formatNumber(f.clicks)}</td>
-          <td class="p-4">${formatNumber(f.orders)}</td>
-          <td class="p-4 font-bold text-amber-600">${f.cr}%</td>
-          <td class="p-4">${formatRupiah(f.gmv)}</td>
-          <td class="p-4 font-bold text-emerald-600">${formatRupiah(f.commission)}</td>
-          <td class="p-4 text-right"><button onclick="db.affiliates=db.affiliates.filter(x=>x.id!='${f.id}');saveToCloud();" class="text-rose-600 font-bold text-xs">Hapus</button></td>
-        </tr>`).join('');
-
-      document.getElementById('tasks-table-body').innerHTML = db.tasks.map(t => `
-        <tr class="hover:bg-slate-50">
-          <td class="p-4 font-bold">${escapeHtml(t.title)}</td>
-          <td class="p-4">${formatDateID(t.deadline)}</td>
-          <td class="p-4"><span class="px-2 py-0.5 rounded-md text-xs font-bold bg-amber-50 text-amber-700">${escapeHtml(t.priority)}</span></td>
-          <td class="p-4 font-bold">${escapeHtml(t.status)}</td>
-          <td class="p-4 text-right"><button onclick="db.tasks=db.tasks.filter(x=>x.id!='${t.id}');saveToCloud();" class="text-rose-600 font-bold text-xs">Hapus</button></td>
-        </tr>`).join('');
-
       const pending = db.tasks.filter(t => t.status !== 'Selesai');
       const badge = document.getElementById('sidebar-task-badge');
-      if (badge) { badge.textContent = pending.length; badge.classList.remove('hidden'); } else { badge.classList.add('hidden'); }
+      if (badge) { badge.textContent = pending.length; badge.classList.toggle('hidden', pending.length === 0); }
 
       // Chart Rendering
       const ctx = document.getElementById('dashboardChart');
