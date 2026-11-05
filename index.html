@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>BOBY CREATOR STUDIO — Visual Content Studio & Command Center</title>
+  <title>BOBY CREATOR STUDIO 6.5 — Project-Based Content Planning Suite</title>
   <meta name="theme-color" content="#0f172a" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -50,17 +50,17 @@
       </div>
       <div class="overflow-hidden">
         <h1 class="font-extrabold text-sm tracking-tight text-white truncate">BOBY CREATOR STUDIO</h1>
-        <p class="text-[11px] text-indigo-400 font-semibold truncate">Visual Planner Suite</p>
+        <p class="text-[11px] text-indigo-400 font-semibold truncate">Enterprise Suite V6.5</p>
       </div>
     </div>
 
-    <!-- Active Filter Indicator in Sidebar -->
+    <!-- Active Project Indicator in Sidebar -->
     <div class="px-4 pt-3 pb-1">
       <div class="p-2.5 rounded-xl bg-slate-800/80 border border-slate-700/60 flex items-center gap-2">
-        <span class="w-2 h-2 rounded-full bg-indigo-400 animate-pulse"></span>
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
         <div class="min-w-0">
-          <p class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Fokus Akun Aktif</p>
-          <p id="sidebar-active-account-label" class="text-xs font-bold text-white truncate">Semua Akun (Global)</p>
+          <p class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Fokus Project Aktif</p>
+          <p id="sidebar-active-project-label" class="text-xs font-bold text-white truncate">Semua Project (Global)</p>
         </div>
       </div>
     </div>
@@ -74,11 +74,15 @@
         <span id="sidebar-planner-badge" class="px-1.5 py-0.5 rounded text-[10px] font-extrabold bg-indigo-800 text-white">0</span>
       </button>
 
+      <button onclick="switchTab('projects')" data-tab="projects" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition-all">
+        <i data-lucide="folder-kanban" class="w-4 h-4 shrink-0 text-amber-400"></i>
+        <span>Kelola Project & Kampanye</span>
+      </button>
+
       <button onclick="switchTab('dashboard')" data-tab="dashboard" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition-all">
         <i data-lucide="layout-dashboard" class="w-4 h-4 shrink-0"></i><span>Dashboard Utama</span>
       </button>
 
-      <!-- GEMINI AI CREATOR ASSISTANT -->
       <button onclick="switchTab('ai')" data-tab="ai" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold text-amber-300 bg-amber-500/10 border border-amber-500/20 hover:bg-amber-500/20 transition-all">
         <div class="flex items-center gap-3">
           <i data-lucide="bot" class="w-4 h-4 text-amber-400 shrink-0 animate-pulse"></i>
@@ -87,25 +91,31 @@
         <span class="px-1.5 py-0.5 rounded text-[9px] font-extrabold bg-amber-500 text-slate-900">PRO</span>
       </button>
 
-      <button onclick="switchTab('accounts')" data-tab="accounts" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition-all">
-        <i data-lucide="share-2" class="w-4 h-4 shrink-0"></i><span>Kelola Multi-Akun</span>
-      </button>
       <button onclick="switchTab('clients')" data-tab="clients" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition-all">
         <i data-lucide="briefcase" class="w-4 h-4 shrink-0"></i><span>Manajemen Klien</span>
       </button>
+
+      <button onclick="switchTab('accounts')" data-tab="accounts" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition-all">
+        <i data-lucide="share-2" class="w-4 h-4 shrink-0"></i><span>Inventaris Akun Medsos</span>
+      </button>
+
       <button onclick="switchTab('analytics')" data-tab="analytics" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition-all">
         <i data-lucide="bar-chart-3" class="w-4 h-4 shrink-0"></i><span>Analytics Performa</span>
       </button>
+
       <button onclick="switchTab('affiliate')" data-tab="affiliate" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition-all">
         <i data-lucide="shopping-bag" class="w-4 h-4 shrink-0"></i><span>Affiliate Tracker</span>
       </button>
+
       <button onclick="switchTab('tasks')" data-tab="tasks" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition-all">
         <div class="flex items-center gap-3"><i data-lucide="check-square" class="w-4 h-4 shrink-0"></i><span>Tugas & Deadline</span></div>
         <span id="sidebar-task-badge" class="hidden px-2 py-0.5 text-[10px] font-bold rounded-full bg-rose-500 text-white">0</span>
       </button>
+
       <button onclick="switchTab('reports')" data-tab="reports" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition-all">
         <i data-lucide="file-spreadsheet" class="w-4 h-4 shrink-0"></i><span>Report Center</span>
       </button>
+
       <div class="pt-3 mt-3 border-t border-slate-800">
         <button onclick="switchTab('settings')" data-tab="settings" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition-all">
           <i data-lucide="database" class="w-4 h-4 shrink-0"></i><span>Database & Cloud</span>
@@ -120,7 +130,7 @@
           <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Firebase Aktif
         </span>
       </div>
-      <p class="text-[10px] text-slate-400">Cloud Firestore realtime aktif.</p>
+      <p class="text-[10px] text-slate-400">Sinkronisasi Cloud Firestore realtime.</p>
     </div>
   </aside>
 
@@ -133,22 +143,24 @@
         </div>
         <div>
           <h2 id="page-title" class="text-base sm:text-lg font-extrabold text-slate-900 truncate">Content Planner Visual</h2>
+          <p id="page-subtitle" class="text-xs text-slate-500 truncate">Struktur Project, Akun Sosmed & Jadwal 24 Jam</p>
         </div>
       </div>
 
-      <!-- Right Header Actions -->
+      <!-- Right Header Actions (HIERARCHICAL PROJECT SWITCHER) -->
       <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+        <!-- PROJECT SWITCHER DROPDOWN -->
+        <div class="flex items-center gap-1.5 bg-indigo-50/70 hover:bg-indigo-100/80 border border-indigo-200 px-3 py-1.5 rounded-xl transition shadow-xs">
+          <i data-lucide="folder-kanban" class="w-3.5 h-3.5 text-indigo-600 shrink-0"></i>
+          <select id="global-project-filter" onchange="onGlobalProjectFilterChange(this.value)" class="bg-transparent text-xs font-extrabold text-indigo-950 focus:outline-none cursor-pointer pr-1">
+            <option value="ALL">🌐 Semua Project & Akun (Global)</option>
+          </select>
+        </div>
+
         <button onclick="switchTab('ai')" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-500/10 text-amber-700 border border-amber-300 text-xs font-bold hover:bg-amber-500/20 transition">
           <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-500"></i>
           <span>Gemini AI</span>
         </button>
-
-        <div class="flex items-center gap-1.5 bg-slate-100 hover:bg-slate-200/80 border border-slate-200 px-2.5 py-1.5 rounded-xl transition">
-          <i data-lucide="users" class="w-3.5 h-3.5 text-indigo-600 shrink-0"></i>
-          <select id="global-account-filter" onchange="onGlobalAccountFilterChange(this.value)" class="bg-transparent text-xs font-bold text-slate-800 focus:outline-none cursor-pointer pr-1">
-            <option value="ALL">🌐 Semua Akun (Global)</option>
-          </select>
-        </div>
 
         <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
           <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
@@ -166,7 +178,7 @@
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
           <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-xs flex items-center justify-between">
             <div>
-              <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Total Rencana</p>
+              <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Total Konten Project</p>
               <h4 id="stat-total-planner" class="text-xl font-extrabold text-slate-900 mt-0.5">0</h4>
             </div>
             <div class="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold">
@@ -202,18 +214,37 @@
           </div>
         </div>
 
+        <!-- Project Info Banner (Muncul saat ada Project Terpilih) -->
+        <div id="planner-project-banner" class="hidden bg-gradient-to-r from-indigo-900 to-slate-900 p-4 rounded-2xl text-white flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded text-[10px] font-extrabold uppercase bg-indigo-500 text-white">Project Aktif</span>
+              <h3 id="banner-project-name" class="font-extrabold text-sm sm:text-base">Nama Project</h3>
+            </div>
+            <p id="banner-project-desc" class="text-xs text-indigo-200 mt-1">Klien: - • 0 Akun Terkait</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="openContentModal()" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-sm">
+              <i data-lucide="plus" class="w-3.5 h-3.5"></i> Buat Konten Project Ini
+            </button>
+            <button onclick="resetToGlobalProject()" class="px-3 py-1.5 bg-white/10 hover:bg-white/20 text-white rounded-xl text-xs font-bold">
+              Lihat Semua
+            </button>
+          </div>
+        </div>
+
         <!-- Control Bar & View Switcher -->
         <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-xs flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
           <div class="flex flex-1 flex-col sm:flex-row gap-2">
             <input type="text" id="search-planner" oninput="renderPlanner()" placeholder="Cari nama konten, hook, atau tema..." class="px-3.5 py-2 rounded-xl border border-slate-200 text-xs flex-1 max-w-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
             <select id="filter-planner-status" onchange="renderPlanner()" class="px-3 py-2 rounded-xl border border-slate-200 text-xs bg-white font-medium focus:outline-none">
               <option value="ALL">Semua Status Produksi</option>
-              <option value="Ide">Ide</option>
-              <option value="Script">Script</option>
-              <option value="Produksi">Produksi</option>
-              <option value="Editing">Editing</option>
-              <option value="Siap upload">Siap upload</option>
-              <option value="Sudah upload">Sudah upload</option>
+              <option value="Ide">💡 Ide</option>
+              <option value="Script">📝 Script</option>
+              <option value="Produksi">🎬 Produksi</option>
+              <option value="Editing">✂️ Editing</option>
+              <option value="Siap upload">🚀 Siap upload</option>
+              <option value="Sudah upload">✅ Sudah upload</option>
             </select>
           </div>
 
@@ -277,12 +308,13 @@
           <table class="w-full text-left text-xs">
             <thead class="bg-slate-50 text-slate-500 uppercase font-bold border-b">
               <tr>
-                <th class="p-4">Jadwal & Jam Posting</th>
+                <th class="p-4">Jadwal & Jam</th>
+                <th class="p-4">Project & Klien</th>
                 <th class="p-4">Judul & Konsep Konten</th>
                 <th class="p-4">Akun & Platform</th>
                 <th class="p-4">Pillar & Hook</th>
                 <th class="p-4">Status</th>
-                <th class="p-4 text-right">Aksi & Mode Shooting</th>
+                <th class="p-4 text-right">Aksi & Shooting</th>
               </tr>
             </thead>
             <tbody id="planner-table-body" class="divide-y divide-slate-100"></tbody>
@@ -290,7 +322,23 @@
         </div>
       </section>
 
-      <!-- ==================== 2. GEMINI AI ASSISTANT ==================== -->
+      <!-- ==================== 2. KELOLA PROJECT & KAMPANYE (MODUL BARU V6.5) ==================== -->
+      <section id="sec-projects" class="tab-section hidden space-y-5">
+        <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-xs flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+          <div>
+            <h3 class="font-extrabold text-sm text-slate-900">Kelola Project & Kampanye Klien</h3>
+            <p class="text-xs text-slate-500">Satu klien dapat memiliki beberapa project, dan setiap project memiliki akun sosmed khususnya.</p>
+          </div>
+          <button onclick="openProjectModal()" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm transition">
+            <i data-lucide="plus" class="w-4 h-4"></i> Buat Project Baru
+          </button>
+        </div>
+
+        <!-- Grid Kartu Project -->
+        <div id="projects-showcase-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+      </section>
+
+      <!-- ==================== 3. GEMINI AI ASSISTANT ==================== -->
       <section id="sec-ai" class="tab-section hidden space-y-5">
         <div class="bg-gradient-to-r from-amber-500 via-orange-600 to-indigo-700 rounded-2xl p-5 sm:p-6 text-white shadow-lg flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div class="space-y-1">
@@ -379,22 +427,22 @@ Klik tombol "Generate dengan Gemini AI" untuk membuat konsep konten instan!
         </div>
       </section>
 
-      <!-- ==================== 3. DASHBOARD ==================== -->
+      <!-- ==================== 4. DASHBOARD ==================== -->
       <section id="sec-dashboard" class="tab-section hidden space-y-6">
         <div class="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 rounded-2xl p-5 sm:p-6 text-white shadow-lg flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div class="space-y-1">
             <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-400/20">
-              <i data-lucide="zap" class="w-3.5 h-3.5"></i> Multi-Account Connected
+              <i data-lucide="zap" class="w-3.5 h-3.5"></i> Multi-Project Connected
             </div>
             <h3 class="text-lg sm:text-2xl font-extrabold">Halo, Boby Anggara!</h3>
-            <p id="dash-filter-desc" class="text-xs sm:text-sm text-slate-300">Menampilkan metrik performa seluruh akun media sosial & affiliate.</p>
+            <p id="dash-filter-desc" class="text-xs sm:text-sm text-slate-300">Menampilkan metrik performa seluruh project, akun medsos & affiliate.</p>
           </div>
           <div class="flex gap-2">
-            <button onclick="switchTab('ai')" class="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-xs font-extrabold text-slate-900 shadow-sm flex items-center gap-1.5 transition">
-              <i data-lucide="sparkles" class="w-4 h-4"></i> Buka AI Assistant
-            </button>
             <button onclick="switchTab('planner'); openContentModal();" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-xs font-bold text-white shadow-sm flex items-center gap-1.5 transition">
               <i data-lucide="plus-circle" class="w-4 h-4"></i> Buat Konten
+            </button>
+            <button onclick="switchTab('analytics'); openAnalyticsModal();" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-xs font-semibold text-white flex items-center gap-1.5 transition">
+              <i data-lucide="trending-up" class="w-4 h-4"></i> Input Performa
             </button>
           </div>
         </div>
@@ -406,9 +454,9 @@ Klik tombol "Generate dengan Gemini AI" untuk membuat konsep konten instan!
             <p id="dash-active-clients" class="text-[11px] text-emerald-600 font-semibold mt-1">0 Aktif</p>
           </div>
           <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-xs">
-            <p class="text-xs font-semibold text-slate-500">Akun Terpantau</p>
-            <h4 id="dash-total-accounts" class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">0</h4>
-            <p id="dash-account-breakdown" class="text-[11px] text-slate-400 mt-1">TikTok, IG, Shopee</p>
+            <p class="text-xs font-semibold text-slate-500">Project Terpantau</p>
+            <h4 id="dash-total-projects" class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">0</h4>
+            <p id="dash-project-breakdown" class="text-[11px] text-slate-400 mt-1">Seluruh Project</p>
           </div>
           <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-xs">
             <p class="text-xs font-semibold text-slate-500">Total Konten</p>
@@ -451,7 +499,7 @@ Klik tombol "Generate dengan Gemini AI" untuk membuat konsep konten instan!
           <div class="lg:col-span-2 bg-white rounded-2xl p-5 border border-slate-200/80 shadow-xs">
             <div class="flex justify-between items-center mb-3">
               <h4 class="font-bold text-slate-900 text-sm">Grafik Performa Views Konten</h4>
-              <span id="chart-account-tag" class="text-[11px] font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-md">Semua Akun</span>
+              <span id="chart-project-tag" class="text-[11px] font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-md">Semua Project</span>
             </div>
             <div class="relative w-full h-64"><canvas id="dashboardChart"></canvas></div>
           </div>
@@ -465,7 +513,23 @@ Klik tombol "Generate dengan Gemini AI" untuk membuat konsep konten instan!
         </div>
       </section>
 
-      <!-- ==================== 4. KELOLA MULTI-AKUN ==================== -->
+      <!-- ==================== 5. MANAJEMEN KLIEN ==================== -->
+      <section id="sec-clients" class="tab-section hidden space-y-4">
+        <div class="flex justify-between items-center gap-2">
+          <input type="text" id="search-clients" oninput="renderClients()" placeholder="Cari nama klien atau brand..." class="px-3.5 py-2 rounded-xl border border-slate-200 text-sm flex-1 max-w-sm" />
+          <button onclick="openClientModal()" class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm"><i data-lucide="plus" class="w-4 h-4"></i> Tambah Klien</button>
+        </div>
+        <div class="bg-white rounded-2xl border border-slate-200 overflow-x-auto shadow-xs">
+          <table class="w-full text-left text-sm">
+            <thead class="bg-slate-50 text-slate-500 uppercase text-[11px] font-bold border-b">
+              <tr><th class="p-4">Klien & Brand</th><th class="p-4">Mulai</th><th class="p-4">Status</th><th class="p-4">Project Aktif</th><th class="p-4 text-right">Aksi</th></tr>
+            </thead>
+            <tbody id="clients-table-body" class="divide-y divide-slate-100"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ==================== 6. INVENTARIS AKUN MEDSOS ==================== -->
       <section id="sec-accounts" class="tab-section hidden space-y-5">
         <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-xs flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
           <div class="flex flex-1 flex-col sm:flex-row gap-2.5">
@@ -483,10 +547,7 @@ Klik tombol "Generate dengan Gemini AI" untuk membuat konsep konten instan!
           </button>
         </div>
 
-        <div>
-          <h3 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">Kartu Profil Multi-Akun</h3>
-          <div id="accounts-showcase-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
-        </div>
+        <div id="accounts-showcase-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
 
         <div class="bg-white rounded-2xl border border-slate-200 overflow-x-auto mt-4 shadow-xs">
           <div class="px-4 py-3 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
@@ -508,23 +569,7 @@ Klik tombol "Generate dengan Gemini AI" untuk membuat konsep konten instan!
         </div>
       </section>
 
-      <!-- 5. KLIEN -->
-      <section id="sec-clients" class="tab-section hidden space-y-4">
-        <div class="flex justify-between items-center gap-2">
-          <input type="text" id="search-clients" oninput="renderClients()" placeholder="Cari klien..." class="px-3.5 py-2 rounded-xl border border-slate-200 text-sm flex-1 max-w-sm" />
-          <button onclick="openClientModal()" class="px-4 py-2 rounded-xl bg-indigo-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm"><i data-lucide="plus" class="w-4 h-4"></i> Tambah Klien</button>
-        </div>
-        <div class="bg-white rounded-2xl border border-slate-200 overflow-x-auto shadow-xs">
-          <table class="w-full text-left text-sm">
-            <thead class="bg-slate-50 text-slate-500 uppercase text-[11px] font-bold border-b">
-              <tr><th class="p-4">Klien & Brand</th><th class="p-4">Mulai</th><th class="p-4">Status</th><th class="p-4">Catatan</th><th class="p-4 text-right">Aksi</th></tr>
-            </thead>
-            <tbody id="clients-table-body" class="divide-y divide-slate-100"></tbody>
-          </table>
-        </div>
-      </section>
-
-      <!-- 6. ANALYTICS -->
+      <!-- 7. ANALYTICS -->
       <section id="sec-analytics" class="tab-section hidden space-y-4">
         <div class="flex justify-between items-center gap-2">
           <input type="text" id="search-analytics" oninput="renderAnalytics()" placeholder="Cari analitik..." class="px-3.5 py-2 rounded-xl border border-slate-200 text-sm flex-1 max-w-sm" />
@@ -540,7 +585,7 @@ Klik tombol "Generate dengan Gemini AI" untuk membuat konsep konten instan!
         </div>
       </section>
 
-      <!-- 7. AFFILIATE -->
+      <!-- 8. AFFILIATE -->
       <section id="sec-affiliate" class="tab-section hidden space-y-4">
         <div class="flex justify-between items-center gap-2">
           <input type="text" id="search-affiliate" oninput="renderAffiliate()" placeholder="Cari produk..." class="px-3.5 py-2 rounded-xl border border-slate-200 text-sm flex-1 max-w-sm" />
@@ -556,7 +601,7 @@ Klik tombol "Generate dengan Gemini AI" untuk membuat konsep konten instan!
         </div>
       </section>
 
-      <!-- 8. TASKS -->
+      <!-- 9. TASKS -->
       <section id="sec-tasks" class="tab-section hidden space-y-4">
         <div class="flex justify-between items-center gap-2">
           <input type="text" id="search-tasks" oninput="renderTasks()" placeholder="Cari tugas..." class="px-3.5 py-2 rounded-xl border border-slate-200 text-sm flex-1 max-w-sm" />
@@ -572,7 +617,7 @@ Klik tombol "Generate dengan Gemini AI" untuk membuat konsep konten instan!
         </div>
       </section>
 
-      <!-- 9. REPORTS -->
+      <!-- 10. REPORTS -->
       <section id="sec-reports" class="tab-section hidden space-y-4">
         <div class="bg-white rounded-2xl p-5 border border-slate-200 flex justify-between items-center shadow-xs">
           <div><h3 class="font-bold text-base text-slate-900">Laporan Resmi</h3><p class="text-xs text-slate-500">Cetak laporan langsung atau unduh CSV</p></div>
@@ -583,7 +628,7 @@ Klik tombol "Generate dengan Gemini AI" untuk membuat konsep konten instan!
         </div>
       </section>
 
-      <!-- 10. SETTINGS -->
+      <!-- 11. SETTINGS -->
       <section id="sec-settings" class="tab-section hidden space-y-4">
         <div class="bg-white rounded-2xl p-6 border border-slate-200 space-y-4 shadow-xs">
           <h3 class="font-bold text-base text-slate-900">Pusat Integrasi & Penyimpanan</h3>
@@ -609,13 +654,179 @@ Klik tombol "Generate dengan Gemini AI" untuk membuat konsep konten instan!
   <!-- MOBILE BOTTOM NAV -->
   <nav class="no-print lg:hidden fixed bottom-0 inset-x-0 bg-white border-t border-slate-200 z-30 flex items-center justify-around py-2 px-1 shadow-lg">
     <button onclick="switchTab('planner')" data-tab="planner" class="mob-nav-btn flex flex-col items-center text-[10px] font-bold text-indigo-600"><i data-lucide="calendar-days" class="w-5 h-5 mb-0.5"></i>Planner</button>
-    <button onclick="switchTab('dashboard')" data-tab="dashboard" class="mob-nav-btn flex flex-col items-center text-[10px] font-bold"><i data-lucide="layout-dashboard" class="w-5 h-5 mb-0.5"></i>Dashboard</button>
-    <button onclick="switchTab('ai')" data-tab="ai" class="mob-nav-btn flex flex-col items-center text-[10px] font-bold text-amber-600"><i data-lucide="sparkles" class="w-5 h-5 mb-0.5 text-amber-500"></i>Gemini AI</button>
-    <button onclick="switchTab('accounts')" data-tab="accounts" class="mob-nav-btn flex flex-col items-center text-[10px] font-bold text-slate-500"><i data-lucide="share-2" class="w-5 h-5 mb-0.5"></i>Akun</button>
+    <button onclick="switchTab('projects')" data-tab="projects" class="mob-nav-btn flex flex-col items-center text-[10px] font-bold text-slate-500"><i data-lucide="folder-kanban" class="w-5 h-5 mb-0.5"></i>Project</button>
+    <button onclick="switchTab('dashboard')" data-tab="dashboard" class="mob-nav-btn flex flex-col items-center text-[10px] font-bold text-slate-500"><i data-lucide="layout-dashboard" class="w-5 h-5 mb-0.5"></i>Dashboard</button>
+    <button onclick="switchTab('ai')" data-tab="ai" class="mob-nav-btn flex flex-col items-center text-[10px] font-bold text-amber-600"><i data-lucide="sparkles" class="w-5 h-5 mb-0.5 text-amber-500"></i>AI</button>
     <button onclick="switchTab('tasks')" data-tab="tasks" class="mob-nav-btn flex flex-col items-center text-[10px] font-bold text-slate-500"><i data-lucide="check-square" class="w-5 h-5 mb-0.5"></i>Tugas</button>
   </nav>
 
-  <!-- ==================== MODALS ==================== -->
+  <!-- ==================== ALL MODALS ==================== -->
+
+  <!-- MODAL KELOLA PROJECT (BARU V6.5) -->
+  <div id="modal-project" class="no-print hidden fixed inset-0 z-50 bg-slate-900/60 flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl space-y-4 my-8 max-h-[92vh] overflow-y-auto">
+      <div class="flex items-center justify-between border-b pb-3">
+        <div>
+          <h3 id="modal-project-title" class="font-extrabold text-base text-slate-900">Buat Project / Kampanye Baru</h3>
+          <p class="text-xs text-slate-500">Hubungkan klien dan pilih akun media sosial yang ditugaskan</p>
+        </div>
+        <button onclick="closeModal('modal-project')" class="text-slate-400 hover:text-slate-600"><i data-lucide="x" class="w-5 h-5"></i></button>
+      </div>
+
+      <form onsubmit="saveProject(event)" class="space-y-3.5">
+        <input type="hidden" id="project-id" />
+        
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Nama Project / Kampanye *</label>
+          <input type="text" id="project-name" required placeholder="Contoh: Campaign 11.11 Fashion Fest" class="w-full px-3 py-2 border rounded-xl text-xs font-semibold" />
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Klien Pemilik *</label>
+            <select id="project-client-select" required class="w-full px-3 py-2 border rounded-xl text-xs bg-white font-medium"></select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Status Project</label>
+            <select id="project-status" class="w-full px-3 py-2 border rounded-xl text-xs bg-white font-bold text-emerald-600">
+              <option value="Aktif">🟢 Aktif Berjalan</option>
+              <option value="Perencanaan">🟡 Perencanaan</option>
+              <option value="Selesai">⚪ Selesai</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Pemilihan Akun Sosmed yang Terlibat di Project Ini -->
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1 flex items-center justify-between">
+            <span>Akun Sosmed yang Dilibatkan di Project Ini:</span>
+            <span class="text-[10px] text-indigo-600 font-bold">Pilih minimal 1 akun</span>
+          </label>
+          <div id="project-accounts-checkboxes" class="space-y-1.5 p-3 rounded-xl border border-slate-200 bg-slate-50 max-h-36 overflow-y-auto text-xs"></div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Deskripsi / Target Project (Opsional)</label>
+          <textarea id="project-desc" rows="2" placeholder="Catatan deliverables konten atau target GMV/views..." class="w-full px-3 py-2 border rounded-xl text-xs"></textarea>
+        </div>
+
+        <div class="flex justify-end gap-2 pt-2 border-t">
+          <button type="button" onclick="closeModal('modal-project')" class="px-4 py-2 border rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-50">Batal</button>
+          <button type="submit" class="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold shadow-sm">Simpan Project</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL CONTENT PLANNER (TERHUBUNG KE PROJECT & JAM 24 JAM) -->
+  <div id="modal-content" class="no-print hidden fixed inset-0 z-50 bg-slate-900/60 flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-white rounded-3xl max-w-xl w-full p-6 shadow-2xl space-y-4 my-8 max-h-[92vh] overflow-y-auto">
+      <div class="flex items-center justify-between border-b pb-3">
+        <div>
+          <h3 id="modal-content-title" class="font-extrabold text-base text-slate-900">Rencana Konten Baru</h3>
+          <p class="text-xs text-slate-500">Jadwal tanggal, jam digital 24 jam, hook, dan alur naskah</p>
+        </div>
+        <button onclick="closeModal('modal-content')" class="text-slate-400 hover:text-slate-600"><i data-lucide="x" class="w-5 h-5"></i></button>
+      </div>
+
+      <form onsubmit="saveContent(event)" class="space-y-3.5">
+        <input type="hidden" id="content-id" />
+        
+        <!-- Pilihan Project & Akun Berjenjang -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 p-3 rounded-2xl bg-slate-50 border border-slate-200">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Pilih Project Terkait *</label>
+            <select id="content-project-select" onchange="onContentProjectChange(this.value)" required class="w-full px-3 py-2 border rounded-xl text-xs bg-white font-extrabold text-indigo-900"></select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Target Akun Medsos *</label>
+            <select id="content-account-select" required class="w-full px-3 py-2 border rounded-xl text-xs bg-white font-semibold text-slate-800"></select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Tanggal Publikasi *</label>
+            <input type="date" id="content-date" required class="w-full px-3 py-2 border rounded-xl text-xs font-semibold bg-white" />
+          </div>
+
+          <!-- Input Jam Digital 24 Jam Murni -->
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1 flex items-center justify-between">
+              <span>Jam Posting (24 Jam) *</span>
+              <span class="text-[10px] text-indigo-600 font-extrabold">00:00 - 23:59 WIB</span>
+            </label>
+            <div class="flex items-center gap-1.5">
+              <select id="content-hour" class="w-1/2 px-2.5 py-2 border rounded-xl text-xs font-bold bg-white text-slate-800 focus:outline-none cursor-pointer"></select>
+              <span class="font-extrabold text-slate-400 text-sm">:</span>
+              <select id="content-minute" class="w-1/2 px-2.5 py-2 border rounded-xl text-xs font-bold bg-white text-slate-800 focus:outline-none cursor-pointer"></select>
+              <span class="text-xs font-extrabold text-indigo-700 bg-indigo-50 px-2.5 py-2 rounded-xl border border-indigo-100 shrink-0">WIB</span>
+            </div>
+            
+            <div class="flex items-center gap-1 mt-1.5">
+              <span class="text-[10px] text-slate-400 font-bold shrink-0">Pintas:</span>
+              <div class="flex flex-wrap gap-1">
+                <button type="button" onclick="setQuickTime('09','00')" class="px-1.5 py-0.5 rounded bg-slate-100 hover:bg-slate-200 text-[10px] font-bold text-slate-700">09:00</button>
+                <button type="button" onclick="setQuickTime('12','30')" class="px-1.5 py-0.5 rounded bg-slate-100 hover:bg-slate-200 text-[10px] font-bold text-slate-700">12:30</button>
+                <button type="button" onclick="setQuickTime('16','00')" class="px-1.5 py-0.5 rounded bg-slate-100 hover:bg-slate-200 text-[10px] font-bold text-slate-700">16:00</button>
+                <button type="button" onclick="setQuickTime('19','00')" class="px-1.5 py-0.5 rounded bg-indigo-50 hover:bg-indigo-100 text-[10px] font-extrabold text-indigo-700">19:00</button>
+                <button type="button" onclick="setQuickTime('21','00')" class="px-1.5 py-0.5 rounded bg-slate-100 hover:bg-slate-200 text-[10px] font-bold text-slate-700">21:00</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Judul / Konsep Konten *</label>
+          <input type="text" id="content-title" required placeholder="Contoh: 3 Kombinasi Outfit Kuliah..." class="w-full px-3 py-2 border rounded-xl text-xs font-semibold" />
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Content Pillar *</label>
+            <input type="text" id="content-pillar" required placeholder="Edukasi / OOTD / Review / Promo" class="w-full px-3 py-2 border rounded-xl text-xs" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">Status Produksi *</label>
+            <select id="content-status" class="w-full px-3 py-2 border rounded-xl text-xs bg-white font-extrabold text-indigo-700">
+              <option value="Ide">💡 Ide</option>
+              <option value="Script">📝 Script</option>
+              <option value="Produksi">🎬 Produksi</option>
+              <option value="Editing">✂️ Editing</option>
+              <option value="Siap upload">🚀 Siap upload</option>
+              <option value="Sudah upload">✅ Sudah upload</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Kolom Hook Viral -->
+        <div>
+          <label class="block text-xs font-bold text-amber-700 mb-1 flex items-center justify-between">
+            <span>🔥 Hook 3 Detik Pertama (Pancingan Audiens)</span>
+            <span class="text-[10px] text-slate-400 font-normal">Kalimat pembuka video</span>
+          </label>
+          <input type="text" id="content-hook" placeholder="Contoh: Jangan beli kemeja sebelum kamu tahu trik bahan ini!" class="w-full px-3 py-2 border border-amber-200 bg-amber-50/30 rounded-xl text-xs font-medium" />
+        </div>
+
+        <!-- Kolom Script Naskah Voice Over -->
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Script / Alur Naskah Voice Over & Visual</label>
+          <textarea id="content-script" rows="3" placeholder="Tuliskan kata-kata pembicara atau alur adegan visual..." class="w-full px-3 py-2 border rounded-xl text-xs leading-relaxed"></textarea>
+        </div>
+
+        <!-- Kolom Caption -->
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Caption Postingan & Hashtag</label>
+          <textarea id="content-caption" rows="2" placeholder="Teks caption postingan..." class="w-full px-3 py-2 border rounded-xl text-xs"></textarea>
+        </div>
+
+        <div class="flex justify-end gap-2 pt-2 border-t">
+          <button type="button" onclick="closeModal('modal-content')" class="px-4 py-2 border rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-50">Batal</button>
+          <button type="submit" class="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold shadow-sm">Simpan Rencana</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
   <!-- MODAL TELEPROMPTER / MODE SHOOTING NASKAH -->
   <div id="modal-teleprompter" class="no-print hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
@@ -625,7 +836,7 @@ Klik tombol "Generate dengan Gemini AI" untuk membuat konsep konten instan!
           <span class="px-2.5 py-1 rounded-xl text-xs font-extrabold bg-indigo-600 text-white flex items-center gap-1.5">
             <i data-lucide="video" class="w-3.5 h-3.5"></i> Mode Shooting Naskah
           </span>
-          <span id="tele-platform-tag" class="text-xs font-bold text-slate-500">TikTok</span>
+          <span id="tele-project-tag" class="text-xs font-bold text-slate-500">Project</span>
         </div>
         <button onclick="closeModal('modal-teleprompter')" class="p-1 rounded-lg text-slate-400 hover:text-slate-600"><i data-lucide="x" class="w-6 h-6"></i></button>
       </div>
@@ -679,122 +890,6 @@ Belum ada naskah script.
     </div>
   </div>
 
-  <!-- MODAL CONTENT PLANNER DENGAN JAM DIGITAL 24 JAM MURNI (00:00 - 23:59 WIB) -->
-  <div id="modal-content" class="no-print hidden fixed inset-0 z-50 bg-slate-900/60 flex items-center justify-center p-4 overflow-y-auto">
-    <div class="bg-white rounded-3xl max-w-xl w-full p-6 shadow-2xl space-y-4 my-8 max-h-[92vh] overflow-y-auto">
-      <div class="flex items-center justify-between border-b pb-3">
-        <div>
-          <h3 id="modal-content-title" class="font-extrabold text-base text-slate-900">Rencana Konten Baru</h3>
-          <p class="text-xs text-slate-500">hook, dan alur naskah</p>
-        </div>
-        <button onclick="closeModal('modal-content')" class="text-slate-400 hover:text-slate-600"><i data-lucide="x" class="w-5 h-5"></i></button>
-      </div>
-
-      <form onsubmit="saveContent(event)" class="space-y-3.5">
-        <input type="hidden" id="content-id" />
-        
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <!-- Input Tanggal -->
-          <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">Tanggal Publikasi *</label>
-            <input type="date" id="content-date" required class="w-full px-3 py-2 border rounded-xl text-xs font-semibold bg-white" />
-          </div>
-
-          <!-- Input Jam Digital -->
-          <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1 flex items-center justify-between">
-              <span>Jam Posting *</span>
-              <span class="text-[10px] text-indigo-600 font-extrabold">00:00 - 23:59 WIB</span>
-            </label>
-            <div class="flex items-center gap-1.5">
-              <select id="content-hour" class="w-1/2 px-2.5 py-2 border rounded-xl text-xs font-bold bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer"></select>
-              <span class="font-extrabold text-slate-400 text-sm">:</span>
-              <select id="content-minute" class="w-1/2 px-2.5 py-2 border rounded-xl text-xs font-bold bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer"></select>
-              <span class="text-xs font-extrabold text-indigo-700 bg-indigo-50 px-2.5 py-2 rounded-xl border border-indigo-100 shrink-0">WIB</span>
-            </div>
-            
-            <!-- Tombol Pintas Jam Favorit Posting -->
-            <div class="flex items-center gap-1 mt-1.5">
-              <span class="text-[10px] text-slate-400 font-bold shrink-0">Pintas:</span>
-              <div class="flex flex-wrap gap-1">
-                <button type="button" onclick="setQuickTime('09','00')" class="px-1.5 py-0.5 rounded bg-slate-100 hover:bg-slate-200 text-[10px] font-bold text-slate-700">09:00</button>
-                <button type="button" onclick="setQuickTime('12','30')" class="px-1.5 py-0.5 rounded bg-slate-100 hover:bg-slate-200 text-[10px] font-bold text-slate-700">12:30</button>
-                <button type="button" onclick="setQuickTime('16','00')" class="px-1.5 py-0.5 rounded bg-slate-100 hover:bg-slate-200 text-[10px] font-bold text-slate-700">16:00</button>
-                <button type="button" onclick="setQuickTime('19','00')" class="px-1.5 py-0.5 rounded bg-indigo-50 hover:bg-indigo-100 text-[10px] font-extrabold text-indigo-700">19:00</button>
-                <button type="button" onclick="setQuickTime('21','00')" class="px-1.5 py-0.5 rounded bg-slate-100 hover:bg-slate-200 text-[10px] font-bold text-slate-700">21:00</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">Target Akun Medsos *</label>
-            <select id="content-account-select" class="w-full px-3 py-2 border rounded-xl text-xs bg-white font-semibold"></select>
-          </div>
-          <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">Status Produksi *</label>
-            <select id="content-status" class="w-full px-3 py-2 border rounded-xl text-xs bg-white font-extrabold text-indigo-700">
-              <option value="Ide">💡 Ide</option>
-              <option value="Script">📝 Script</option>
-              <option value="Produksi">🎬 Produksi</option>
-              <option value="Editing">✂️ Editing</option>
-              <option value="Siap upload">🚀 Siap upload</option>
-              <option value="Sudah upload">✅ Sudah upload</option>
-            </select>
-          </div>
-        </div>
-
-        <div>
-          <label class="block text-xs font-bold text-slate-700 mb-1">Judul / Konsep Konten *</label>
-          <input type="text" id="content-title" required placeholder="Contoh: Rekomendasi 3 Outfit Santai Elegan..." class="w-full px-3 py-2 border rounded-xl text-xs font-semibold" />
-        </div>
-
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">Content Pillar *</label>
-            <input type="text" id="content-pillar" required placeholder="Edukasi / OOTD / Review / Promo" class="w-full px-3 py-2 border rounded-xl text-xs" />
-          </div>
-          <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">Platform Utama</label>
-            <select id="content-platform" class="w-full px-3 py-2 border rounded-xl text-xs bg-white font-medium">
-              <option value="TikTok">TikTok</option>
-              <option value="Instagram">Instagram Reels</option>
-              <option value="Shopee">Shopee Video</option>
-              <option value="YouTube">YouTube Shorts</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- Kolom Hook Viral -->
-        <div>
-          <label class="block text-xs font-bold text-amber-700 mb-1 flex items-center justify-between">
-            <span>🔥 Hook 3 Detik Pertama (Pancingan Audiens)</span>
-            <span class="text-[10px] text-slate-400 font-normal">Kalimat pembuka video</span>
-          </label>
-          <input type="text" id="content-hook" placeholder="Contoh: Jangan beli kemeja sebelum kamu tahu trik bahan ini!" class="w-full px-3 py-2 border border-amber-200 bg-amber-50/30 rounded-xl text-xs font-medium" />
-        </div>
-
-        <!-- Kolom Script Naskah Voice Over -->
-        <div>
-          <label class="block text-xs font-bold text-slate-700 mb-1">Script / Alur Naskah Voice Over & Visual</label>
-          <textarea id="content-script" rows="3" placeholder="Tuliskan kata-kata pembicara atau alur adegan visual..." class="w-full px-3 py-2 border rounded-xl text-xs leading-relaxed"></textarea>
-        </div>
-
-        <!-- Kolom Caption -->
-        <div>
-          <label class="block text-xs font-bold text-slate-700 mb-1">Caption Postingan & Hashtag</label>
-          <textarea id="content-caption" rows="2" placeholder="Teks caption postingan..." class="w-full px-3 py-2 border rounded-xl text-xs"></textarea>
-        </div>
-
-        <div class="flex justify-end gap-2 pt-2 border-t">
-          <button type="button" onclick="closeModal('modal-content')" class="px-4 py-2 border rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-50">Batal</button>
-          <button type="submit" class="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold shadow-sm">Simpan Rencana</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
   <!-- MODAL ATUR GEMINI API KEY -->
   <div id="modal-ai-key" class="no-print hidden fixed inset-0 z-50 bg-slate-900/60 flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl max-w-md w-full p-5 space-y-3 shadow-xl">
@@ -805,7 +900,7 @@ Belum ada naskah script.
         <button onclick="closeModal('modal-ai-key')"><i data-lucide="x" class="w-4 h-4"></i></button>
       </div>
       <p class="text-xs text-slate-500 leading-relaxed">
-        Tempelkan API Key dari Google AI Studio milikmu di bawah ini. Kunci disimpan privat di browser perangkat ini.
+        Tempelkan API Key dari Google AI Studio milikmu di bawah ini. Kunci disimpan privat di browser.
       </p>
       <div>
         <label class="block text-xs font-bold text-slate-700 mb-1">Gemini API Key</label>
@@ -844,7 +939,7 @@ Belum ada naskah script.
       <form onsubmit="saveAccount(event)" class="space-y-3">
         <input type="hidden" id="account-id" />
         <div class="grid grid-cols-2 gap-2">
-          <div><label class="block text-xs font-bold mb-1">Nama Akun / Brand</label><input type="text" id="account-name" required placeholder="Contoh: Chocoovora" class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
+          <div><label class="block text-xs font-bold mb-1">Nama Akun / Label</label><input type="text" id="account-name" required placeholder="Contoh: Akun Fashion Zy" class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
           <div><label class="block text-xs font-bold mb-1">Username (@)</label><input type="text" id="account-username" required placeholder="@chocoovora" class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
         </div>
         <div class="grid grid-cols-3 gap-2">
@@ -859,10 +954,10 @@ Belum ada naskah script.
           </div>
           <div>
             <label class="block text-xs font-bold mb-1">Klien Pemilik</label>
-            <input type="text" id="account-client" value="Pribadi / Internal" class="w-full px-3 py-2 border rounded-xl text-sm" />
+            <select id="account-client-select" class="w-full px-3 py-2 border rounded-xl text-sm bg-white"></select>
           </div>
           <div>
-            <label class="block text-xs font-bold mb-1">Jumlah Followers</label>
+            <label class="block text-xs font-bold mb-1">Followers</label>
             <input type="number" id="account-followers" value="0" required class="w-full px-3 py-2 border rounded-xl text-sm" />
           </div>
         </div>
@@ -879,14 +974,8 @@ Belum ada naskah script.
     <div class="bg-white rounded-2xl max-w-lg w-full p-5 space-y-3 shadow-xl">
       <h3 class="font-bold text-base text-slate-900">Input Performa Konten</h3>
       <form onsubmit="saveAnalytics(event)" class="space-y-3">
-        <div class="grid grid-cols-3 gap-2">
+        <div class="grid grid-cols-2 gap-2">
           <div><label class="block text-xs font-bold mb-1">Tanggal</label><input type="date" id="analytics-date" required class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
-          <div>
-            <label class="block text-xs font-bold mb-1">Untuk Akun</label>
-            <select id="analytics-account-select" class="w-full px-3 py-2 border rounded-xl text-sm bg-white">
-              <option value="ALL">Akun Utama</option>
-            </select>
-          </div>
           <div><label class="block text-xs font-bold mb-1">Platform</label><select id="analytics-platform" class="w-full px-3 py-2 border rounded-xl text-sm bg-white"><option value="TikTok">TikTok</option><option value="Instagram">Instagram</option><option value="Shopee">Shopee</option><option value="YouTube">YouTube</option></select></div>
         </div>
         <div><label class="block text-xs font-bold mb-1">Nama Konten</label><input type="text" id="analytics-title" required class="w-full px-3 py-2 border rounded-xl text-sm" /></div>
@@ -943,7 +1032,7 @@ Belum ada naskah script.
 
   <div id="toast-container" class="no-print fixed top-4 right-4 z-50 space-y-2 pointer-events-none"></div>
 
-  <!-- ==================== JAVASCRIPT LOGIC ==================== -->
+  <!-- ==================== JAVASCRIPT LOGIC V6.5 ==================== -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
     import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
@@ -965,11 +1054,20 @@ Belum ada naskah script.
     const STORAGE_KEY = 'BOBY_CREATOR_STUDIO_DB_V2';
     const GEMINI_KEY_STORAGE = 'BOBY_GEMINI_API_KEY_SECURE';
 
-    let db = { clients: [], accounts: [], contents: [], analytics: [], affiliates: [], tasks: [] };
+    let db = { 
+      clients: [], 
+      projects: [], 
+      accounts: [], 
+      contents: [], 
+      analytics: [], 
+      affiliates: [], 
+      tasks: [] 
+    };
+
     let activeTab = 'planner';
     let plannerMode = 'calendar';
     let currentCalendarDate = new Date();
-    let activeAccountFilter = 'ALL';
+    let activeProjectFilter = 'ALL';
     let chartInstance = null;
     let latestAIGeneratedText = '';
     let currentTeleContent = null;
@@ -980,7 +1078,6 @@ Belum ada naskah script.
     function formatRupiah(n) { return 'Rp ' + Number(n || 0).toLocaleString('id-ID'); }
     function escapeHtml(str) { return String(str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
 
-    // Format Tanggal Indonesia: Hari, Tanggal Bulan Tahun
     function formatDateID(dateStr) {
       if (!dateStr) return '-';
       const parts = dateStr.split('-');
@@ -992,7 +1089,6 @@ Belum ada naskah script.
       return `${dayName}${parts[2]} ${months[parseInt(parts[1], 10) - 1]} ${parts[0]}`;
     }
 
-    // Ekstraksi & Format Jam Digital 24 Jam Murni (00:00 - 23:59)
     function formatTime24(timeStr) {
       if (!timeStr) return '19:00';
       const match = String(timeStr).match(/(\d{1,2})[:.](\d{1,2})/);
@@ -1027,31 +1123,64 @@ Belum ada naskah script.
       refreshAll();
     }
 
+    function sanitizeDatabase(data) {
+      if (!data || typeof data !== 'object') data = {};
+      return {
+        clients: Array.isArray(data.clients) ? data.clients : [],
+        projects: Array.isArray(data.projects) ? data.projects : [],
+        accounts: Array.isArray(data.accounts) ? data.accounts : [],
+        contents: Array.isArray(data.contents) ? data.contents : [],
+        analytics: Array.isArray(data.analytics) ? data.analytics : [],
+        affiliates: Array.isArray(data.affiliates) ? data.affiliates : [],
+        tasks: Array.isArray(data.tasks) ? data.tasks : []
+      };
+    }
+
     function initRealtime() {
       const raw = localStorage.getItem(STORAGE_KEY);
       if (raw) { 
         try { 
-          db = JSON.parse(raw); 
-          if (!Array.isArray(db.accounts)) db.accounts = [];
-          if (!Array.isArray(db.contents)) db.contents = [];
+          db = sanitizeDatabase(JSON.parse(raw)); 
+          autoCreateDefaultProjectIfNeeded();
           refreshAll(); 
         } catch(e){} 
       }
       onSnapshot(docRef, (snap) => {
         if (snap.exists() && snap.data().payload) {
           try {
-            db = JSON.parse(snap.data().payload);
-            if (!Array.isArray(db.accounts)) db.accounts = [];
-            if (!Array.isArray(db.contents)) db.contents = [];
+            db = sanitizeDatabase(JSON.parse(snap.data().payload));
+            autoCreateDefaultProjectIfNeeded();
             localStorage.setItem(STORAGE_KEY, JSON.stringify(db));
             refreshAll();
           } catch(e){}
         } else {
+          autoCreateDefaultProjectIfNeeded();
           saveToCloud();
         }
       }, (err) => {
         console.warn('Realtime listener error:', err);
       });
+    }
+
+    // Buat Project Otomatis jika baru pertama kali migrasi ke v6.5 agar data lama langsung tertata
+    function autoCreateDefaultProjectIfNeeded() {
+      if (db.projects.length === 0) {
+        const defaultProjectId = 'proj_default';
+        const allAccIds = db.accounts.map(a => a.id);
+        db.projects.push({
+          id: defaultProjectId,
+          name: 'Project Utama (Default)',
+          clientId: db.clients[0]?.id || 'client_internal',
+          status: 'Aktif',
+          accountIds: allAccIds,
+          desc: 'Project utama otomatis untuk menampung seluruh konten dan akun awal.'
+        });
+
+        // Hubungkan konten lama yang belum punya project ke project default ini
+        db.contents.forEach(c => {
+          if (!c.projectId) c.projectId = defaultProjectId;
+        });
+      }
     }
 
     // --- NAVIGATION CONTROLLER ---
@@ -1075,9 +1204,10 @@ Belum ada naskah script.
 
       const titleMap = {
         planner: 'Content Planner Visual',
+        projects: 'Kelola Project & Kampanye Klien',
         dashboard: 'Dashboard Utama',
         ai: 'Boby AI Creator Assistant (Gemini Engine)',
-        accounts: 'Kelola Multi-Akun Media Sosial',
+        accounts: 'Inventaris Akun Media Sosial',
         clients: 'Manajemen Klien',
         analytics: 'Analytics Performa Konten',
         affiliate: 'Affiliate Tracker',
@@ -1093,31 +1223,8 @@ Belum ada naskah script.
 
     window.closeModal = function(id) { document.getElementById(id).classList.add('hidden'); };
     window.openClientModal = function() { document.getElementById('modal-client').classList.remove('hidden'); };
-    window.openAccountModal = function(id = null) { 
-      document.getElementById('account-id').value = '';
-      document.getElementById('account-name').value = '';
-      document.getElementById('account-username').value = '';
-      document.getElementById('account-platform').value = 'TikTok';
-      document.getElementById('account-client').value = 'Pribadi / Internal';
-      document.getElementById('account-followers').value = 0;
-      document.getElementById('modal-account-title').textContent = 'Tambah Akun Media Sosial';
 
-      if (id) {
-        const a = db.accounts.find(x => x.id === id);
-        if (a) {
-          document.getElementById('account-id').value = a.id;
-          document.getElementById('account-name').value = a.name;
-          document.getElementById('account-username').value = a.username;
-          document.getElementById('account-platform').value = a.platform;
-          document.getElementById('account-client').value = a.client || 'Pribadi / Internal';
-          document.getElementById('account-followers').value = a.followers;
-          document.getElementById('modal-account-title').textContent = 'Edit Akun Media Sosial';
-        }
-      }
-      document.getElementById('modal-account').classList.remove('hidden'); 
-    };
-
-    // INISIALISASI DROPDOWN JAM DIGITAL 24 JAM
+    // --- POPULATE WAKTU 24 JAM ---
     function populateTimeDropdowns() {
       const hSel = document.getElementById('content-hour');
       const mSel = document.getElementById('content-minute');
@@ -1145,9 +1252,99 @@ Belum ada naskah script.
       }
     };
 
-    // FORM RENCANA KONTEN DENGAN JAM 24 JAM
+    // --- MODAL KELOLA PROJECT (V6.5) ---
+    window.openProjectModal = function(id = null) {
+      populateClientDropdownInProject();
+      
+      document.getElementById('project-id').value = '';
+      document.getElementById('project-name').value = '';
+      document.getElementById('project-desc').value = '';
+      document.getElementById('project-status').value = 'Aktif';
+      document.getElementById('modal-project-title').textContent = 'Buat Project / Kampanye Baru';
+
+      // Checkboxes Akun
+      const boxContainer = document.getElementById('project-accounts-checkboxes');
+      boxContainer.innerHTML = db.accounts.length === 0 
+        ? '<p class="text-slate-400">Belum ada akun media sosial yang terdaftar.</p>'
+        : db.accounts.map(a => `
+          <label class="flex items-center gap-2 cursor-pointer hover:bg-slate-100 p-1 rounded">
+            <input type="checkbox" name="proj-acc" value="${a.id}" class="rounded text-indigo-600 focus:ring-indigo-500" />
+            <span class="font-bold text-slate-800">${escapeHtml(a.name)}</span>
+            <span class="text-slate-500">(${escapeHtml(a.username)} • ${escapeHtml(a.platform)})</span>
+          </label>
+        `).join('');
+
+      if (id) {
+        const p = db.projects.find(x => x.id === id);
+        if (p) {
+          document.getElementById('project-id').value = p.id;
+          document.getElementById('project-name').value = p.name;
+          document.getElementById('project-client-select').value = p.clientId || '';
+          document.getElementById('project-status').value = p.status || 'Aktif';
+          document.getElementById('project-desc').value = p.desc || '';
+          document.getElementById('modal-project-title').textContent = 'Edit Project / Kampanye';
+
+          const chks = document.querySelectorAll('input[name="proj-acc"]');
+          chks.forEach(chk => {
+            chk.checked = Array.isArray(p.accountIds) && p.accountIds.includes(chk.value);
+          });
+        }
+      }
+      document.getElementById('modal-project').classList.remove('hidden');
+    };
+
+    function populateClientDropdownInProject() {
+      const sel = document.getElementById('project-client-select');
+      const accClientSel = document.getElementById('account-client-select');
+      
+      let html = '<option value="client_internal">🏢 Internal / Brand Sendiri</option>';
+      db.clients.forEach(c => {
+        html += `<option value="${c.id}">${escapeHtml(c.name)} (${escapeHtml(c.brand)})</option>`;
+      });
+
+      if (sel) sel.innerHTML = html;
+      if (accClientSel) accClientSel.innerHTML = html;
+    }
+
+    window.saveProject = function(e) {
+      e.preventDefault();
+      const id = document.getElementById('project-id').value;
+      const checkedAccs = Array.from(document.querySelectorAll('input[name="proj-acc"]:checked')).map(el => el.value);
+
+      const payload = {
+        id: id || uid(),
+        name: document.getElementById('project-name').value.trim(),
+        clientId: document.getElementById('project-client-select').value,
+        status: document.getElementById('project-status').value,
+        desc: document.getElementById('project-desc').value.trim(),
+        accountIds: checkedAccs
+      };
+
+      if (id) {
+        const idx = db.projects.findIndex(x => x.id === id);
+        if (idx > -1) db.projects[idx] = payload;
+        showToast('Project diperbarui!');
+      } else {
+        db.projects.unshift(payload);
+        showToast('Project baru berhasil dibuat!');
+      }
+      closeModal('modal-project');
+      saveToCloud();
+    };
+
+    window.deleteProject = function(id) {
+      if (confirm("Hapus project ini? Konten yang terkait tidak akan terhapus, namun project-nya akan dilepas.")) {
+        db.projects = db.projects.filter(x => x.id !== id);
+        if (activeProjectFilter === id) activeProjectFilter = 'ALL';
+        saveToCloud();
+        showToast('Project dihapus.');
+      }
+    };
+
+    // --- FORM KONTEN (TERHUBUNG KE PROJECT & AKUN SESUAI PROJECT) ---
     window.openContentModal = function(id = null, presetDate = null) {
       populateTimeDropdowns();
+      populateProjectOptionsInContentModal();
 
       document.getElementById('content-id').value = '';
       document.getElementById('content-date').value = presetDate || todayISO();
@@ -1160,6 +1357,14 @@ Belum ada naskah script.
       document.getElementById('content-status').value = 'Ide';
       document.getElementById('modal-content-title').textContent = 'Rencana Konten Baru';
 
+      // Jika user sedang memfilter satu project tertentu, kunci langsung ke project itu
+      if (activeProjectFilter !== 'ALL') {
+        document.getElementById('content-project-select').value = activeProjectFilter;
+      }
+      
+      // Update dropdown akun berdasarkan project yang terpilih
+      window.onContentProjectChange(document.getElementById('content-project-select').value);
+
       if (id) {
         const c = db.contents.find(x => x.id === id);
         if (c) {
@@ -1170,8 +1375,10 @@ Belum ada naskah script.
           const [h, m] = digitalTime.split(':');
           window.setQuickTime(h, m);
 
-          document.getElementById('content-account-select').value = c.accountId || 'ALL';
-          document.getElementById('content-platform').value = c.platform || 'TikTok';
+          document.getElementById('content-project-select').value = c.projectId || db.projects[0]?.id || '';
+          window.onContentProjectChange(document.getElementById('content-project-select').value);
+          document.getElementById('content-account-select').value = c.accountId || '';
+
           document.getElementById('content-status').value = c.status || 'Ide';
           document.getElementById('content-title').value = c.title;
           document.getElementById('content-pillar').value = c.pillar || '';
@@ -1184,21 +1391,91 @@ Belum ada naskah script.
       document.getElementById('modal-content').classList.remove('hidden');
     };
 
-    window.openAnalyticsModal = function() { document.getElementById('modal-analytics').classList.remove('hidden'); };
-    window.openAffiliateModal = function() { document.getElementById('modal-affiliate').classList.remove('hidden'); };
-    window.openTaskModal = function() { document.getElementById('modal-task').classList.remove('hidden'); };
+    function populateProjectOptionsInContentModal() {
+      const sel = document.getElementById('content-project-select');
+      if (!sel) return;
 
-    // --- MODE TELEPROMPTER / SHOOTING NASKAH ---
+      sel.innerHTML = db.projects.length === 0 
+        ? '<option value="proj_default">Project Utama</option>'
+        : db.projects.map(p => {
+          const client = db.clients.find(c => c.id === p.clientId);
+          const clientName = client ? client.name : 'Internal';
+          return `<option value="${p.id}">📁 ${escapeHtml(p.name)} (${escapeHtml(clientName)})</option>`;
+        }).join('');
+    }
+
+    // Ketika Project diganti di modal form, filter dropdown akun sosmed khusus yang ada di project tersebut
+    window.onContentProjectChange = function(projId) {
+      const accSel = document.getElementById('content-account-select');
+      if (!accSel) return;
+
+      const project = db.projects.find(p => p.id === projId);
+      let allowedAccounts = db.accounts;
+
+      // Jika project memiliki daftar accountIds tertentu, ambil hanya akun tersebut!
+      if (project && Array.isArray(project.accountIds) && project.accountIds.length > 0) {
+        allowedAccounts = db.accounts.filter(a => project.accountIds.includes(a.id));
+      }
+
+      if (allowedAccounts.length === 0) {
+        accSel.innerHTML = '<option value="">Semua Akun / Tanpa Akun Khusus</option>';
+      } else {
+        accSel.innerHTML = allowedAccounts.map(a => {
+          const cleanUser = a.username.replace(/^@+/, '@');
+          return `<option value="${a.id}">${escapeHtml(a.name)} (${escapeHtml(cleanUser)} • ${escapeHtml(a.platform)})</option>`;
+        }).join('');
+      }
+    };
+
+    // --- GLOBAL PROJECT FILTER SWITCHER DI HEADER ATAS ---
+    window.onGlobalProjectFilterChange = function(val) {
+      activeProjectFilter = val;
+      const project = db.projects.find(p => p.id === val);
+      const label = project ? `Project: ${project.name}` : 'Semua Project (Global)';
+      
+      document.getElementById('sidebar-active-project-label').textContent = label;
+      document.getElementById('chart-project-tag').textContent = label;
+
+      const banner = document.getElementById('planner-project-banner');
+      if (project) {
+        banner.classList.remove('hidden');
+        document.getElementById('banner-project-name').textContent = project.name;
+        const client = db.clients.find(c => c.id === project.clientId);
+        const cName = client ? client.name : 'Internal';
+        const accCount = Array.isArray(project.accountIds) ? project.accountIds.length : 0;
+        document.getElementById('banner-project-desc').textContent = `Klien: ${cName} • ${accCount} Akun Medsos Terkait • ${project.desc || 'Tidak ada catatan.'}`;
+      } else {
+        banner.classList.add('hidden');
+      }
+
+      refreshAll();
+      showToast(`Beralih ke: ${label}`);
+    };
+
+    window.selectProjectDirectly = function(projId) {
+      const sel = document.getElementById('global-project-filter');
+      if (sel) sel.value = projId;
+      window.onGlobalProjectFilterChange(projId);
+      window.switchTab('planner');
+    };
+
+    window.resetToGlobalProject = function() {
+      const sel = document.getElementById('global-project-filter');
+      if (sel) sel.value = 'ALL';
+      window.onGlobalProjectFilterChange('ALL');
+    };
+
+    // --- SHOOTING MODE & TELEPROMPTER ---
     window.openTeleprompter = function(id) {
       const c = db.contents.find(x => x.id === id);
       if (!c) return;
       currentTeleContent = c;
 
+      const proj = db.projects.find(p => p.id === c.projectId);
       const acc = db.accounts.find(x => x.id === c.accountId);
-      const rawUser = acc ? acc.username : c.platform;
-      const cleanTag = rawUser.replace(/^@+/, '@');
+      const cleanUser = acc ? acc.username.replace(/^@+/, '@') : (c.platform || 'Medsos');
 
-      document.getElementById('tele-platform-tag').textContent = `${c.platform} • ${cleanTag}`;
+      document.getElementById('tele-project-tag').textContent = `${proj ? proj.name : 'Project'} • ${cleanUser}`;
       document.getElementById('tele-title').textContent = c.title;
       document.getElementById('tele-meta').textContent = `Jadwal: ${formatDateID(c.date)} • Jam ${formatTime24(c.time)} WIB • Status: ${c.status}`;
       document.getElementById('tele-hook').textContent = c.hook || 'Belum ada Hook pancingan yang ditulis.';
@@ -1275,10 +1552,10 @@ Belum ada naskah script.
         html += `<div class="min-h-[85px] sm:min-h-[105px] rounded-2xl bg-slate-50/60 border border-slate-100"></div>`;
       }
 
-      const isFiltered = activeAccountFilter !== 'ALL';
-      const targetAccount = isFiltered ? db.accounts.find(a => a.id === activeAccountFilter) : null;
+      // Filter konten berdasarkan project yang dipilih
+      const isFiltered = activeProjectFilter !== 'ALL';
       const filteredContents = isFiltered 
-        ? db.contents.filter(c => c.accountId === activeAccountFilter || (targetAccount && c.platform === targetAccount.platform)) 
+        ? db.contents.filter(c => c.projectId === activeProjectFilter) 
         : db.contents;
 
       for (let d = 1; d <= daysInMonth; d++) {
@@ -1300,7 +1577,7 @@ Belum ada naskah script.
             <div class="space-y-1 mt-1 overflow-hidden">
               ${items.slice(0, 2).map(it => {
                 const acc = db.accounts.find(x => x.id === it.accountId);
-                const rawUsername = acc ? acc.username : it.platform;
+                const rawUsername = acc ? acc.username : (it.platform || 'Medsos');
                 const cleanTag = rawUsername.replace(/^@+/, '@');
                 const digitalTime = formatTime24(it.time);
                 return `
@@ -1450,42 +1727,13 @@ Belum ada naskah script.
     window.transferAIToPlanner = function() {
       if (!latestAIGeneratedText) return;
       const topic = document.getElementById('ai-topic').value.trim();
-      const platform = document.getElementById('ai-platform').value;
 
       window.openContentModal();
       document.getElementById('content-title').value = topic ? topic.slice(0, 70) : 'Konten Rekomendasi Gemini AI';
-      document.getElementById('content-platform').value = platform === 'Shopee Video' ? 'Shopee' : (platform.includes('Reels') ? 'Instagram' : 'TikTok');
       document.getElementById('content-pillar').value = 'AI Generated';
       document.getElementById('content-script').value = latestAIGeneratedText;
       
       showToast('Konten AI dipindahkan ke form Planner!');
-    };
-
-    // --- MULTI-ACCOUNT FILTER CONTROLLER ---
-    window.onGlobalAccountFilterChange = function(val) {
-      activeAccountFilter = val;
-      const acc = db.accounts.find(x => x.id === val);
-      const cleanUsername = acc ? acc.username.replace(/^@+/, '@') : '';
-      const label = acc ? `${acc.name} (${cleanUsername})` : 'Semua Akun (Global)';
-      document.getElementById('sidebar-active-account-label').textContent = label;
-      document.getElementById('chart-account-tag').textContent = label;
-      
-      const desc = document.getElementById('dash-filter-desc');
-      if (acc) {
-        desc.textContent = `Fokus menampilkan data analitik dan jadwal untuk ${acc.name} (${acc.platform}).`;
-      } else {
-        desc.textContent = 'Menampilkan akumulasi data seluruh akun media sosial & affiliate.';
-      }
-      
-      refreshAll();
-      showToast(`Filter: ${label}`);
-    };
-
-    window.selectAccountDirectly = function(accId) {
-      const select = document.getElementById('global-account-filter');
-      if (select) select.value = accId;
-      window.onGlobalAccountFilterChange(accId);
-      window.switchTab('planner');
     };
 
     // --- CRUD OPERASIONAL ---
@@ -1514,7 +1762,7 @@ Belum ada naskah script.
         name: document.getElementById('account-name').value.trim(),
         username: cleanUsername,
         platform: document.getElementById('account-platform').value,
-        client: document.getElementById('account-client').value,
+        clientId: document.getElementById('account-client-select').value,
         followers: Number(document.getElementById('account-followers').value || 0)
       };
 
@@ -1537,12 +1785,16 @@ Belum ada naskah script.
       const minute = (document.getElementById('content-minute').value || '00').padStart(2, '0');
       const digitalTime = `${hour}:${minute}`;
 
+      const selectedAccId = document.getElementById('content-account-select').value;
+      const acc = db.accounts.find(a => a.id === selectedAccId);
+
       const payload = {
         id: id || uid(),
+        projectId: document.getElementById('content-project-select').value,
+        accountId: selectedAccId,
+        platform: acc ? acc.platform : 'Medsos',
         date: document.getElementById('content-date').value,
         time: digitalTime,
-        accountId: document.getElementById('content-account-select').value,
-        platform: document.getElementById('content-platform').value,
         status: document.getElementById('content-status').value,
         title: document.getElementById('content-title').value.trim(),
         pillar: document.getElementById('content-pillar').value.trim(),
@@ -1572,7 +1824,6 @@ Belum ada naskah script.
       db.analytics.unshift({
         id: uid(),
         date: document.getElementById('analytics-date').value,
-        accountId: document.getElementById('analytics-account-select').value,
         platform: document.getElementById('analytics-platform').value,
         title: document.getElementById('analytics-title').value.trim(),
         views, likes, comments, er
@@ -1631,25 +1882,22 @@ Belum ada naskah script.
       a.click();
     };
 
-    function populateAccountDropdowns() {
-      const globalSel = document.getElementById('global-account-filter');
-      const contentSel = document.getElementById('content-account-select');
-      const analSel = document.getElementById('analytics-account-select');
+    // --- POPULATE DROPDOWNS & RENDERING ENGINE ---
+    function populateGlobalProjectDropdown() {
+      const globalSel = document.getElementById('global-project-filter');
+      if (!globalSel) return;
 
-      const currentGlobalVal = globalSel.value;
-      globalSel.innerHTML = '<option value="ALL">🌐 Semua Akun (Global)</option>';
-      if (contentSel) contentSel.innerHTML = '<option value="ALL">Akun Utama / Tanpa Akun</option>';
-      if (analSel) analSel.innerHTML = '<option value="ALL">Akun Utama / Tanpa Akun</option>';
+      const currentVal = globalSel.value;
+      let html = '<option value="ALL">🌐 Semua Project & Akun (Global)</option>';
 
-      db.accounts.forEach(acc => {
-        const cleanUser = acc.username.replace(/^@+/, '@');
-        const opt = `<option value="${acc.id}">${acc.name} (${cleanUser} - ${acc.platform})</option>`;
-        globalSel.innerHTML += opt;
-        if (contentSel) contentSel.innerHTML += opt;
-        if (analSel) analSel.innerHTML += opt;
+      db.projects.forEach(p => {
+        const client = db.clients.find(c => c.id === p.clientId);
+        const clientName = client ? client.name : 'Internal';
+        html += `<option value="${p.id}">📁 [${escapeHtml(clientName)}] ${escapeHtml(p.name)}</option>`;
       });
 
-      globalSel.value = currentGlobalVal || 'ALL';
+      globalSel.innerHTML = html;
+      globalSel.value = currentVal || 'ALL';
     }
 
     window.renderPlanner = function() {
@@ -1659,10 +1907,9 @@ Belum ada naskah script.
       const q = (document.getElementById('search-planner')?.value || '').toLowerCase();
       const sf = document.getElementById('filter-planner-status')?.value || 'ALL';
 
-      const isFiltered = activeAccountFilter !== 'ALL';
-      const targetAccount = isFiltered ? db.accounts.find(a => a.id === activeAccountFilter) : null;
+      const isFiltered = activeProjectFilter !== 'ALL';
       const filteredContents = isFiltered 
-        ? db.contents.filter(c => c.accountId === activeAccountFilter || (targetAccount && c.platform === targetAccount.platform)) 
+        ? db.contents.filter(c => c.projectId === activeProjectFilter) 
         : db.contents;
 
       const finalContents = filteredContents.filter(c => {
@@ -1671,7 +1918,6 @@ Belum ada naskah script.
         return matchQ && matchS;
       });
 
-      // Update Planner Counters
       const today = todayISO();
       document.getElementById('stat-total-planner').textContent = filteredContents.length;
       document.getElementById('stat-today-planner').textContent = filteredContents.filter(c => c.date === today).length;
@@ -1682,12 +1928,15 @@ Belum ada naskah script.
       const tbody = document.getElementById('planner-table-body');
       if (tbody) {
         tbody.innerHTML = finalContents.length === 0 
-          ? '<tr><td colspan="6" class="p-8 text-center text-slate-400 text-xs">Belum ada jadwal konten. Klik tombol Buat Konten di atas!</td></tr>'
+          ? '<tr><td colspan="7" class="p-8 text-center text-slate-400 text-xs">Belum ada jadwal konten untuk project ini. Klik tombol Buat Konten di atas!</td></tr>'
           : finalContents.map(c => {
+            const proj = db.projects.find(p => p.id === c.projectId);
+            const client = proj ? db.clients.find(cl => cl.id === proj.clientId) : null;
             const acc = db.accounts.find(x => x.id === c.accountId);
-            const rawUser = acc ? acc.username : c.platform;
+            const rawUser = acc ? acc.username : (c.platform || 'Medsos');
             const cleanTag = rawUser.replace(/^@+/, '@');
             const digitalTime = formatTime24(c.time);
+
             return `
               <tr class="hover:bg-slate-50">
                 <td class="p-4">
@@ -1696,6 +1945,10 @@ Belum ada naskah script.
                     <i data-lucide="clock" class="w-3 h-3 text-slate-400"></i>
                     <span>Jam ${digitalTime} WIB</span>
                   </p>
+                </td>
+                <td class="p-4">
+                  <p class="font-extrabold text-slate-900">${escapeHtml(proj ? proj.name : 'Project Utama')}</p>
+                  <p class="text-[11px] text-indigo-600 font-semibold">${escapeHtml(client ? client.name : 'Internal')}</p>
                 </td>
                 <td class="p-4">
                   <p class="font-extrabold text-slate-900">${escapeHtml(c.title)}</p>
@@ -1718,33 +1971,83 @@ Belum ada naskah script.
       }
     };
 
+    function renderProjects() {
+      const grid = document.getElementById('projects-showcase-grid');
+      if (!grid) return;
+
+      grid.innerHTML = db.projects.length === 0 
+        ? '<p class="text-xs text-slate-400 p-4 col-span-3">Belum ada project/kampanye. Klik tombol Buat Project Baru di atas!</p>'
+        : db.projects.map(p => {
+          const client = db.clients.find(c => c.id === p.clientId);
+          const clientName = client ? client.name : 'Internal';
+          const postCount = db.contents.filter(c => c.projectId === p.id).length;
+          const assignedAccs = db.accounts.filter(a => Array.isArray(p.accountIds) && p.accountIds.includes(a.id));
+          const isSelected = activeProjectFilter === p.id;
+
+          return `
+            <div class="bg-white rounded-2xl border ${isSelected ? 'border-indigo-600 ring-2 ring-indigo-500/20 shadow-md' : 'border-slate-200'} p-5 shadow-xs space-y-3.5 transition">
+              <div class="flex items-center justify-between">
+                <span class="px-2.5 py-1 rounded-xl text-[10px] font-extrabold uppercase bg-indigo-50 text-indigo-700 border border-indigo-100">
+                  📁 ${escapeHtml(clientName)}
+                </span>
+                <span class="text-xs font-extrabold ${p.status === 'Aktif' ? 'text-emerald-600' : 'text-slate-400'}">${escapeHtml(p.status)}</span>
+              </div>
+              <div>
+                <h4 class="font-extrabold text-base text-slate-900 truncate">${escapeHtml(p.name)}</h4>
+                <p class="text-xs text-slate-500 line-clamp-2 mt-0.5">${escapeHtml(p.desc || 'Tidak ada deskripsi.')}</p>
+              </div>
+
+              <!-- Akun Sosmed Terkait -->
+              <div class="bg-slate-50 p-2.5 rounded-xl space-y-1">
+                <p class="text-[10px] text-slate-400 font-extrabold uppercase">Akun Medsos yang Terlibat (${assignedAccs.length}):</p>
+                <div class="flex flex-wrap gap-1">
+                  ${assignedAccs.length === 0 
+                    ? '<span class="text-[11px] text-slate-400">Belum ada akun terhubung</span>'
+                    : assignedAccs.map(a => `<span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-white border border-slate-200 text-slate-700">${a.platform} (${a.username.replace(/^@+/,'@')})</span>`).join('')
+                  }
+                </div>
+              </div>
+
+              <div class="flex items-center justify-between pt-2 border-t text-xs">
+                <span class="font-bold text-slate-700">${postCount} Konten Terjadwal</span>
+                <div class="space-x-1.5">
+                  <button onclick="selectProjectDirectly('${p.id}')" class="px-3 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-bold transition">
+                    Buka Project &rarr;
+                  </button>
+                  <button onclick="openProjectModal('${p.id}')" class="p-1 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50"><i data-lucide="edit-3" class="w-3.5 h-3.5"></i></button>
+                  <button onclick="deleteProject('${p.id}')" class="p-1 rounded-lg border border-rose-200 text-rose-600 hover:bg-rose-50"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+    }
+
     function refreshAll() {
-      populateAccountDropdowns();
+      populateGlobalProjectDropdown();
+      populateClientDropdownInProject();
       populateTimeDropdowns();
       updateAIKeyStatusUI();
       renderPlanner();
+      renderProjects();
 
-      const isFiltered = activeAccountFilter !== 'ALL';
-      const targetAccount = isFiltered ? db.accounts.find(a => a.id === activeAccountFilter) : null;
-
-      const filteredAnalytics = isFiltered 
-        ? db.analytics.filter(a => a.accountId === activeAccountFilter || (targetAccount && a.platform === targetAccount.platform)) 
+      // Filtered Analytics & Followers Count
+      const filteredAnalytics = activeProjectFilter !== 'ALL'
+        ? db.analytics.filter(a => a.projectId === activeProjectFilter)
         : db.analytics;
 
-      const totalFollowersCount = isFiltered && targetAccount 
-        ? Number(targetAccount.followers || 0)
-        : db.accounts.reduce((a, b) => a + Number(b.followers || 0), 0);
+      const totalFollowersCount = db.accounts.reduce((a, b) => a + Number(b.followers || 0), 0);
 
       // KPI Update
       document.getElementById('dash-total-clients').textContent = formatNumber(db.clients.length);
       document.getElementById('dash-active-clients').textContent = `${db.clients.filter(c => c.status === 'Aktif').length} Aktif`;
-      document.getElementById('dash-total-accounts').textContent = isFiltered ? '1 (Fokus)' : formatNumber(db.accounts.length);
-      document.getElementById('dash-account-breakdown').textContent = isFiltered && targetAccount ? `${targetAccount.platform} • ${targetAccount.username.replace(/^@+/, '@')}` : 'TikTok, IG, Shopee, YT';
+      document.getElementById('dash-total-projects').textContent = formatNumber(db.projects.length);
+      document.getElementById('dash-project-breakdown').textContent = activeProjectFilter !== 'ALL' ? '1 Project Terpilih' : `${db.projects.length} Total Project`;
       document.getElementById('dash-total-content').textContent = formatNumber(db.contents.length);
       document.getElementById('dash-uploaded-content').textContent = `${db.contents.filter(c => c.status === 'Sudah upload').length} Sudah Upload`;
       document.getElementById('dash-total-views').textContent = formatNumber(filteredAnalytics.reduce((a, b) => a + Number(b.views || 0), 0));
       document.getElementById('dash-total-followers').textContent = formatNumber(totalFollowersCount);
-      document.getElementById('dash-followers-sub').textContent = isFiltered && targetAccount ? targetAccount.username.replace(/^@+/, '@') : 'Seluruh Akun';
+      document.getElementById('dash-followers-sub').textContent = 'Seluruh Akun';
 
       const avgER = filteredAnalytics.length > 0 ? (filteredAnalytics.reduce((a, b) => a + Number(b.er || 0), 0) / filteredAnalytics.length).toFixed(2) : 0;
       document.getElementById('dash-avg-er').textContent = `${avgER}%`;
@@ -1757,7 +2060,7 @@ Belum ada naskah script.
       document.getElementById('dash-aff-gmv').textContent = `GMV: ${formatRupiah(db.affiliates.reduce((a, b) => a + Number(b.gmv || 0), 0))}`;
       document.getElementById('dash-aff-commission').textContent = formatRupiah(db.affiliates.reduce((a, b) => a + Number(b.commission || 0), 0));
 
-      // Visual Cards Multi-Akun Showcase Grid
+      // Showcase Akun
       const showcase = document.getElementById('accounts-showcase-grid');
       const badgeCount = document.getElementById('accounts-count-badge');
       if (badgeCount) badgeCount.textContent = `${db.accounts.length} Akun Terdaftar`;
@@ -1773,15 +2076,16 @@ Belum ada naskah script.
         showcase.innerHTML = db.accounts.length === 0 
           ? '<p class="text-xs text-slate-400 p-4 col-span-3">Belum ada akun media sosial. Klik tombol Tambah Akun Baru di atas!</p>'
           : db.accounts.map(acc => {
-            const isCurrentActive = activeAccountFilter === acc.id;
+            const client = db.clients.find(c => c.id === acc.clientId);
+            const clientName = client ? client.name : 'Internal';
             const gradient = platformColors[acc.platform] || 'from-indigo-600 to-violet-700 text-white';
             const cleanUser = acc.username.replace(/^@+/, '@');
-            const postCount = db.contents.filter(c => c.accountId === acc.id || c.platform === acc.platform).length;
+            const postCount = db.contents.filter(c => c.accountId === acc.id).length;
             return `
-              <div class="bg-white rounded-2xl border ${isCurrentActive ? 'border-indigo-500 ring-2 ring-indigo-500/30' : 'border-slate-200'} p-4 shadow-xs space-y-3 transition">
+              <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-xs space-y-3 transition">
                 <div class="flex items-center justify-between">
                   <span class="px-2.5 py-1 rounded-xl text-[10px] font-extrabold uppercase bg-gradient-to-r ${gradient}">${escapeHtml(acc.platform)}</span>
-                  ${isCurrentActive ? '<span class="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">Sedang Dipilih</span>' : ''}
+                  <span class="text-[10px] font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full">${escapeHtml(clientName)}</span>
                 </div>
                 <div>
                   <h4 class="font-extrabold text-base text-slate-900 truncate">${escapeHtml(acc.name)}</h4>
@@ -1797,10 +2101,7 @@ Belum ada naskah script.
                     <p class="text-xs font-extrabold text-indigo-600">${postCount}</p>
                   </div>
                 </div>
-                <div class="flex items-center gap-1.5 pt-1">
-                  <button onclick="selectAccountDirectly('${acc.id}')" class="flex-1 py-1.5 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold text-xs transition">
-                    Pilih & Filter &rarr;
-                  </button>
+                <div class="flex items-center justify-end gap-1.5 pt-1 border-t">
                   <button onclick="openAccountModal('${acc.id}')" class="p-1.5 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-600"><i data-lucide="edit-3" class="w-3.5 h-3.5"></i></button>
                   <button onclick="db.accounts=db.accounts.filter(x=>x.id!='${acc.id}');saveToCloud();" class="p-1.5 rounded-xl border border-rose-200 text-rose-600 hover:bg-rose-50"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
                 </div>
@@ -1811,44 +2112,45 @@ Belum ada naskah script.
 
       // Tables
       document.getElementById('accounts-table-body').innerHTML = db.accounts.map(a => {
+        const client = db.clients.find(c => c.id === a.clientId);
         const cleanUser = a.username.replace(/^@+/, '@');
         return `
           <tr class="hover:bg-slate-50">
             <td class="p-3.5 font-bold">${escapeHtml(a.name)} (${escapeHtml(cleanUser)})</td>
             <td class="p-3.5"><span class="px-2 py-0.5 rounded-md text-xs font-bold bg-slate-100">${escapeHtml(a.platform)}</span></td>
-            <td class="p-3.5 text-slate-600">${escapeHtml(a.client)}</td>
+            <td class="p-3.5 text-slate-600">${escapeHtml(client ? client.name : 'Internal')}</td>
             <td class="p-3.5 font-bold">${formatNumber(a.followers)}</td>
             <td class="p-3.5 text-right space-x-2">
-              <button onclick="selectAccountDirectly('${a.id}')" class="text-indigo-600 font-bold text-xs hover:underline">Pilih</button>
               <button onclick="openAccountModal('${a.id}')" class="text-slate-600 font-bold text-xs hover:underline">Edit</button>
               <button onclick="db.accounts=db.accounts.filter(x=>x.id!='${a.id}');saveToCloud();" class="text-rose-600 font-bold text-xs hover:underline">Hapus</button>
             </td>
           </tr>`;
       }).join('');
 
-      document.getElementById('clients-table-body').innerHTML = db.clients.map(c => `
-        <tr class="hover:bg-slate-50">
-          <td class="p-4 font-bold">${escapeHtml(c.name)} (${escapeHtml(c.brand)})</td>
-          <td class="p-4">${c.startDate}</td>
-          <td class="p-4"><span class="px-2 py-0.5 rounded-md text-xs font-bold bg-emerald-50 text-emerald-700">${escapeHtml(c.status)}</span></td>
-          <td class="p-4 text-slate-400">-</td>
-          <td class="p-4 text-right"><button onclick="db.clients=db.clients.filter(x=>x.id!='${c.id}');saveToCloud();" class="text-rose-600 font-bold text-xs">Hapus</button></td>
-        </tr>`).join('');
-
-      document.getElementById('analytics-table-body').innerHTML = filteredAnalytics.map(a => {
-        const acc = db.accounts.find(x => x.id === a.accountId);
-        const rawUser = acc ? acc.username : a.platform;
-        const cleanTag = rawUser.replace(/^@+/, '@');
+      document.getElementById('clients-table-body').innerHTML = db.clients.map(c => {
+        const pCount = db.projects.filter(p => p.clientId === c.id).length;
         return `
           <tr class="hover:bg-slate-50">
-            <td class="p-4"><span class="text-xs text-indigo-600 font-bold">${formatDateID(a.date)}</span><p class="font-bold text-slate-900">${escapeHtml(a.title)}</p></td>
-            <td class="p-4"><span class="px-2 py-0.5 rounded-md text-xs font-bold bg-indigo-50 text-indigo-700">${escapeHtml(cleanTag)}</span></td>
-            <td class="p-4 font-bold">${formatNumber(a.views)}</td>
-            <td class="p-4">${formatNumber(a.likes + a.comments)}</td>
-            <td class="p-4 font-bold text-rose-600">${a.er}%</td>
-            <td class="p-4 text-right"><button onclick="db.analytics=db.analytics.filter(x=>x.id!='${a.id}');saveToCloud();" class="text-rose-600 font-bold text-xs">Hapus</button></td>
+            <td class="p-4 font-bold">${escapeHtml(c.name)} (${escapeHtml(c.brand)})</td>
+            <td class="p-4">${c.startDate}</td>
+            <td class="p-4"><span class="px-2 py-0.5 rounded-md text-xs font-bold bg-emerald-50 text-emerald-700">${escapeHtml(c.status)}</span></td>
+            <td class="p-4 font-bold text-indigo-600">${pCount} Project</td>
+            <td class="p-4 text-right space-x-2">
+              <button onclick="openProjectModal(); document.getElementById('project-client-select').value='${c.id}';" class="text-indigo-600 font-bold text-xs hover:underline">+ Project</button>
+              <button onclick="db.clients=db.clients.filter(x=>x.id!='${c.id}');saveToCloud();" class="text-rose-600 font-bold text-xs hover:underline">Hapus</button>
+            </td>
           </tr>`;
       }).join('');
+
+      document.getElementById('analytics-table-body').innerHTML = filteredAnalytics.map(a => `
+        <tr class="hover:bg-slate-50">
+          <td class="p-4"><span class="text-xs text-indigo-600 font-bold">${formatDateID(a.date)}</span><p class="font-bold text-slate-900">${escapeHtml(a.title)}</p></td>
+          <td class="p-4"><span class="px-2 py-0.5 rounded-md text-xs font-bold bg-indigo-50 text-indigo-700">${escapeHtml(a.platform)}</span></td>
+          <td class="p-4 font-bold">${formatNumber(a.views)}</td>
+          <td class="p-4">${formatNumber(a.likes + a.comments)}</td>
+          <td class="p-4 font-bold text-rose-600">${a.er}%</td>
+          <td class="p-4 text-right"><button onclick="db.analytics=db.analytics.filter(x=>x.id!='${a.id}');saveToCloud();" class="text-rose-600 font-bold text-xs">Hapus</button></td>
+        </tr>`).join('');
 
       document.getElementById('affiliate-table-body').innerHTML = db.affiliates.map(f => `
         <tr class="hover:bg-slate-50">
