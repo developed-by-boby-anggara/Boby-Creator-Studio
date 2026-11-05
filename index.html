@@ -133,7 +133,7 @@
         </div>
         <div>
           <h2 id="page-title" class="text-base sm:text-lg font-extrabold text-slate-900 truncate">Content Planner Visual</h2>
-          <p id="page-subtitle" class="text-xs text-slate-500 truncate">Kalender produksi konten tanggal, bulan & tahun</p>
+          <p id="page-subtitle" class="text-xs text-slate-500 truncate">Kalender produksi konten tanggal, bulan & jam digital 24 jam</p>
         </div>
       </div>
 
@@ -278,7 +278,7 @@
           <table class="w-full text-left text-xs">
             <thead class="bg-slate-50 text-slate-500 uppercase font-bold border-b">
               <tr>
-                <th class="p-4">Jadwal Publikasi</th>
+                <th class="p-4">Jadwal & Jam Posting</th>
                 <th class="p-4">Judul & Konsep Konten</th>
                 <th class="p-4">Akun & Platform</th>
                 <th class="p-4">Pillar & Hook</th>
@@ -391,11 +391,11 @@ Klik tombol "Generate dengan Gemini AI" untuk membuat konsep konten instan!
             <p id="dash-filter-desc" class="text-xs sm:text-sm text-slate-300">Menampilkan metrik performa seluruh akun media sosial & affiliate.</p>
           </div>
           <div class="flex gap-2">
+            <button onclick="switchTab('ai')" class="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-xs font-extrabold text-slate-900 shadow-sm flex items-center gap-1.5 transition">
+              <i data-lucide="sparkles" class="w-4 h-4"></i> Buka AI Assistant
+            </button>
             <button onclick="switchTab('planner'); openContentModal();" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-xs font-bold text-white shadow-sm flex items-center gap-1.5 transition">
               <i data-lucide="plus-circle" class="w-4 h-4"></i> Buat Konten
-            </button>
-            <button onclick="switchTab('analytics'); openAnalyticsModal();" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-xs font-semibold text-white flex items-center gap-1.5 transition">
-              <i data-lucide="trending-up" class="w-4 h-4"></i> Input Performa
             </button>
           </div>
         </div>
@@ -680,13 +680,13 @@ Belum ada naskah script.
     </div>
   </div>
 
-  <!-- MODAL CONTENT PLANNER -->
+  <!-- MODAL CONTENT PLANNER DENGAN JAM DIGITAL 24 JAM MURNI (00:00 - 23:59 WIB) -->
   <div id="modal-content" class="no-print hidden fixed inset-0 z-50 bg-slate-900/60 flex items-center justify-center p-4 overflow-y-auto">
     <div class="bg-white rounded-3xl max-w-xl w-full p-6 shadow-2xl space-y-4 my-8 max-h-[92vh] overflow-y-auto">
       <div class="flex items-center justify-between border-b pb-3">
         <div>
           <h3 id="modal-content-title" class="font-extrabold text-base text-slate-900">Rencana Konten Baru</h3>
-          <p class="text-xs text-slate-500">Susun jadwal tanggal, jam posting, hook, dan naskah script</p>
+          <p class="text-xs text-slate-500">Jadwal tanggal, jam digital 24 jam, hook, dan alur naskah</p>
         </div>
         <button onclick="closeModal('modal-content')" class="text-slate-400 hover:text-slate-600"><i data-lucide="x" class="w-5 h-5"></i></button>
       </div>
@@ -694,14 +694,37 @@ Belum ada naskah script.
       <form onsubmit="saveContent(event)" class="space-y-3.5">
         <input type="hidden" id="content-id" />
         
-        <div class="grid grid-cols-2 gap-3">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <!-- Input Tanggal -->
           <div>
             <label class="block text-xs font-bold text-slate-700 mb-1">Tanggal Publikasi *</label>
             <input type="date" id="content-date" required class="w-full px-3 py-2 border rounded-xl text-xs font-semibold bg-white" />
           </div>
+
+          <!-- Input Jam Digital 24 Jam Murni (Anti AM/PM) -->
           <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">Jam Posting (WIB) *</label>
-            <input type="time" id="content-time" value="19:00" required class="w-full px-3 py-2 border rounded-xl text-xs font-semibold bg-white" />
+            <label class="block text-xs font-bold text-slate-700 mb-1 flex items-center justify-between">
+              <span>Jam Posting (Format 24 Jam) *</span>
+              <span class="text-[10px] text-indigo-600 font-extrabold">00:00 - 23:59 WIB</span>
+            </label>
+            <div class="flex items-center gap-1.5">
+              <select id="content-hour" class="w-1/2 px-2.5 py-2 border rounded-xl text-xs font-bold bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer"></select>
+              <span class="font-extrabold text-slate-400 text-sm">:</span>
+              <select id="content-minute" class="w-1/2 px-2.5 py-2 border rounded-xl text-xs font-bold bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer"></select>
+              <span class="text-xs font-extrabold text-indigo-700 bg-indigo-50 px-2.5 py-2 rounded-xl border border-indigo-100 shrink-0">WIB</span>
+            </div>
+            
+            <!-- Tombol Pintas Jam Favorit Posting -->
+            <div class="flex items-center gap-1 mt-1.5">
+              <span class="text-[10px] text-slate-400 font-bold shrink-0">Pintas:</span>
+              <div class="flex flex-wrap gap-1">
+                <button type="button" onclick="setQuickTime('09','00')" class="px-1.5 py-0.5 rounded bg-slate-100 hover:bg-slate-200 text-[10px] font-bold text-slate-700">09:00</button>
+                <button type="button" onclick="setQuickTime('12','30')" class="px-1.5 py-0.5 rounded bg-slate-100 hover:bg-slate-200 text-[10px] font-bold text-slate-700">12:30</button>
+                <button type="button" onclick="setQuickTime('16','00')" class="px-1.5 py-0.5 rounded bg-slate-100 hover:bg-slate-200 text-[10px] font-bold text-slate-700">16:00</button>
+                <button type="button" onclick="setQuickTime('19','00')" class="px-1.5 py-0.5 rounded bg-indigo-50 hover:bg-indigo-100 text-[10px] font-extrabold text-indigo-700">19:00</button>
+                <button type="button" onclick="setQuickTime('21','00')" class="px-1.5 py-0.5 rounded bg-slate-100 hover:bg-slate-200 text-[10px] font-bold text-slate-700">21:00</button>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -958,6 +981,7 @@ Belum ada naskah script.
     function formatRupiah(n) { return 'Rp ' + Number(n || 0).toLocaleString('id-ID'); }
     function escapeHtml(str) { return String(str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
 
+    // Format Tanggal Indonesia: Hari, Tanggal Bulan Tahun
     function formatDateID(dateStr) {
       if (!dateStr) return '-';
       const parts = dateStr.split('-');
@@ -967,6 +991,22 @@ Belum ada naskah script.
       const d = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
       const dayName = isNaN(d.getDay()) ? '' : days[d.getDay()] + ', ';
       return `${dayName}${parts[2]} ${months[parseInt(parts[1], 10) - 1]} ${parts[0]}`;
+    }
+
+    // Ekstraksi & Format Jam Digital 24 Jam Murni (00:00 - 23:59)
+    function formatTime24(timeStr) {
+      if (!timeStr) return '19:00';
+      const match = String(timeStr).match(/(\d{1,2})[:.](\d{1,2})/);
+      if (match) {
+        let h = parseInt(match[1], 10);
+        let m = parseInt(match[2], 10);
+        if (isNaN(h) || h < 0) h = 0;
+        if (h > 23) h = 23;
+        if (isNaN(m) || m < 0) m = 0;
+        if (m > 59) m = 59;
+        return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+      }
+      return '19:00';
     }
 
     function showToast(msg, isErr = false) {
@@ -1078,11 +1118,41 @@ Belum ada naskah script.
       document.getElementById('modal-account').classList.remove('hidden'); 
     };
 
-    // FORM RENCANA KONTEN
+    // INISIALISASI DROPDOWN JAM DIGITAL 24 JAM
+    function populateTimeDropdowns() {
+      const hSel = document.getElementById('content-hour');
+      const mSel = document.getElementById('content-minute');
+      if (!hSel || !mSel || hSel.children.length > 0) return;
+
+      hSel.innerHTML = '';
+      for (let h = 0; h < 24; h++) {
+        const val = String(h).padStart(2, '0');
+        hSel.innerHTML += `<option value="${val}">${val}</option>`;
+      }
+
+      mSel.innerHTML = '';
+      for (let m = 0; m < 60; m++) {
+        const val = String(m).padStart(2, '0');
+        mSel.innerHTML += `<option value="${val}">${val}</option>`;
+      }
+    }
+
+    window.setQuickTime = function(h, m) {
+      const hSel = document.getElementById('content-hour');
+      const mSel = document.getElementById('content-minute');
+      if (hSel && mSel) {
+        hSel.value = String(h).padStart(2, '0');
+        mSel.value = String(m).padStart(2, '0');
+      }
+    };
+
+    // FORM RENCANA KONTEN DENGAN JAM 24 JAM
     window.openContentModal = function(id = null, presetDate = null) {
+      populateTimeDropdowns();
+
       document.getElementById('content-id').value = '';
       document.getElementById('content-date').value = presetDate || todayISO();
-      document.getElementById('content-time').value = '19:00';
+      window.setQuickTime('19', '00');
       document.getElementById('content-title').value = '';
       document.getElementById('content-pillar').value = '';
       document.getElementById('content-hook').value = '';
@@ -1096,7 +1166,11 @@ Belum ada naskah script.
         if (c) {
           document.getElementById('content-id').value = c.id;
           document.getElementById('content-date').value = c.date;
-          document.getElementById('content-time').value = c.time || '19:00';
+
+          const digitalTime = formatTime24(c.time);
+          const [h, m] = digitalTime.split(':');
+          window.setQuickTime(h, m);
+
           document.getElementById('content-account-select').value = c.accountId || 'ALL';
           document.getElementById('content-platform').value = c.platform || 'TikTok';
           document.getElementById('content-status').value = c.status || 'Ide';
@@ -1127,7 +1201,7 @@ Belum ada naskah script.
 
       document.getElementById('tele-platform-tag').textContent = `${c.platform} • ${cleanTag}`;
       document.getElementById('tele-title').textContent = c.title;
-      document.getElementById('tele-meta').textContent = `Jadwal: ${formatDateID(c.date)} • Jam ${c.time || '19:00'} • Status: ${c.status}`;
+      document.getElementById('tele-meta').textContent = `Jadwal: ${formatDateID(c.date)} • Jam ${formatTime24(c.time)} WIB • Status: ${c.status}`;
       document.getElementById('tele-hook').textContent = c.hook || 'Belum ada Hook pancingan yang ditulis.';
       document.getElementById('tele-script').textContent = c.script || 'Belum ada naskah script yang ditulis. Kamu bisa menulis naskah atau klik Buka Gemini AI!';
       document.getElementById('tele-caption').textContent = c.caption || c.title;
@@ -1229,9 +1303,10 @@ Belum ada naskah script.
                 const acc = db.accounts.find(x => x.id === it.accountId);
                 const rawUsername = acc ? acc.username : it.platform;
                 const cleanTag = rawUsername.replace(/^@+/, '@');
+                const digitalTime = formatTime24(it.time);
                 return `
                   <div onclick="event.stopPropagation(); openTeleprompter('${it.id}')" class="p-1 rounded text-[10px] font-semibold truncate bg-indigo-50 border border-indigo-100 text-indigo-700 hover:bg-indigo-100 transition" title="Klik untuk Buka Naskah Shooting">
-                    <span class="font-extrabold text-indigo-900">${cleanTag}:</span> ${escapeHtml(it.title)}
+                    <span class="font-extrabold text-indigo-900">${digitalTime} •</span> <span class="font-bold">${cleanTag}:</span> ${escapeHtml(it.title)}
                   </div>
                 `;
               }).join('')}
@@ -1459,10 +1534,14 @@ Belum ada naskah script.
     window.saveContent = function(e) {
       e.preventDefault();
       const id = document.getElementById('content-id').value;
+      const hour = (document.getElementById('content-hour').value || '19').padStart(2, '0');
+      const minute = (document.getElementById('content-minute').value || '00').padStart(2, '0');
+      const digitalTime = `${hour}:${minute}`;
+
       const payload = {
         id: id || uid(),
         date: document.getElementById('content-date').value,
-        time: document.getElementById('content-time').value || '19:00',
+        time: digitalTime,
         accountId: document.getElementById('content-account-select').value,
         platform: document.getElementById('content-platform').value,
         status: document.getElementById('content-status').value,
@@ -1553,7 +1632,6 @@ Belum ada naskah script.
       a.click();
     };
 
-    // --- REFRESH SEMUA TAMPILAN SESUAI FILTER AKUN ---
     function populateAccountDropdowns() {
       const globalSel = document.getElementById('global-account-filter');
       const contentSel = document.getElementById('content-account-select');
@@ -1576,6 +1654,7 @@ Belum ada naskah script.
     }
 
     window.renderPlanner = function() {
+      populateTimeDropdowns();
       renderCalendarVisual();
 
       const q = (document.getElementById('search-planner')?.value || '').toLowerCase();
@@ -1609,11 +1688,15 @@ Belum ada naskah script.
             const acc = db.accounts.find(x => x.id === c.accountId);
             const rawUser = acc ? acc.username : c.platform;
             const cleanTag = rawUser.replace(/^@+/, '@');
+            const digitalTime = formatTime24(c.time);
             return `
               <tr class="hover:bg-slate-50">
                 <td class="p-4">
                   <span class="text-xs text-indigo-600 font-bold">${formatDateID(c.date)}</span>
-                  <p class="text-[11px] text-slate-400 font-semibold mt-0.5">Jam: ${c.time || '19:00'}</p>
+                  <p class="text-[11px] text-slate-500 font-extrabold mt-0.5 flex items-center gap-1">
+                    <i data-lucide="clock" class="w-3 h-3 text-slate-400"></i>
+                    <span>Jam ${digitalTime} WIB</span>
+                  </p>
                 </td>
                 <td class="p-4">
                   <p class="font-extrabold text-slate-900">${escapeHtml(c.title)}</p>
@@ -1638,6 +1721,7 @@ Belum ada naskah script.
 
     function refreshAll() {
       populateAccountDropdowns();
+      populateTimeDropdowns();
       updateAIKeyStatusUI();
       renderPlanner();
 
@@ -1695,7 +1779,7 @@ Belum ada naskah script.
             const cleanUser = acc.username.replace(/^@+/, '@');
             const postCount = db.contents.filter(c => c.accountId === acc.id || c.platform === acc.platform).length;
             return `
-              <div class="bg-white rounded-2xl border ${isCurrentActive ? 'border-indigo-500 ring-2 ring-indigo-500/30' : 'border-slate-200'} p-4 shadow-sm space-y-3 transition">
+              <div class="bg-white rounded-2xl border ${isCurrentActive ? 'border-indigo-500 ring-2 ring-indigo-500/30' : 'border-slate-200'} p-4 shadow-xs space-y-3 transition">
                 <div class="flex items-center justify-between">
                   <span class="px-2.5 py-1 rounded-xl text-[10px] font-extrabold uppercase bg-gradient-to-r ${gradient}">${escapeHtml(acc.platform)}</span>
                   ${isCurrentActive ? '<span class="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">Sedang Dipilih</span>' : ''}
