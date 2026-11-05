@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>BOBY CREATOR STUDIO 6.5 — Project & Account Management Suite</title>
+  <title>BOBY CREATOR STUDIO 6.5 — Command Center & Visual Planner</title>
   <meta name="theme-color" content="#0f172a" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -65,24 +65,30 @@
       </div>
     </div>
 
+    <!-- SIDEBAR NAVIGATION MENU (DASHBOARD DI PALING ATAS!) -->
     <nav class="flex-1 px-3 py-3 space-y-1 overflow-y-auto">
-      <button onclick="switchTab('projects')" data-tab="projects" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold bg-indigo-600 text-white shadow-sm transition-all">
-        <i data-lucide="folder-kanban" class="w-4 h-4 shrink-0 text-amber-300"></i>
+      <!-- 1. DASHBOARD UTAMA (TOP #1) -->
+      <button onclick="switchTab('dashboard')" data-tab="dashboard" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold bg-indigo-600 text-white shadow-sm transition-all">
+        <i data-lucide="layout-dashboard" class="w-4 h-4 shrink-0"></i>
+        <span>Dashboard Utama</span>
+      </button>
+
+      <!-- 2. KELOLA PROJECT & AKUN -->
+      <button onclick="switchTab('projects')" data-tab="projects" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition-all">
+        <i data-lucide="folder-kanban" class="w-4 h-4 shrink-0 text-amber-400"></i>
         <span>Kelola Project & Akun</span>
       </button>
 
+      <!-- 3. CONTENT PLANNER VISUAL -->
       <button onclick="switchTab('planner')" data-tab="planner" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition-all">
         <div class="flex items-center gap-3">
-          <i data-lucide="calendar-days" class="w-4 h-4 shrink-0"></i>
+          <i data-lucide="calendar-days" class="w-4 h-4 shrink-0 text-indigo-400"></i>
           <span>Content Planner Visual</span>
         </div>
         <span id="sidebar-planner-badge" class="px-1.5 py-0.5 rounded text-[10px] font-extrabold bg-indigo-800 text-white">0</span>
       </button>
 
-      <button onclick="switchTab('dashboard')" data-tab="dashboard" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition-all">
-        <i data-lucide="layout-dashboard" class="w-4 h-4 shrink-0"></i><span>Dashboard Utama</span>
-      </button>
-
+      <!-- 4. GEMINI AI ASSISTANT -->
       <button onclick="switchTab('ai')" data-tab="ai" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold text-amber-300 bg-amber-500/10 border border-amber-500/20 hover:bg-amber-500/20 transition-all">
         <div class="flex items-center gap-3">
           <i data-lucide="bot" class="w-4 h-4 text-amber-400 shrink-0 animate-pulse"></i>
@@ -91,31 +97,38 @@
         <span class="px-1.5 py-0.5 rounded text-[9px] font-extrabold bg-amber-500 text-slate-900">PRO</span>
       </button>
 
+      <!-- 5. MANAJEMEN KLIEN -->
       <button onclick="switchTab('clients')" data-tab="clients" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition-all">
         <i data-lucide="briefcase" class="w-4 h-4 shrink-0"></i><span>Manajemen Klien</span>
       </button>
 
+      <!-- 6. INVENTARIS AKUN MEDSOS -->
       <button onclick="switchTab('accounts')" data-tab="accounts" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition-all">
         <i data-lucide="share-2" class="w-4 h-4 shrink-0"></i><span>Inventaris Akun Medsos</span>
       </button>
 
+      <!-- 7. ANALYTICS PERFORMA -->
       <button onclick="switchTab('analytics')" data-tab="analytics" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition-all">
         <i data-lucide="bar-chart-3" class="w-4 h-4 shrink-0"></i><span>Analytics Performa</span>
       </button>
 
+      <!-- 8. AFFILIATE TRACKER -->
       <button onclick="switchTab('affiliate')" data-tab="affiliate" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition-all">
         <i data-lucide="shopping-bag" class="w-4 h-4 shrink-0"></i><span>Affiliate Tracker</span>
       </button>
 
+      <!-- 9. TUGAS & DEADLINE -->
       <button onclick="switchTab('tasks')" data-tab="tasks" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition-all">
         <div class="flex items-center gap-3"><i data-lucide="check-square" class="w-4 h-4 shrink-0"></i><span>Tugas & Deadline</span></div>
         <span id="sidebar-task-badge" class="hidden px-2 py-0.5 text-[10px] font-bold rounded-full bg-rose-500 text-white">0</span>
       </button>
 
+      <!-- 10. REPORT CENTER -->
       <button onclick="switchTab('reports')" data-tab="reports" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition-all">
         <i data-lucide="file-spreadsheet" class="w-4 h-4 shrink-0"></i><span>Report Center</span>
       </button>
 
+      <!-- 11. DATABASE & CLOUD -->
       <div class="pt-3 mt-3 border-t border-slate-800">
         <button onclick="switchTab('settings')" data-tab="settings" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition-all">
           <i data-lucide="database" class="w-4 h-4 shrink-0"></i><span>Database & Cloud</span>
@@ -130,7 +143,7 @@
           <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Firebase Aktif
         </span>
       </div>
-      <p class="text-[10px] text-slate-400">Cloud Firestore realtime aktif.</p>
+      <p class="text-[10px] text-slate-400">Sinkronisasi Cloud Firestore realtime.</p>
     </div>
   </aside>
 
@@ -142,13 +155,14 @@
           <i data-lucide="sparkles" class="w-4 h-4"></i>
         </div>
         <div>
-          <h2 id="page-title" class="text-base sm:text-lg font-extrabold text-slate-900 truncate">Kelola Project & Akun</h2>
-          <p id="page-subtitle" class="text-xs text-slate-500 truncate">Pilih Klien, atur Project & masukkan username akun medsosnya</p>
+          <h2 id="page-title" class="text-base sm:text-lg font-extrabold text-slate-900 truncate">Dashboard Utama</h2>
+          <p id="page-subtitle" class="text-xs text-slate-500 truncate">Pusat kendali operasional, project, konten & analitik</p>
         </div>
       </div>
 
-      <!-- Right Header Actions (PROJECT SWITCHER) -->
+      <!-- Right Header Actions (HIERARCHICAL PROJECT SWITCHER) -->
       <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+        <!-- PROJECT SWITCHER DROPDOWN -->
         <div class="flex items-center gap-1.5 bg-indigo-50/80 hover:bg-indigo-100 border border-indigo-200 px-3 py-1.5 rounded-xl transition shadow-xs">
           <i data-lucide="folder-kanban" class="w-3.5 h-3.5 text-indigo-600 shrink-0"></i>
           <select id="global-project-filter" onchange="onGlobalProjectFilterChange(this.value)" class="bg-transparent text-xs font-extrabold text-indigo-950 focus:outline-none cursor-pointer pr-1">
@@ -171,24 +185,143 @@
 
     <main class="flex-1 p-4 sm:p-6 pb-safe max-w-7xl w-full mx-auto space-y-6">
 
-      <!-- ==================== 1. KELOLA PROJECT & AKUN MEDSOS (MODUL UTAMA) ==================== -->
-      <section id="sec-projects" class="tab-section space-y-5">
+      <!-- ==================== 1. DASHBOARD UTAMA (TOP #1) ==================== -->
+      <section id="sec-dashboard" class="tab-section space-y-6">
+        <!-- Hero Welcome Banner -->
+        <div class="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 rounded-2xl p-5 sm:p-6 text-white shadow-lg flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div class="space-y-1">
+            <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-400/20">
+              <i data-lucide="zap" class="w-3.5 h-3.5"></i> Multi-Project Connected
+            </div>
+            <h3 class="text-lg sm:text-2xl font-extrabold">Halo, Boby Anggara!</h3>
+            <p id="dash-filter-desc" class="text-xs sm:text-sm text-slate-300">Pusat kendali project kerja, rencana konten 24 jam, analitik performa, dan affiliate.</p>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <button onclick="openProjectModal()" class="px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-bold text-white flex items-center gap-1.5 transition">
+              <i data-lucide="folder-plus" class="w-4 h-4 text-amber-400"></i> Project Baru
+            </button>
+            <button onclick="switchTab('planner'); openContentModal();" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-xs font-bold text-white shadow-sm flex items-center gap-1.5 transition">
+              <i data-lucide="plus-circle" class="w-4 h-4"></i> Buat Konten
+            </button>
+          </div>
+        </div>
+
+        <!-- 9 Interactive KPI Cards (Klik langsung lompat ke halamannya!) -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-3 sm:gap-4">
+          <div onclick="switchTab('projects')" class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-xs hover:border-indigo-500 hover:shadow-sm cursor-pointer transition group">
+            <div class="flex items-center justify-between">
+              <p class="text-xs font-semibold text-slate-500 group-hover:text-indigo-600">Total Project</p>
+              <i data-lucide="folder-kanban" class="w-4 h-4 text-slate-400 group-hover:text-indigo-600"></i>
+            </div>
+            <h4 id="dash-total-projects" class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">0</h4>
+            <p id="dash-project-breakdown" class="text-[11px] text-slate-400 mt-1">Seluruh Project Aktif</p>
+          </div>
+
+          <div onclick="switchTab('clients')" class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-xs hover:border-indigo-500 hover:shadow-sm cursor-pointer transition group">
+            <div class="flex items-center justify-between">
+              <p class="text-xs font-semibold text-slate-500 group-hover:text-indigo-600">Total Klien</p>
+              <i data-lucide="briefcase" class="w-4 h-4 text-slate-400 group-hover:text-indigo-600"></i>
+            </div>
+            <h4 id="dash-total-clients" class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">0</h4>
+            <p id="dash-active-clients" class="text-[11px] text-emerald-600 font-semibold mt-1">0 Aktif</p>
+          </div>
+
+          <div onclick="switchTab('planner')" class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-xs hover:border-indigo-500 hover:shadow-sm cursor-pointer transition group">
+            <div class="flex items-center justify-between">
+              <p class="text-xs font-semibold text-slate-500 group-hover:text-indigo-600">Total Rencana Konten</p>
+              <i data-lucide="calendar-days" class="w-4 h-4 text-slate-400 group-hover:text-indigo-600"></i>
+            </div>
+            <h4 id="dash-total-content" class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">0</h4>
+            <p id="dash-uploaded-content" class="text-[11px] text-indigo-600 font-semibold mt-1">0 Sudah Upload</p>
+          </div>
+
+          <div onclick="switchTab('analytics')" class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-xs hover:border-indigo-500 hover:shadow-sm cursor-pointer transition group">
+            <div class="flex items-center justify-between">
+              <p class="text-xs font-semibold text-slate-500 group-hover:text-indigo-600">Total Views Akumulasi</p>
+              <i data-lucide="eye" class="w-4 h-4 text-slate-400 group-hover:text-indigo-600"></i>
+            </div>
+            <h4 id="dash-total-views" class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">0</h4>
+            <p class="text-[11px] text-slate-400 mt-1">Views Seluruh Akun</p>
+          </div>
+
+          <div onclick="switchTab('accounts')" class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-xs hover:border-indigo-500 hover:shadow-sm cursor-pointer transition group">
+            <div class="flex items-center justify-between">
+              <p class="text-xs font-semibold text-slate-500 group-hover:text-indigo-600">Total Followers</p>
+              <i data-lucide="users" class="w-4 h-4 text-slate-400 group-hover:text-indigo-600"></i>
+            </div>
+            <h4 id="dash-total-followers" class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">0</h4>
+            <p id="dash-followers-sub" class="text-[11px] text-emerald-600 font-semibold mt-1">Seluruh Akun Medsos</p>
+          </div>
+
+          <div onclick="switchTab('analytics')" class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-xs hover:border-indigo-500 hover:shadow-sm cursor-pointer transition group">
+            <div class="flex items-center justify-between">
+              <p class="text-xs font-semibold text-slate-500 group-hover:text-indigo-600">Rata-rata ER</p>
+              <i data-lucide="heart" class="w-4 h-4 text-slate-400 group-hover:text-indigo-600"></i>
+            </div>
+            <h4 id="dash-avg-er" class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">0%</h4>
+            <p class="text-[11px] text-slate-400 mt-1">Engagement Rate Views</p>
+          </div>
+
+          <div onclick="switchTab('affiliate')" class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-xs hover:border-indigo-500 hover:shadow-sm cursor-pointer transition group">
+            <p class="text-xs font-semibold text-slate-500">Klik Affiliate</p>
+            <h4 id="dash-aff-clicks" class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">0</h4>
+            <p id="dash-aff-cr" class="text-[11px] text-amber-600 font-semibold mt-1">CR: 0%</p>
+          </div>
+
+          <div onclick="switchTab('affiliate')" class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-xs hover:border-indigo-500 hover:shadow-sm cursor-pointer transition group">
+            <p class="text-xs font-semibold text-slate-500">Pesanan Affiliate</p>
+            <h4 id="dash-aff-orders" class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">0</h4>
+            <p id="dash-aff-gmv" class="text-[11px] text-slate-500 mt-1">GMV: Rp 0</p>
+          </div>
+
+          <div onclick="switchTab('affiliate')" class="col-span-2 sm:col-span-1 bg-white rounded-2xl p-4 border border-emerald-200 shadow-xs hover:border-emerald-500 cursor-pointer transition">
+            <p class="text-xs font-semibold text-emerald-700">Estimasi Komisi</p>
+            <h4 id="dash-aff-commission" class="text-xl sm:text-2xl font-extrabold text-emerald-600 mt-1">Rp 0</h4>
+            <p class="text-[11px] text-slate-400 mt-1">Total Akumulasi</p>
+          </div>
+        </div>
+
+        <!-- 2 Kolom: Jadwal Terdekat & Grafik Performa -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- Widget Jadwal Konten Terdekat (Bisa Langsung Shooting!) -->
+          <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-xs space-y-3">
+            <div class="flex justify-between items-center border-b pb-2">
+              <h4 class="font-extrabold text-slate-900 text-sm flex items-center gap-1.5">
+                <i data-lucide="clock" class="w-4 h-4 text-indigo-600"></i> Konten Siap Tayang
+              </h4>
+              <button onclick="switchTab('planner')" class="text-xs text-indigo-600 font-bold hover:underline">Buka Kalender</button>
+            </div>
+            <div id="dash-upcoming-content-list" class="space-y-2 max-h-72 overflow-y-auto"></div>
+          </div>
+
+          <!-- Grafik Performa Views -->
+          <div class="lg:col-span-2 bg-white rounded-2xl p-5 border border-slate-200/80 shadow-xs">
+            <div class="flex justify-between items-center mb-3">
+              <h4 class="font-bold text-slate-900 text-sm">Grafik Performa Views Konten</h4>
+              <span id="chart-project-tag" class="text-[11px] font-bold text-indigo-600 bg-indigo-50 px-2.5 py-0.5 rounded-full border border-indigo-100">Semua Project</span>
+            </div>
+            <div class="relative w-full h-64"><canvas id="dashboardChart"></canvas></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== 2. KELOLA PROJECT & AKUN ==================== -->
+      <section id="sec-projects" class="tab-section hidden space-y-5">
         <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-xs flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
           <div>
             <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-indigo-50 text-indigo-600 uppercase tracking-wider">Pusat Manajemen Akun Klien</span>
             <h3 class="font-extrabold text-base text-slate-900 mt-1">Daftar Project & Akun Sosial Media Klien</h3>
-            <p class="text-xs text-slate-500 mt-0.5">Setiap project menampung klien pemilik dan daftar akun media sosial yang kamu masukkan sendiri.</p>
+            <p class="text-xs text-slate-500 mt-0.5">Satu Klien dapat memiliki banyak project, dan setiap project memiliki daftar akun media sosialnya sendiri.</p>
           </div>
           <button onclick="openProjectModal()" class="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-sm transition shrink-0">
             <i data-lucide="plus-circle" class="w-4 h-4"></i> Buat Project Baru
           </button>
         </div>
 
-        <!-- Grid Kartu Project -->
         <div id="projects-showcase-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
       </section>
 
-      <!-- ==================== 2. CONTENT PLANNER VISUAL ==================== -->
+      <!-- ==================== 3. CONTENT PLANNER VISUAL ==================== -->
       <section id="sec-planner" class="tab-section hidden space-y-5">
         <!-- Visual Stats Strip -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -244,7 +377,7 @@
               <i data-lucide="plus" class="w-3.5 h-3.5"></i> Buat Konten di Project Ini
             </button>
             <button onclick="resetToGlobalProject()" class="px-3 py-1.5 bg-white/10 hover:bg-white/20 text-white rounded-xl text-xs font-bold">
-              Lihat Semua
+              Lihat Semua Project
             </button>
           </div>
         </div>
@@ -317,7 +450,7 @@
           <div id="calendar-days-grid" class="grid grid-cols-7 gap-1.5 sm:gap-2"></div>
         </div>
 
-        <!-- TAMPILAN TABEL DAFTAR KONTEN -->
+        <!-- TAMPILAN TABEL DAFTAR KONTEN (DILENGKAPI QUICK STATUS UPDATER) -->
         <div id="planner-list-view" class="hidden bg-white rounded-2xl border border-slate-200 overflow-x-auto shadow-xs">
           <table class="w-full text-left text-xs">
             <thead class="bg-slate-50 text-slate-500 uppercase font-bold border-b">
@@ -327,7 +460,7 @@
                 <th class="p-4">Judul & Konsep Konten</th>
                 <th class="p-4">Akun & Platform</th>
                 <th class="p-4">Pillar & Hook</th>
-                <th class="p-4">Status</th>
+                <th class="p-4">Status Produksi (Ubah Cepat)</th>
                 <th class="p-4 text-right">Aksi & Shooting</th>
               </tr>
             </thead>
@@ -336,7 +469,7 @@
         </div>
       </section>
 
-      <!-- ==================== 3. GEMINI AI ASSISTANT ==================== -->
+      <!-- ==================== 4. GEMINI AI ASSISTANT ==================== -->
       <section id="sec-ai" class="tab-section hidden space-y-5">
         <div class="bg-gradient-to-r from-amber-500 via-orange-600 to-indigo-700 rounded-2xl p-5 sm:p-6 text-white shadow-lg flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div class="space-y-1">
@@ -421,75 +554,6 @@ Klik tombol "Generate dengan Gemini AI" untuk membuat konsep konten instan!
               <span>Model: Google Gemini 1.5 Flash</span>
               <span>Gratis via Google AI Studio</span>
             </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ==================== 4. DASHBOARD ==================== -->
-      <section id="sec-dashboard" class="tab-section hidden space-y-6">
-        <div class="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 rounded-2xl p-5 sm:p-6 text-white shadow-lg flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div class="space-y-1">
-            <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-400/20">
-              <i data-lucide="zap" class="w-3.5 h-3.5"></i> Multi-Project Connected
-            </div>
-            <h3 class="text-lg sm:text-2xl font-extrabold">Halo, Boby Anggara!</h3>
-            <p id="dash-filter-desc" class="text-xs sm:text-sm text-slate-300">Menampilkan metrik performa seluruh project, akun medsos & affiliate.</p>
-          </div>
-          <div class="flex gap-2">
-            <button onclick="switchTab('planner'); openContentModal();" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-xs font-bold text-white shadow-sm flex items-center gap-1.5 transition">
-              <i data-lucide="plus-circle" class="w-4 h-4"></i> Buat Konten
-            </button>
-            <button onclick="switchTab('analytics'); openAnalyticsModal();" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-xs font-semibold text-white flex items-center gap-1.5 transition">
-              <i data-lucide="trending-up" class="w-4 h-4"></i> Input Performa
-            </button>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-3 sm:gap-4">
-          <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-xs">
-            <p class="text-xs font-semibold text-slate-500">Total Klien</p>
-            <h4 id="dash-total-clients" class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">0</h4>
-            <p id="dash-active-clients" class="text-[11px] text-emerald-600 font-semibold mt-1">0 Aktif</p>
-          </div>
-          <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-xs">
-            <p class="text-xs font-semibold text-slate-500">Project Terpantau</p>
-            <h4 id="dash-total-projects" class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">0</h4>
-            <p id="dash-project-breakdown" class="text-[11px] text-slate-400 mt-1">Seluruh Project</p>
-          </div>
-          <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-xs">
-            <p class="text-xs font-semibold text-slate-500">Total Konten</p>
-            <h4 id="dash-total-content" class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">0</h4>
-            <p id="dash-uploaded-content" class="text-[11px] text-indigo-600 font-semibold mt-1">0 Sudah Upload</p>
-          </div>
-          <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-xs">
-            <p class="text-xs font-semibold text-slate-500">Total Views</p>
-            <h4 id="dash-total-views" class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">0</h4>
-            <p class="text-[11px] text-slate-400 mt-1">Views Akumulasi</p>
-          </div>
-          <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-xs">
-            <p class="text-xs font-semibold text-slate-500">Total Followers</p>
-            <h4 id="dash-total-followers" class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">0</h4>
-            <p id="dash-followers-sub" class="text-[11px] text-emerald-600 font-semibold mt-1">Seluruh Akun</p>
-          </div>
-          <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-xs">
-            <p class="text-xs font-semibold text-slate-500">Rata-rata ER</p>
-            <h4 id="dash-avg-er" class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">0%</h4>
-            <p class="text-[11px] text-slate-400 mt-1">Engagement Rate Views</p>
-          </div>
-          <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-xs">
-            <p class="text-xs font-semibold text-slate-500">Klik Affiliate</p>
-            <h4 id="dash-aff-clicks" class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">0</h4>
-            <p id="dash-aff-cr" class="text-[11px] text-amber-600 font-semibold mt-1">CR: 0%</p>
-          </div>
-          <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-xs">
-            <p class="text-xs font-semibold text-slate-500">Pesanan Affiliate</p>
-            <h4 id="dash-aff-orders" class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">0</h4>
-            <p id="dash-aff-gmv" class="text-[11px] text-slate-500 mt-1">GMV: Rp 0</p>
-          </div>
-          <div class="col-span-2 sm:col-span-1 bg-white rounded-2xl p-4 border border-emerald-200 shadow-xs">
-            <p class="text-xs font-semibold text-emerald-700">Estimasi Komisi</p>
-            <h4 id="dash-aff-commission" class="text-xl sm:text-2xl font-extrabold text-emerald-600 mt-1">Rp 0</h4>
-            <p class="text-[11px] text-slate-400 mt-1">Total Akumulasi</p>
           </div>
         </div>
       </section>
@@ -613,18 +677,18 @@ Klik tombol "Generate dengan Gemini AI" untuk membuat konsep konten instan!
     </main>
   </div>
 
-  <!-- MOBILE BOTTOM NAV -->
+  <!-- MOBILE BOTTOM NAV (DASHBOARD DI PALING KIRI/AWAL) -->
   <nav class="no-print lg:hidden fixed bottom-0 inset-x-0 bg-white border-t border-slate-200 z-30 flex items-center justify-around py-2 px-1 shadow-lg">
-    <button onclick="switchTab('projects')" data-tab="projects" class="mob-nav-btn flex flex-col items-center text-[10px] font-bold text-indigo-600"><i data-lucide="folder-kanban" class="w-5 h-5 mb-0.5"></i>Project</button>
+    <button onclick="switchTab('dashboard')" data-tab="dashboard" class="mob-nav-btn flex flex-col items-center text-[10px] font-bold text-indigo-600"><i data-lucide="layout-dashboard" class="w-5 h-5 mb-0.5"></i>Dashboard</button>
+    <button onclick="switchTab('projects')" data-tab="projects" class="mob-nav-btn flex flex-col items-center text-[10px] font-bold text-slate-500"><i data-lucide="folder-kanban" class="w-5 h-5 mb-0.5"></i>Project</button>
     <button onclick="switchTab('planner')" data-tab="planner" class="mob-nav-btn flex flex-col items-center text-[10px] font-bold text-slate-500"><i data-lucide="calendar-days" class="w-5 h-5 mb-0.5"></i>Planner</button>
-    <button onclick="switchTab('dashboard')" data-tab="dashboard" class="mob-nav-btn flex flex-col items-center text-[10px] font-bold text-slate-500"><i data-lucide="layout-dashboard" class="w-5 h-5 mb-0.5"></i>Dashboard</button>
     <button onclick="switchTab('ai')" data-tab="ai" class="mob-nav-btn flex flex-col items-center text-[10px] font-bold text-amber-600"><i data-lucide="sparkles" class="w-5 h-5 mb-0.5 text-amber-500"></i>AI</button>
     <button onclick="switchTab('tasks')" data-tab="tasks" class="mob-nav-btn flex flex-col items-center text-[10px] font-bold text-slate-500"><i data-lucide="check-square" class="w-5 h-5 mb-0.5"></i>Tugas</button>
   </nav>
 
   <!-- ==================== ALL MODALS ==================== -->
 
-  <!-- MODAL KELOLA PROJECT (LENGKAP DENGAN INPUT USERNAME MANDIRI) -->
+  <!-- MODAL KELOLA PROJECT -->
   <div id="modal-project" class="no-print hidden fixed inset-0 z-50 bg-slate-900/60 flex items-center justify-center p-4 overflow-y-auto">
     <div class="bg-white rounded-3xl max-w-xl w-full p-6 shadow-2xl space-y-4 my-8 max-h-[92vh] overflow-y-auto">
       <div class="flex items-center justify-between border-b pb-3">
@@ -691,7 +755,7 @@ Klik tombol "Generate dengan Gemini AI" untuk membuat konsep konten instan!
           <div class="space-y-1.5">
             <p class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Daftar Akun yang Terdaftar di Project Ini:</p>
             <div id="project-active-accounts-list" class="flex flex-wrap gap-1.5 min-h-[36px] p-2 rounded-xl bg-white border border-slate-200">
-              <span class="text-[11px] text-slate-400 italic">Belum ada akun yang dimasukkan. Ketik username di atas lalu klik Tambah.</span>
+              <span class="text-[11px] text-slate-400 italic">Belum ada akun. Pilih platform & ketik username di atas lalu klik Tambah.</span>
             </div>
           </div>
         </div>
@@ -919,7 +983,7 @@ Belum ada naskah script.
     </div>
   </div>
 
-  <!-- MODAL AKUN MEDIA SOSIAL (INVENTARIS LENGKAP) -->
+  <!-- MODAL AKUN MEDIA SOSIAL (INVENTARIS) -->
   <div id="modal-account" class="no-print hidden fixed inset-0 z-50 bg-slate-900/60 flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl max-w-lg w-full p-5 space-y-3 shadow-xl">
       <h3 id="modal-account-title" class="font-bold text-base text-slate-900">Tambah Akun Media Sosial</h3>
@@ -1051,10 +1115,10 @@ Belum ada naskah script.
       tasks: [] 
     };
 
-    // State sementara untuk akun yang sedang ditambahkan di modal project
     let tempProjectAccounts = [];
 
-    let activeTab = 'projects';
+    // DEFAULT TAB PADA STARTUP: DASHBOARD UTAMA!
+    let activeTab = 'dashboard';
     let plannerMode = 'calendar';
     let currentCalendarDate = new Date();
     let activeProjectFilter = 'ALL';
@@ -1191,9 +1255,9 @@ Belum ada naskah script.
       });
 
       const titleMap = {
+        dashboard: 'Dashboard Utama',
         projects: 'Kelola Project & Akun Medsos',
         planner: 'Content Planner Visual',
-        dashboard: 'Dashboard Utama',
         ai: 'Boby AI Creator Assistant (Gemini Engine)',
         accounts: 'Inventaris Akun Media Sosial',
         clients: 'Manajemen Klien',
@@ -1244,7 +1308,7 @@ Belum ada naskah script.
     // =========================================================================
     window.openProjectModal = function(id = null) {
       populateClientDropdownInProject();
-      tempProjectAccounts = []; // reset state akun project
+      tempProjectAccounts = [];
       
       document.getElementById('project-id').value = '';
       document.getElementById('project-name').value = '';
@@ -1263,7 +1327,6 @@ Belum ada naskah script.
           document.getElementById('project-desc').value = p.desc || '';
           document.getElementById('modal-project-title').textContent = 'Edit Project / Kampanye';
 
-          // Ambil akun yang terhubung ke project ini
           if (Array.isArray(p.accountIds)) {
             p.accountIds.forEach(accId => {
               const acc = db.accounts.find(a => a.id === accId);
@@ -1271,8 +1334,7 @@ Belum ada naskah script.
                 tempProjectAccounts.push({
                   id: acc.id,
                   platform: acc.platform,
-                  username: acc.username,
-                  isExisting: true
+                  username: acc.username
                 });
               }
             });
@@ -1296,7 +1358,6 @@ Belum ada naskah script.
       if (accClientSel) accClientSel.innerHTML = html;
     }
 
-    // Tombol: "+ Tambah" di dalam Form Project
     window.addInlineAccountToProject = function() {
       const platform = document.getElementById('input-inline-platform').value;
       const rawUser = document.getElementById('input-inline-username').value.trim();
@@ -1308,7 +1369,6 @@ Belum ada naskah script.
 
       const cleanUsername = rawUser.replace(/^@+/, '@');
 
-      // Cek apakah akun dengan username & platform ini sudah ada di temp list
       const exists = tempProjectAccounts.some(a => a.platform === platform && a.username.toLowerCase() === cleanUsername.toLowerCase());
       if (exists) {
         showToast('Akun ini sudah dimasukkan ke daftar project!', true);
@@ -1318,13 +1378,12 @@ Belum ada naskah script.
       tempProjectAccounts.push({
         id: uid(),
         platform,
-        username: cleanUsername,
-        isExisting: false // baru dibuat user di modal ini
+        username: cleanUsername
       });
 
       document.getElementById('input-inline-username').value = '';
       renderTempProjectAccountsList();
-      showToast(`Akun ${platform} (${cleanUsername}) ditambahkan ke project!`);
+      showToast(`Akun ${platform} (${cleanUsername}) ditambahkan!`);
     };
 
     window.removeInlineAccountFromProject = function(index) {
@@ -1350,28 +1409,20 @@ Belum ada naskah script.
       `).join('');
     }
 
-    // Simpan Project & Sinkronkan Akun-Akun Baru ke Inventaris Global
     window.saveProject = function(e) {
       e.preventDefault();
       const id = document.getElementById('project-id').value;
       const clientId = document.getElementById('project-client-select').value;
       const projectName = document.getElementById('project-name').value.trim();
 
-      if (tempProjectAccounts.length === 0) {
-        showToast('Peringatan: Masukkan minimal 1 akun medsos untuk project ini!', true);
-      }
-
       const finalAccountIds = [];
 
-      // Proses setiap akun di tempProjectAccounts
       tempProjectAccounts.forEach(tempAcc => {
-        // Cek apakah akun ini sudah ada di db.accounts global
         let existing = db.accounts.find(a => a.platform === tempAcc.platform && a.username.toLowerCase() === tempAcc.username.toLowerCase());
         
         if (existing) {
           finalAccountIds.push(existing.id);
         } else {
-          // Buat akun baru di database global atas nama klien terpilih
           const newAcc = {
             id: tempAcc.id,
             name: `${tempAcc.platform} ${tempAcc.username}`,
@@ -1499,6 +1550,16 @@ Belum ada naskah script.
       }
     };
 
+    // --- QUICK STATUS UPDATER (LANGSUNG DARI TABEL / DASHBOARD!) ---
+    window.quickUpdateContentStatus = function(id, newStatus) {
+      const c = db.contents.find(x => x.id === id);
+      if (c) {
+        c.status = newStatus;
+        saveToCloud();
+        showToast(`Status konten diubah ke: ${newStatus}`);
+      }
+    };
+
     // --- GLOBAL PROJECT FILTER SWITCHER DI HEADER ATAS ---
     window.onGlobalProjectFilterChange = function(val) {
       activeProjectFilter = val;
@@ -1506,6 +1567,7 @@ Belum ada naskah script.
       const label = project ? `Project: ${project.name}` : 'Semua Project (Global)';
       
       document.getElementById('sidebar-active-project-label').textContent = label;
+      document.getElementById('chart-project-tag').textContent = label;
 
       const banner = document.getElementById('planner-project-banner');
       if (project) {
@@ -2025,9 +2087,19 @@ Belum ada naskah script.
                 </td>
                 <td class="p-4"><span class="px-2 py-0.5 rounded-md text-xs font-bold bg-indigo-50 text-indigo-700">${escapeHtml(cleanTag)}</span></td>
                 <td class="p-4 text-slate-600">${escapeHtml(c.pillar)}</td>
-                <td class="p-4"><span class="px-2 py-0.5 rounded-md text-xs font-bold ${
-                  c.status === 'Sudah upload' ? 'bg-emerald-50 text-emerald-700' : (c.status === 'Siap upload' ? 'bg-indigo-50 text-indigo-700' : 'bg-slate-100 text-slate-600')
-                }">${escapeHtml(c.status)}</span></td>
+                <td class="p-4">
+                  <!-- QUICK STATUS DROPDOWN SEKALIGUS -->
+                  <select onchange="quickUpdateContentStatus('${c.id}', this.value)" class="px-2.5 py-1 rounded-lg text-xs font-extrabold border ${
+                    c.status === 'Sudah upload' ? 'bg-emerald-50 text-emerald-700 border-emerald-200' : (c.status === 'Siap upload' ? 'bg-indigo-50 text-indigo-700 border-indigo-200' : 'bg-slate-100 text-slate-700 border-slate-200')
+                  } cursor-pointer focus:outline-none">
+                    <option value="Ide" ${c.status === 'Ide' ? 'selected' : ''}>💡 Ide</option>
+                    <option value="Script" ${c.status === 'Script' ? 'selected' : ''}>📝 Script</option>
+                    <option value="Produksi" ${c.status === 'Produksi' ? 'selected' : ''}>🎬 Produksi</option>
+                    <option value="Editing" ${c.status === 'Editing' ? 'selected' : ''}>✂️ Editing</option>
+                    <option value="Siap upload" ${c.status === 'Siap upload' ? 'selected' : ''}>🚀 Siap upload</option>
+                    <option value="Sudah upload" ${c.status === 'Sudah upload' ? 'selected' : ''}>✅ Sudah upload</option>
+                  </select>
+                </td>
                 <td class="p-4 text-right space-x-2">
                   <button onclick="openTeleprompter('${c.id}')" class="px-2.5 py-1 bg-amber-500 hover:bg-amber-600 text-slate-900 rounded-lg text-xs font-extrabold shadow-xs transition">
                     🎬 Shooting
@@ -2068,11 +2140,11 @@ Belum ada naskah script.
 
               <!-- Akun Sosmed Terkait -->
               <div class="bg-slate-50 p-2.5 rounded-xl space-y-1">
-                <p class="text-[10px] text-slate-400 font-extrabold uppercase">Akun Medsos yang Terlibat (${assignedAccs.length}):</p>
+                <p class="text-[10px] text-slate-400 font-extrabold uppercase">Akun Medsos Terdaftar (${assignedAccs.length}):</p>
                 <div class="flex flex-wrap gap-1">
                   ${assignedAccs.length === 0 
-                    ? '<span class="text-[11px] text-slate-400">Belum ada akun terhubung</span>'
-                    : assignedAccs.map(a => `<span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-white border border-slate-200 text-slate-700">${a.platform} (${a.username.replace(/^@+/,'@')})</span>`).join('')
+                    ? '<span class="text-[11px] text-slate-400 italic">Belum ada akun terhubung</span>'
+                    : assignedAccs.map(a => `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-white border border-slate-200 text-slate-700 shadow-2xs">${a.platform} (${a.username.replace(/^@+/,'@')})</span>`).join('')
                   }
                 </div>
               </div>
@@ -2092,6 +2164,39 @@ Belum ada naskah script.
         }).join('');
     }
 
+    function renderDashboardUpcomingContent() {
+      const container = document.getElementById('dash-upcoming-content-list');
+      if (!container) return;
+
+      const pending = db.contents.filter(c => c.status !== 'Sudah upload').slice(0, 5);
+
+      if (pending.length === 0) {
+        container.innerHTML = '<p class="text-xs text-slate-400 p-3 text-center">Semua rencana konten sudah terupload!</p>';
+        return;
+      }
+
+      container.innerHTML = pending.map(c => {
+        const proj = db.projects.find(p => p.id === c.projectId);
+        const acc = db.accounts.find(a => a.id === c.accountId);
+        const cleanUser = acc ? acc.username.replace(/^@+/, '@') : (c.platform || 'Medsos');
+
+        return `
+          <div class="p-3 rounded-xl border border-slate-200 bg-slate-50/60 hover:bg-slate-50 transition space-y-1.5">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-extrabold text-indigo-600">${formatDateID(c.date)} • Jam ${formatTime24(c.time)} WIB</span>
+              <span class="px-1.5 py-0.2 rounded text-[9px] font-extrabold bg-slate-200 text-slate-700">${c.status}</span>
+            </div>
+            <p class="font-extrabold text-xs text-slate-900 truncate">${escapeHtml(c.title)}</p>
+            <p class="text-[10px] text-slate-500 truncate">Project: ${escapeHtml(proj ? proj.name : 'Project Utama')} (${cleanUser})</p>
+            <div class="flex items-center justify-end gap-1.5 pt-1 border-t border-slate-200/60">
+              <button onclick="openTeleprompter('${c.id}')" class="px-2 py-0.5 rounded bg-amber-500 hover:bg-amber-600 text-slate-900 text-[10px] font-bold">🎬 Shooting</button>
+              <button onclick="quickUpdateContentStatus('${c.id}', 'Sudah upload')" class="px-2 py-0.5 rounded bg-emerald-600 hover:bg-emerald-700 text-white text-[10px] font-bold">✓ Sudah Upload</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
     function refreshAll() {
       populateGlobalProjectDropdown();
       populateClientDropdownInProject();
@@ -2099,6 +2204,7 @@ Belum ada naskah script.
       updateAIKeyStatusUI();
       renderPlanner();
       renderProjects();
+      renderDashboardUpcomingContent();
 
       const filteredAnalytics = activeProjectFilter !== 'ALL'
         ? db.analytics.filter(a => a.projectId === activeProjectFilter)
@@ -2203,20 +2309,31 @@ Belum ada naskah script.
           <td class="p-4 text-right"><button onclick="db.tasks=db.tasks.filter(x=>x.id!='${t.id}');saveToCloud();" class="text-rose-600 font-bold text-xs">Hapus</button></td>
         </tr>`).join('');
 
-      // Tasks Badge & Upcoming
       const pending = db.tasks.filter(t => t.status !== 'Selesai');
       const badge = document.getElementById('sidebar-task-badge');
       if (badge) { badge.textContent = pending.length; badge.classList.remove('hidden'); } else { badge.classList.add('hidden'); }
-      
-      document.getElementById('dash-upcoming-list').innerHTML = pending.length === 0 ? '<p class="text-xs text-slate-400">Tidak ada tugas tertunda.</p>' :
-        pending.slice(0, 4).map(t => `<div class="p-2.5 rounded-xl border border-slate-100 text-xs"><p class="font-bold text-slate-900">${escapeHtml(t.title)}</p><p class="text-slate-500">Deadline: ${formatDateID(t.deadline)}</p></div>`).join('');
+
+      // Chart Rendering
+      const ctx = document.getElementById('dashboardChart');
+      if (ctx) {
+        if (chartInstance) chartInstance.destroy();
+        const sorted = [...filteredAnalytics].slice(-7);
+        chartInstance = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: sorted.map(x => x.title.slice(0, 10)),
+            datasets: [{ label: 'Views', data: sorted.map(x => x.views), backgroundColor: '#4f46e5', borderRadius: 8 }]
+          },
+          options: { responsive: true, maintainAspectRatio: false }
+        });
+      }
 
       if (window.lucide) window.lucide.createIcons();
     }
 
     window.addEventListener('DOMContentLoaded', () => {
       initRealtime();
-      switchTab('projects');
+      switchTab('dashboard'); // Dashboard Utama sebagai Default View
     });
   </script>
 </body>
