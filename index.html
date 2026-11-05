@@ -3,18 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>BOBY CREATOR STUDIO V7.2 PRO — All-In-One Creator Command Center</title>
-  <meta name="theme-color" content="#0f172a" />
+  <title>BOBY CREATOR STUDIO V7.5 PRO — Tactical Command Center</title>
+  <meta name="theme-color" content="#090d16" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       darkMode: 'class',
       theme: {
         extend: {
-          fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'] }
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
         }
       }
     }
@@ -25,49 +28,49 @@
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     html, body {
       overflow-x: hidden;
-      background-color: #f1f5f9;
+      background-color: #eef2f6;
       background-image:
-        radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.08) 0px, transparent 50%),
-        radial-gradient(at 100% 0%, rgba(236, 72, 153, 0.07) 0px, transparent 50%),
-        radial-gradient(at 50% 100%, rgba(16, 185, 129, 0.06) 0px, transparent 50%);
-      background-attachment: fixed;
+        linear-gradient(to right, rgba(15, 23, 42, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(15, 23, 42, 0.03) 1px, transparent 1px);
+      background-size: 28px 28px;
       color: #0f172a;
       transition: background-color 0.2s, color 0.2s;
     }
     html.dark, html.dark body {
-      background-color: #070b14;
+      background-color: #070a12;
       background-image:
-        radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.16) 0px, transparent 50%),
-        radial-gradient(at 100% 0%, rgba(217, 70, 239, 0.12) 0px, transparent 50%);
+        linear-gradient(to right, rgba(56, 189, 248, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(56, 189, 248, 0.04) 1px, transparent 1px);
+      background-size: 28px 28px;
       color: #f1f5f9;
     }
-    html.dark .glass-panel { background-color: rgba(17, 24, 39, 0.9) !important; border-color: #1e293b !important; color: #f8fafc; }
-    html.dark .bg-white { background-color: #111827 !important; color: #f1f5f9; }
+    html.dark .glass-panel { background-color: rgba(15, 23, 42, 0.92) !important; border-color: #1e293b !important; color: #f8fafc; }
+    html.dark .bg-white { background-color: #0f172a !important; color: #f1f5f9; }
     html.dark .bg-slate-50, html.dark .bg-slate-100 { background-color: #1e293b !important; color: #e2e8f0; }
-    html.dark .border-slate-200, html.dark .border-slate-200\/80, html.dark .border-slate-100 { border-color: #1f2937 !important; }
+    html.dark .border-slate-200, html.dark .border-slate-200\/80, html.dark .border-slate-100 { border-color: #1e293b !important; }
     html.dark .text-slate-900, html.dark .text-slate-800, html.dark .text-slate-700 { color: #f8fafc !important; }
     html.dark .text-slate-600, html.dark .text-slate-500 { color: #94a3b8 !important; }
-    html.dark input, html.dark select, html.dark textarea { background-color: #0f172a !important; border-color: #334155 !important; color: #f8fafc !important; }
+    html.dark input, html.dark select, html.dark textarea { background-color: #090d16 !important; border-color: #334155 !important; color: #f8fafc !important; }
 
     .glass-panel {
-      background-color: rgba(255, 255, 255, 0.93);
+      background-color: rgba(255, 255, 255, 0.96);
       backdrop-filter: blur(12px);
     }
     .cal-cell-populated {
-      background: linear-gradient(145deg, rgba(238, 242, 255, 0.8) 0%, rgba(253, 242, 248, 0.85) 100%);
-      border-color: #a5b4fc !important;
+      background: linear-gradient(145deg, rgba(241, 245, 249, 0.95) 0%, rgba(226, 232, 240, 0.75) 100%);
+      border-color: #64748b !important;
     }
     html.dark .cal-cell-populated {
-      background: linear-gradient(145deg, rgba(30, 27, 75, 0.55) 0%, rgba(49, 46, 129, 0.4) 100%);
-      border-color: #4f46e5 !important;
+      background: linear-gradient(145deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.8) 100%);
+      border-color: #0284c7 !important;
     }
     .kanban-col-dropzone.drag-over {
-      background-color: rgba(99, 102, 241, 0.12) !important;
-      border-color: #6366f1 !important;
+      background-color: rgba(14, 165, 233, 0.12) !important;
+      border-color: #0284c7 !important;
     }
     ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb { background: #64748b; border-radius: 9999px; }
     html.dark ::-webkit-scrollbar-thumb { background: #334155; }
     .pb-safe { padding-bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px)); }
     @media print {
@@ -77,50 +80,50 @@
     }
   </style>
 </head>
-<body class="min-h-screen flex flex-col lg:flex-row antialiased selection:bg-indigo-600 selection:text-white">
+<body class="min-h-screen flex flex-col lg:flex-row antialiased selection:bg-sky-600 selection:text-white">
 
-  <!-- ==================== DESKTOP SIDEBAR (FIXED LEFT ALIGNMENT) ==================== -->
-  <aside class="no-print hidden lg:flex lg:flex-col lg:w-72 lg:fixed lg:inset-y-0 bg-slate-950 text-white border-r border-slate-800/90 z-30 select-none shadow-2xl">
-    <!-- Brand Header (Tidak Terpotong) -->
-    <div class="p-4 border-b border-slate-800/90 flex items-center gap-3 bg-gradient-to-r from-slate-950 via-indigo-950/70 to-slate-950">
-      <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center shadow-lg shadow-indigo-500/30 shrink-0">
-        <i data-lucide="sparkles" class="w-5 h-5 text-white"></i>
+  <!-- ==================== DESKTOP SIDEBAR (TACTICAL CARBON) ==================== -->
+  <aside class="no-print hidden lg:flex lg:flex-col lg:w-72 lg:fixed lg:inset-y-0 bg-[#070a12] text-white border-r border-slate-800 z-30 select-none shadow-2xl">
+    <!-- Brand Header -->
+    <div class="p-4 border-b border-slate-800/90 flex items-center gap-3 bg-gradient-to-r from-[#070a12] via-slate-900 to-[#070a12]">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-500 to-blue-700 flex items-center justify-center shadow-lg shadow-sky-500/25 border border-sky-400/30 shrink-0">
+        <i data-lucide="shield" class="w-5 h-5 text-white"></i>
       </div>
       <div class="min-w-0 flex-1">
-        <h1 class="font-extrabold text-[13px] tracking-tight text-white whitespace-nowrap">BOBY CREATOR STUDIO</h1>
+        <h1 class="font-extrabold text-[13px] tracking-wider text-white whitespace-nowrap">BOBY CREATOR STUDIO</h1>
         <div class="flex items-center gap-1.5 mt-1">
-          <span class="px-1.5 py-0.5 rounded text-[9px] font-extrabold bg-gradient-to-r from-indigo-500 to-pink-500 text-white leading-none">V7.2 PRO</span>
-          <span class="text-[10px] text-indigo-300 font-semibold truncate">Cyber-Luxe Suite</span>
+          <span class="px-1.5 py-0.5 rounded text-[9px] font-mono font-extrabold bg-sky-500 text-slate-950 leading-none">V7.5 PRO</span>
+          <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider truncate">Tactical Edition</span>
         </div>
       </div>
     </div>
 
     <!-- Active Project Focus Strip -->
     <div class="px-3 pt-3 pb-1">
-      <div class="p-2.5 rounded-xl bg-slate-900/95 border border-indigo-500/30 flex items-center justify-between gap-2">
+      <div class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between gap-2">
         <div class="flex items-center gap-2 min-w-0">
-          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0"></span>
+          <span class="w-2 h-2 rounded-full bg-sky-400 animate-pulse shrink-0"></span>
           <div class="min-w-0">
-            <p class="text-[9px] text-indigo-300 uppercase font-extrabold tracking-wider">Fokus Project Aktif</p>
+            <p class="text-[9px] text-slate-400 uppercase font-extrabold tracking-wider">Fokus Project Aktif</p>
             <p id="sidebar-active-project-label" class="text-xs font-bold text-white truncate">Semua Project (Global)</p>
           </div>
         </div>
-        <button onclick="resetToGlobalProject()" title="Reset ke Global" class="text-[10px] text-amber-400 hover:text-amber-300 font-extrabold shrink-0">Reset</button>
+        <button onclick="resetToGlobalProject()" title="Reset ke Global" class="text-[10px] text-sky-400 hover:text-sky-300 font-extrabold shrink-0">Reset</button>
       </div>
     </div>
 
-    <!-- 10 STRUCTURED NAVIGATION MENUS (RATA KIRI PRESISI) -->
+    <!-- 10 STRUCTURED NAVIGATION MENUS -->
     <nav class="flex-1 px-3 py-3 space-y-1 overflow-y-auto">
       <button onclick="switchTab('dashboard')" data-tab="dashboard" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs transition-all">
         <div class="flex items-center gap-3 min-w-0">
-          <i data-lucide="layout-dashboard" class="w-4 h-4 shrink-0 text-indigo-400"></i>
+          <i data-lucide="layout-dashboard" class="w-4 h-4 shrink-0 text-sky-400"></i>
           <span class="truncate">1. Dashboard Utama</span>
         </div>
       </button>
 
       <button onclick="switchTab('clients')" data-tab="clients" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs transition-all">
         <div class="flex items-center gap-3 min-w-0">
-          <i data-lucide="briefcase" class="w-4 h-4 shrink-0 text-sky-400"></i>
+          <i data-lucide="briefcase" class="w-4 h-4 shrink-0 text-blue-400"></i>
           <span class="truncate">2. Manajemen Klien</span>
         </div>
       </button>
@@ -134,15 +137,15 @@
 
       <button onclick="switchTab('planner')" data-tab="planner" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs transition-all">
         <div class="flex items-center gap-3 min-w-0">
-          <i data-lucide="calendar-days" class="w-4 h-4 shrink-0 text-pink-400"></i>
+          <i data-lucide="calendar-days" class="w-4 h-4 shrink-0 text-cyan-400"></i>
           <span class="truncate">4. Content Planner Visual</span>
         </div>
-        <span id="sidebar-planner-badge" class="px-1.5 py-0.5 rounded-full text-[10px] font-extrabold bg-pink-500 text-white shrink-0">0</span>
+        <span id="sidebar-planner-badge" class="px-1.5 py-0.5 rounded-md font-mono text-[10px] font-extrabold bg-sky-500 text-slate-950 shrink-0">0</span>
       </button>
 
       <button onclick="switchTab('analytics')" data-tab="analytics" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs transition-all">
         <div class="flex items-center gap-3 min-w-0">
-          <i data-lucide="bar-chart-3" class="w-4 h-4 shrink-0 text-teal-400"></i>
+          <i data-lucide="bar-chart-3" class="w-4 h-4 shrink-0 text-emerald-400"></i>
           <span class="truncate">5. Analytics Performa</span>
         </div>
       </button>
@@ -156,10 +159,10 @@
 
       <button onclick="switchTab('ai')" data-tab="ai" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs transition-all">
         <div class="flex items-center gap-3 min-w-0">
-          <i data-lucide="bot" class="w-4 h-4 shrink-0 text-amber-400"></i>
+          <i data-lucide="cpu" class="w-4 h-4 shrink-0 text-amber-400"></i>
           <span class="truncate">7. Gemini AI Assistant</span>
         </div>
-        <span class="px-1.5 py-0.5 rounded text-[9px] font-extrabold bg-amber-500 text-slate-900 shrink-0">AI</span>
+        <span class="px-1.5 py-0.5 rounded font-mono text-[9px] font-extrabold bg-amber-500 text-slate-950 shrink-0">AI</span>
       </button>
 
       <button onclick="switchTab('tasks')" data-tab="tasks" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs transition-all">
@@ -167,12 +170,12 @@
           <i data-lucide="check-square" class="w-4 h-4 shrink-0 text-rose-400"></i>
           <span class="truncate">8. Tugas & Deadline</span>
         </div>
-        <span id="sidebar-task-badge" class="hidden px-2 py-0.5 text-[10px] font-bold rounded-full bg-rose-500 text-white shrink-0">0</span>
+        <span id="sidebar-task-badge" class="hidden px-2 py-0.5 font-mono text-[10px] font-bold rounded-md bg-rose-500 text-white shrink-0">0</span>
       </button>
 
       <button onclick="switchTab('reports')" data-tab="reports" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs transition-all">
         <div class="flex items-center gap-3 min-w-0">
-          <i data-lucide="file-spreadsheet" class="w-4 h-4 shrink-0 text-purple-400"></i>
+          <i data-lucide="file-spreadsheet" class="w-4 h-4 shrink-0 text-teal-400"></i>
           <span class="truncate">9. Report Center</span>
         </div>
       </button>
@@ -180,7 +183,7 @@
       <div class="pt-2 mt-2 border-t border-slate-800/80">
         <button onclick="switchTab('settings')" data-tab="settings" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs transition-all">
           <div class="flex items-center gap-3 min-w-0">
-            <i data-lucide="database" class="w-4 h-4 shrink-0 text-cyan-400"></i>
+            <i data-lucide="database" class="w-4 h-4 shrink-0 text-slate-400"></i>
             <span class="truncate">10. Database & Backup</span>
           </div>
         </button>
@@ -188,59 +191,59 @@
     </nav>
 
     <!-- Cloud Sync Status Footer -->
-    <div class="p-3.5 m-3 rounded-xl bg-slate-900/90 border border-slate-800">
+    <div class="p-3.5 m-3 rounded-xl bg-slate-900 border border-slate-800">
       <div class="flex items-center justify-between mb-1">
         <span class="text-xs font-semibold text-slate-300">Status Cloud</span>
-        <span id="sidebar-sync-badge" class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-300">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Tersinkronisasi
+        <span id="sidebar-sync-badge" class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-300">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> ONLINE
         </span>
       </div>
-      <p class="text-[10px] text-slate-400 truncate">Firestore: boby-creator-studio</p>
+      <p class="text-[10px] font-mono text-slate-400 truncate">db: boby-creator-studio</p>
     </div>
   </aside>
 
   <!-- ==================== MAIN CONTENT WRAPPER ==================== -->
   <div class="flex-1 lg:pl-72 flex flex-col min-h-screen w-full">
     <!-- TOP HEADER -->
-    <header class="no-print sticky top-0 z-20 glass-panel border-b border-slate-200/80 px-4 sm:px-6 py-3 flex items-center justify-between gap-2 shadow-sm">
+    <header class="no-print sticky top-0 z-20 glass-panel border-b border-slate-200 px-4 sm:px-6 py-3 flex items-center justify-between gap-2 shadow-xs">
       <div class="flex items-center gap-2.5 min-w-0">
         <button onclick="openMobileDrawer()" class="lg:hidden p-2 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-100 shrink-0">
           <i data-lucide="menu" class="w-4 h-4"></i>
         </button>
         <div class="min-w-0">
-          <h2 id="page-title" class="text-sm sm:text-lg font-extrabold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent truncate">4. Content Planner Visual</h2>
-          <p id="page-subtitle" class="text-[11px] text-slate-500 truncate hidden sm:block">Kalender visual, Papan Kanban drag & drop, dan Teleprompter Auto-Scroll</p>
+          <h2 id="page-title" class="text-sm sm:text-lg font-extrabold text-slate-900 tracking-tight truncate">1. Dashboard Utama</h2>
+          <p id="page-subtitle" class="text-[11px] text-slate-500 truncate hidden sm:block">Sistem kendali operasional, rincian followers per akun & jadwal produksi</p>
         </div>
       </div>
 
       <!-- Right Header Controls -->
       <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
-        <button onclick="openSearchModal()" class="p-2 sm:px-3 sm:py-1.5 rounded-xl border border-slate-200 bg-white/80 hover:bg-indigo-50/50 text-slate-600 text-xs font-semibold flex items-center gap-2 transition shadow-2xs" title="Pencarian Global (Ctrl+K)">
-          <i data-lucide="search" class="w-3.5 h-3.5 text-indigo-600"></i>
+        <button onclick="openSearchModal()" class="p-2 sm:px-3 sm:py-1.5 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold flex items-center gap-2 transition shadow-2xs" title="Pencarian Global (Ctrl+K)">
+          <i data-lucide="search" class="w-3.5 h-3.5 text-sky-600"></i>
           <span class="hidden md:inline">Cari...</span>
-          <kbd class="hidden md:inline px-1.5 py-0.2 bg-slate-100 border rounded text-[10px] font-bold">Ctrl+K</kbd>
+          <kbd class="hidden md:inline px-1.5 py-0.2 bg-slate-100 border rounded font-mono text-[10px] font-bold">Ctrl+K</kbd>
         </button>
 
         <!-- Global Project Filter -->
-        <div class="flex items-center gap-1 bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-200 px-2.5 py-1.5 rounded-xl shadow-2xs max-w-[155px] sm:max-w-[230px]">
-          <i data-lucide="folder-kanban" class="w-3.5 h-3.5 text-indigo-600 shrink-0"></i>
-          <select id="global-project-filter" onchange="onGlobalProjectFilterChange(this.value)" class="bg-transparent text-xs font-extrabold text-indigo-950 focus:outline-none cursor-pointer truncate w-full">
-            <option value="ALL">🌐 Semua Project (Global)</option>
+        <div class="flex items-center gap-1.5 bg-slate-900 text-white border border-slate-700 px-3 py-1.5 rounded-xl shadow-xs max-w-[160px] sm:max-w-[240px]">
+          <i data-lucide="folder-kanban" class="w-3.5 h-3.5 text-sky-400 shrink-0"></i>
+          <select id="global-project-filter" onchange="onGlobalProjectFilterChange(this.value)" class="bg-transparent text-xs font-extrabold text-white focus:outline-none cursor-pointer truncate w-full">
+            <option value="ALL" class="text-slate-900">🌐 Semua Project (Global)</option>
           </select>
         </div>
 
         <!-- Quick Actions Dropdown -->
         <div class="relative">
-          <button onclick="toggleQuickAddMenu()" class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:opacity-95 text-white text-xs font-extrabold flex items-center gap-1 shadow-md shadow-indigo-500/20 transition">
+          <button onclick="toggleQuickAddMenu()" class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-sky-600 to-blue-700 hover:from-sky-500 hover:to-blue-600 text-white text-xs font-extrabold flex items-center gap-1 shadow-sm transition">
             <i data-lucide="plus" class="w-3.5 h-3.5"></i>
             <span class="hidden sm:inline">Buat Cepat</span>
           </button>
           <div id="quick-add-menu" class="hidden absolute right-0 mt-2 w-52 rounded-2xl bg-white border border-slate-200 shadow-2xl p-1.5 z-40 space-y-1 text-xs font-bold">
-            <button onclick="closeQuickAddMenu(); openContentModal();" class="w-full text-left px-3 py-2 rounded-xl hover:bg-indigo-50 flex items-center gap-2"><i data-lucide="calendar-plus" class="w-4 h-4 text-indigo-600"></i> Rencana Konten</button>
-            <button onclick="closeQuickAddMenu(); openProjectModal();" class="w-full text-left px-3 py-2 rounded-xl hover:bg-amber-50 flex items-center gap-2"><i data-lucide="folder-plus" class="w-4 h-4 text-amber-500"></i> Project Baru</button>
-            <button onclick="closeQuickAddMenu(); openClientModal();" class="w-full text-left px-3 py-2 rounded-xl hover:bg-sky-50 flex items-center gap-2"><i data-lucide="briefcase" class="w-4 h-4 text-sky-500"></i> Klien Baru</button>
-            <button onclick="closeQuickAddMenu(); openTaskModal();" class="w-full text-left px-3 py-2 rounded-xl hover:bg-rose-50 flex items-center gap-2"><i data-lucide="check-square" class="w-4 h-4 text-rose-500"></i> Tugas Baru</button>
-            <button onclick="closeQuickAddMenu(); openAffiliateModal();" class="w-full text-left px-3 py-2 rounded-xl hover:bg-orange-50 flex items-center gap-2"><i data-lucide="shopping-bag" class="w-4 h-4 text-orange-500"></i> Produk Affiliate</button>
+            <button onclick="closeQuickAddMenu(); openContentModal();" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-100 flex items-center gap-2"><i data-lucide="calendar-plus" class="w-4 h-4 text-sky-600"></i> Rencana Konten</button>
+            <button onclick="closeQuickAddMenu(); openProjectModal();" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-100 flex items-center gap-2"><i data-lucide="folder-plus" class="w-4 h-4 text-amber-500"></i> Project Baru</button>
+            <button onclick="closeQuickAddMenu(); openAccountModal();" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-100 flex items-center gap-2"><i data-lucide="user-plus" class="w-4 h-4 text-emerald-600"></i> Tambah Akun Medsos</button>
+            <button onclick="closeQuickAddMenu(); openClientModal();" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-100 flex items-center gap-2"><i data-lucide="briefcase" class="w-4 h-4 text-blue-600"></i> Klien Baru</button>
+            <button onclick="closeQuickAddMenu(); openTaskModal();" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-100 flex items-center gap-2"><i data-lucide="check-square" class="w-4 h-4 text-rose-500"></i> Tugas Baru</button>
           </div>
         </div>
 
@@ -253,7 +256,7 @@
           <div id="notif-dropdown" class="hidden absolute right-0 mt-2 w-80 sm:w-96 rounded-2xl bg-white border border-slate-200 shadow-2xl p-4 z-40 space-y-3">
             <div class="flex items-center justify-between border-b pb-2">
               <h4 class="font-extrabold text-xs text-slate-900 uppercase tracking-wider flex items-center gap-1.5">
-                <i data-lucide="bell" class="w-3.5 h-3.5 text-indigo-600"></i> Pengingat Jadwal & Deadline
+                <i data-lucide="bell" class="w-3.5 h-3.5 text-sky-600"></i> Pengingat Jadwal & Deadline
               </h4>
               <button onclick="closeNotificationDropdown()" class="text-slate-400 hover:text-slate-600"><i data-lucide="x" class="w-4 h-4"></i></button>
             </div>
@@ -262,27 +265,27 @@
         </div>
 
         <!-- Dark Mode Toggle -->
-        <button onclick="toggleDarkMode()" class="p-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-100 text-slate-700 transition" title="Mode Gelap / Terang">
+        <button onclick="toggleDarkMode()" class="p-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-100 text-slate-700 transition" title="Mode Tactical Gelap / Terang">
           <i id="theme-icon" data-lucide="moon" class="w-4 h-4"></i>
         </button>
 
         <!-- Cloud Sync Pill -->
-        <span id="header-sync-pill" class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+        <span id="header-sync-pill" class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-[11px] font-mono font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
           <span id="header-sync-dot" class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span id="header-sync-text" class="hidden xl:inline">Cloud Aktif</span>
+          <span id="header-sync-text" class="hidden xl:inline">CLOUD AKTIF</span>
         </span>
       </div>
     </header>
 
     <!-- TOP URGENT REMINDER BAR -->
-    <div id="urgent-reminder-banner" class="no-print hidden bg-gradient-to-r from-amber-500 via-orange-500 to-rose-600 text-white px-4 sm:px-6 py-2 text-xs font-bold flex items-center justify-between gap-3 shadow-sm">
+    <div id="urgent-reminder-banner" class="no-print hidden bg-gradient-to-r from-slate-900 via-amber-900 to-slate-900 border-b border-amber-500/40 text-white px-4 sm:px-6 py-2 text-xs font-bold flex items-center justify-between gap-3">
       <div class="flex items-center gap-2 min-w-0">
-        <i data-lucide="alert-circle" class="w-4 h-4 shrink-0 animate-bounce"></i>
+        <i data-lucide="alert-triangle" class="w-4 h-4 text-amber-400 shrink-0 animate-bounce"></i>
         <span id="urgent-reminder-message" class="truncate">Pengingat jadwal hari ini!</span>
       </div>
       <div class="flex items-center gap-2 shrink-0">
-        <button onclick="switchTab('planner')" class="px-2.5 py-0.5 rounded-lg bg-white/20 hover:bg-white/30 text-xs font-extrabold">Cek Jadwal</button>
-        <button onclick="dismissUrgentBanner()" class="p-1 hover:bg-white/20 rounded-md"><i data-lucide="x" class="w-3.5 h-3.5"></i></button>
+        <button onclick="switchTab('planner')" class="px-2.5 py-0.5 rounded-lg bg-amber-500 text-slate-950 text-xs font-extrabold">Buka Jadwal</button>
+        <button onclick="dismissUrgentBanner()" class="p-1 hover:bg-white/10 rounded-md"><i data-lucide="x" class="w-3.5 h-3.5"></i></button>
       </div>
     </div>
 
@@ -290,71 +293,110 @@
     <main class="flex-1 p-4 sm:p-6 pb-safe max-w-7xl w-full mx-auto space-y-6">
 
       <!-- ==================== 1. DASHBOARD UTAMA ==================== -->
-      <section id="sec-dashboard" class="tab-section hidden space-y-6">
-        <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-purple-950 rounded-3xl p-5 sm:p-7 text-white shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4 border border-indigo-500/20">
+      <section id="sec-dashboard" class="tab-section space-y-6">
+        <!-- Tactical Hero Banner -->
+        <div class="bg-gradient-to-r from-[#070a12] via-slate-900 to-[#0f172a] rounded-2xl p-5 sm:p-7 text-white shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4 border-l-4 border-l-sky-500 border border-slate-800">
           <div class="space-y-1.5">
-            <div class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-[11px] font-extrabold bg-gradient-to-r from-indigo-500/30 to-pink-500/30 text-indigo-200 border border-indigo-400/30">
-              <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-300"></i> Cyber-Luxe Edition V7.2 Pro
+            <div class="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-md text-[10px] font-mono font-extrabold bg-sky-500/15 text-sky-400 border border-sky-500/30 uppercase tracking-wider">
+              <i data-lucide="terminal" class="w-3.5 h-3.5"></i> COMMAND CENTER V7.5 PRO • TACTICAL CARBON
             </div>
-            <h3 class="text-xl sm:text-2xl font-extrabold">Halo, Boby Anggara!</h3>
-            <p id="dash-filter-desc" class="text-xs sm:text-sm text-indigo-200/90">Kendalikan seluruh project buatanmu, kalender konten, papan Kanban & Teleprompter Shooting secara real-time.</p>
+            <h3 class="text-xl sm:text-2xl font-extrabold tracking-tight">Halo, Boby Anggara!</h3>
+            <p id="dash-filter-desc" class="text-xs sm:text-sm text-slate-400">Pantau rincian followers per akun (TikTok, IG, Shopee, YouTube), progres produksi konten & komisi affiliate.</p>
           </div>
           <div class="flex flex-wrap gap-2.5">
-            <button onclick="openProjectModal()" class="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/15 text-xs font-extrabold text-white flex items-center gap-1.5 transition">
-              <i data-lucide="folder-plus" class="w-4 h-4 text-amber-400"></i> Buat Project
+            <button onclick="openAccountModal()" class="px-3.5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-extrabold text-white flex items-center gap-1.5 transition">
+              <i data-lucide="user-plus" class="w-4 h-4 text-emerald-400"></i> + Akun Medsos
             </button>
-            <button onclick="openContentModal()" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:opacity-95 text-xs font-extrabold text-white shadow-lg shadow-indigo-500/30 flex items-center gap-1.5 transition">
+            <button onclick="openProjectModal()" class="px-3.5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-extrabold text-white flex items-center gap-1.5 transition">
+              <i data-lucide="folder-plus" class="w-4 h-4 text-amber-400"></i> + Project
+            </button>
+            <button onclick="openContentModal()" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-sky-600 to-blue-700 hover:from-sky-500 hover:to-blue-600 text-xs font-extrabold text-white shadow-lg shadow-sky-600/25 flex items-center gap-1.5 transition">
               <i data-lucide="plus-circle" class="w-4 h-4"></i> Jadwalkan Konten
             </button>
           </div>
         </div>
 
-        <!-- 9 Colorful KPI Cards -->
+        <!-- PANEL BARU: RINCIAN FOLLOWERS PER AKUN MEDIA SOSIAL (TIDAK DIGABUNG BUTA LAGI!) -->
+        <div class="glass-panel rounded-2xl p-5 border border-slate-200/90 shadow-sm space-y-3.5">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200/80 pb-3">
+            <div class="flex items-center gap-2.5">
+              <div class="w-9 h-9 rounded-xl bg-slate-900 text-sky-400 flex items-center justify-center shrink-0">
+                <i data-lucide="users" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h4 class="font-extrabold text-sm text-slate-900 uppercase tracking-wider">Rincian Followers Per Akun Media Sosial</h4>
+                <p class="text-[11px] text-slate-500">Menampilkan jumlah followers masing-masing akun secara terpisah (TikTok, Instagram, Shopee, YouTube)</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <span id="dash-accounts-filter-badge" class="px-2.5 py-1 rounded-lg font-mono text-[11px] font-extrabold bg-slate-100 text-slate-700">Semua Akun</span>
+              <button onclick="openAccountModal()" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-extrabold flex items-center gap-1">
+                <i data-lucide="plus" class="w-3.5 h-3.5 text-sky-400"></i> Tambah Akun
+              </button>
+            </div>
+          </div>
+
+          <!-- Grid Kartu Followers Masing-Masing Akun -->
+          <div id="dash-per-account-followers-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3"></div>
+        </div>
+
+        <!-- 9 Tactical KPI Cards -->
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-3.5 sm:gap-4">
-          <div onclick="switchTab('projects')" class="glass-panel rounded-2xl p-4 border-t-4 border-t-indigo-500 border border-slate-200/80 shadow-sm hover:shadow-md cursor-pointer transition group">
-            <div class="flex items-center justify-between"><p class="text-xs font-bold text-slate-500">Project Buatanmu</p><div class="w-8 h-8 rounded-xl bg-indigo-500/10 text-indigo-600 flex items-center justify-center"><i data-lucide="folder-kanban" class="w-4 h-4"></i></div></div>
-            <h4 id="dash-total-projects" class="text-2xl font-extrabold text-slate-900 mt-1">0</h4>
-            <p id="dash-project-breakdown" class="text-[11px] text-indigo-600 font-semibold mt-1">Kelola Project &rarr;</p>
+          <div onclick="switchTab('projects')" class="glass-panel rounded-2xl p-4 border-l-4 border-l-sky-600 border border-slate-200/80 shadow-xs hover:shadow-md cursor-pointer transition">
+            <div class="flex items-center justify-between"><p class="text-xs font-bold text-slate-500 uppercase tracking-wider">Project Aktif</p><i data-lucide="folder-kanban" class="w-4 h-4 text-sky-600"></i></div>
+            <h4 id="dash-total-projects" class="text-2xl font-mono font-extrabold text-slate-900 mt-1">0</h4>
+            <p id="dash-project-breakdown" class="text-[11px] text-sky-600 font-bold mt-1">Kelola Project &rarr;</p>
           </div>
-          <div onclick="switchTab('clients')" class="glass-panel rounded-2xl p-4 border-t-4 border-t-sky-500 border border-slate-200/80 shadow-sm hover:shadow-md cursor-pointer transition group">
-            <div class="flex items-center justify-between"><p class="text-xs font-bold text-slate-500">Total Klien</p><div class="w-8 h-8 rounded-xl bg-sky-500/10 text-sky-600 flex items-center justify-center"><i data-lucide="briefcase" class="w-4 h-4"></i></div></div>
-            <h4 id="dash-total-clients" class="text-2xl font-extrabold text-slate-900 mt-1">0</h4>
-            <p id="dash-active-clients" class="text-[11px] text-emerald-600 font-semibold mt-1">0 Aktif</p>
+
+          <div onclick="switchTab('clients')" class="glass-panel rounded-2xl p-4 border-l-4 border-l-blue-600 border border-slate-200/80 shadow-xs hover:shadow-md cursor-pointer transition">
+            <div class="flex items-center justify-between"><p class="text-xs font-bold text-slate-500 uppercase tracking-wider">Total Klien</p><i data-lucide="briefcase" class="w-4 h-4 text-blue-600"></i></div>
+            <h4 id="dash-total-clients" class="text-2xl font-mono font-extrabold text-slate-900 mt-1">0</h4>
+            <p id="dash-active-clients" class="text-[11px] text-emerald-600 font-bold mt-1">0 Aktif</p>
           </div>
-          <div onclick="switchTab('planner')" class="glass-panel rounded-2xl p-4 border-t-4 border-t-pink-500 border border-slate-200/80 shadow-sm hover:shadow-md cursor-pointer transition group">
-            <div class="flex items-center justify-between"><p class="text-xs font-bold text-slate-500">Rencana Konten</p><div class="w-8 h-8 rounded-xl bg-pink-500/10 text-pink-600 flex items-center justify-center"><i data-lucide="calendar-days" class="w-4 h-4"></i></div></div>
-            <h4 id="dash-total-content" class="text-2xl font-extrabold text-slate-900 mt-1">0</h4>
-            <p id="dash-uploaded-content" class="text-[11px] text-pink-600 font-semibold mt-1">0 Sudah Upload</p>
+
+          <div onclick="switchTab('planner')" class="glass-panel rounded-2xl p-4 border-l-4 border-l-cyan-500 border border-slate-200/80 shadow-xs hover:shadow-md cursor-pointer transition">
+            <div class="flex items-center justify-between"><p class="text-xs font-bold text-slate-500 uppercase tracking-wider">Rencana Konten</p><i data-lucide="calendar-days" class="w-4 h-4 text-cyan-600"></i></div>
+            <h4 id="dash-total-content" class="text-2xl font-mono font-extrabold text-slate-900 mt-1">0</h4>
+            <p id="dash-uploaded-content" class="text-[11px] text-cyan-600 font-bold mt-1">0 Sudah Upload</p>
           </div>
-          <div onclick="switchTab('analytics')" class="glass-panel rounded-2xl p-4 border-t-4 border-t-teal-500 border border-slate-200/80 shadow-sm hover:shadow-md cursor-pointer transition group">
-            <div class="flex items-center justify-between"><p class="text-xs font-bold text-slate-500">Total Views</p><div class="w-8 h-8 rounded-xl bg-teal-500/10 text-teal-600 flex items-center justify-center"><i data-lucide="eye" class="w-4 h-4"></i></div></div>
-            <h4 id="dash-total-views" class="text-2xl font-extrabold text-slate-900 mt-1">0</h4>
-            <p class="text-[11px] text-teal-600 font-semibold mt-1">Akumulasi Views</p>
+
+          <div onclick="switchTab('analytics')" class="glass-panel rounded-2xl p-4 border-l-4 border-l-teal-500 border border-slate-200/80 shadow-xs hover:shadow-md cursor-pointer transition">
+            <div class="flex items-center justify-between"><p class="text-xs font-bold text-slate-500 uppercase tracking-wider">Total Views</p><i data-lucide="eye" class="w-4 h-4 text-teal-600"></i></div>
+            <h4 id="dash-total-views" class="text-2xl font-mono font-extrabold text-slate-900 mt-1">0</h4>
+            <p class="text-[11px] text-teal-600 font-bold mt-1">Akumulasi Views</p>
           </div>
-          <div onclick="switchTab('projects')" class="glass-panel rounded-2xl p-4 border-t-4 border-t-violet-500 border border-slate-200/80 shadow-sm hover:shadow-md cursor-pointer transition group">
-            <div class="flex items-center justify-between"><p class="text-xs font-bold text-slate-500">Total Followers</p><div class="w-8 h-8 rounded-xl bg-violet-500/10 text-violet-600 flex items-center justify-center"><i data-lucide="users" class="w-4 h-4"></i></div></div>
-            <h4 id="dash-total-followers" class="text-2xl font-extrabold text-slate-900 mt-1">0</h4>
-            <p id="dash-followers-sub" class="text-[11px] text-violet-600 font-semibold mt-1">0 Akun Terdaftar</p>
+
+          <!-- KPI #5: Rincian Followers Per Akun (Bukan Sekadar Angka Gabungan!) -->
+          <div onclick="switchTab('projects')" class="glass-panel rounded-2xl p-4 border-l-4 border-l-indigo-600 border border-slate-200/80 shadow-xs hover:shadow-md cursor-pointer transition">
+            <div class="flex items-center justify-between">
+              <p class="text-xs font-bold text-slate-500 uppercase tracking-wider">Followers Per Akun</p>
+              <span id="dash-followers-count-tag" class="text-[10px] font-mono font-extrabold px-1.5 py-0.2 rounded bg-indigo-50 text-indigo-700">0 Akun</span>
+            </div>
+            <div id="dash-kpi-followers-breakdown" class="mt-2 space-y-1 max-h-20 overflow-y-auto pr-1 text-xs"></div>
           </div>
-          <div onclick="switchTab('analytics')" class="glass-panel rounded-2xl p-4 border-t-4 border-t-rose-500 border border-slate-200/80 shadow-sm hover:shadow-md cursor-pointer transition group">
-            <div class="flex items-center justify-between"><p class="text-xs font-bold text-slate-500">Rata-rata ER</p><div class="w-8 h-8 rounded-xl bg-rose-500/10 text-rose-600 flex items-center justify-center"><i data-lucide="heart" class="w-4 h-4"></i></div></div>
-            <h4 id="dash-avg-er" class="text-2xl font-extrabold text-slate-900 mt-1">0%</h4>
-            <p class="text-[11px] text-rose-600 font-semibold mt-1">Engagement Rate</p>
+
+          <div onclick="switchTab('analytics')" class="glass-panel rounded-2xl p-4 border-l-4 border-l-rose-600 border border-slate-200/80 shadow-xs hover:shadow-md cursor-pointer transition">
+            <div class="flex items-center justify-between"><p class="text-xs font-bold text-slate-500 uppercase tracking-wider">Rata-rata ER</p><i data-lucide="activity" class="w-4 h-4 text-rose-600"></i></div>
+            <h4 id="dash-avg-er" class="text-2xl font-mono font-extrabold text-slate-900 mt-1">0%</h4>
+            <p class="text-[11px] text-rose-600 font-bold mt-1">Engagement Rate</p>
           </div>
-          <div onclick="switchTab('affiliate')" class="glass-panel rounded-2xl p-4 border-t-4 border-t-amber-500 border border-slate-200/80 shadow-sm hover:shadow-md cursor-pointer transition group">
-            <p class="text-xs font-bold text-slate-500">Klik Affiliate</p>
-            <h4 id="dash-aff-clicks" class="text-2xl font-extrabold text-slate-900 mt-1">0</h4>
+
+          <div onclick="switchTab('affiliate')" class="glass-panel rounded-2xl p-4 border-l-4 border-l-amber-500 border border-slate-200/80 shadow-xs hover:shadow-md cursor-pointer transition">
+            <p class="text-xs font-bold text-slate-500 uppercase tracking-wider">Klik Affiliate</p>
+            <h4 id="dash-aff-clicks" class="text-2xl font-mono font-extrabold text-slate-900 mt-1">0</h4>
             <p id="dash-aff-cr" class="text-[11px] text-amber-600 font-extrabold mt-1">CR: 0%</p>
           </div>
-          <div onclick="switchTab('affiliate')" class="glass-panel rounded-2xl p-4 border-t-4 border-t-orange-500 border border-slate-200/80 shadow-sm hover:shadow-md cursor-pointer transition group">
-            <p class="text-xs font-bold text-slate-500">Pesanan Affiliate</p>
-            <h4 id="dash-aff-orders" class="text-2xl font-extrabold text-slate-900 mt-1">0</h4>
+
+          <div onclick="switchTab('affiliate')" class="glass-panel rounded-2xl p-4 border-l-4 border-l-orange-500 border border-slate-200/80 shadow-xs hover:shadow-md cursor-pointer transition">
+            <p class="text-xs font-bold text-slate-500 uppercase tracking-wider">Pesanan Affiliate</p>
+            <h4 id="dash-aff-orders" class="text-2xl font-mono font-extrabold text-slate-900 mt-1">0</h4>
             <p id="dash-aff-gmv" class="text-[11px] text-orange-600 font-bold mt-1">GMV: Rp 0</p>
           </div>
-          <div onclick="switchTab('affiliate')" class="col-span-2 sm:col-span-1 glass-panel rounded-2xl p-4 border-t-4 border-t-emerald-500 border border-emerald-200 shadow-sm hover:shadow-md cursor-pointer transition">
-            <p class="text-xs font-bold text-emerald-700">Estimasi Komisi</p>
-            <h4 id="dash-aff-commission" class="text-2xl font-extrabold text-emerald-600 mt-1">Rp 0</h4>
-            <p class="text-[11px] text-emerald-600 font-semibold mt-1">Total Komisi Affiliate</p>
+
+          <div onclick="switchTab('affiliate')" class="col-span-2 sm:col-span-1 glass-panel rounded-2xl p-4 border-l-4 border-l-emerald-500 border border-emerald-200 shadow-xs hover:shadow-md cursor-pointer transition">
+            <p class="text-xs font-bold text-emerald-700 uppercase tracking-wider">Estimasi Komisi</p>
+            <h4 id="dash-aff-commission" class="text-2xl font-mono font-extrabold text-emerald-600 mt-1">Rp 0</h4>
+            <p class="text-[11px] text-emerald-600 font-bold mt-1">Total Komisi Affiliate</p>
           </div>
         </div>
 
@@ -362,8 +404,8 @@
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div class="glass-panel rounded-2xl p-5 border border-slate-200/80 shadow-sm space-y-3">
             <div class="flex justify-between items-center border-b pb-2">
-              <h4 class="font-extrabold text-slate-900 text-sm flex items-center gap-1.5"><i data-lucide="clock" class="w-4 h-4 text-indigo-600"></i> Antrean Konten Tayang</h4>
-              <button onclick="switchTab('planner')" class="text-xs text-indigo-600 font-bold hover:underline">Kalender &rarr;</button>
+              <h4 class="font-extrabold text-slate-900 text-sm flex items-center gap-1.5"><i data-lucide="clock" class="w-4 h-4 text-sky-600"></i> Antrean Konten Tayang</h4>
+              <button onclick="switchTab('planner')" class="text-xs text-sky-600 font-bold hover:underline">Kalender &rarr;</button>
             </div>
             <div id="dash-upcoming-content-list" class="space-y-2.5 max-h-64 overflow-y-auto pr-1"></div>
           </div>
@@ -371,14 +413,14 @@
           <div class="glass-panel rounded-2xl p-5 border border-slate-200/80 shadow-sm">
             <div class="flex justify-between items-center mb-3">
               <h4 class="font-extrabold text-slate-900 text-sm">Grafik Views Konten</h4>
-              <span id="chart-project-tag" class="text-[10px] font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full border border-indigo-100">Global</span>
+              <span id="chart-project-tag" class="text-[10px] font-mono font-bold text-sky-700 bg-sky-50 px-2 py-0.5 rounded border border-sky-200">Global</span>
             </div>
             <div class="relative w-full h-60"><canvas id="dashboardChart"></canvas></div>
           </div>
 
           <div class="glass-panel rounded-2xl p-5 border border-slate-200/80 shadow-sm space-y-3">
             <div class="flex justify-between items-center border-b pb-2">
-              <h4 class="font-extrabold text-slate-900 text-sm flex items-center gap-1.5"><i data-lucide="activity" class="w-4 h-4 text-emerald-600"></i> Aktivitas Terbaru</h4>
+              <h4 class="font-extrabold text-slate-900 text-sm flex items-center gap-1.5"><i data-lucide="activity" class="w-4 h-4 text-emerald-600"></i> Log Aktivitas Sistem</h4>
               <button onclick="clearActivities()" class="text-[11px] text-slate-400 hover:text-rose-500 font-semibold">Bersihkan</button>
             </div>
             <div id="dash-activity-list" class="space-y-2 max-h-64 overflow-y-auto pr-1 text-xs"></div>
@@ -398,7 +440,7 @@
               <option value="Selesai">Selesai</option>
             </select>
           </div>
-          <button onclick="openClientModal()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm"><i data-lucide="plus" class="w-4 h-4"></i> Tambah Klien</button>
+          <button onclick="openClientModal()" class="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm"><i data-lucide="plus" class="w-4 h-4 text-sky-400"></i> Tambah Klien</button>
         </div>
         <div class="glass-panel rounded-2xl border border-slate-200 overflow-x-auto shadow-sm">
           <table class="w-full text-left text-xs">
@@ -414,13 +456,13 @@
       <section id="sec-projects" class="tab-section hidden space-y-6">
         <div class="glass-panel rounded-2xl p-5 border border-slate-200/80 shadow-sm flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
           <div>
-            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-indigo-50 text-indigo-600 uppercase tracking-wider">Manajemen Project Mandiri (Tanpa Default)</span>
-            <h3 class="font-extrabold text-base text-slate-900 mt-1">Daftar Project & Inventaris Akun Sosial Media</h3>
-            <p class="text-xs text-slate-500 mt-0.5">Buat project sesuai keinginanmu sendiri dan hubungkan akun TikTok, Instagram, Shopee, atau YouTube.</p>
+            <span class="px-2.5 py-0.5 rounded-md font-mono text-[10px] font-extrabold bg-slate-900 text-sky-400 uppercase tracking-wider">Tactical Project & Account Hub</span>
+            <h3 class="font-extrabold text-base text-slate-900 mt-1">Daftar Project & Inventaris Followers Per Akun</h3>
+            <p class="text-xs text-slate-500 mt-0.5">Kelola project kerja dan pantau jumlah followers masing-masing akun TikTok, Instagram, Shopee, atau YouTube secara terpisah.</p>
           </div>
           <div class="flex flex-wrap gap-2 shrink-0">
-            <button onclick="openAccountModal()" class="px-3.5 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-bold text-xs flex items-center gap-1.5"><i data-lucide="user-plus" class="w-4 h-4 text-indigo-600"></i> Tambah Akun</button>
-            <button onclick="openProjectModal()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-indigo-600 to-pink-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-md"><i data-lucide="folder-plus" class="w-4 h-4"></i> Buat Project Baru</button>
+            <button onclick="openAccountModal()" class="px-3.5 py-2 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 text-slate-800 font-extrabold text-xs flex items-center gap-1.5"><i data-lucide="user-plus" class="w-4 h-4 text-sky-600"></i> Tambah Akun & Followers</button>
+            <button onclick="openProjectModal()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-sky-600 to-blue-700 text-white font-extrabold text-xs flex items-center gap-1.5 shadow-md"><i data-lucide="folder-plus" class="w-4 h-4"></i> Buat Project Baru</button>
           </div>
         </div>
 
@@ -428,12 +470,12 @@
 
         <div class="glass-panel rounded-2xl border border-slate-200 overflow-x-auto shadow-sm">
           <div class="px-4 py-3 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
-            <span class="text-xs font-extrabold text-slate-700 uppercase tracking-wider">Inventaris Seluruh Akun Media Sosial</span>
-            <span id="accounts-count-badge" class="text-xs font-bold text-indigo-600">0 Akun</span>
+            <span class="text-xs font-extrabold text-slate-700 uppercase tracking-wider">Inventaris Seluruh Akun & Rincian Followers Individu</span>
+            <span id="accounts-count-badge" class="text-xs font-mono font-bold text-sky-600">0 Akun</span>
           </div>
           <table class="w-full text-left text-xs">
             <thead class="bg-slate-50 text-slate-500 uppercase font-bold border-b">
-              <tr><th class="p-3.5">Nama Label Akun</th><th class="p-3.5">Platform & Username</th><th class="p-3.5">Klien Pemilik</th><th class="p-3.5">Followers</th><th class="p-3.5 text-right">Aksi</th></tr>
+              <tr><th class="p-3.5">Nama Label Akun</th><th class="p-3.5">Platform & Username</th><th class="p-3.5">Klien Pemilik</th><th class="p-3.5">Followers Akun Ini</th><th class="p-3.5 text-right">Aksi</th></tr>
             </thead>
             <tbody id="accounts-table-body" class="divide-y divide-slate-100"></tbody>
           </table>
@@ -441,40 +483,40 @@
       </section>
 
       <!-- ==================== 4. CONTENT PLANNER VISUAL (KALENDER + KANBAN + TABEL) ==================== -->
-      <section id="sec-planner" class="tab-section space-y-5">
-        <!-- Colorful Stats Strip -->
+      <section id="sec-planner" class="tab-section hidden space-y-5">
+        <!-- Tactical Stats Strip -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
-          <div class="rounded-2xl p-4 bg-gradient-to-br from-indigo-600 to-violet-700 text-white shadow-md flex items-center justify-between">
-            <div><p class="text-[10px] font-extrabold text-indigo-200 uppercase tracking-wider">Total Konten</p><h4 id="stat-total-planner" class="text-2xl font-extrabold mt-0.5">0</h4></div>
-            <div class="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center"><i data-lucide="calendar" class="w-5 h-5 text-white"></i></div>
+          <div class="rounded-2xl p-4 bg-gradient-to-br from-slate-900 to-slate-800 text-white border-l-4 border-l-sky-500 shadow-md flex items-center justify-between">
+            <div><p class="text-[10px] font-mono font-extrabold text-slate-400 uppercase tracking-wider">Total Konten</p><h4 id="stat-total-planner" class="text-2xl font-mono font-extrabold mt-0.5">0</h4></div>
+            <div class="w-10 h-10 rounded-xl bg-sky-500/15 text-sky-400 flex items-center justify-center"><i data-lucide="calendar" class="w-5 h-5"></i></div>
           </div>
-          <div class="rounded-2xl p-4 bg-gradient-to-br from-pink-500 to-rose-600 text-white shadow-md flex items-center justify-between">
-            <div><p class="text-[10px] font-extrabold text-pink-100 uppercase tracking-wider">Tayang Hari Ini</p><h4 id="stat-today-planner" class="text-2xl font-extrabold mt-0.5">0</h4></div>
-            <div class="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center"><i data-lucide="clock" class="w-5 h-5 text-white"></i></div>
+          <div class="rounded-2xl p-4 bg-gradient-to-br from-sky-700 to-blue-900 text-white border-l-4 border-l-cyan-400 shadow-md flex items-center justify-between">
+            <div><p class="text-[10px] font-mono font-extrabold text-sky-200 uppercase tracking-wider">Tayang Hari Ini</p><h4 id="stat-today-planner" class="text-2xl font-mono font-extrabold mt-0.5">0</h4></div>
+            <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center"><i data-lucide="clock" class="w-5 h-5 text-cyan-300"></i></div>
           </div>
-          <div class="rounded-2xl p-4 bg-gradient-to-br from-amber-500 to-orange-600 text-white shadow-md flex items-center justify-between">
-            <div><p class="text-[10px] font-extrabold text-amber-100 uppercase tracking-wider">Siap Upload</p><h4 id="stat-ready-planner" class="text-2xl font-extrabold mt-0.5">0</h4></div>
+          <div class="rounded-2xl p-4 bg-gradient-to-br from-amber-600 to-orange-700 text-white border-l-4 border-l-amber-300 shadow-md flex items-center justify-between">
+            <div><p class="text-[10px] font-mono font-extrabold text-amber-100 uppercase tracking-wider">Siap Upload</p><h4 id="stat-ready-planner" class="text-2xl font-mono font-extrabold mt-0.5">0</h4></div>
             <div class="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center"><i data-lucide="rocket" class="w-5 h-5 text-white"></i></div>
           </div>
-          <div class="rounded-2xl p-4 bg-gradient-to-br from-emerald-500 to-teal-600 text-white shadow-md flex items-center justify-between">
-            <div><p class="text-[10px] font-extrabold text-emerald-100 uppercase tracking-wider">Sudah Upload</p><h4 id="stat-uploaded-planner" class="text-2xl font-extrabold mt-0.5">0</h4></div>
+          <div class="rounded-2xl p-4 bg-gradient-to-br from-emerald-600 to-teal-800 text-white border-l-4 border-l-emerald-300 shadow-md flex items-center justify-between">
+            <div><p class="text-[10px] font-mono font-extrabold text-emerald-100 uppercase tracking-wider">Sudah Upload</p><h4 id="stat-uploaded-planner" class="text-2xl font-mono font-extrabold mt-0.5">0</h4></div>
             <div class="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center"><i data-lucide="check-circle-2" class="w-5 h-5 text-white"></i></div>
           </div>
         </div>
 
         <!-- Project Active Banner -->
-        <div id="planner-project-banner" class="hidden bg-gradient-to-r from-indigo-900 via-purple-900 to-slate-900 p-4 rounded-2xl text-white flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-md">
+        <div id="planner-project-banner" class="hidden bg-gradient-to-r from-[#070a12] via-slate-900 to-sky-950 p-4 rounded-2xl text-white flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-l-4 border-l-sky-500 shadow-md">
           <div>
-            <div class="flex items-center gap-2"><span class="px-2 py-0.5 rounded text-[10px] font-extrabold uppercase bg-pink-500">Project Aktif</span><h3 id="banner-project-name" class="font-extrabold text-sm">Project</h3></div>
-            <p id="banner-project-desc" class="text-xs text-indigo-200 mt-1">-</p>
+            <div class="flex items-center gap-2"><span class="px-2 py-0.5 rounded font-mono text-[10px] font-extrabold uppercase bg-sky-500 text-slate-950">PROJECT AKTIF</span><h3 id="banner-project-name" class="font-extrabold text-sm">Project</h3></div>
+            <p id="banner-project-desc" class="text-xs text-slate-300 mt-1">-</p>
           </div>
           <div class="flex items-center gap-2">
-            <button onclick="openContentModal()" class="px-3 py-1.5 bg-indigo-500 hover:bg-indigo-400 text-white rounded-xl text-xs font-bold">+ Konten Project Ini</button>
+            <button onclick="openContentModal()" class="px-3 py-1.5 bg-sky-600 hover:bg-sky-500 text-white rounded-xl text-xs font-bold">+ Konten Project Ini</button>
             <button onclick="resetToGlobalProject()" class="px-3 py-1.5 bg-white/10 hover:bg-white/20 text-white rounded-xl text-xs font-bold">Lihat Global</button>
           </div>
         </div>
 
-        <!-- Controls & 3-Way View Switcher (Kalender | Kanban | Tabel) -->
+        <!-- Controls & 3-Way View Switcher -->
         <div class="glass-panel rounded-2xl p-4 border border-slate-200/80 shadow-sm flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
           <div class="flex flex-1 flex-col sm:flex-row gap-2">
             <input type="text" id="search-planner" oninput="renderPlanner()" placeholder="Cari judul konten, hook, atau pillar..." class="px-3.5 py-2 rounded-xl border border-slate-200 text-xs flex-1 max-w-sm" />
@@ -490,11 +532,11 @@
           </div>
           <div class="flex flex-wrap items-center justify-between sm:justify-end gap-2">
             <div class="inline-flex rounded-xl bg-slate-100 p-1 border border-slate-200 text-xs font-bold">
-              <button onclick="setPlannerMode('calendar')" id="btn-mode-cal" class="px-3 py-1.5 rounded-lg bg-white text-indigo-600 shadow-xs flex items-center gap-1.5 transition"><i data-lucide="calendar" class="w-3.5 h-3.5"></i> Kalender</button>
+              <button onclick="setPlannerMode('calendar')" id="btn-mode-cal" class="px-3 py-1.5 rounded-lg bg-slate-900 text-white shadow-xs flex items-center gap-1.5 transition"><i data-lucide="calendar" class="w-3.5 h-3.5"></i> Kalender</button>
               <button onclick="setPlannerMode('kanban')" id="btn-mode-kanban" class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 flex items-center gap-1.5 transition"><i data-lucide="columns" class="w-3.5 h-3.5"></i> Kanban</button>
               <button onclick="setPlannerMode('list')" id="btn-mode-list" class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 flex items-center gap-1.5 transition"><i data-lucide="list" class="w-3.5 h-3.5"></i> Tabel</button>
             </div>
-            <button onclick="openContentModal()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:opacity-95 text-white font-extrabold text-xs flex items-center gap-1.5 shadow-md"><i data-lucide="plus" class="w-4 h-4"></i> Buat Konten</button>
+            <button onclick="openContentModal()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-sky-600 to-blue-700 hover:from-sky-500 hover:to-blue-600 text-white font-extrabold text-xs flex items-center gap-1.5 shadow-md"><i data-lucide="plus" class="w-4 h-4"></i> Buat Konten</button>
           </div>
         </div>
 
@@ -503,33 +545,33 @@
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200/80 pb-3.5">
             <div>
               <div class="flex items-center gap-2">
-                <h3 id="calendar-month-year-label" class="font-extrabold text-lg sm:text-xl bg-gradient-to-r from-indigo-600 to-pink-600 bg-clip-text text-transparent">November 2026</h3>
-                <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-indigo-50 text-indigo-600 border border-indigo-200">Interactive Color Grid</span>
+                <h3 id="calendar-month-year-label" class="font-extrabold text-lg sm:text-xl text-slate-900">November 2026</h3>
+                <span class="px-2 py-0.5 rounded-md font-mono text-[10px] font-extrabold bg-slate-900 text-sky-400">TACTICAL GRID</span>
               </div>
               <p class="text-[11px] text-slate-500 mt-0.5">Klik kotak tanggal untuk tambah jadwal baru. Gunakan tombol 🎬 Shooting / ✏️ Edit / 🗑️ Hapus langsung pada kartu.</p>
             </div>
             <div class="flex items-center gap-1.5">
-              <button onclick="changeCalendarMonth(-1)" class="p-2 rounded-xl border border-slate-200 bg-white hover:bg-indigo-50"><i data-lucide="chevron-left" class="w-4 h-4"></i></button>
-              <button onclick="changeCalendarMonth(0)" class="px-3.5 py-1.5 rounded-xl border border-indigo-200 bg-indigo-50 text-indigo-700 text-xs font-extrabold hover:bg-indigo-100">Hari Ini</button>
-              <button onclick="changeCalendarMonth(1)" class="p-2 rounded-xl border border-slate-200 bg-white hover:bg-indigo-50"><i data-lucide="chevron-right" class="w-4 h-4"></i></button>
+              <button onclick="changeCalendarMonth(-1)" class="p-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-100"><i data-lucide="chevron-left" class="w-4 h-4"></i></button>
+              <button onclick="changeCalendarMonth(0)" class="px-3.5 py-1.5 rounded-xl bg-slate-900 text-white text-xs font-extrabold hover:bg-slate-800">Hari Ini</button>
+              <button onclick="changeCalendarMonth(1)" class="p-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-100"><i data-lucide="chevron-right" class="w-4 h-4"></i></button>
             </div>
           </div>
-          <div class="grid grid-cols-7 gap-1.5 text-center text-[11px] font-extrabold uppercase tracking-wider">
+          <div class="grid grid-cols-7 gap-1.5 text-center text-[11px] font-mono font-extrabold uppercase tracking-wider">
             <div class="py-1.5 rounded-lg bg-rose-500/10 text-rose-600">Min</div>
-            <div class="py-1.5 rounded-lg bg-slate-100 text-slate-600">Sen</div>
-            <div class="py-1.5 rounded-lg bg-slate-100 text-slate-600">Sel</div>
-            <div class="py-1.5 rounded-lg bg-slate-100 text-slate-600">Rab</div>
-            <div class="py-1.5 rounded-lg bg-slate-100 text-slate-600">Kam</div>
-            <div class="py-1.5 rounded-lg bg-slate-100 text-slate-600">Jum</div>
-            <div class="py-1.5 rounded-lg bg-indigo-500/10 text-indigo-600">Sab</div>
+            <div class="py-1.5 rounded-lg bg-slate-100 text-slate-700">Sen</div>
+            <div class="py-1.5 rounded-lg bg-slate-100 text-slate-700">Sel</div>
+            <div class="py-1.5 rounded-lg bg-slate-100 text-slate-700">Rab</div>
+            <div class="py-1.5 rounded-lg bg-slate-100 text-slate-700">Kam</div>
+            <div class="py-1.5 rounded-lg bg-slate-100 text-slate-700">Jum</div>
+            <div class="py-1.5 rounded-lg bg-sky-500/10 text-sky-600">Sab</div>
           </div>
           <div id="calendar-days-grid" class="grid grid-cols-7 gap-2"></div>
         </div>
 
-        <!-- VIEW 2: PAPAN KANBAN INTERAKTIF (DRAG & DROP + CHECKLIST PRODUKSI) -->
+        <!-- VIEW 2: PAPAN KANBAN INTERAKTIF -->
         <div id="planner-kanban-view" class="hidden space-y-3">
           <div class="flex items-center justify-between px-1">
-            <p class="text-xs font-bold text-slate-500">💡 Tips: Geser (*Drag & Drop*) kartu antar kolom atau centang checklist produksi langsung di dalam kartu.</p>
+            <p class="text-xs font-bold text-slate-500">⚡ Geser (*Drag & Drop*) kartu antar kolom atau centang checklist tahapan produksi langsung di dalam kartu.</p>
           </div>
           <div id="kanban-board-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-3.5 items-start"></div>
         </div>
@@ -558,7 +600,7 @@
               <option value="YouTube">YouTube</option>
             </select>
           </div>
-          <button onclick="openAnalyticsModal()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-teal-500 to-emerald-600 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm"><i data-lucide="plus" class="w-4 h-4"></i> Input Performa</button>
+          <button onclick="openAnalyticsModal()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-teal-600 to-emerald-700 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm"><i data-lucide="plus" class="w-4 h-4"></i> Input Performa</button>
         </div>
         <div class="glass-panel rounded-2xl border border-slate-200 overflow-x-auto shadow-sm">
           <table class="w-full text-left text-xs">
@@ -574,7 +616,7 @@
       <section id="sec-affiliate" class="tab-section hidden space-y-4">
         <div class="glass-panel rounded-2xl p-4 border border-slate-200/80 shadow-sm flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
           <input type="text" id="search-affiliate" oninput="renderAffiliate()" placeholder="Cari nama produk affiliate..." class="px-3.5 py-2 rounded-xl border border-slate-200 text-xs flex-1 max-w-sm" />
-          <button onclick="openAffiliateModal()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-orange-500 to-amber-600 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm"><i data-lucide="plus" class="w-4 h-4"></i> Catat Produk Affiliate</button>
+          <button onclick="openAffiliateModal()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-orange-600 to-amber-600 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm"><i data-lucide="plus" class="w-4 h-4"></i> Catat Produk Affiliate</button>
         </div>
         <div class="glass-panel rounded-2xl border border-slate-200 overflow-x-auto shadow-sm">
           <table class="w-full text-left text-xs">
@@ -588,30 +630,31 @@
 
       <!-- ==================== 7. GEMINI AI ASSISTANT ==================== -->
       <section id="sec-ai" class="tab-section hidden space-y-5">
-        <div class="bg-gradient-to-r from-amber-500 via-orange-600 to-indigo-700 rounded-2xl p-5 sm:p-6 text-white shadow-lg flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div class="bg-gradient-to-r from-[#070a12] via-slate-900 to-sky-950 border-l-4 border-l-amber-500 rounded-2xl p-5 sm:p-6 text-white shadow-lg flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div class="space-y-1">
-            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-white/20 uppercase">Gemini 1.5 Flash & Proxy Ready</span>
-            <h3 class="text-lg sm:text-2xl font-extrabold">Boby AI Creator Studio</h3>
-            <p class="text-xs text-amber-100 max-w-xl">Generator Hook 3 detik, Script Voice Over, Caption, & Hashtag dengan penyimpanan riwayat otomatis dan transfer 1-klik ke Content Planner.</p>
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-md font-mono text-[10px] font-extrabold bg-amber-500/20 text-amber-400 uppercase">GEMINI 1.5 FLASH ENGINE</span>
+            <h3 class="text-lg sm:text-2xl font-extrabold">Boby Tactical AI Studio</h3>
+            <p class="text-xs text-slate-300 max-w-xl">Generator Hook 3 detik, Script Voice Over, Caption, & Auto-Plan 7 Hari ke Content Planner.</p>
           </div>
-          <button onclick="openAIKeyModal()" class="px-4 py-2 rounded-xl bg-white text-slate-900 font-extrabold text-xs shadow-md flex items-center gap-1.5 hover:bg-slate-100 transition shrink-0">
-            <i data-lucide="shield-check" class="w-4 h-4 text-amber-600"></i><span id="ai-key-btn-text">Konfigurasi Keamanan AI</span>
+          <button onclick="openAIKeyModal()" class="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold text-xs shadow-md flex items-center gap-1.5 transition shrink-0">
+            <i data-lucide="shield-check" class="w-4 h-4"></i><span id="ai-key-btn-text">Konfigurasi API Key</span>
           </button>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div class="glass-panel rounded-2xl p-5 border border-slate-200/80 shadow-sm space-y-4">
             <div class="flex items-center justify-between">
-              <h4 class="font-extrabold text-slate-900 text-sm flex items-center gap-2"><i data-lucide="sliders" class="w-4 h-4 text-indigo-600"></i> Parameter Prompt</h4>
+              <h4 class="font-extrabold text-slate-900 text-sm flex items-center gap-2"><i data-lucide="sliders" class="w-4 h-4 text-sky-600"></i> Parameter Prompt</h4>
               <div class="flex gap-1">
-                <button type="button" onclick="fillAIPreset('ootd')" class="px-2 py-0.5 rounded bg-slate-100 hover:bg-indigo-50 text-[10px] font-bold text-indigo-600">👗 OOTD</button>
-                <button type="button" onclick="fillAIPreset('tech')" class="px-2 py-0.5 rounded bg-slate-100 hover:bg-indigo-50 text-[10px] font-bold text-indigo-600">💻 Tech</button>
+                <button type="button" onclick="fillAIPreset('ootd')" class="px-2 py-0.5 rounded bg-slate-100 hover:bg-sky-50 text-[10px] font-bold text-sky-700">👗 OOTD</button>
+                <button type="button" onclick="fillAIPreset('tech')" class="px-2 py-0.5 rounded bg-slate-100 hover:bg-sky-50 text-[10px] font-bold text-sky-700">💻 Tech</button>
               </div>
             </div>
             <div>
               <label class="block text-xs font-bold text-slate-700 mb-1">Format Output *</label>
               <select id="ai-type" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs font-semibold bg-white">
                 <option value="complete">🚀 Paket Lengkap (Judul + Hook + Script + Caption)</option>
+                <option value="plan7">📅 Auto-Plan 7 Hari (7 Ide Konten Seminggu)</option>
                 <option value="hook">🔥 5 Variasi Hook Viral (3 Detik Pertama)</option>
                 <option value="script">🎬 Naskah Voice Over & Adegan Visual</option>
                 <option value="caption">✍️ Caption Persuasif & 15 Hashtags</option>
@@ -619,7 +662,7 @@
             </div>
             <div>
               <label class="block text-xs font-bold text-slate-700 mb-1">Topik / Produk / Brief *</label>
-              <textarea id="ai-topic" rows="3" placeholder="Contoh: Review jujur cardigan rajut premium harga 80 ribuan..." class="w-full px-3 py-2 border rounded-xl text-xs"></textarea>
+              <textarea id="ai-topic" rows="3" placeholder="Contoh: Review kemeja kerja pria anti kusut & OOTD kasual..." class="w-full px-3 py-2 border rounded-xl text-xs"></textarea>
             </div>
             <div class="grid grid-cols-2 gap-2">
               <div>
@@ -634,33 +677,33 @@
               <div>
                 <label class="block text-xs font-bold text-slate-700 mb-1">Gaya Bahasa</label>
                 <select id="ai-tone" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs bg-white">
+                  <option value="Tegas, To-The-Point & Maskulin">Tegas & Maskulin</option>
                   <option value="Santai, Akrab & Gen-Z">Santai & Gen-Z</option>
                   <option value="Persuasif & Racun Belanja">Racun Belanja</option>
-                  <option value="Elegan & Profesional">Profesional</option>
                 </select>
               </div>
             </div>
-            <button onclick="generateContentWithGemini()" id="btn-generate-ai" class="w-full py-3 rounded-xl bg-gradient-to-r from-amber-500 to-indigo-600 hover:from-amber-600 hover:to-indigo-700 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-md transition">
-              <i data-lucide="sparkles" class="w-4 h-4"></i><span>Generate Naskah AI</span>
+            <button onclick="generateContentWithGemini()" id="btn-generate-ai" class="w-full py-3 rounded-xl bg-gradient-to-r from-slate-900 to-sky-700 hover:from-slate-800 hover:to-sky-600 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-md transition">
+              <i data-lucide="cpu" class="w-4 h-4 text-amber-400"></i><span>Generate dengan Gemini AI</span>
             </button>
           </div>
 
           <div class="lg:col-span-2 space-y-4">
             <div class="glass-panel rounded-2xl p-5 border border-slate-200/80 shadow-sm space-y-3">
               <div class="flex items-center justify-between border-b pb-2">
-                <h4 class="font-extrabold text-slate-900 text-sm flex items-center gap-2"><i data-lucide="file-text" class="w-4 h-4 text-indigo-600"></i> Hasil Naskah Terstruktur</h4>
+                <h4 class="font-extrabold text-slate-900 text-sm flex items-center gap-2"><i data-lucide="file-text" class="w-4 h-4 text-sky-600"></i> Hasil Naskah Terstruktur</h4>
                 <div id="ai-action-buttons" class="hidden flex items-center gap-2">
                   <button onclick="copyAIText()" class="px-2.5 py-1 rounded-lg border border-slate-200 text-xs font-bold flex items-center gap-1 hover:bg-slate-50"><i data-lucide="copy" class="w-3.5 h-3.5"></i> Salin</button>
-                  <button onclick="transferAIToPlanner()" class="px-3 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold flex items-center gap-1.5 shadow-xs"><i data-lucide="calendar-plus" class="w-3.5 h-3.5"></i> Transfer ke Planner</button>
+                  <button onclick="transferAIToPlanner()" class="px-3 py-1 rounded-lg bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold flex items-center gap-1.5 shadow-xs"><i data-lucide="calendar-plus" class="w-3.5 h-3.5"></i> Transfer ke Planner</button>
                 </div>
               </div>
-              <div id="ai-output-box" class="min-h-[210px] max-h-[340px] overflow-y-auto p-4 rounded-xl bg-slate-50 border border-slate-100 text-xs text-slate-700 leading-relaxed font-mono whitespace-pre-wrap select-text">Pilih parameter di kiri lalu klik "Generate Naskah AI".</div>
+              <div id="ai-output-box" class="min-h-[210px] max-h-[340px] overflow-y-auto p-4 rounded-xl bg-slate-50 border border-slate-100 text-xs text-slate-700 leading-relaxed font-mono whitespace-pre-wrap select-text">Pilih parameter di kiri lalu klik "Generate dengan Gemini AI".</div>
             </div>
 
             <div class="glass-panel rounded-2xl p-4 border border-slate-200/80 shadow-sm space-y-2">
               <div class="flex items-center justify-between">
                 <h5 class="text-xs font-extrabold text-slate-700 uppercase tracking-wider">Riwayat Naskah AI Tersimpan</h5>
-                <span id="ai-history-count" class="text-[11px] text-slate-400 font-bold">0 Riwayat</span>
+                <span id="ai-history-count" class="text-[11px] font-mono text-slate-400 font-bold">0 Riwayat</span>
               </div>
               <div id="ai-history-list" class="space-y-1.5 max-h-40 overflow-y-auto text-xs"></div>
             </div>
@@ -680,7 +723,7 @@
               <option value="Selesai">Selesai</option>
             </select>
           </div>
-          <button onclick="openTaskModal()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-rose-500 to-pink-600 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm"><i data-lucide="plus" class="w-4 h-4"></i> Tambah Tugas</button>
+          <button onclick="openTaskModal()" class="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm"><i data-lucide="plus" class="w-4 h-4 text-rose-400"></i> Tambah Tugas</button>
         </div>
         <div class="glass-panel rounded-2xl border border-slate-200 overflow-x-auto shadow-sm">
           <table class="w-full text-left text-xs">
@@ -700,7 +743,7 @@
             <p class="text-xs text-slate-500">Rekapitulasi performa operasional siap cetak PDF atau unduh spreadsheet CSV</p>
           </div>
           <div class="flex flex-wrap gap-2">
-            <button onclick="window.print()" class="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-xs"><i data-lucide="printer" class="w-3.5 h-3.5"></i> Cetak / Save PDF</button>
+            <button onclick="window.print()" class="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs flex items-center gap-1.5 shadow-xs"><i data-lucide="printer" class="w-3.5 h-3.5 text-sky-400"></i> Cetak / Save PDF</button>
             <button onclick="exportReportCSV()" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center gap-1.5 shadow-xs"><i data-lucide="file-spreadsheet" class="w-3.5 h-3.5"></i> Unduh CSV Lengkap</button>
           </div>
         </div>
@@ -708,10 +751,10 @@
         <div class="glass-panel rounded-2xl p-6 border border-slate-200 space-y-4 shadow-sm">
           <div class="border-b pb-3 flex justify-between items-center">
             <div>
-              <p class="text-[10px] font-extrabold text-indigo-600 uppercase tracking-wider">BOBY CREATOR STUDIO V7.2 PRO — EXECUTIVE SUMMARY</p>
-              <h4 class="text-base font-extrabold text-slate-900 mt-0.5">Ringkasan Performa Konten, Klien & Affiliate</h4>
+              <p class="text-[10px] font-mono font-extrabold text-sky-600 uppercase tracking-wider">BOBY CREATOR STUDIO V7.5 PRO — EXECUTIVE SUMMARY</p>
+              <h4 class="text-base font-extrabold text-slate-900 mt-0.5">Ringkasan Performa Konten, Followers Per Akun & Affiliate</h4>
             </div>
-            <span id="report-date-label" class="text-xs font-bold text-slate-500">-</span>
+            <span id="report-date-label" class="text-xs font-mono font-bold text-slate-500">-</span>
           </div>
           <div id="report-summary-grid" class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs"></div>
         </div>
@@ -730,9 +773,9 @@
             </div>
             <p class="text-xs text-slate-600 leading-relaxed">Seluruh data disinkronkan secara realtime dengan Cloud Firestore dan disimpan di cadangan lokal browser.</p>
             <div class="flex flex-wrap gap-2 pt-2">
-              <button onclick="downloadBackupJSON()" class="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs flex items-center gap-1.5"><i data-lucide="download" class="w-3.5 h-3.5"></i> Backup Data (.json)</button>
+              <button onclick="downloadBackupJSON()" class="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs flex items-center gap-1.5"><i data-lucide="download" class="w-3.5 h-3.5 text-sky-400"></i> Backup Data (.json)</button>
               <label class="px-4 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-bold text-xs flex items-center gap-1.5 cursor-pointer">
-                <i data-lucide="upload" class="w-3.5 h-3.5 text-indigo-600"></i> Restore / Impor (.json)
+                <i data-lucide="upload" class="w-3.5 h-3.5 text-sky-600"></i> Restore / Impor (.json)
                 <input type="file" accept=".json" onchange="restoreBackupJSON(event)" class="hidden" />
               </label>
             </div>
@@ -747,7 +790,7 @@
               </div>
             </div>
             <p class="text-xs text-slate-600 leading-relaxed">Simpan kunci API secara privat di browser perangkat ini atau gunakan URL Backend Proxy.</p>
-            <button onclick="openAIKeyModal()" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold flex items-center gap-1.5"><i data-lucide="key" class="w-3.5 h-3.5"></i> Konfigurasi Endpoint / API Key</button>
+            <button onclick="openAIKeyModal()" class="px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold flex items-center gap-1.5"><i data-lucide="key" class="w-3.5 h-3.5"></i> Konfigurasi Endpoint / API Key</button>
           </div>
         </div>
       </section>
@@ -756,42 +799,42 @@
   </div>
 
   <!-- ==================== MOBILE BOTTOM NAV & DRAWER ==================== -->
-  <nav class="no-print lg:hidden fixed bottom-0 inset-x-0 bg-white border-t border-slate-200 z-30 flex items-center justify-around py-2 px-1 shadow-lg">
-    <button onclick="switchTab('dashboard')" data-tab="dashboard" class="mob-nav-btn flex flex-col items-center text-[10px] font-bold text-indigo-600"><i data-lucide="layout-dashboard" class="w-5 h-5 mb-0.5"></i>Dashboard</button>
-    <button onclick="switchTab('projects')" data-tab="projects" class="mob-nav-btn flex flex-col items-center text-[10px] font-bold text-slate-500"><i data-lucide="folder-kanban" class="w-5 h-5 mb-0.5"></i>Project</button>
-    <button onclick="switchTab('planner')" data-tab="planner" class="mob-nav-btn flex flex-col items-center text-[10px] font-bold text-slate-500"><i data-lucide="calendar-days" class="w-5 h-5 mb-0.5"></i>Planner</button>
-    <button onclick="switchTab('ai')" data-tab="ai" class="mob-nav-btn flex flex-col items-center text-[10px] font-bold text-amber-600"><i data-lucide="sparkles" class="w-5 h-5 mb-0.5 text-amber-500"></i>Gemini AI</button>
-    <button onclick="openMobileDrawer()" class="flex flex-col items-center text-[10px] font-bold text-slate-500"><i data-lucide="grid" class="w-5 h-5 mb-0.5"></i>Semua</button>
+  <nav class="no-print lg:hidden fixed bottom-0 inset-x-0 bg-[#070a12] text-white border-t border-slate-800 z-30 flex items-center justify-around py-2 px-1 shadow-lg">
+    <button onclick="switchTab('dashboard')" data-tab="dashboard" class="mob-nav-btn flex flex-col items-center text-[10px] font-bold text-sky-400"><i data-lucide="layout-dashboard" class="w-5 h-5 mb-0.5"></i>Dashboard</button>
+    <button onclick="switchTab('projects')" data-tab="projects" class="mob-nav-btn flex flex-col items-center text-[10px] font-bold text-slate-400"><i data-lucide="folder-kanban" class="w-5 h-5 mb-0.5"></i>Project</button>
+    <button onclick="switchTab('planner')" data-tab="planner" class="mob-nav-btn flex flex-col items-center text-[10px] font-bold text-slate-400"><i data-lucide="calendar-days" class="w-5 h-5 mb-0.5"></i>Planner</button>
+    <button onclick="switchTab('ai')" data-tab="ai" class="mob-nav-btn flex flex-col items-center text-[10px] font-bold text-amber-400"><i data-lucide="cpu" class="w-5 h-5 mb-0.5 text-amber-400"></i>AI</button>
+    <button onclick="openMobileDrawer()" class="flex flex-col items-center text-[10px] font-bold text-slate-400"><i data-lucide="grid" class="w-5 h-5 mb-0.5"></i>Semua</button>
   </nav>
 
-  <div id="mobile-drawer" class="no-print hidden fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-xs flex items-end justify-center">
+  <div id="mobile-drawer" class="no-print hidden fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-xs flex items-end justify-center">
     <div class="bg-white w-full max-w-md rounded-t-3xl p-5 space-y-4">
       <div class="flex items-center justify-between border-b pb-2">
-        <h4 class="font-extrabold text-sm text-slate-900">Navigasi Modul V7.2 Pro</h4>
+        <h4 class="font-extrabold text-sm text-slate-900">Navigasi Modul V7.5 Pro</h4>
         <button onclick="closeModal('mobile-drawer')"><i data-lucide="x" class="w-5 h-5"></i></button>
       </div>
       <div class="grid grid-cols-2 gap-2 text-xs font-bold">
-        <button onclick="closeModal('mobile-drawer'); switchTab('dashboard');" class="p-3 border rounded-xl text-left flex items-center gap-2"><i data-lucide="layout-dashboard" class="w-4 h-4 text-indigo-600"></i> 1. Dashboard</button>
-        <button onclick="closeModal('mobile-drawer'); switchTab('clients');" class="p-3 border rounded-xl text-left flex items-center gap-2"><i data-lucide="briefcase" class="w-4 h-4 text-sky-500"></i> 2. Klien</button>
+        <button onclick="closeModal('mobile-drawer'); switchTab('dashboard');" class="p-3 border rounded-xl text-left flex items-center gap-2"><i data-lucide="layout-dashboard" class="w-4 h-4 text-sky-600"></i> 1. Dashboard</button>
+        <button onclick="closeModal('mobile-drawer'); switchTab('clients');" class="p-3 border rounded-xl text-left flex items-center gap-2"><i data-lucide="briefcase" class="w-4 h-4 text-blue-600"></i> 2. Klien</button>
         <button onclick="closeModal('mobile-drawer'); switchTab('projects');" class="p-3 border rounded-xl text-left flex items-center gap-2"><i data-lucide="folder-kanban" class="w-4 h-4 text-amber-500"></i> 3. Project & Akun</button>
-        <button onclick="closeModal('mobile-drawer'); switchTab('planner');" class="p-3 border rounded-xl text-left flex items-center gap-2"><i data-lucide="calendar-days" class="w-4 h-4 text-pink-500"></i> 4. Content Planner</button>
-        <button onclick="closeModal('mobile-drawer'); switchTab('analytics');" class="p-3 border rounded-xl text-left flex items-center gap-2"><i data-lucide="bar-chart-3" class="w-4 h-4 text-teal-500"></i> 5. Analytics</button>
+        <button onclick="closeModal('mobile-drawer'); switchTab('planner');" class="p-3 border rounded-xl text-left flex items-center gap-2"><i data-lucide="calendar-days" class="w-4 h-4 text-cyan-600"></i> 4. Content Planner</button>
+        <button onclick="closeModal('mobile-drawer'); switchTab('analytics');" class="p-3 border rounded-xl text-left flex items-center gap-2"><i data-lucide="bar-chart-3" class="w-4 h-4 text-emerald-600"></i> 5. Analytics</button>
         <button onclick="closeModal('mobile-drawer'); switchTab('affiliate');" class="p-3 border rounded-xl text-left flex items-center gap-2"><i data-lucide="shopping-bag" class="w-4 h-4 text-orange-500"></i> 6. Affiliate</button>
-        <button onclick="closeModal('mobile-drawer'); switchTab('ai');" class="p-3 border rounded-xl text-left flex items-center gap-2"><i data-lucide="bot" class="w-4 h-4 text-amber-500"></i> 7. Gemini AI</button>
+        <button onclick="closeModal('mobile-drawer'); switchTab('ai');" class="p-3 border rounded-xl text-left flex items-center gap-2"><i data-lucide="cpu" class="w-4 h-4 text-amber-500"></i> 7. Gemini AI</button>
         <button onclick="closeModal('mobile-drawer'); switchTab('tasks');" class="p-3 border rounded-xl text-left flex items-center gap-2"><i data-lucide="check-square" class="w-4 h-4 text-rose-500"></i> 8. Tugas</button>
-        <button onclick="closeModal('mobile-drawer'); switchTab('reports');" class="p-3 border rounded-xl text-left flex items-center gap-2"><i data-lucide="file-spreadsheet" class="w-4 h-4 text-purple-500"></i> 9. Laporan</button>
-        <button onclick="closeModal('mobile-drawer'); switchTab('settings');" class="p-3 border rounded-xl text-left flex items-center gap-2"><i data-lucide="database" class="w-4 h-4 text-cyan-500"></i> 10. Database</button>
+        <button onclick="closeModal('mobile-drawer'); switchTab('reports');" class="p-3 border rounded-xl text-left flex items-center gap-2"><i data-lucide="file-spreadsheet" class="w-4 h-4 text-teal-600"></i> 9. Laporan</button>
+        <button onclick="closeModal('mobile-drawer'); switchTab('settings');" class="p-3 border rounded-xl text-left flex items-center gap-2"><i data-lucide="database" class="w-4 h-4 text-slate-600"></i> 10. Database</button>
       </div>
     </div>
   </div>
 
   <!-- ==================== MODALS ==================== -->
 
-  <!-- MODAL GLOBAL SEARCH (Ctrl+K) -->
+  <!-- MODAL GLOBAL SEARCH -->
   <div id="modal-search" class="no-print hidden fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-xs flex items-start justify-center pt-16 p-4">
     <div class="bg-white rounded-2xl max-w-xl w-full p-4 shadow-2xl space-y-3 border border-slate-200">
       <div class="flex items-center gap-2 border-b pb-2">
-        <i data-lucide="search" class="w-4 h-4 text-indigo-600"></i>
+        <i data-lucide="search" class="w-4 h-4 text-sky-600"></i>
         <input type="text" id="global-search-input" oninput="runGlobalSearch()" placeholder="Ketik nama klien, project, judul konten, akun, produk, atau tugas..." class="w-full text-xs font-semibold focus:outline-none bg-transparent" />
         <button onclick="closeModal('modal-search')" class="text-slate-400 hover:text-slate-600"><i data-lucide="x" class="w-4 h-4"></i></button>
       </div>
@@ -819,19 +862,19 @@
         </div>
         <div class="flex justify-end gap-2 pt-2 border-t">
           <button type="button" onclick="closeModal('modal-client')" class="px-4 py-2 border rounded-xl text-xs font-bold">Batal</button>
-          <button type="submit" class="px-5 py-2 bg-indigo-600 text-white rounded-xl text-xs font-bold">Simpan Klien</button>
+          <button type="submit" class="px-5 py-2 bg-slate-900 text-white rounded-xl text-xs font-bold">Simpan Klien</button>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- MODAL PROJECT & INLINE ACCOUNT CREATOR -->
+  <!-- MODAL PROJECT & INLINE ACCOUNT CREATOR (DENGAN INPUT FOLLOWERS PER AKUN) -->
   <div id="modal-project" class="no-print hidden fixed inset-0 z-50 bg-slate-900/60 flex items-center justify-center p-4 overflow-y-auto">
     <div class="bg-white rounded-3xl max-w-xl w-full p-6 shadow-2xl space-y-4 my-8 max-h-[92vh] overflow-y-auto">
       <div class="flex items-center justify-between border-b pb-3">
         <div>
           <h3 id="modal-project-title" class="font-extrabold text-base text-slate-900">Buat Project & Akun Medsos</h3>
-          <p class="text-xs text-slate-500">Buat project buatanmu sendiri dan tambahkan akun medsos yang bertugas</p>
+          <p class="text-xs text-slate-500">Tambahkan akun medsos beserta jumlah followers masing-masing akun</p>
         </div>
         <button onclick="closeModal('modal-project')"><i data-lucide="x" class="w-5 h-5"></i></button>
       </div>
@@ -839,29 +882,32 @@
         <input type="hidden" id="project-id" />
         <div>
           <label class="block text-xs font-bold text-slate-700 mb-1">Nama Project / Kampanye *</label>
-          <input type="text" id="project-name" required placeholder="Contoh: Campaign OOTD Chocoovora" class="w-full px-3 py-2 border rounded-xl text-xs font-semibold" />
+          <input type="text" id="project-name" required placeholder="Contoh: Campaign OOTD" class="w-full px-3 py-2 border rounded-xl text-xs font-semibold" />
         </div>
         <div class="grid grid-cols-2 gap-3">
           <div><label class="block text-xs font-bold text-slate-700 mb-1">Klien Pemilik *</label><select id="project-client-select" required class="w-full px-3 py-2 border rounded-xl text-xs bg-white font-bold"></select></div>
           <div><label class="block text-xs font-bold text-slate-700 mb-1">Status Project</label><select id="project-status" class="w-full px-3 py-2 border rounded-xl text-xs bg-white font-bold text-emerald-600"><option value="Aktif">🟢 Aktif</option><option value="Perencanaan">🟡 Perencanaan</option><option value="Selesai">⚪ Selesai</option></select></div>
         </div>
 
-        <div class="p-4 rounded-2xl bg-indigo-50/50 border border-indigo-100 space-y-3">
-          <span class="text-xs font-extrabold text-indigo-900 flex items-center gap-1.5"><i data-lucide="share-2" class="w-4 h-4 text-indigo-600"></i> Tambahkan Akun Medsos ke Project Ini</span>
-          <div class="grid grid-cols-1 sm:grid-cols-12 gap-2 bg-white p-2.5 rounded-xl border border-indigo-200/80">
-            <div class="sm:col-span-4">
+        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+          <span class="text-xs font-extrabold text-slate-900 flex items-center gap-1.5"><i data-lucide="share-2" class="w-4 h-4 text-sky-600"></i> Tambahkan Akun & Followers ke Project Ini</span>
+          <div class="grid grid-cols-1 sm:grid-cols-12 gap-2 bg-white p-2.5 rounded-xl border border-slate-200">
+            <div class="sm:col-span-3">
               <select id="input-inline-platform" class="w-full px-2 py-1.5 border rounded-lg text-xs font-semibold bg-slate-50">
                 <option value="TikTok">TikTok</option>
                 <option value="Instagram">Instagram</option>
-                <option value="Shopee">Shopee Video</option>
+                <option value="Shopee">Shopee</option>
                 <option value="YouTube">YouTube</option>
               </select>
             </div>
-            <div class="sm:col-span-5">
-              <input type="text" id="input-inline-username" placeholder="@username_akun" class="w-full px-2.5 py-1.5 border rounded-lg text-xs font-bold" />
+            <div class="sm:col-span-4">
+              <input type="text" id="input-inline-username" placeholder="@username" class="w-full px-2.5 py-1.5 border rounded-lg text-xs font-bold" />
             </div>
             <div class="sm:col-span-3">
-              <button type="button" onclick="addInlineAccountToProject()" class="w-full py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-bold">+ Tambah</button>
+              <input type="number" id="input-inline-followers" placeholder="Followers (0)" class="w-full px-2.5 py-1.5 border rounded-lg text-xs font-mono font-bold" />
+            </div>
+            <div class="sm:col-span-2">
+              <button type="button" onclick="addInlineAccountToProject()" class="w-full py-1.5 bg-slate-900 hover:bg-slate-800 text-white rounded-lg text-xs font-bold">+ Akun</button>
             </div>
           </div>
           <div id="project-active-accounts-list" class="flex flex-wrap gap-1.5 min-h-[36px] p-2 rounded-xl bg-white border border-slate-200"></div>
@@ -873,39 +919,39 @@
         </div>
         <div class="flex justify-end gap-2 pt-2 border-t">
           <button type="button" onclick="closeModal('modal-project')" class="px-4 py-2 border rounded-xl text-xs font-bold">Batal</button>
-          <button type="submit" class="px-5 py-2 bg-indigo-600 text-white rounded-xl text-xs font-bold">Simpan Project</button>
+          <button type="submit" class="px-5 py-2 bg-slate-900 text-white rounded-xl text-xs font-bold">Simpan Project</button>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- MODAL STANDALONE ACCOUNT -->
+  <!-- MODAL STANDALONE ACCOUNT (EDIT FOLLOWERS PER AKUN) -->
   <div id="modal-account" class="no-print hidden fixed inset-0 z-50 bg-slate-900/60 flex items-center justify-center p-4">
     <div class="bg-white rounded-3xl max-w-lg w-full p-6 space-y-4 shadow-2xl">
       <div class="flex items-center justify-between border-b pb-2">
-        <h3 id="modal-account-title" class="font-extrabold text-base text-slate-900">Tambah / Edit Akun Medsos</h3>
+        <h3 id="modal-account-title" class="font-extrabold text-base text-slate-900">Tambah / Update Followers Akun</h3>
         <button onclick="closeModal('modal-account')"><i data-lucide="x" class="w-5 h-5"></i></button>
       </div>
       <form onsubmit="saveAccount(event)" class="space-y-3">
         <input type="hidden" id="account-id" />
         <div class="grid grid-cols-2 gap-3">
-          <div><label class="block text-xs font-bold mb-1">Nama Label Akun *</label><input type="text" id="account-name" required placeholder="Contoh: Chocoovora Official" class="w-full px-3 py-2 border rounded-xl text-xs font-semibold" /></div>
+          <div><label class="block text-xs font-bold mb-1">Nama Label Akun *</label><input type="text" id="account-name" required placeholder="Contoh: TikTok Utama" class="w-full px-3 py-2 border rounded-xl text-xs font-semibold" /></div>
           <div><label class="block text-xs font-bold mb-1">Username (@) *</label><input type="text" id="account-username" required placeholder="@chocoovora" class="w-full px-3 py-2 border rounded-xl text-xs font-semibold" /></div>
         </div>
         <div class="grid grid-cols-3 gap-2">
-          <div><label class="block text-xs font-bold mb-1">Platform</label><select id="account-platform" class="w-full px-3 py-2 border rounded-xl text-xs bg-white font-bold"><option value="TikTok">TikTok</option><option value="Instagram">Instagram</option><option value="Shopee">Shopee Video</option><option value="YouTube">YouTube</option></select></div>
+          <div><label class="block text-xs font-bold mb-1">Platform *</label><select id="account-platform" class="w-full px-3 py-2 border rounded-xl text-xs bg-white font-bold"><option value="TikTok">TikTok</option><option value="Instagram">Instagram</option><option value="Shopee">Shopee Video</option><option value="YouTube">YouTube</option></select></div>
           <div><label class="block text-xs font-bold mb-1">Klien Pemilik</label><select id="account-client-select" class="w-full px-3 py-2 border rounded-xl text-xs bg-white"></select></div>
-          <div><label class="block text-xs font-bold mb-1">Followers</label><input type="number" id="account-followers" value="0" required class="w-full px-3 py-2 border rounded-xl text-xs font-bold" /></div>
+          <div><label class="block text-xs font-bold text-sky-700 mb-1">Followers Akun Ini *</label><input type="number" id="account-followers" value="0" required class="w-full px-3 py-2 border border-sky-300 rounded-xl text-xs font-mono font-extrabold" /></div>
         </div>
         <div class="flex justify-end gap-2 pt-2 border-t">
           <button type="button" onclick="closeModal('modal-account')" class="px-4 py-2 border rounded-xl text-xs font-bold">Batal</button>
-          <button type="submit" class="px-5 py-2 bg-indigo-600 text-white rounded-xl text-xs font-bold">Simpan Akun</button>
+          <button type="submit" class="px-5 py-2 bg-slate-900 text-white rounded-xl text-xs font-bold">Simpan Akun</button>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- MODAL CONTENT PLANNER (DENGAN WARNA KARTU & CHECKLIST PRODUKSI) -->
+  <!-- MODAL CONTENT PLANNER -->
   <div id="modal-content" class="no-print hidden fixed inset-0 z-50 bg-slate-900/60 flex items-center justify-center p-4 overflow-y-auto">
     <div class="bg-white rounded-3xl max-w-xl w-full p-6 shadow-2xl space-y-4 my-8 max-h-[92vh] overflow-y-auto">
       <div class="flex items-center justify-between border-b pb-3">
@@ -917,43 +963,42 @@
       </div>
       <form onsubmit="saveContent(event)" class="space-y-3.5">
         <input type="hidden" id="content-id" />
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 p-3 rounded-2xl bg-indigo-50/60 border border-indigo-100">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 p-3 rounded-2xl bg-slate-50 border border-slate-200">
           <div><label class="block text-xs font-bold text-slate-700 mb-1">Project Terkait</label><select id="content-project-select" onchange="onContentProjectChange(this.value)" class="w-full px-3 py-2 border rounded-xl text-xs bg-white font-extrabold"></select></div>
           <div><label class="block text-xs font-bold text-slate-700 mb-1">Target Akun Medsos</label><select id="content-account-select" class="w-full px-3 py-2 border rounded-xl text-xs bg-white font-semibold"></select></div>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div><label class="block text-xs font-bold text-slate-700 mb-1">Tanggal Publikasi *</label><input type="date" id="content-date" required class="w-full px-3 py-2 border rounded-xl text-xs font-semibold" /></div>
           <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1 flex justify-between"><span>Jam Posting (24 Jam) *</span><span class="text-[10px] text-indigo-600 font-extrabold">00:00 - 23:59 WIB</span></label>
+            <label class="block text-xs font-bold text-slate-700 mb-1 flex justify-between"><span>Jam Posting (24 Jam) *</span><span class="text-[10px] font-mono text-sky-600 font-extrabold">00:00 - 23:59 WIB</span></label>
             <div class="flex items-center gap-1">
-              <select id="content-hour" class="w-1/2 px-2 py-2 border rounded-xl text-xs font-bold bg-white"></select>
+              <select id="content-hour" class="w-1/2 px-2 py-2 border rounded-xl text-xs font-mono font-bold bg-white"></select>
               <span class="font-extrabold">:</span>
-              <select id="content-minute" class="w-1/2 px-2 py-2 border rounded-xl text-xs font-bold bg-white"></select>
-              <span class="text-[11px] font-extrabold text-indigo-700 bg-indigo-50 px-2 py-2 rounded-xl">WIB</span>
+              <select id="content-minute" class="w-1/2 px-2 py-2 border rounded-xl text-xs font-mono font-bold bg-white"></select>
+              <span class="text-[11px] font-mono font-extrabold text-sky-700 bg-sky-50 px-2 py-2 rounded-xl">WIB</span>
             </div>
             <div class="flex gap-1 mt-1">
-              <button type="button" onclick="setQuickTime('09','00')" class="px-1.5 py-0.5 rounded bg-slate-100 text-[10px] font-bold">09:00</button>
-              <button type="button" onclick="setQuickTime('12','00')" class="px-1.5 py-0.5 rounded bg-slate-100 text-[10px] font-bold">12:00</button>
-              <button type="button" onclick="setQuickTime('16','00')" class="px-1.5 py-0.5 rounded bg-slate-100 text-[10px] font-bold">16:00</button>
-              <button type="button" onclick="setQuickTime('19','00')" class="px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-700 text-[10px] font-extrabold">19:00</button>
-              <button type="button" onclick="setQuickTime('21','00')" class="px-1.5 py-0.5 rounded bg-slate-100 text-[10px] font-bold">21:00</button>
+              <button type="button" onclick="setQuickTime('09','00')" class="px-1.5 py-0.5 rounded bg-slate-100 text-[10px] font-mono font-bold">09:00</button>
+              <button type="button" onclick="setQuickTime('12','00')" class="px-1.5 py-0.5 rounded bg-slate-100 text-[10px] font-mono font-bold">12:00</button>
+              <button type="button" onclick="setQuickTime('16','00')" class="px-1.5 py-0.5 rounded bg-slate-100 text-[10px] font-mono font-bold">16:00</button>
+              <button type="button" onclick="setQuickTime('19','00')" class="px-1.5 py-0.5 rounded bg-sky-50 text-sky-700 text-[10px] font-mono font-extrabold">19:00</button>
+              <button type="button" onclick="setQuickTime('21','00')" class="px-1.5 py-0.5 rounded bg-slate-100 text-[10px] font-mono font-bold">21:00</button>
             </div>
           </div>
         </div>
-        <div><label class="block text-xs font-bold text-slate-700 mb-1">Judul / Konsep Konten *</label><input type="text" id="content-title" required placeholder="Contoh: Kucing lucu / OOTD Kampus..." class="w-full px-3 py-2 border rounded-xl text-xs font-semibold" /></div>
+        <div><label class="block text-xs font-bold text-slate-700 mb-1">Judul / Konsep Konten *</label><input type="text" id="content-title" required placeholder="Contoh: Review Jujur / Unboxing..." class="w-full px-3 py-2 border rounded-xl text-xs font-semibold" /></div>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-          <div><label class="block text-xs font-bold text-slate-700 mb-1">Content Pillar *</label><input type="text" id="content-pillar" required placeholder="OOTD / Review / Hiburan" class="w-full px-3 py-2 border rounded-xl text-xs" /></div>
+          <div><label class="block text-xs font-bold text-slate-700 mb-1">Content Pillar *</label><input type="text" id="content-pillar" required placeholder="OOTD / Review / Tech" class="w-full px-3 py-2 border rounded-xl text-xs" /></div>
           <div><label class="block text-xs font-bold text-slate-700 mb-1">Status Produksi *</label><select id="content-status" class="w-full px-3 py-2 border rounded-xl text-xs bg-white font-extrabold"><option value="Ide">💡 Ide</option><option value="Script">📝 Script</option><option value="Produksi">🎬 Produksi</option><option value="Editing">✂️ Editing</option><option value="Siap upload">🚀 Siap upload</option><option value="Sudah upload">✅ Sudah upload</option></select></div>
           <div>
-            <label class="block text-xs font-bold text-pink-600 mb-1">🎨 Warna Kartu</label>
-            <select id="content-color" class="w-full px-3 py-2 border border-pink-200 rounded-xl text-xs bg-white font-extrabold">
-              <option value="indigo">🌌 Electric Indigo</option>
-              <option value="pink">🌸 Cyber Pink</option>
-              <option value="emerald">🌿 Emerald Mint</option>
-              <option value="amber">🔥 Sunset Amber</option>
-              <option value="cyan">🌊 Ocean Cyan</option>
-              <option value="violet">🔮 Royal Violet</option>
-              <option value="rose">🌹 Crimson Rose</option>
+            <label class="block text-xs font-bold text-sky-700 mb-1">🎨 Warna Kartu</label>
+            <select id="content-color" class="w-full px-3 py-2 border border-sky-200 rounded-xl text-xs bg-white font-extrabold">
+              <option value="carbon">🏴 Tactical Carbon</option>
+              <option value="cobalt">⚡ Electric Cobalt</option>
+              <option value="emerald">🌿 Matrix Emerald</option>
+              <option value="amber">🔥 Forged Amber</option>
+              <option value="cyan">🌊 Cyber Cyan</option>
+              <option value="crimson">🎯 Crimson Red</option>
             </select>
           </div>
         </div>
@@ -962,10 +1007,10 @@
         <div class="p-3 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
           <label class="block text-[11px] font-extrabold text-slate-700 uppercase tracking-wider">✅ Checklist Tahapan Produksi</label>
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs font-bold">
-            <label class="flex items-center gap-1.5 p-2 rounded-xl bg-white border border-slate-200 cursor-pointer"><input type="checkbox" id="chk-video" class="rounded text-indigo-600" /><span>Take Video</span></label>
-            <label class="flex items-center gap-1.5 p-2 rounded-xl bg-white border border-slate-200 cursor-pointer"><input type="checkbox" id="chk-vo" class="rounded text-indigo-600" /><span>Voice Over</span></label>
-            <label class="flex items-center gap-1.5 p-2 rounded-xl bg-white border border-slate-200 cursor-pointer"><input type="checkbox" id="chk-edit" class="rounded text-indigo-600" /><span>Edit CapCut</span></label>
-            <label class="flex items-center gap-1.5 p-2 rounded-xl bg-white border border-slate-200 cursor-pointer"><input type="checkbox" id="chk-cover" class="rounded text-indigo-600" /><span>Buat Cover</span></label>
+            <label class="flex items-center gap-1.5 p-2 rounded-xl bg-white border border-slate-200 cursor-pointer"><input type="checkbox" id="chk-video" class="rounded text-sky-600" /><span>Take Video</span></label>
+            <label class="flex items-center gap-1.5 p-2 rounded-xl bg-white border border-slate-200 cursor-pointer"><input type="checkbox" id="chk-vo" class="rounded text-sky-600" /><span>Voice Over</span></label>
+            <label class="flex items-center gap-1.5 p-2 rounded-xl bg-white border border-slate-200 cursor-pointer"><input type="checkbox" id="chk-edit" class="rounded text-sky-600" /><span>Edit CapCut</span></label>
+            <label class="flex items-center gap-1.5 p-2 rounded-xl bg-white border border-slate-200 cursor-pointer"><input type="checkbox" id="chk-cover" class="rounded text-sky-600" /><span>Buat Cover</span></label>
           </div>
         </div>
 
@@ -976,59 +1021,55 @@
           <button type="button" id="btn-delete-in-modal" onclick="deleteContentFromModal()" class="hidden px-3.5 py-2 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-xl text-xs font-extrabold flex items-center gap-1"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i> Hapus Konten</button>
           <div class="flex gap-2 ml-auto">
             <button type="button" onclick="closeModal('modal-content')" class="px-4 py-2 border rounded-xl text-xs font-bold">Batal</button>
-            <button type="submit" class="px-5 py-2 bg-gradient-to-r from-indigo-600 to-pink-600 text-white rounded-xl text-xs font-extrabold shadow-md">Simpan Rencana</button>
+            <button type="submit" class="px-5 py-2 bg-gradient-to-r from-slate-900 to-sky-700 text-white rounded-xl text-xs font-extrabold shadow-md">Simpan Rencana</button>
           </div>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- ==================== MODAL TELEPROMPTER PROFESIONAL (AUTO-SCROLL & TIMER DURASI) ==================== -->
+  <!-- MODAL TELEPROMPTER PROFESIONAL -->
   <div id="modal-teleprompter" class="no-print hidden fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-3 sm:p-5">
-    <div class="bg-slate-900 text-white border border-slate-700 rounded-3xl max-w-3xl w-full p-5 sm:p-7 shadow-2xl space-y-4 max-h-[95vh] flex flex-col">
-      <!-- Top Header Teleprompter -->
+    <div class="bg-[#070a12] text-white border border-slate-800 rounded-3xl max-w-3xl w-full p-5 sm:p-7 shadow-2xl space-y-4 max-h-[95vh] flex flex-col">
       <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3">
         <div class="flex items-center gap-2">
-          <span class="px-3 py-1 rounded-xl text-xs font-extrabold bg-gradient-to-r from-rose-500 to-pink-600 text-white flex items-center gap-1.5 shadow-sm">
-            <span class="w-2 h-2 rounded-full bg-white animate-ping"></span> STUDIO TELEPROMPTER
+          <span class="px-3 py-1 rounded-xl text-xs font-mono font-extrabold bg-rose-600 text-white flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-white animate-ping"></span> REC • TELEPROMPTER
           </span>
           <span id="tele-project-tag" class="text-xs font-bold text-slate-300"></span>
         </div>
         <div class="flex items-center gap-2">
-          <!-- Estimasi Durasi Bicara Badge -->
-          <span id="tele-est-duration" class="px-3 py-1 rounded-xl text-[11px] font-extrabold bg-indigo-500/20 text-indigo-300 border border-indigo-400/30">
+          <span id="tele-est-duration" class="px-3 py-1 rounded-xl text-[11px] font-mono font-extrabold bg-sky-500/15 text-sky-300 border border-sky-500/30">
             ⏱️ Estimasi baca: 0 detik
           </span>
           <button onclick="closeTeleprompterModal()" class="p-1.5 rounded-xl bg-slate-800 text-slate-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
         </div>
       </div>
 
-      <!-- Control Bar: Play/Pause, Speed 1x-5x, Ukuran Huruf, & Stopwatch -->
-      <div class="bg-slate-800/90 border border-slate-700/80 rounded-2xl p-3 flex flex-wrap items-center justify-between gap-3">
+      <!-- Control Bar -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-3 flex flex-wrap items-center justify-between gap-3">
         <div class="flex items-center gap-2">
           <button type="button" id="btn-tele-play" onclick="toggleTeleScroll()" class="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-extrabold text-xs flex items-center gap-1.5 shadow-md transition">
             <i data-lucide="play" class="w-4 h-4"></i> <span>Play Auto-Scroll</span>
           </button>
-          <button type="button" onclick="resetTeleScroll()" class="px-3 py-2 rounded-xl bg-slate-700 hover:bg-slate-600 text-white font-bold text-xs flex items-center gap-1 transition" title="Ulang dari Atas & Reset Timer">
+          <button type="button" onclick="resetTeleScroll()" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs flex items-center gap-1 transition">
             <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i> Reset
           </button>
         </div>
 
-        <!-- Speed Control (1x - 5x) -->
-        <div class="flex items-center gap-1 bg-slate-900 px-2.5 py-1.5 rounded-xl border border-slate-700">
-          <span class="text-[10px] font-extrabold text-slate-400 uppercase mr-1">Speed:</span>
-          <button type="button" onclick="setTeleSpeed(1)" id="tele-spd-1" class="px-2 py-0.5 rounded text-xs font-extrabold bg-indigo-600 text-white">1x</button>
-          <button type="button" onclick="setTeleSpeed(2)" id="tele-spd-2" class="px-2 py-0.5 rounded text-xs font-bold text-slate-400 hover:text-white">2x</button>
-          <button type="button" onclick="setTeleSpeed(3)" id="tele-spd-3" class="px-2 py-0.5 rounded text-xs font-bold text-slate-400 hover:text-white">3x</button>
-          <button type="button" onclick="setTeleSpeed(4)" id="tele-spd-4" class="px-2 py-0.5 rounded text-xs font-bold text-slate-400 hover:text-white">4x</button>
-          <button type="button" onclick="setTeleSpeed(5)" id="tele-spd-5" class="px-2 py-0.5 rounded text-xs font-bold text-slate-400 hover:text-white">5x</button>
+        <div class="flex items-center gap-1 bg-slate-950 px-2.5 py-1.5 rounded-xl border border-slate-800">
+          <span class="text-[10px] font-mono font-extrabold text-slate-400 uppercase mr-1">Speed:</span>
+          <button type="button" onclick="setTeleSpeed(1)" id="tele-spd-1" class="px-2 py-0.5 rounded text-xs font-mono font-extrabold bg-sky-600 text-white">1x</button>
+          <button type="button" onclick="setTeleSpeed(2)" id="tele-spd-2" class="px-2 py-0.5 rounded text-xs font-mono font-bold text-slate-400 hover:text-white">2x</button>
+          <button type="button" onclick="setTeleSpeed(3)" id="tele-spd-3" class="px-2 py-0.5 rounded text-xs font-mono font-bold text-slate-400 hover:text-white">3x</button>
+          <button type="button" onclick="setTeleSpeed(4)" id="tele-spd-4" class="px-2 py-0.5 rounded text-xs font-mono font-bold text-slate-400 hover:text-white">4x</button>
+          <button type="button" onclick="setTeleSpeed(5)" id="tele-spd-5" class="px-2 py-0.5 rounded text-xs font-mono font-bold text-slate-400 hover:text-white">5x</button>
         </div>
 
-        <!-- Font Size & Stopwatch -->
         <div class="flex items-center gap-2">
-          <div class="flex items-center gap-1 bg-slate-900 px-2 py-1 rounded-xl border border-slate-700">
+          <div class="flex items-center gap-1 bg-slate-950 px-2 py-1 rounded-xl border border-slate-800">
             <button type="button" onclick="changeTeleFontSize(-2)" class="px-2 py-0.5 rounded hover:bg-slate-800 text-xs font-extrabold text-slate-300">A-</button>
-            <span id="tele-font-label" class="text-[10px] font-bold text-indigo-400 px-1">22px</span>
+            <span id="tele-font-label" class="text-[10px] font-mono font-bold text-sky-400 px-1">22px</span>
             <button type="button" onclick="changeTeleFontSize(2)" class="px-2 py-0.5 rounded hover:bg-slate-800 text-xs font-extrabold text-slate-300">A+</button>
           </div>
           <div class="px-3 py-1.5 rounded-xl bg-rose-500/20 border border-rose-500/40 text-rose-300 font-mono text-xs font-extrabold flex items-center gap-1.5">
@@ -1038,39 +1079,35 @@
         </div>
       </div>
 
-      <!-- Judul & Meta Jadwal -->
       <div class="flex items-center justify-between px-1">
         <div>
           <h2 id="tele-title" class="text-base sm:text-lg font-extrabold text-white">Judul Konten</h2>
-          <p id="tele-meta" class="text-xs text-indigo-400 font-semibold">-</p>
+          <p id="tele-meta" class="text-xs text-sky-400 font-semibold">-</p>
         </div>
       </div>
 
-      <!-- Layar Baca Teleprompter (Auto-Scrolling Viewport) -->
-      <div id="tele-scroll-viewport" class="relative flex-1 min-h-[240px] max-h-[360px] overflow-y-auto rounded-2xl bg-slate-950 border-2 border-indigo-500/40 p-6 sm:p-8 shadow-inner space-y-6 select-text">
-        <!-- Garis Fokus Pandangan Mata -->
+      <div id="tele-scroll-viewport" class="relative flex-1 min-h-[240px] max-h-[360px] overflow-y-auto rounded-2xl bg-slate-950 border-2 border-sky-500/40 p-6 sm:p-8 shadow-inner space-y-6 select-text">
         <div class="sticky top-1/3 left-0 right-0 border-b border-dashed border-amber-400/30 pointer-events-none flex justify-end">
-          <span class="text-[9px] font-extrabold uppercase bg-amber-500/20 text-amber-300 px-1.5 py-0.2 rounded">Garis Baca Kamera</span>
+          <span class="text-[9px] font-mono font-extrabold uppercase bg-amber-500/20 text-amber-300 px-1.5 py-0.2 rounded">EYE LINE</span>
         </div>
 
         <div class="p-4 rounded-2xl bg-amber-500/15 border border-amber-400/40 space-y-1">
-          <p class="text-[10px] font-extrabold uppercase text-amber-300 tracking-wider">🔥 HOOK 3 DETIK PERTAMA:</p>
+          <p class="text-[10px] font-mono font-extrabold uppercase text-amber-300 tracking-wider">🔥 HOOK 3 DETIK PERTAMA:</p>
           <p id="tele-hook" style="font-size: 22px;" class="font-extrabold text-amber-200 leading-relaxed">-</p>
         </div>
 
         <div class="space-y-2 pb-24">
-          <p class="text-[10px] font-extrabold uppercase text-indigo-400 tracking-wider">🎬 NASKAH VOICE OVER & ALUR ADEGAN:</p>
+          <p class="text-[10px] font-mono font-extrabold uppercase text-sky-400 tracking-wider">🎬 NASKAH VOICE OVER & ALUR ADEGAN:</p>
           <div id="tele-script" style="font-size: 22px;" class="font-bold text-white leading-relaxed whitespace-pre-wrap">-</div>
         </div>
       </div>
 
-      <!-- Caption & Footer Buttons -->
-      <div class="p-3.5 rounded-2xl bg-slate-800/70 border border-slate-700 flex items-center justify-between gap-3">
+      <div class="p-3.5 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-between gap-3">
         <div class="min-w-0 flex-1">
           <span class="text-[10px] font-extrabold uppercase text-slate-400 block">Caption Siap Posting:</span>
           <p id="tele-caption" class="text-xs text-slate-300 font-mono truncate">-</p>
         </div>
-        <button onclick="copyTeleCaption()" class="px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-extrabold shrink-0">Salin Caption</button>
+        <button onclick="copyTeleCaption()" class="px-3 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs font-extrabold shrink-0">Salin Caption</button>
       </div>
 
       <div class="flex items-center justify-between pt-1">
@@ -1078,7 +1115,7 @@
           <button onclick="editContentFromTele()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold">✏️ Edit Naskah</button>
           <button onclick="deleteContentFromTele()" class="px-4 py-2 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 text-xs font-extrabold">🗑️ Hapus</button>
         </div>
-        <button onclick="closeTeleprompterModal()" class="px-5 py-2 rounded-xl bg-white text-slate-900 text-xs font-extrabold">Selesai Shooting</button>
+        <button onclick="closeTeleprompterModal()" class="px-5 py-2 rounded-xl bg-white text-slate-950 text-xs font-extrabold">Selesai Shooting</button>
       </div>
     </div>
   </div>
@@ -1098,18 +1135,18 @@
         </div>
         <div><label class="block text-xs font-bold mb-1">Judul Konten *</label><input type="text" id="analytics-title" required class="w-full px-3 py-2 border rounded-xl text-xs font-semibold" /></div>
         <div class="grid grid-cols-2 gap-3">
-          <div><label class="block text-xs font-bold mb-1">Views *</label><input type="number" id="analytics-views" value="0" required class="w-full px-3 py-2 border rounded-xl text-xs font-bold" /></div>
-          <div><label class="block text-xs font-bold mb-1">Reach</label><input type="number" id="analytics-reach" value="0" class="w-full px-3 py-2 border rounded-xl text-xs" /></div>
+          <div><label class="block text-xs font-bold mb-1">Views *</label><input type="number" id="analytics-views" value="0" required class="w-full px-3 py-2 border rounded-xl text-xs font-mono font-bold" /></div>
+          <div><label class="block text-xs font-bold mb-1">Reach</label><input type="number" id="analytics-reach" value="0" class="w-full px-3 py-2 border rounded-xl text-xs font-mono" /></div>
         </div>
         <div class="grid grid-cols-4 gap-2">
-          <div><label class="block text-[10px] font-bold mb-1">Likes</label><input type="number" id="analytics-likes" value="0" class="w-full px-2 py-1.5 border rounded-xl text-xs" /></div>
-          <div><label class="block text-[10px] font-bold mb-1">Comments</label><input type="number" id="analytics-comments" value="0" class="w-full px-2 py-1.5 border rounded-xl text-xs" /></div>
-          <div><label class="block text-[10px] font-bold mb-1">Shares</label><input type="number" id="analytics-shares" value="0" class="w-full px-2 py-1.5 border rounded-xl text-xs" /></div>
-          <div><label class="block text-[10px] font-bold mb-1">Saves</label><input type="number" id="analytics-saves" value="0" class="w-full px-2 py-1.5 border rounded-xl text-xs" /></div>
+          <div><label class="block text-[10px] font-bold mb-1">Likes</label><input type="number" id="analytics-likes" value="0" class="w-full px-2 py-1.5 border rounded-xl text-xs font-mono" /></div>
+          <div><label class="block text-[10px] font-bold mb-1">Comments</label><input type="number" id="analytics-comments" value="0" class="w-full px-2 py-1.5 border rounded-xl text-xs font-mono" /></div>
+          <div><label class="block text-[10px] font-bold mb-1">Shares</label><input type="number" id="analytics-shares" value="0" class="w-full px-2 py-1.5 border rounded-xl text-xs font-mono" /></div>
+          <div><label class="block text-[10px] font-bold mb-1">Saves</label><input type="number" id="analytics-saves" value="0" class="w-full px-2 py-1.5 border rounded-xl text-xs font-mono" /></div>
         </div>
         <div class="flex justify-end gap-2 pt-2 border-t">
           <button type="button" onclick="closeModal('modal-analytics')" class="px-4 py-2 border rounded-xl text-xs font-bold">Batal</button>
-          <button type="submit" class="px-5 py-2 bg-indigo-600 text-white rounded-xl text-xs font-bold">Simpan Analitik</button>
+          <button type="submit" class="px-5 py-2 bg-slate-900 text-white rounded-xl text-xs font-bold">Simpan Analitik</button>
         </div>
       </form>
     </div>
@@ -1129,14 +1166,14 @@
           <div><label class="block text-xs font-bold mb-1">Platform</label><select id="aff-platform" class="w-full px-3 py-2 border rounded-xl text-xs bg-white font-bold"><option value="Shopee">Shopee</option><option value="TikTok">TikTok Shop</option></select></div>
         </div>
         <div class="grid grid-cols-2 gap-3">
-          <div><label class="block text-xs font-bold mb-1">Jumlah Klik *</label><input type="number" id="aff-clicks" value="0" required class="w-full px-3 py-2 border rounded-xl text-xs" /></div>
-          <div><label class="block text-xs font-bold mb-1">Pesanan *</label><input type="number" id="aff-orders" value="0" required class="w-full px-3 py-2 border rounded-xl text-xs" /></div>
-          <div><label class="block text-xs font-bold mb-1">Total GMV (Rp) *</label><input type="number" id="aff-gmv" value="0" required class="w-full px-3 py-2 border rounded-xl text-xs" /></div>
-          <div><label class="block text-xs font-bold mb-1">Komisi (Rp) *</label><input type="number" id="aff-commission" value="0" required class="w-full px-3 py-2 border rounded-xl text-xs font-bold" /></div>
+          <div><label class="block text-xs font-bold mb-1">Jumlah Klik *</label><input type="number" id="aff-clicks" value="0" required class="w-full px-3 py-2 border rounded-xl text-xs font-mono" /></div>
+          <div><label class="block text-xs font-bold mb-1">Pesanan *</label><input type="number" id="aff-orders" value="0" required class="w-full px-3 py-2 border rounded-xl text-xs font-mono" /></div>
+          <div><label class="block text-xs font-bold mb-1">Total GMV (Rp) *</label><input type="number" id="aff-gmv" value="0" required class="w-full px-3 py-2 border rounded-xl text-xs font-mono" /></div>
+          <div><label class="block text-xs font-bold mb-1">Komisi (Rp) *</label><input type="number" id="aff-commission" value="0" required class="w-full px-3 py-2 border rounded-xl text-xs font-mono font-bold" /></div>
         </div>
         <div class="flex justify-end gap-2 pt-2 border-t">
           <button type="button" onclick="closeModal('modal-affiliate')" class="px-4 py-2 border rounded-xl text-xs font-bold">Batal</button>
-          <button type="submit" class="px-5 py-2 bg-indigo-600 text-white rounded-xl text-xs font-bold">Simpan Produk</button>
+          <button type="submit" class="px-5 py-2 bg-slate-900 text-white rounded-xl text-xs font-bold">Simpan Produk</button>
         </div>
       </form>
     </div>
@@ -1159,7 +1196,7 @@
         </div>
         <div class="flex justify-end gap-2 pt-2 border-t">
           <button type="button" onclick="closeModal('modal-task')" class="px-4 py-2 border rounded-xl text-xs font-bold">Batal</button>
-          <button type="submit" class="px-5 py-2 bg-indigo-600 text-white rounded-xl text-xs font-bold">Simpan Tugas</button>
+          <button type="submit" class="px-5 py-2 bg-slate-900 text-white rounded-xl text-xs font-bold">Simpan Tugas</button>
         </div>
       </form>
     </div>
@@ -1185,14 +1222,14 @@
       </div>
       <div class="flex justify-end gap-2 pt-2 border-t">
         <button type="button" onclick="closeModal('modal-ai-key')" class="px-4 py-2 border rounded-xl text-xs font-bold">Batal</button>
-        <button type="button" onclick="saveGeminiAPIKey()" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-xs font-bold">Simpan Konfigurasi</button>
+        <button type="button" onclick="saveGeminiAPIKey()" class="px-4 py-2 bg-slate-900 text-white rounded-xl text-xs font-bold">Simpan Konfigurasi</button>
       </div>
     </div>
   </div>
 
   <div id="toast-container" class="no-print fixed top-4 right-4 z-50 space-y-2 pointer-events-none"></div>
 
-  <!-- ==================== CORE ENGINE V7.2 PRO ==================== -->
+  <!-- ==================== CORE ENGINE V7.5 PRO ==================== -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
     import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
@@ -1229,7 +1266,7 @@
     };
 
     let tempProjectAccounts = [];
-    let activeTab = 'planner';
+    let activeTab = 'dashboard';
     let plannerMode = 'calendar';
     let currentCalendarDate = new Date();
     let activeProjectFilter = 'ALL';
@@ -1246,27 +1283,31 @@
     let teleFontSize = 22;
     let teleSecondsElapsed = 0;
 
+    // PALET WARNA KARTU KALENDER MASKULIN & TEGAS (TACTICAL CARBON PALETTE)
     const CARD_COLOR_THEMES = {
-      indigo: 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white border-indigo-400 shadow-sm shadow-indigo-500/20',
-      pink: 'bg-gradient-to-r from-pink-500 to-rose-500 text-white border-pink-400 shadow-sm shadow-pink-500/20',
-      emerald: 'bg-gradient-to-r from-emerald-500 to-teal-600 text-white border-emerald-400 shadow-sm shadow-emerald-500/20',
-      amber: 'bg-gradient-to-r from-amber-500 to-orange-500 text-white border-amber-400 shadow-sm shadow-amber-500/20',
-      cyan: 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white border-cyan-400 shadow-sm shadow-cyan-500/20',
-      violet: 'bg-gradient-to-r from-purple-600 to-fuchsia-600 text-white border-purple-400 shadow-sm shadow-purple-500/20',
-      rose: 'bg-gradient-to-r from-rose-600 to-red-600 text-white border-rose-400 shadow-sm shadow-rose-500/20'
+      carbon: 'bg-gradient-to-r from-slate-900 to-slate-800 text-white border-slate-700 shadow-sm',
+      cobalt: 'bg-gradient-to-r from-blue-700 to-sky-600 text-white border-sky-500 shadow-sm',
+      emerald: 'bg-gradient-to-r from-emerald-700 to-teal-600 text-white border-emerald-500 shadow-sm',
+      amber: 'bg-gradient-to-r from-amber-600 to-orange-600 text-white border-amber-400 shadow-sm',
+      cyan: 'bg-gradient-to-r from-cyan-700 to-sky-600 text-white border-cyan-400 shadow-sm',
+      crimson: 'bg-gradient-to-r from-rose-700 to-red-700 text-white border-rose-500 shadow-sm',
+      indigo: 'bg-gradient-to-r from-slate-900 to-blue-900 text-white border-blue-500 shadow-sm',
+      pink: 'bg-gradient-to-r from-slate-800 to-indigo-900 text-white border-indigo-400 shadow-sm',
+      violet: 'bg-gradient-to-r from-slate-900 to-slate-700 text-white border-slate-500 shadow-sm',
+      rose: 'bg-gradient-to-r from-rose-700 to-red-700 text-white border-rose-500 shadow-sm'
     };
 
     const STATUS_ORDER = ['Ide', 'Script', 'Produksi', 'Editing', 'Siap upload', 'Sudah upload'];
 
     function getCardColorClass(c) {
       if (c.color && CARD_COLOR_THEMES[c.color]) return CARD_COLOR_THEMES[c.color];
-      const p = String(c.platform || '').toLowerCase();
-      if (p.includes('instagram')) return CARD_COLOR_THEMES.pink;
-      if (p.includes('shopee')) return CARD_COLOR_THEMES.amber;
-      if (p.includes('youtube')) return CARD_COLOR_THEMES.rose;
       if (c.status === 'Sudah upload') return CARD_COLOR_THEMES.emerald;
-      if (c.status === 'Siap upload') return CARD_COLOR_THEMES.cyan;
-      return CARD_COLOR_THEMES.indigo;
+      if (c.status === 'Siap upload') return CARD_COLOR_THEMES.amber;
+      const p = String(c.platform || '').toLowerCase();
+      if (p.includes('tiktok')) return CARD_COLOR_THEMES.carbon;
+      if (p.includes('shopee')) return CARD_COLOR_THEMES.amber;
+      if (p.includes('youtube')) return CARD_COLOR_THEMES.crimson;
+      return CARD_COLOR_THEMES.cobalt;
     }
 
     // --- DEFENSIVE HELPERS ---
@@ -1306,20 +1347,20 @@
       if (p.includes('tiktok')) {
         return `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md text-[10px] font-extrabold bg-slate-950 text-cyan-300 border border-cyan-500/40"><span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span> TikTok ${u ? `(${escapeHtml(u)})` : ''}</span>`;
       } else if (p.includes('instagram') || p.includes('reels')) {
-        return `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md text-[10px] font-extrabold bg-gradient-to-r from-purple-600 via-pink-600 to-amber-500 text-white">Instagram ${u ? `(${escapeHtml(u)})` : ''}</span>`;
+        return `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md text-[10px] font-extrabold bg-gradient-to-r from-blue-700 to-indigo-700 text-white">IG ${u ? `(${escapeHtml(u)})` : ''}</span>`;
       } else if (p.includes('shopee')) {
-        return `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md text-[10px] font-extrabold bg-orange-500 text-white">Shopee ${u ? `(${escapeHtml(u)})` : ''}</span>`;
+        return `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md text-[10px] font-extrabold bg-orange-600 text-white">Shopee ${u ? `(${escapeHtml(u)})` : ''}</span>`;
       } else if (p.includes('youtube') || p.includes('shorts')) {
-        return `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md text-[10px] font-extrabold bg-rose-600 text-white">YouTube ${u ? `(${escapeHtml(u)})` : ''}</span>`;
+        return `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md text-[10px] font-extrabold bg-rose-700 text-white">YouTube ${u ? `(${escapeHtml(u)})` : ''}</span>`;
       }
-      return `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md text-[10px] font-bold bg-indigo-100 text-indigo-700">${escapeHtml(platform || 'Medsos')} ${u ? `(${escapeHtml(u)})` : ''}</span>`;
+      return `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md text-[10px] font-bold bg-slate-200 text-slate-800">${escapeHtml(platform || 'Medsos')} ${u ? `(${escapeHtml(u)})` : ''}</span>`;
     }
 
     function showToast(msg, isErr = false) {
       const c = document.getElementById('toast-container');
       if (!c) return;
       const el = document.createElement('div');
-      el.className = `px-4 py-2.5 rounded-xl shadow-lg text-xs font-bold text-white pointer-events-auto ${isErr ? 'bg-rose-600' : 'bg-slate-900 border-l-4 border-pink-500'}`;
+      el.className = `px-4 py-2.5 rounded-xl shadow-lg text-xs font-bold text-white pointer-events-auto ${isErr ? 'bg-rose-600' : 'bg-slate-900 border-l-4 border-sky-400'}`;
       el.textContent = msg;
       c.appendChild(el);
       setTimeout(() => el.remove(), 3000);
@@ -1336,7 +1377,7 @@
     window.clearActivities = function() {
       db.activities = [];
       saveToCloud();
-      showToast('Riwayat aktivitas dibersihkan.');
+      showToast('Log aktivitas dibersihkan.');
     };
 
     // --- DARK MODE ---
@@ -1366,19 +1407,19 @@
       if (!pill || !dot || !text) return;
 
       if (state === 'syncing') {
-        pill.className = 'inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-full text-[11px] font-bold bg-amber-50 text-amber-700 border border-amber-200';
+        pill.className = 'inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-[11px] font-mono font-bold bg-amber-50 text-amber-700 border border-amber-200';
         dot.className = 'w-2 h-2 rounded-full bg-amber-500 animate-ping';
-        text.textContent = 'Menyimpan...';
+        text.textContent = 'SYNCING...';
       } else if (state === 'offline') {
-        pill.className = 'inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-full text-[11px] font-bold bg-rose-50 text-rose-700 border border-rose-200';
+        pill.className = 'inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-[11px] font-mono font-bold bg-rose-50 text-rose-700 border border-rose-200';
         dot.className = 'w-2 h-2 rounded-full bg-rose-500';
-        text.textContent = 'Lokal (Offline)';
-        if (sideBadge) sideBadge.textContent = 'Mode Lokal';
+        text.textContent = 'LOKAL';
+        if (sideBadge) sideBadge.textContent = 'LOKAL';
       } else {
-        pill.className = 'inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200';
+        pill.className = 'inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-[11px] font-mono font-bold bg-emerald-50 text-emerald-700 border border-emerald-200';
         dot.className = 'w-2 h-2 rounded-full bg-emerald-500 animate-pulse';
-        text.textContent = 'Cloud Aktif';
-        if (sideBadge) sideBadge.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Tersinkronisasi';
+        text.textContent = 'CLOUD AKTIF';
+        if (sideBadge) sideBadge.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> ONLINE';
       }
     }
 
@@ -1447,7 +1488,7 @@
       }, () => setSyncStatus('offline'));
     }
 
-    // --- NAVIGATION & HEADER MENUS (RATA KIRI PRESISI) ---
+    // --- NAVIGATION & HEADER MENUS ---
     window.switchTab = function(t) {
       activeTab = t;
       document.querySelectorAll('.tab-section').forEach(s => s.classList.add('hidden'));
@@ -1457,7 +1498,7 @@
         if (b.dataset.tab === t) {
           b.className = t === 'ai'
             ? 'nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-extrabold bg-amber-500 text-slate-950 shadow-md transition-all'
-            : 'nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-extrabold bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-md transition-all';
+            : 'nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-extrabold bg-gradient-to-r from-sky-600 to-blue-700 text-white shadow-md transition-all';
         } else {
           b.className = b.dataset.tab === 'ai'
             ? 'nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold text-amber-300 bg-amber-500/10 border border-amber-500/20 hover:bg-amber-500/20 transition-all'
@@ -1520,6 +1561,7 @@
       const results = [];
       db.clients.forEach(c => { if (`${c.name} ${c.brand}`.toLowerCase().includes(q)) results.push({ tag: 'Klien', title: `${c.name} (${c.brand})`, tab: 'clients' }); });
       db.projects.forEach(p => { if (`${p.name} ${p.desc}`.toLowerCase().includes(q)) results.push({ tag: 'Project', title: p.name, tab: 'projects' }); });
+      db.accounts.forEach(a => { if (`${a.name} ${a.username} ${a.platform}`.toLowerCase().includes(q)) results.push({ tag: 'Akun', title: `${a.platform} ${a.username} (${formatNumber(a.followers)} Followers)`, tab: 'projects' }); });
       db.contents.forEach(c => { if (`${c.title} ${c.pillar} ${c.hook}`.toLowerCase().includes(q)) results.push({ tag: 'Konten', title: `${c.title} (${c.date})`, tab: 'planner' }); });
       db.affiliates.forEach(f => { if (f.product.toLowerCase().includes(q)) results.push({ tag: 'Affiliate', title: f.product, tab: 'affiliate' }); });
       db.tasks.forEach(t => { if (t.title.toLowerCase().includes(q)) results.push({ tag: 'Tugas', title: t.title, tab: 'tasks' }); });
@@ -1527,9 +1569,9 @@
       box.innerHTML = results.length === 0
         ? '<p class="text-slate-400 p-3 text-center">Tidak ada hasil ditemukan.</p>'
         : results.slice(0, 12).map(r => `
-          <div onclick="closeModal('modal-search'); switchTab('${r.tab}');" class="p-2.5 rounded-xl border border-slate-100 hover:border-indigo-400 flex items-center justify-between cursor-pointer">
+          <div onclick="closeModal('modal-search'); switchTab('${r.tab}');" class="p-2.5 rounded-xl border border-slate-100 hover:border-sky-500 flex items-center justify-between cursor-pointer">
             <span class="font-bold text-slate-800">${escapeHtml(r.title)}</span>
-            <span class="px-2 py-0.5 rounded bg-indigo-50 text-indigo-600 text-[10px] font-extrabold">${r.tag} &rarr;</span>
+            <span class="px-2 py-0.5 rounded bg-sky-50 text-sky-700 text-[10px] font-extrabold">${r.tag} &rarr;</span>
           </div>
         `).join('');
     };
@@ -1564,8 +1606,8 @@
         notifList.innerHTML = notifs.length === 0
           ? '<p class="text-slate-400 p-3 text-center italic">Semua jadwal konten dan tugas terkendali!</p>'
           : notifs.map(n => `
-            <div onclick="switchTab('${n.actionTab}'); closeNotificationDropdown();" class="p-3 rounded-xl border border-slate-200 hover:border-indigo-400 bg-slate-50 cursor-pointer space-y-1">
-              <div class="flex justify-between"><span class="font-extrabold text-slate-900">${escapeHtml(n.title)}</span><span class="text-[10px] font-bold text-indigo-600">Buka &rarr;</span></div>
+            <div onclick="switchTab('${n.actionTab}'); closeNotificationDropdown();" class="p-3 rounded-xl border border-slate-200 hover:border-sky-500 bg-slate-50 cursor-pointer space-y-1">
+              <div class="flex justify-between"><span class="font-extrabold text-slate-900">${escapeHtml(n.title)}</span><span class="text-[10px] font-bold text-sky-600">Buka &rarr;</span></div>
               <p class="text-[11px] text-slate-600">${escapeHtml(n.desc)}</p>
             </div>
           `).join('');
@@ -1646,7 +1688,7 @@
       }
     };
 
-    // --- CRUD: PROJECTS & INLINE ACCOUNTS ---
+    // --- CRUD: PROJECTS & INLINE ACCOUNTS (DENGAN FOLLOWERS PER AKUN) ---
     function populateClientDropdowns() {
       let html = '<option value="client_internal">🏢 Mandiri / Brand Sendiri</option>';
       db.clients.forEach(c => { html += `<option value="${c.id}">${escapeHtml(c.name)} (${escapeHtml(c.brand)})</option>`; });
@@ -1664,6 +1706,7 @@
       document.getElementById('project-desc').value = '';
       document.getElementById('project-status').value = 'Aktif';
       document.getElementById('input-inline-username').value = '';
+      document.getElementById('input-inline-followers').value = '';
       safeSetText('modal-project-title', 'Buat Project / Kampanye Baru');
 
       if (id) {
@@ -1678,7 +1721,7 @@
           if (Array.isArray(p.accountIds)) {
             p.accountIds.forEach(accId => {
               const acc = db.accounts.find(a => a.id === accId);
-              if (acc) tempProjectAccounts.push({ id: acc.id, platform: acc.platform, username: acc.username });
+              if (acc) tempProjectAccounts.push({ id: acc.id, platform: acc.platform, username: acc.username, followers: acc.followers || 0 });
             });
           }
         }
@@ -1690,14 +1733,16 @@
     window.addInlineAccountToProject = function() {
       const platform = document.getElementById('input-inline-platform').value;
       const rawUser = document.getElementById('input-inline-username').value.trim();
+      const followersVal = Number(document.getElementById('input-inline-followers').value || 0);
       if (!rawUser) { showToast('Ketikkan username akun terlebih dahulu!', true); return; }
       const cleanUsername = rawUser.replace(/^@+/, '@');
       if (tempProjectAccounts.some(a => a.platform === platform && a.username.toLowerCase() === cleanUsername.toLowerCase())) {
         showToast('Akun sudah ada di daftar project ini!', true);
         return;
       }
-      tempProjectAccounts.push({ id: uid(), platform, username: cleanUsername });
+      tempProjectAccounts.push({ id: uid(), platform, username: cleanUsername, followers: followersVal });
       document.getElementById('input-inline-username').value = '';
+      document.getElementById('input-inline-followers').value = '';
       renderTempProjectAccountsList();
     };
 
@@ -1710,10 +1755,11 @@
       const box = document.getElementById('project-active-accounts-list');
       if (!box) return;
       box.innerHTML = tempProjectAccounts.length === 0
-        ? '<span class="text-[11px] text-slate-400 italic">Belum ada akun. Ketik username di atas lalu klik + Tambah.</span>'
+        ? '<span class="text-[11px] text-slate-400 italic">Belum ada akun. Ketik username & followers di atas lalu klik + Akun.</span>'
         : tempProjectAccounts.map((a, i) => `
-          <span class="inline-flex items-center gap-1.5 p-1 rounded-lg bg-white border border-slate-200">
+          <span class="inline-flex items-center gap-1.5 p-1.5 rounded-lg bg-white border border-slate-200 text-xs">
             ${getPlatformBadge(a.platform, a.username)}
+            <span class="font-mono font-extrabold text-slate-700">${formatNumber(a.followers || 0)} flw</span>
             <button type="button" onclick="removeInlineAccountFromProject(${i})" class="text-rose-500 font-extrabold px-1">&times;</button>
           </span>
         `).join('');
@@ -1729,9 +1775,10 @@
       tempProjectAccounts.forEach(tAcc => {
         let existing = db.accounts.find(a => a.platform === tAcc.platform && a.username.toLowerCase() === tAcc.username.toLowerCase());
         if (existing) {
+          if (tAcc.followers > 0) existing.followers = tAcc.followers;
           finalAccountIds.push(existing.id);
         } else {
-          const newAcc = { id: tAcc.id, name: `${tAcc.platform} ${tAcc.username}`, username: tAcc.username, platform: tAcc.platform, clientId, followers: 0 };
+          const newAcc = { id: tAcc.id, name: `${tAcc.platform} ${tAcc.username}`, username: tAcc.username, platform: tAcc.platform, clientId, followers: Number(tAcc.followers || 0) };
           db.accounts.unshift(newAcc);
           finalAccountIds.push(newAcc.id);
         }
@@ -1777,7 +1824,7 @@
       document.getElementById('account-username').value = '';
       document.getElementById('account-platform').value = 'TikTok';
       document.getElementById('account-followers').value = 0;
-      safeSetText('modal-account-title', 'Tambah Akun Medsos');
+      safeSetText('modal-account-title', 'Tambah Akun Medsos & Followers');
 
       if (id) {
         const a = db.accounts.find(x => x.id === id);
@@ -1788,7 +1835,7 @@
           document.getElementById('account-platform').value = a.platform;
           document.getElementById('account-client-select').value = a.clientId || 'client_internal';
           document.getElementById('account-followers').value = a.followers || 0;
-          safeSetText('modal-account-title', 'Edit Akun Medsos');
+          safeSetText('modal-account-title', `Update Followers: ${a.platform} ${a.username}`);
         }
       }
       document.getElementById('modal-account')?.classList.remove('hidden');
@@ -1811,11 +1858,19 @@
         if (idx > -1) db.accounts[idx] = payload;
       } else {
         db.accounts.unshift(payload);
+        // Jika sedang berada di filter project aktif, otomatis tautkan akun baru ke project aktif tersebut
+        if (activeProjectFilter !== 'ALL') {
+          const curProj = db.projects.find(p => p.id === activeProjectFilter);
+          if (curProj) {
+            if (!Array.isArray(curProj.accountIds)) curProj.accountIds = [];
+            curProj.accountIds.push(payload.id);
+          }
+        }
       }
-      logActivity(`Menyimpan akun ${payload.platform} ${cleanUsername}`);
+      logActivity(`Update akun ${payload.platform} ${cleanUsername}: ${formatNumber(payload.followers)} Followers`);
       closeModal('modal-account');
       saveToCloud();
-      showToast('Data akun disimpan!');
+      showToast('Data akun & followers disimpan!');
     };
 
     window.deleteAccount = function(id) {
@@ -1826,7 +1881,7 @@
       }
     };
 
-    // --- CRUD: CONTENT PLANNER (DENGAN WARNA KARTU & CHECKLIST PRODUKSI) ---
+    // --- CRUD: CONTENT PLANNER ---
     window.openContentModal = function(id = null, presetDate = null) {
       populateTimeDropdowns();
       const projSel = document.getElementById('content-project-select');
@@ -1850,7 +1905,7 @@
       document.getElementById('content-script').value = '';
       document.getElementById('content-caption').value = '';
       document.getElementById('content-status').value = 'Ide';
-      document.getElementById('content-color').value = 'indigo';
+      document.getElementById('content-color').value = 'carbon';
       document.getElementById('chk-video').checked = false;
       document.getElementById('chk-vo').checked = false;
       document.getElementById('chk-edit').checked = false;
@@ -1871,7 +1926,7 @@
           }
           document.getElementById('content-account-select').value = c.accountId || '';
           document.getElementById('content-status').value = c.status || 'Ide';
-          document.getElementById('content-color').value = c.color || 'indigo';
+          document.getElementById('content-color').value = c.color || 'carbon';
           document.getElementById('content-title').value = c.title;
           document.getElementById('content-pillar').value = c.pillar || '';
           document.getElementById('content-hook').value = c.hook || '';
@@ -1898,7 +1953,7 @@
         : db.accounts;
       accSel.innerHTML = allowed.length === 0
         ? '<option value="">📱 Akun Mandiri / Umum</option>'
-        : allowed.map(a => `<option value="${a.id}">${escapeHtml(a.username.replace(/^@+/,'@'))} • ${escapeHtml(a.platform)}</option>`).join('');
+        : allowed.map(a => `<option value="${a.id}">${escapeHtml(a.username.replace(/^@+/,'@'))} • ${escapeHtml(a.platform)} (${formatNumber(a.followers)} flw)</option>`).join('');
     };
 
     window.saveContent = function(e) {
@@ -1917,7 +1972,7 @@
         date: document.getElementById('content-date').value || todayISO(),
         time: `${hour}:${minute}`,
         status: document.getElementById('content-status').value,
-        color: document.getElementById('content-color').value || 'indigo',
+        color: document.getElementById('content-color').value || 'carbon',
         title: document.getElementById('content-title').value.trim(),
         pillar: document.getElementById('content-pillar').value.trim(),
         hook: document.getElementById('content-hook').value.trim(),
@@ -2033,7 +2088,7 @@
       draggedContentId = null;
     };
 
-    // --- TELEPROMPTER PROFESIONAL (AUTO-SCROLL + STOPWATCH + ESTIMASI BACA) ---
+    // --- TELEPROMPTER PROFESIONAL ---
     function formatStopwatch(sec) {
       const m = String(Math.floor(sec / 60)).padStart(2, '0');
       const s = String(sec % 60).padStart(2, '0');
@@ -2069,7 +2124,6 @@
       safeSetText('tele-script', c.script || 'Belum ada naskah script ditulis.');
       safeSetText('tele-caption', c.caption || c.title);
 
-      // Hitung jumlah kata & estimasi durasi bicara (~130 kata per menit)
       const combinedText = `${c.hook || ''} ${c.script || ''}`.trim();
       const words = combinedText ? combinedText.split(/\s+/).filter(Boolean).length : 0;
       const estSec = words > 0 ? Math.max(4, Math.ceil((words / 130) * 60)) : 0;
@@ -2129,8 +2183,8 @@
         const el = document.getElementById(`tele-spd-${n}`);
         if (el) {
           el.className = n === spd
-            ? 'px-2 py-0.5 rounded text-xs font-extrabold bg-indigo-600 text-white'
-            : 'px-2 py-0.5 rounded text-xs font-bold text-slate-400 hover:text-white';
+            ? 'px-2 py-0.5 rounded text-xs font-mono font-extrabold bg-sky-600 text-white'
+            : 'px-2 py-0.5 rounded text-xs font-mono font-bold text-slate-400 hover:text-white';
         }
       });
     };
@@ -2155,14 +2209,14 @@
       openContentModal(currentTeleContent.id);
     };
 
-    // --- 3-WAY PLANNER MODE SWITCHER (CALENDAR | KANBAN | LIST) ---
+    // --- 3-WAY PLANNER MODE SWITCHER ---
     window.setPlannerMode = function(mode) {
       plannerMode = mode;
       document.getElementById('planner-calendar-view')?.classList.toggle('hidden', mode !== 'calendar');
       document.getElementById('planner-kanban-view')?.classList.toggle('hidden', mode !== 'kanban');
       document.getElementById('planner-list-view')?.classList.toggle('hidden', mode !== 'list');
 
-      const activeCls = 'px-3 py-1.5 rounded-lg bg-white text-indigo-600 shadow-xs flex items-center gap-1.5 transition';
+      const activeCls = 'px-3 py-1.5 rounded-lg bg-slate-900 text-white shadow-xs flex items-center gap-1.5 transition';
       const inactiveCls = 'px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 flex items-center gap-1.5 transition';
 
       const bCal = document.getElementById('btn-mode-cal');
@@ -2206,16 +2260,16 @@
         html += `
           <div onclick="openContentModal(null, '${dateStr}')" class="min-h-[96px] sm:min-h-[120px] p-2 rounded-2xl border transition-all cursor-pointer flex flex-col justify-between group ${
             isToday
-              ? 'border-indigo-600 bg-gradient-to-b from-indigo-50/90 to-purple-50/70 ring-2 ring-indigo-500/25 shadow-sm'
+              ? 'border-sky-600 bg-sky-50/70 ring-2 ring-sky-500/25 shadow-sm'
               : hasItems
                 ? 'cal-cell-populated shadow-xs hover:shadow-md'
-                : 'border-slate-200/90 bg-white/90 hover:border-indigo-400 hover:bg-indigo-50/20'
+                : 'border-slate-200/90 bg-white/90 hover:border-sky-500 hover:bg-sky-50/20'
           }">
             <div class="flex items-center justify-between">
-              <span class="text-xs font-extrabold ${isToday ? 'w-6 h-6 rounded-full bg-gradient-to-r from-indigo-600 to-pink-600 text-white flex items-center justify-center shadow-xs' : hasItems ? 'text-indigo-900' : 'text-slate-700'}">${d}</span>
+              <span class="text-xs font-mono font-extrabold ${isToday ? 'w-6 h-6 rounded-lg bg-slate-900 text-sky-400 flex items-center justify-center shadow-xs' : hasItems ? 'text-slate-900' : 'text-slate-700'}">${d}</span>
               ${hasItems
-                ? `<span class="text-[9px] font-extrabold text-white bg-gradient-to-r from-indigo-500 to-pink-500 px-1.5 py-0.5 rounded-full shadow-2xs">${items.length} Konten</span>`
-                : `<span class="opacity-0 group-hover:opacity-100 text-[9px] font-bold text-indigo-500 transition">+ Buat</span>`
+                ? `<span class="text-[9px] font-mono font-extrabold text-sky-400 bg-slate-900 px-1.5 py-0.5 rounded shadow-2xs">${items.length}</span>`
+                : `<span class="opacity-0 group-hover:opacity-100 text-[9px] font-bold text-sky-600 transition">+ Buat</span>`
               }
             </div>
             <div class="space-y-1.5 mt-1.5 overflow-hidden">
@@ -2224,10 +2278,10 @@
                 return `
                   <div onclick="event.stopPropagation(); openTeleprompter('${it.id}')" class="p-1.5 rounded-xl border ${colorCls} transition hover:scale-[1.01]">
                     <div class="flex items-center justify-between gap-1">
-                      <span class="text-[9px] font-extrabold bg-black/20 px-1.5 py-0.2 rounded">${formatTime24(it.time)}</span>
+                      <span class="text-[9px] font-mono font-extrabold bg-black/25 px-1.5 py-0.2 rounded">${formatTime24(it.time)}</span>
                       <div class="flex items-center gap-1">
                         <button type="button" onclick="event.stopPropagation(); openContentModal('${it.id}')" title="Edit Konten" class="px-1 py-0.2 rounded bg-white/20 hover:bg-white/35 text-[9px] font-extrabold">✏️</button>
-                        <button type="button" onclick="event.stopPropagation(); deleteContent('${it.id}')" title="Hapus Konten" class="px-1 py-0.2 rounded bg-rose-900/40 hover:bg-rose-600 text-[9px] font-extrabold">🗑️</button>
+                        <button type="button" onclick="event.stopPropagation(); deleteContent('${it.id}')" title="Hapus Konten" class="px-1 py-0.2 rounded bg-rose-900/50 hover:bg-rose-600 text-[9px] font-extrabold">🗑️</button>
                       </div>
                     </div>
                     <p class="text-[10px] font-extrabold truncate mt-1">${escapeHtml(it.title)}</p>
@@ -2247,12 +2301,12 @@
       if (!board) return;
 
       const columnsMeta = [
-        { status: 'Ide', label: '💡 Ide', headerCls: 'from-slate-700 to-slate-800' },
-        { status: 'Script', label: '📝 Script', headerCls: 'from-indigo-600 to-blue-600' },
-        { status: 'Produksi', label: '🎬 Produksi', headerCls: 'from-pink-600 to-rose-600' },
-        { status: 'Editing', label: '✂️ Editing', headerCls: 'from-purple-600 to-violet-700' },
-        { status: 'Siap upload', label: '🚀 Siap Upload', headerCls: 'from-amber-500 to-orange-600' },
-        { status: 'Sudah upload', label: '✅ Sudah Upload', headerCls: 'from-emerald-600 to-teal-600' }
+        { status: 'Ide', label: '💡 Ide', headerCls: 'from-slate-800 to-slate-900' },
+        { status: 'Script', label: '📝 Script', headerCls: 'from-blue-700 to-sky-700' },
+        { status: 'Produksi', label: '🎬 Produksi', headerCls: 'from-cyan-700 to-teal-700' },
+        { status: 'Editing', label: '✂️ Editing', headerCls: 'from-indigo-800 to-slate-800' },
+        { status: 'Siap upload', label: '🚀 Siap Upload', headerCls: 'from-amber-600 to-orange-600' },
+        { status: 'Sudah upload', label: '✅ Sudah Upload', headerCls: 'from-emerald-600 to-teal-700' }
       ];
 
       board.innerHTML = columnsMeta.map(col => {
@@ -2261,7 +2315,7 @@
           <div ondragover="onKanbanDragOver(event)" ondragleave="onKanbanDragLeave(event)" ondrop="onKanbanDrop(event, '${col.status}')" class="kanban-col-dropzone glass-panel rounded-2xl border border-slate-200/90 p-3 space-y-3 min-h-[380px] transition-all">
             <div class="p-2.5 rounded-xl bg-gradient-to-r ${col.headerCls} text-white flex items-center justify-between shadow-xs">
               <span class="text-xs font-extrabold">${col.label}</span>
-              <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-black/25">${colItems.length}</span>
+              <span class="px-2 py-0.5 rounded-md font-mono text-[10px] font-extrabold bg-black/30">${colItems.length}</span>
             </div>
 
             <div class="space-y-2.5">
@@ -2276,8 +2330,8 @@
                   return `
                     <div draggable="true" ondragstart="onKanbanDragStart(event, '${c.id}')" class="bg-white rounded-2xl border border-slate-200 p-3 shadow-xs hover:shadow-md transition cursor-grab active:cursor-grabbing space-y-2.5">
                       <div class="p-2 rounded-xl ${colorCls} flex items-center justify-between gap-1">
-                        <span class="text-[10px] font-extrabold truncate">${formatDateID(c.date)} • ${formatTime24(c.time)}</span>
-                        <span class="text-[9px] font-extrabold bg-black/20 px-1.5 py-0.5 rounded shrink-0">${escapeHtml(c.pillar || 'Konten')}</span>
+                        <span class="text-[10px] font-mono font-extrabold truncate">${formatDateID(c.date)} • ${formatTime24(c.time)}</span>
+                        <span class="text-[9px] font-extrabold bg-black/25 px-1.5 py-0.5 rounded shrink-0">${escapeHtml(c.pillar || 'Konten')}</span>
                       </div>
 
                       <div>
@@ -2285,24 +2339,22 @@
                         <div class="mt-1">${getPlatformBadge(c.platform, acc?.username || '')}</div>
                       </div>
 
-                      <!-- Checklist Produksi 4 Langkah Langsung di Kartu -->
                       <div class="p-2 rounded-xl bg-slate-50 border border-slate-100 space-y-1.5">
-                        <div class="flex items-center justify-between text-[10px] font-extrabold text-slate-500">
-                          <span>Progres Produksi</span>
-                          <span class="${pct === 100 ? 'text-emerald-600' : 'text-indigo-600'}">${doneCount}/4 (${pct}%)</span>
+                        <div class="flex items-center justify-between text-[10px] font-mono font-extrabold text-slate-500">
+                          <span>PROGRES</span>
+                          <span class="${pct === 100 ? 'text-emerald-600' : 'text-sky-600'}">${doneCount}/4 (${pct}%)</span>
                         </div>
                         <div class="w-full h-1.5 rounded-full bg-slate-200 overflow-hidden">
-                          <div class="h-full bg-gradient-to-r from-indigo-500 to-emerald-500 transition-all" style="width: ${pct}%"></div>
+                          <div class="h-full bg-gradient-to-r from-sky-500 to-emerald-500 transition-all" style="width: ${pct}%"></div>
                         </div>
                         <div class="grid grid-cols-2 gap-1 pt-1 text-[10px] font-bold text-slate-700">
-                          <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" ${chk.video ? 'checked' : ''} onchange="toggleContentChecklist('${c.id}','video')" class="rounded text-indigo-600" /><span>Video</span></label>
-                          <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" ${chk.vo ? 'checked' : ''} onchange="toggleContentChecklist('${c.id}','vo')" class="rounded text-indigo-600" /><span>Voice Over</span></label>
-                          <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" ${chk.edit ? 'checked' : ''} onchange="toggleContentChecklist('${c.id}','edit')" class="rounded text-indigo-600" /><span>CapCut</span></label>
-                          <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" ${chk.cover ? 'checked' : ''} onchange="toggleContentChecklist('${c.id}','cover')" class="rounded text-indigo-600" /><span>Cover</span></label>
+                          <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" ${chk.video ? 'checked' : ''} onchange="toggleContentChecklist('${c.id}','video')" class="rounded text-sky-600" /><span>Video</span></label>
+                          <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" ${chk.vo ? 'checked' : ''} onchange="toggleContentChecklist('${c.id}','vo')" class="rounded text-sky-600" /><span>Voice Over</span></label>
+                          <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" ${chk.edit ? 'checked' : ''} onchange="toggleContentChecklist('${c.id}','edit')" class="rounded text-sky-600" /><span>CapCut</span></label>
+                          <label class="flex items-center gap-1 cursor-pointer"><input type="checkbox" ${chk.cover ? 'checked' : ''} onchange="toggleContentChecklist('${c.id}','cover')" class="rounded text-sky-600" /><span>Cover</span></label>
                         </div>
                       </div>
 
-                      <!-- Action Bar -->
                       <div class="flex items-center justify-between pt-1 border-t border-slate-100">
                         <div class="flex items-center gap-1">
                           <button type="button" onclick="stepContentStatus('${c.id}', -1)" title="Geser Kiri" class="px-1.5 py-1 rounded bg-slate-100 hover:bg-slate-200 text-[10px] font-extrabold">◀</button>
@@ -2310,7 +2362,7 @@
                         </div>
                         <div class="flex items-center gap-1">
                           <button type="button" onclick="openTeleprompter('${c.id}')" class="px-2 py-1 rounded-lg bg-amber-500 text-slate-950 text-[10px] font-extrabold">🎬</button>
-                          <button type="button" onclick="openContentModal('${c.id}')" class="px-2 py-1 rounded-lg bg-indigo-50 text-indigo-600 text-[10px] font-extrabold">✏️</button>
+                          <button type="button" onclick="openContentModal('${c.id}')" class="px-2 py-1 rounded-lg bg-slate-100 text-slate-700 text-[10px] font-extrabold">✏️</button>
                           <button type="button" onclick="deleteContent('${c.id}')" class="px-2 py-1 rounded-lg bg-rose-50 text-rose-600 text-[10px] font-extrabold">🗑️</button>
                         </div>
                       </div>
@@ -2555,7 +2607,7 @@
     window.fillAIPreset = function(preset) {
       const topicEl = document.getElementById('ai-topic');
       if (!topicEl) return;
-      if (preset === 'ootd') topicEl.value = 'Rekomendasi OOTD kemeja/cardigan kece harga di bawah 100 ribu untuk ngampus & kerja, bahan adem anti kusut.';
+      if (preset === 'ootd') topicEl.value = 'Rekomendasi OOTD kemeja/outer kece harga di bawah 100 ribu untuk kuliah & kerja, bahan adem anti kusut.';
       if (preset === 'tech') topicEl.value = 'Tips memilih rakitan PC / spesifikasi gadget value for money untuk kerja multitasking dan gaming.';
     };
 
@@ -2582,7 +2634,7 @@
         safeSetText('ai-key-btn-text', hasProxy ? 'Proxy Aktif ✔' : 'API Key Aktif ✔');
         safeSetText('settings-key-status', hasProxy ? 'Terhubung via Backend Proxy' : 'Kunci Aktif (Tersimpan di Browser)');
       } else {
-        safeSetText('ai-key-btn-text', 'Konfigurasi Keamanan AI');
+        safeSetText('ai-key-btn-text', 'Konfigurasi API Key');
         safeSetText('settings-key-status', 'Belum Disetel');
       }
     }
@@ -2606,10 +2658,12 @@
       const outputBox = document.getElementById('ai-output-box');
 
       btn.disabled = true;
-      btn.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i><span>Menyusun naskah...</span>`;
+      btn.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i><span>Menyusun strategi...</span>`;
       outputBox.textContent = "Menghubungi Gemini AI...";
 
-      const promptInstruction = `Bertindaklah sebagai Content Strategist profesional untuk Boby Anggara.\nTopik: "${topic}"\nPlatform: ${platform}\nTone: ${tone}\nFormat: ${type}\n\nTuliskan hasil yang terstruktur rapi meliputi JUDUL KONTEN, HOOK 3 DETIK PERTAMA, NASKAH VOICE OVER & VISUAL, serta CAPTION & HASHTAGS.`;
+      const promptInstruction = type === 'plan7'
+        ? `Buatkan jadwal rencana konten 7 Hari berturut-turut untuk topik: "${topic}" di platform ${platform} dengan gaya bahasa ${tone}. Tuliskan Hari 1 s/d Hari 7 lengkap dengan Judul, Pillar, Hook 3 Detik, dan Jam Tayang ideal.`
+        : `Bertindaklah sebagai Content Strategist profesional untuk Boby Anggara.\nTopik: "${topic}"\nPlatform: ${platform}\nTone: ${tone}\nFormat: ${type}\n\nTuliskan hasil yang terstruktur rapi meliputi JUDUL KONTEN, HOOK 3 DETIK PERTAMA, NASKAH VOICE OVER & VISUAL, serta CAPTION & HASHTAGS.`;
 
       try {
         const endpoint = proxyUrl || `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
@@ -2642,7 +2696,7 @@
         showToast('Gagal menghubungi AI', true);
       } finally {
         btn.disabled = false;
-        btn.innerHTML = `<i data-lucide="sparkles" class="w-4 h-4"></i><span>Generate Naskah AI</span>`;
+        btn.innerHTML = `<i data-lucide="cpu" class="w-4 h-4 text-amber-400"></i><span>Generate dengan Gemini AI</span>`;
         if (window.lucide) window.lucide.createIcons();
       }
     };
@@ -2667,7 +2721,7 @@
       const topic = document.getElementById('ai-topic').value.trim();
       window.openContentModal();
       document.getElementById('content-title').value = topic ? topic.slice(0, 70) : 'Konten Gemini AI';
-      document.getElementById('content-pillar').value = 'AI Generated';
+      document.getElementById('content-pillar').value = 'AI Strategy';
       document.getElementById('content-script').value = latestAIGeneratedText;
       showToast('Naskah dipindahkan ke Content Planner!');
     };
@@ -2675,6 +2729,7 @@
     // --- BACKUP, RESTORE & EXPORT ---
     window.exportReportCSV = function() {
       let csv = 'Kategori,Judul/Nama,Platform/Detail,Tanggal,Metrik\n';
+      db.accounts.forEach(a => csv += `"Akun Medsos","${a.name}","${a.platform} (${a.username})","-","Followers: ${a.followers}"\n`);
       db.contents.forEach(c => csv += `"Konten","${c.title.replace(/"/g,'""')}","${c.platform}","${c.date}","Jam ${c.time} - ${c.status}"\n`);
       db.analytics.forEach(a => csv += `"Analitik","${a.title.replace(/"/g,'""')}","${a.platform}","${a.date}","Views: ${a.views}, ER: ${a.er}%"\n`);
       db.affiliates.forEach(f => csv += `"Affiliate","${f.product.replace(/"/g,'""')}","${f.platform || 'Shopee'}","-","GMV: ${f.gmv}, Komisi: ${f.commission}"\n`);
@@ -2716,13 +2771,72 @@
       const sel = document.getElementById('global-project-filter');
       if (!sel) return;
       const cur = sel.value;
-      let html = '<option value="ALL">🌐 Semua Project (Global)</option>';
+      let html = '<option value="ALL" class="text-slate-900">🌐 Semua Project (Global)</option>';
       db.projects.forEach(p => {
         const cl = db.clients.find(c => c.id === p.clientId);
-        html += `<option value="${p.id}">📁 [${escapeHtml(cl ? cl.name : 'Mandiri')}] ${escapeHtml(p.name)}</option>`;
+        html += `<option value="${p.id}" class="text-slate-900">📁 [${escapeHtml(cl ? cl.name : 'Mandiri')}] ${escapeHtml(p.name)}</option>`;
       });
       sel.innerHTML = html;
       sel.value = (cur && (cur === 'ALL' || db.projects.some(p => p.id === cur))) ? cur : 'ALL';
+    }
+
+    // FUNGSI UTAMA BARU: MERENDER RINCIAN FOLLOWERS PER AKUN SECARA INDIVIDU!
+    function renderPerAccountFollowersBreakdown() {
+      const activeProj = activeProjectFilter !== 'ALL' ? db.projects.find(p => p.id === activeProjectFilter) : null;
+      const targetAccounts = (activeProj && Array.isArray(activeProj.accountIds) && activeProj.accountIds.length > 0)
+        ? db.accounts.filter(a => activeProj.accountIds.includes(a.id))
+        : db.accounts;
+
+      safeSetText('dash-accounts-filter-badge', activeProj ? `Project: ${activeProj.name} (${targetAccounts.length} Akun)` : `Semua Akun (${targetAccounts.length} Akun)`);
+      safeSetText('dash-followers-count-tag', `${targetAccounts.length} Akun`);
+
+      // 1. Render di dalam KPI Card #5 (Rincian Per Akun)
+      safeSetHTML('dash-kpi-followers-breakdown', targetAccounts.length === 0
+        ? '<p class="text-[11px] text-slate-400 italic">Belum ada akun terdaftar.</p>'
+        : targetAccounts.map(a => `
+          <div class="flex items-center justify-between py-0.5 border-b border-slate-100 last:border-0">
+            <span class="font-bold text-slate-700 truncate">${escapeHtml(a.platform)} <span class="text-sky-600">${escapeHtml(a.username.replace(/^@+/,'@'))}</span></span>
+            <span class="font-mono font-extrabold text-slate-900 shrink-0">${formatNumber(a.followers)}</span>
+          </div>
+        `).join(''));
+
+      // 2. Render di Panel Besar "Rincian Followers Per Akun Media Sosial" di Dashboard
+      const grid = document.getElementById('dash-per-account-followers-grid');
+      if (!grid) return;
+
+      if (targetAccounts.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-4 p-4 rounded-xl border border-dashed border-slate-300 text-center text-xs text-slate-500">
+            Belum ada akun media sosial yang terdaftar. Klik tombol <strong>+ Tambah Akun</strong> di kanan atas untuk mencatat followers per akun!
+          </div>`;
+        return;
+      }
+
+      grid.innerHTML = targetAccounts.map(acc => {
+        const cl = db.clients.find(c => c.id === acc.clientId);
+        const postCount = db.contents.filter(c => c.accountId === acc.id).length;
+        return `
+          <div class="p-3.5 rounded-xl bg-slate-900 text-white border border-slate-800 flex flex-col justify-between gap-2.5 shadow-sm">
+            <div class="flex items-center justify-between gap-1">
+              ${getPlatformBadge(acc.platform, acc.username)}
+              <button onclick="openAccountModal('${acc.id}')" title="Update Followers Akun Ini" class="px-2 py-0.5 rounded bg-slate-800 hover:bg-sky-600 text-[10px] font-mono font-bold text-sky-400 hover:text-white transition">
+                ✏️ Edit
+              </button>
+            </div>
+            <div>
+              <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">${escapeHtml(acc.name)} • ${escapeHtml(cl ? cl.name : 'Mandiri')}</p>
+              <div class="flex items-baseline justify-between mt-1">
+                <h5 class="text-xl font-mono font-extrabold text-white">${formatNumber(acc.followers)}</h5>
+                <span class="text-[10px] font-mono font-bold text-emerald-400">Followers</span>
+              </div>
+            </div>
+            <div class="pt-2 border-t border-slate-800 flex items-center justify-between text-[10px] text-slate-400 font-semibold">
+              <span>Total Konten Akun Ini:</span>
+              <span class="font-mono font-extrabold text-sky-400">${postCount} Konten</span>
+            </div>
+          </div>
+        `;
+      }).join('');
     }
 
     window.renderPlanner = function() {
@@ -2754,10 +2868,10 @@
 
           return `
             <tr class="hover:bg-slate-50">
-              <td class="p-4"><span class="text-xs text-indigo-600 font-bold">${formatDateID(c.date)}</span><p class="text-[11px] text-slate-500 font-extrabold mt-0.5">Jam ${formatTime24(c.time)} WIB</p></td>
-              <td class="p-4"><p class="font-extrabold text-slate-900">${escapeHtml(proj ? proj.name : '🌟 Mandiri')}</p><p class="text-[11px] text-indigo-600 font-semibold">${escapeHtml(cl ? cl.name : 'Tanpa Project')}</p></td>
+              <td class="p-4"><span class="text-xs text-sky-600 font-bold">${formatDateID(c.date)}</span><p class="text-[11px] font-mono text-slate-500 font-extrabold mt-0.5">Jam ${formatTime24(c.time)} WIB</p></td>
+              <td class="p-4"><p class="font-extrabold text-slate-900">${escapeHtml(proj ? proj.name : '🌟 Mandiri')}</p><p class="text-[11px] text-sky-600 font-semibold">${escapeHtml(cl ? cl.name : 'Tanpa Project')}</p></td>
               <td class="p-4"><span class="inline-block px-2.5 py-1 rounded-lg text-xs font-extrabold ${badgeColor}">${escapeHtml(c.title)}</span><p class="text-[11px] text-slate-500 truncate max-w-xs mt-1">${escapeHtml(c.hook || '-')}</p></td>
-              <td class="p-4"><span class="px-2.5 py-1 rounded-lg text-xs font-extrabold ${doneCount === 4 ? 'bg-emerald-50 text-emerald-700' : 'bg-indigo-50 text-indigo-700'}">✅ ${doneCount}/4 Selesai</span></td>
+              <td class="p-4"><span class="px-2.5 py-1 rounded-lg font-mono text-xs font-extrabold ${doneCount === 4 ? 'bg-emerald-50 text-emerald-700' : 'bg-sky-50 text-sky-700'}">✅ ${doneCount}/4</span></td>
               <td class="p-4">${getPlatformBadge(c.platform, acc?.username || '')}</td>
               <td class="p-4">
                 <select onchange="quickUpdateContentStatus('${c.id}', this.value)" class="px-2.5 py-1 rounded-lg text-xs font-extrabold border cursor-pointer">
@@ -2765,8 +2879,8 @@
                 </select>
               </td>
               <td class="p-4 text-right space-x-1.5 whitespace-nowrap">
-                <button onclick="openTeleprompter('${c.id}')" class="px-2.5 py-1 bg-amber-500 text-slate-900 rounded-lg text-xs font-extrabold">🎬 Shooting</button>
-                <button onclick="openContentModal('${c.id}')" class="px-2.5 py-1 bg-indigo-50 text-indigo-600 rounded-lg font-extrabold text-xs">✏️ Edit</button>
+                <button onclick="openTeleprompter('${c.id}')" class="px-2.5 py-1 bg-amber-500 text-slate-950 rounded-lg text-xs font-extrabold">🎬 Shooting</button>
+                <button onclick="openContentModal('${c.id}')" class="px-2.5 py-1 bg-slate-100 text-slate-700 rounded-lg font-extrabold text-xs">✏️ Edit</button>
                 <button onclick="deleteContent('${c.id}')" class="px-2.5 py-1 bg-rose-50 text-rose-600 rounded-lg font-extrabold text-xs">🗑️ Hapus</button>
               </td>
             </tr>`;
@@ -2775,11 +2889,11 @@
 
     function renderProjectsAndAccounts() {
       safeSetHTML('projects-showcase-grid', db.projects.length === 0
-        ? `<div class="col-span-3 glass-panel rounded-3xl p-8 border-2 border-dashed border-indigo-200 text-center space-y-3">
-            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-500 to-pink-500 text-white flex items-center justify-center mx-auto shadow-md"><i data-lucide="folder-plus" class="w-6 h-6"></i></div>
-            <h4 class="font-extrabold text-sm text-slate-900">Belum Ada Project (Bebas Default)</h4>
-            <p class="text-xs text-slate-500 max-w-md mx-auto">Silakan buat project pertamamu sendiri lengkap dengan akun medsosnya!</p>
-            <button onclick="openProjectModal()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-indigo-600 to-pink-600 text-white text-xs font-extrabold shadow-md">+ Buat Project Pertamamu</button>
+        ? `<div class="col-span-3 glass-panel rounded-3xl p-8 border-2 border-dashed border-slate-300 text-center space-y-3">
+            <div class="w-12 h-12 rounded-2xl bg-slate-900 text-sky-400 flex items-center justify-center mx-auto shadow-md"><i data-lucide="folder-plus" class="w-6 h-6"></i></div>
+            <h4 class="font-extrabold text-sm text-slate-900">Belum Ada Project</h4>
+            <p class="text-xs text-slate-500 max-w-md mx-auto">Silakan buat project pertamamu sendiri lengkap dengan rincian akun medsos dan followersnya!</p>
+            <button onclick="openProjectModal()" class="px-4 py-2 rounded-xl bg-slate-900 text-white text-xs font-extrabold shadow-md">+ Buat Project Pertamamu</button>
           </div>`
         : db.projects.map(p => {
           const cl = db.clients.find(c => c.id === p.clientId);
@@ -2787,17 +2901,27 @@
           const accs = db.accounts.filter(a => Array.isArray(p.accountIds) && p.accountIds.includes(a.id));
           const isSel = activeProjectFilter === p.id;
           return `
-            <div class="glass-panel rounded-2xl border-t-4 border-t-indigo-500 border ${isSel ? 'border-indigo-600 ring-2 ring-indigo-500/20' : 'border-slate-200'} p-5 shadow-sm space-y-3">
-              <div class="flex justify-between"><span class="px-2.5 py-0.5 rounded-xl text-[10px] font-extrabold uppercase bg-indigo-50 text-indigo-700">📁 ${escapeHtml(cl ? cl.name : 'Mandiri')}</span><span class="text-xs font-extrabold text-emerald-600">${escapeHtml(p.status)}</span></div>
+            <div class="glass-panel rounded-2xl border-l-4 border-l-sky-600 border ${isSel ? 'border-sky-600 ring-2 ring-sky-500/20' : 'border-slate-200'} p-5 shadow-sm space-y-3">
+              <div class="flex justify-between"><span class="px-2.5 py-0.5 rounded-md font-mono text-[10px] font-extrabold uppercase bg-slate-900 text-sky-400">📁 ${escapeHtml(cl ? cl.name : 'Mandiri')}</span><span class="text-xs font-extrabold text-emerald-600">${escapeHtml(p.status)}</span></div>
               <div><h4 class="font-extrabold text-base text-slate-900 truncate">${escapeHtml(p.name)}</h4><p class="text-xs text-slate-500 line-clamp-2">${escapeHtml(p.desc || 'Tidak ada catatan.')}</p></div>
-              <div class="bg-slate-50 p-2.5 rounded-xl space-y-1">
-                <p class="text-[10px] text-slate-400 font-extrabold uppercase">Akun Medsos (${accs.length}):</p>
-                <div class="flex flex-wrap gap-1">${accs.length === 0 ? '<span class="text-[11px] text-slate-400">Belum ada akun</span>' : accs.map(a => getPlatformBadge(a.platform, a.username)).join('')}</div>
+              <div class="bg-slate-50 p-2.5 rounded-xl space-y-1.5">
+                <p class="text-[10px] text-slate-500 font-extrabold uppercase">Rincian Followers Akun Project (${accs.length}):</p>
+                <div class="space-y-1">
+                  ${accs.length === 0
+                    ? '<span class="text-[11px] text-slate-400">Belum ada akun</span>'
+                    : accs.map(a => `
+                      <div class="flex items-center justify-between bg-white px-2 py-1 rounded border border-slate-200 text-[11px]">
+                        ${getPlatformBadge(a.platform, a.username)}
+                        <span class="font-mono font-extrabold text-slate-900">${formatNumber(a.followers)} flw</span>
+                      </div>
+                    `).join('')
+                  }
+                </div>
               </div>
               <div class="flex items-center justify-between pt-2 border-t text-xs">
-                <span class="font-bold text-slate-700">${postCount} Konten</span>
+                <span class="font-mono font-bold text-slate-700">${postCount} Konten</span>
                 <div class="space-x-1">
-                  <button onclick="selectProjectDirectly('${p.id}')" class="px-3 py-1 rounded-lg bg-indigo-600 text-white font-bold">Buka &rarr;</button>
+                  <button onclick="selectProjectDirectly('${p.id}')" class="px-3 py-1 rounded-lg bg-slate-900 text-white font-bold">Buka &rarr;</button>
                   <button onclick="openProjectModal('${p.id}')" class="px-2 py-1 border rounded-lg font-bold">✏️</button>
                   <button onclick="deleteProject('${p.id}')" class="px-2 py-1 border border-rose-200 text-rose-600 rounded-lg font-bold">🗑️</button>
                 </div>
@@ -2815,9 +2939,9 @@
               <td class="p-3.5 font-bold text-slate-900">${escapeHtml(a.name)}</td>
               <td class="p-3.5">${getPlatformBadge(a.platform, a.username)}</td>
               <td class="p-3.5 text-slate-600">${escapeHtml(cl ? cl.name : 'Mandiri')}</td>
-              <td class="p-3.5 font-extrabold">${formatNumber(a.followers)}</td>
+              <td class="p-3.5 font-mono font-extrabold text-slate-900">${formatNumber(a.followers)} Followers</td>
               <td class="p-3.5 text-right space-x-2">
-                <button onclick="openAccountModal('${a.id}')" class="text-indigo-600 font-bold hover:underline">Edit</button>
+                <button onclick="openAccountModal('${a.id}')" class="text-sky-600 font-bold hover:underline">Update Followers</button>
                 <button onclick="deleteAccount('${a.id}')" class="text-rose-600 font-bold hover:underline">Hapus</button>
               </td>
             </tr>`;
@@ -2834,13 +2958,13 @@
           const pCount = db.projects.filter(p => p.clientId === c.id).length;
           return `
             <tr class="hover:bg-slate-50">
-              <td class="p-4 font-bold text-slate-900">${escapeHtml(c.name)} <span class="text-indigo-600">(${escapeHtml(c.brand)})</span></td>
+              <td class="p-4 font-bold text-slate-900">${escapeHtml(c.name)} <span class="text-sky-600">(${escapeHtml(c.brand)})</span></td>
               <td class="p-4 text-slate-600">${escapeHtml(c.pic || '-')}</td>
               <td class="p-4 text-slate-600">${formatDateID(c.startDate)}</td>
               <td class="p-4"><span class="px-2 py-0.5 rounded-md text-xs font-bold bg-emerald-50 text-emerald-700">${escapeHtml(c.status)}</span></td>
-              <td class="p-4 font-bold text-indigo-600">${pCount} Project</td>
+              <td class="p-4 font-mono font-bold text-sky-600">${pCount} Project</td>
               <td class="p-4 text-right space-x-2">
-                <button onclick="openClientModal('${c.id}')" class="text-indigo-600 font-bold hover:underline">Edit</button>
+                <button onclick="openClientModal('${c.id}')" class="text-sky-600 font-bold hover:underline">Edit</button>
                 <button onclick="deleteClient('${c.id}')" class="text-rose-600 font-bold hover:underline">Hapus</button>
               </td>
             </tr>`;
@@ -2855,13 +2979,13 @@
         ? '<tr><td colspan="6" class="p-6 text-center text-slate-400">Belum ada data analitik performa.</td></tr>'
         : filtered.map(a => `
           <tr class="hover:bg-slate-50">
-            <td class="p-4"><span class="text-xs text-indigo-600 font-bold">${formatDateID(a.date)}</span><p class="font-bold text-slate-900">${escapeHtml(a.title)}</p></td>
+            <td class="p-4"><span class="text-xs text-sky-600 font-bold">${formatDateID(a.date)}</span><p class="font-bold text-slate-900">${escapeHtml(a.title)}</p></td>
             <td class="p-4">${getPlatformBadge(a.platform)}</td>
-            <td class="p-4 font-bold text-slate-900">${formatNumber(a.views)} Views <span class="text-[11px] text-slate-400 block">Reach: ${formatNumber(a.reach || 0)}</span></td>
-            <td class="p-4 text-slate-600">L:${formatNumber(a.likes)} C:${formatNumber(a.comments)} S:${formatNumber(a.shares||0)} Sv:${formatNumber(a.saves||0)}</td>
-            <td class="p-4 font-extrabold text-rose-600">${a.er}%</td>
+            <td class="p-4 font-mono font-bold text-slate-900">${formatNumber(a.views)} Views <span class="text-[11px] text-slate-400 block">Reach: ${formatNumber(a.reach || 0)}</span></td>
+            <td class="p-4 font-mono text-slate-600">L:${formatNumber(a.likes)} C:${formatNumber(a.comments)} S:${formatNumber(a.shares||0)} Sv:${formatNumber(a.saves||0)}</td>
+            <td class="p-4 font-mono font-extrabold text-rose-600">${a.er}%</td>
             <td class="p-4 text-right space-x-2">
-              <button onclick="openAnalyticsModal('${a.id}')" class="text-indigo-600 font-bold hover:underline">Edit</button>
+              <button onclick="openAnalyticsModal('${a.id}')" class="text-sky-600 font-bold hover:underline">Edit</button>
               <button onclick="deleteAnalytics('${a.id}')" class="text-rose-600 font-bold hover:underline">Hapus</button>
             </td>
           </tr>`).join(''));
@@ -2875,13 +2999,13 @@
         : filtered.map(f => `
           <tr class="hover:bg-slate-50">
             <td class="p-4 font-bold text-slate-900">${escapeHtml(f.product)} <div class="mt-1">${getPlatformBadge(f.platform || 'Shopee')}</div></td>
-            <td class="p-4 font-semibold">${formatNumber(f.clicks)}</td>
-            <td class="p-4 font-semibold">${formatNumber(f.orders)}</td>
-            <td class="p-4 font-extrabold text-amber-600">${f.cr}%</td>
-            <td class="p-4 font-semibold">${formatRupiah(f.gmv)}</td>
-            <td class="p-4 font-extrabold text-emerald-600">${formatRupiah(f.commission)}</td>
+            <td class="p-4 font-mono font-semibold">${formatNumber(f.clicks)}</td>
+            <td class="p-4 font-mono font-semibold">${formatNumber(f.orders)}</td>
+            <td class="p-4 font-mono font-extrabold text-amber-600">${f.cr}%</td>
+            <td class="p-4 font-mono font-semibold">${formatRupiah(f.gmv)}</td>
+            <td class="p-4 font-mono font-extrabold text-emerald-600">${formatRupiah(f.commission)}</td>
             <td class="p-4 text-right space-x-2">
-              <button onclick="openAffiliateModal('${f.id}')" class="text-indigo-600 font-bold hover:underline">Edit</button>
+              <button onclick="openAffiliateModal('${f.id}')" class="text-sky-600 font-bold hover:underline">Edit</button>
               <button onclick="deleteAffiliate('${f.id}')" class="text-rose-600 font-bold hover:underline">Hapus</button>
             </td>
           </tr>`).join(''));
@@ -2900,7 +3024,7 @@
             <td class="p-4"><span class="px-2 py-0.5 rounded-md text-xs font-bold ${t.priority === 'Tinggi' ? 'bg-rose-50 text-rose-700' : 'bg-amber-50 text-amber-700'}">${escapeHtml(t.priority)}</span></td>
             <td class="p-4"><button onclick="toggleTaskDone('${t.id}')" class="px-2.5 py-1 rounded-lg text-xs font-extrabold ${t.status === 'Selesai' ? 'bg-emerald-50 text-emerald-700' : 'bg-slate-100 text-slate-700'}">${escapeHtml(t.status)}</button></td>
             <td class="p-4 text-right space-x-2">
-              <button onclick="openTaskModal('${t.id}')" class="text-indigo-600 font-bold hover:underline">Edit</button>
+              <button onclick="openTaskModal('${t.id}')" class="text-sky-600 font-bold hover:underline">Edit</button>
               <button onclick="deleteTask('${t.id}')" class="text-rose-600 font-bold hover:underline">Hapus</button>
             </td>
           </tr>`).join(''));
@@ -2912,6 +3036,7 @@
       populateTimeDropdowns();
       updateAIKeyStatusUI();
       updateSmartNotifications();
+      renderPerAccountFollowersBreakdown();
       renderPlanner();
       renderProjectsAndAccounts();
       renderClients();
@@ -2919,17 +3044,21 @@
       renderAffiliate();
       renderTasks();
 
-      const pendingContent = db.contents.filter(c => c.status !== 'Sudah upload').slice(0, 5);
+      const filteredContents = activeProjectFilter !== 'ALL'
+        ? db.contents.filter(c => c.projectId === activeProjectFilter)
+        : db.contents;
+
+      const pendingContent = filteredContents.filter(c => c.status !== 'Sudah upload').slice(0, 5);
       safeSetHTML('dash-upcoming-content-list', pendingContent.length === 0
         ? '<p class="text-xs text-slate-400 p-3 text-center italic">Semua konten terjadwal sudah diupload!</p>'
         : pendingContent.map(c => {
           const colorCls = getCardColorClass(c);
           return `
             <div class="p-3 rounded-xl ${colorCls} space-y-1.5">
-              <div class="flex items-center justify-between"><span class="text-[10px] font-extrabold bg-black/20 px-2 py-0.5 rounded">${formatDateID(c.date)} • ${formatTime24(c.time)} WIB</span><span class="text-[10px] font-extrabold">${escapeHtml(c.status)}</span></div>
+              <div class="flex items-center justify-between"><span class="text-[10px] font-mono font-extrabold bg-black/25 px-2 py-0.5 rounded">${formatDateID(c.date)} • ${formatTime24(c.time)} WIB</span><span class="text-[10px] font-extrabold">${escapeHtml(c.status)}</span></div>
               <p class="font-extrabold text-xs truncate">${escapeHtml(c.title)}</p>
               <div class="flex justify-end gap-1.5 pt-1">
-                <button onclick="openTeleprompter('${c.id}')" class="px-2 py-0.5 rounded bg-white text-slate-900 text-[10px] font-extrabold">🎬 Shooting</button>
+                <button onclick="openTeleprompter('${c.id}')" class="px-2 py-0.5 rounded bg-amber-400 text-slate-950 text-[10px] font-extrabold">🎬 Shooting</button>
                 <button onclick="openContentModal('${c.id}')" class="px-2 py-0.5 rounded bg-white/20 text-white text-[10px] font-extrabold">✏️ Edit</button>
                 <button onclick="deleteContent('${c.id}')" class="px-2 py-0.5 rounded bg-rose-900/50 text-white text-[10px] font-extrabold">🗑️</button>
               </div>
@@ -2942,7 +3071,7 @@
         : acts.slice(0, 8).map(ac => `
           <div class="p-2 rounded-xl border border-slate-100 flex items-center justify-between gap-2">
             <span class="font-semibold text-slate-700 truncate">${escapeHtml(ac.text)}</span>
-            <span class="text-[10px] text-slate-400 shrink-0">${escapeHtml(ac.time.split(' ')[1] || '')}</span>
+            <span class="text-[10px] font-mono text-slate-400 shrink-0">${escapeHtml(ac.time.split(' ')[1] || '')}</span>
           </div>`).join(''));
 
       const aiHist = db.aiHistory || [];
@@ -2950,13 +3079,12 @@
       safeSetHTML('ai-history-list', aiHist.length === 0
         ? '<p class="text-slate-400 italic">Belum ada riwayat generasi AI.</p>'
         : aiHist.map(h => `
-          <div onclick="loadAIHistoryItem('${h.id}')" class="p-2 rounded-xl border border-slate-100 hover:border-indigo-400 flex justify-between items-center cursor-pointer">
+          <div onclick="loadAIHistoryItem('${h.id}')" class="p-2 rounded-xl border border-slate-100 hover:border-sky-500 flex justify-between items-center cursor-pointer">
             <span class="font-bold truncate max-w-md">${escapeHtml(h.topic)}</span>
-            <span class="text-[10px] font-bold text-indigo-600 shrink-0">${escapeHtml(h.platform)} &rarr;</span>
+            <span class="text-[10px] font-bold text-sky-600 shrink-0">${escapeHtml(h.platform)} &rarr;</span>
           </div>`).join(''));
 
       const totalViews = db.analytics.reduce((a, b) => a + Number(b.views || 0), 0);
-      const totalFollowers = db.accounts.reduce((a, b) => a + Number(b.followers || 0), 0);
       const avgER = db.analytics.length > 0 ? (db.analytics.reduce((a, b) => a + Number(b.er || 0), 0) / db.analytics.length).toFixed(2) : 0;
       const affClicks = db.affiliates.reduce((a, b) => a + Number(b.clicks || 0), 0);
       const affOrders = db.affiliates.reduce((a, b) => a + Number(b.orders || 0), 0);
@@ -2966,12 +3094,10 @@
       safeSetText('dash-total-clients', formatNumber(db.clients.length));
       safeSetText('dash-active-clients', `${db.clients.filter(c => c.status === 'Aktif').length} Aktif`);
       safeSetText('dash-total-projects', formatNumber(db.projects.length));
-      safeSetText('dash-project-breakdown', activeProjectFilter !== 'ALL' ? '1 Project Terpilih' : `${db.projects.length} Project Buatanmu`);
-      safeSetText('dash-total-content', formatNumber(db.contents.length));
-      safeSetText('dash-uploaded-content', `${db.contents.filter(c => c.status === 'Sudah upload').length} Sudah Upload`);
+      safeSetText('dash-project-breakdown', activeProjectFilter !== 'ALL' ? '1 Project Terpilih' : `${db.projects.length} Project Aktif`);
+      safeSetText('dash-total-content', formatNumber(filteredContents.length));
+      safeSetText('dash-uploaded-content', `${filteredContents.filter(c => c.status === 'Sudah upload').length} Sudah Upload`);
       safeSetText('dash-total-views', formatNumber(totalViews));
-      safeSetText('dash-total-followers', formatNumber(totalFollowers));
-      safeSetText('dash-followers-sub', `${db.accounts.length} Akun Terdaftar`);
       safeSetText('dash-avg-er', `${avgER}%`);
       safeSetText('dash-aff-clicks', formatNumber(affClicks));
       safeSetText('dash-aff-cr', `CR: ${affClicks > 0 ? ((affOrders / affClicks) * 100).toFixed(2) : 0}%`);
@@ -2981,10 +3107,10 @@
 
       safeSetText('report-date-label', `Dicetak: ${formatDateID(todayISO())}`);
       safeSetHTML('report-summary-grid', `
-        <div class="p-3.5 border rounded-xl"><p class="text-slate-400">Total Klien & Project</p><p class="text-base font-extrabold mt-0.5">${db.clients.length} Klien / ${db.projects.length} Project</p></div>
-        <div class="p-3.5 border rounded-xl"><p class="text-slate-400">Total Konten</p><p class="text-base font-extrabold mt-0.5">${db.contents.length} Konten</p></div>
-        <div class="p-3.5 border rounded-xl"><p class="text-slate-400">Total Views & ER</p><p class="text-base font-extrabold mt-0.5">${formatNumber(totalViews)} (${avgER}%)</p></div>
-        <div class="p-3.5 border rounded-xl"><p class="text-slate-400">Total Komisi Affiliate</p><p class="text-base font-extrabold text-emerald-600 mt-0.5">${formatRupiah(affComm)}</p></div>
+        <div class="p-3.5 border rounded-xl"><p class="text-slate-400">Total Klien & Project</p><p class="text-base font-mono font-extrabold mt-0.5">${db.clients.length} Klien / ${db.projects.length} Project</p></div>
+        <div class="p-3.5 border rounded-xl"><p class="text-slate-400">Total Akun Medsos</p><p class="text-base font-mono font-extrabold mt-0.5">${db.accounts.length} Akun Terpisah</p></div>
+        <div class="p-3.5 border rounded-xl"><p class="text-slate-400">Total Views & ER</p><p class="text-base font-mono font-extrabold mt-0.5">${formatNumber(totalViews)} (${avgER}%)</p></div>
+        <div class="p-3.5 border rounded-xl"><p class="text-slate-400">Total Komisi Affiliate</p><p class="text-base font-mono font-extrabold text-emerald-600 mt-0.5">${formatRupiah(affComm)}</p></div>
       `);
 
       const pendingTasks = db.tasks.filter(t => t.status !== 'Selesai');
@@ -2999,7 +3125,7 @@
           type: 'bar',
           data: {
             labels: sorted.map(x => x.title.slice(0, 12)),
-            datasets: [{ label: 'Views', data: sorted.map(x => x.views), backgroundColor: '#6366f1', borderRadius: 8 }]
+            datasets: [{ label: 'Views', data: sorted.map(x => x.views), backgroundColor: '#0284c7', borderRadius: 6 }]
           },
           options: { responsive: true, maintainAspectRatio: false }
         });
@@ -3011,7 +3137,7 @@
     window.addEventListener('DOMContentLoaded', () => {
       initTheme();
       initRealtime();
-      switchTab('planner');
+      switchTab('dashboard');
     });
   </script>
 </body>
